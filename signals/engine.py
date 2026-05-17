@@ -1,10 +1,11 @@
 import yaml
 from pathlib import Path
-from data.db import get_prices, log_signal
+from data.db import get_prices, log_signal, compute_adjusted_returns
 from data.fetcher import get_current_price
 from signals.price import check_price_thresholds, check_percent_change
 from signals.technical import check_rsi, check_macd_crossover, check_ma_crossover
 from signals.volume import check_volume_spike
+from signals.adjusted import check_adjusted_drop, check_adjusted_surge
 
 
 def load_config():
@@ -62,6 +63,17 @@ def evaluate_ticker(ticker: str, config: dict) -> list[dict]:
             signals_found.append({"ticker": ticker, "type": "volume_spike",
                                   "direction": vol_result[0], "detail": vol_result[1]})
 
+    if sig_config["adjusted_return"]["enabled"]:
+        adj_cfg = sig_config["adjusted_return"]
+        drop_result = check_adjusted_drop(ticker, threshold=adj_cfg["drop_threshold"])
+        if drop_result:
+            signals_found.append({"ticker": ticker, "type": "adjusted_drop",
+                                  "direction": drop_result[0], "detail": drop_result[1]})
+        surge_result = check_adjusted_surge(ticker, threshold=adj_cfg["surge_threshold"])
+        if surge_result:
+            signals_found.append({"ticker": ticker, "type": "adjusted_surge",
+                                  "direction": surge_result[0], "detail": surge_result[1]})
+
     for sig in signals_found:
         log_signal(ticker, sig["type"], sig["direction"], current_price or 0, sig["detail"])
 
@@ -71,6 +83,7 @@ def evaluate_ticker(ticker: str, config: dict) -> list[dict]:
 def evaluate_all(config: dict = None) -> list[dict]:
     if config is None:
         config = load_config()
+    compute_adjusted_returns()
     all_signals = []
     for ticker in config["watchlist"]:
         signals = evaluate_ticker(ticker, config)

@@ -89,6 +89,11 @@ signals:
     enabled: true
     spike_multiplier: 2.0  # alert when volume > 2x 20-day average
 
+  adjusted_return:
+    enabled: true
+    drop_threshold: -5.0   # alert when stock drops 5%+ more than market
+    surge_threshold: 5.0   # alert when stock surges 5%+ more than market
+
 email:
   enabled: false
   smtp_host: ""

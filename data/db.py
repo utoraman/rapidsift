@@ -33,6 +33,9 @@ def init_db():
             close DOUBLE,
             adj_close DOUBLE,
             volume BIGINT,
+            day_return_pct DOUBLE,
+            market_return_pct DOUBLE,
+            adjusted_return_pct DOUBLE,
             PRIMARY KEY (ticker, date)
         )
     """)
@@ -97,14 +100,51 @@ def store_daily(ticker: str, df: pd.DataFrame):
     if "adj_close" not in df.columns:
         df["adj_close"] = df["close"]
     con.execute("""
-        INSERT INTO daily_prices
-        SELECT * FROM df
+        INSERT INTO daily_prices (ticker, date, open, high, low, close, adj_close, volume)
+        SELECT ticker, date, open, high, low, close, adj_close, volume FROM df
         ON CONFLICT (ticker, date) DO UPDATE SET
             open = excluded.open, high = excluded.high,
             low = excluded.low, close = excluded.close,
             adj_close = excluded.adj_close, volume = excluded.volume
     """)
     con.close()
+
+
+def compute_adjusted_returns():
+    con = get_connection()
+    con.execute("""
+        UPDATE daily_prices SET
+            day_return_pct = ((close - open) / open) * 100
+        WHERE day_return_pct IS NULL AND open > 0
+    """)
+    con.execute("""
+        WITH market_avg AS (
+            SELECT date, AVG(day_return_pct) as avg_return
+            FROM daily_prices
+            WHERE day_return_pct IS NOT NULL
+            GROUP BY date
+        )
+        UPDATE daily_prices SET
+            market_return_pct = m.avg_return,
+            adjusted_return_pct = daily_prices.day_return_pct - m.avg_return
+        FROM market_avg m
+        WHERE daily_prices.date = m.date
+          AND daily_prices.day_return_pct IS NOT NULL
+    """)
+    con.close()
+
+
+def get_adjusted_returns(ticker: str, days: int = 60) -> pd.DataFrame:
+    con = get_connection()
+    df = con.execute(f"""
+        SELECT ticker, date, close, day_return_pct, market_return_pct, adjusted_return_pct
+        FROM daily_prices
+        WHERE ticker = ?
+        AND date >= current_date - INTERVAL '{days} days'
+        ORDER BY date
+    """, [ticker]).fetchdf()
+    con.close()
+    return df
 
 
 def log_signal(ticker: str, signal_type: str, direction: str, price: float, details: str = ""):
