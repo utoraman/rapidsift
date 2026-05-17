@@ -1,9 +1,54 @@
 watchlist:
-  - AAPL
-  - MSFT
   - NVDA
+  - INTC
+  - NOK
+  - PLUG
+  - SOFI
+  - AAL
   - TSLA
+  - F
+  - NU
+  - SNAP
+  - GRAB
+  - PLTR
+  - MARA
   - AMZN
+  - NFLX
+  - MU
+  - AAPL
+  - OPEN
+  - NIO
+  - T
+  - BAC
+  - AMD
+  - PFE
+  - BBAI
+  - MSFT
+  - PATH
+  - CMCSA
+  - GOOGL
+  - HOOD
+  - RGTI
+  - SOUN
+  - CCL
+  - IONQ
+  - RIVN
+  - ORCL
+  - VZ
+  - MRVL
+  - AVGO
+  - WBD
+  - CSCO
+  - CPNG
+  - NKE
+  - XOM
+  - APLD
+  - NVO
+  - WMT
+  - GOOG
+  - PYPL
+  - MSTR
+  - RIOT
 
 schedule:
   interval_minutes: 15
