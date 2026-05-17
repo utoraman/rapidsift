@@ -1,0 +1,58 @@
+watchlist:
+  - AAPL
+  - MSFT
+  - NVDA
+  - TSLA
+  - AMZN
+
+schedule:
+  interval_minutes: 15
+  market_hours_only: true
+  market_open: "09:30"
+  market_close: "16:00"
+  timezone: "US/Eastern"
+
+signals:
+  price_threshold:
+    enabled: true
+    rules:
+      # Example: alert if AAPL drops below 150
+      # - ticker: AAPL
+      #   direction: below
+      #   price: 150.0
+
+  percent_change:
+    enabled: true
+    daily_threshold: 3.0      # alert on 3%+ daily move
+    intraday_threshold: 2.0   # alert on 2%+ move within session
+
+  technical:
+    enabled: true
+    rsi:
+      period: 14
+      oversold: 30
+      overbought: 70
+    macd:
+      fast: 12
+      slow: 26
+      signal: 9
+    moving_average_crossover:
+      fast_period: 20
+      slow_period: 50
+
+  volume:
+    enabled: true
+    spike_multiplier: 2.0  # alert when volume > 2x 20-day average
+
+email:
+  enabled: false
+  smtp_host: ""
+  smtp_port: 587
+  username: ""
+  password: ""
+  from_addr: ""
+  to_addr: ""
+
+dashboard:
+  host: "127.0.0.1"
+  port: 8050
