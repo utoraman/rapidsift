@@ -2,72 +2,106 @@ import pandas as pd
 from data.db import get_connection
 
 
-def compute_signal_outcomes(lookback_days: list[int] = [1, 3, 5, 10]):
+def validate_buy_signals(gain_targets: list[float] = [5.0, 10.0], lookahead_days: int = 14) -> pd.DataFrame:
     con = get_connection()
 
     signals = con.execute("""
-        SELECT id, ticker, timestamp, direction, price_at_signal
+        SELECT id, ticker, timestamp, signal_type, price_at_signal, details
         FROM signals_fired
-        ORDER BY timestamp
+        WHERE direction = 'buy'
+        ORDER BY timestamp DESC
     """).fetchdf()
 
     if signals.empty:
         con.close()
         return pd.DataFrame()
 
-    outcomes = []
+    results = []
     for _, sig in signals.iterrows():
-        for days in lookback_days:
-            future_price = con.execute("""
-                SELECT close FROM daily_prices
-                WHERE ticker = ? AND date > ?::DATE
-                ORDER BY date
-                LIMIT 1 OFFSET ?
-            """, [sig["ticker"], sig["timestamp"], days - 1]).fetchone()
+        future_prices = con.execute("""
+            SELECT date, high
+            FROM daily_prices
+            WHERE ticker = ?
+            AND date > ?::DATE
+            AND date <= ?::DATE + INTERVAL '14 days'
+            ORDER BY date
+        """, [sig["ticker"], sig["timestamp"], sig["timestamp"]]).fetchdf()
 
-            if future_price:
-                price_at_check = future_price[0]
-                return_pct = ((price_at_check - sig["price_at_signal"]) / sig["price_at_signal"]) * 100
-                if sig["direction"] == "sell":
-                    return_pct = -return_pct
+        max_high = future_prices["high"].max() if not future_prices.empty else None
 
-                outcomes.append({
-                    "signal_id": sig["id"],
-                    "ticker": sig["ticker"],
-                    "signal_timestamp": sig["timestamp"],
-                    "check_timestamp": None,
-                    "days_after": days,
-                    "price_at_check": price_at_check,
-                    "return_pct": return_pct
-                })
+        row = {
+            "signal_id": sig["id"],
+            "ticker": sig["ticker"],
+            "timestamp": sig["timestamp"],
+            "signal_type": sig["signal_type"],
+            "price_at_signal": sig["price_at_signal"],
+            "details": sig["details"],
+            "max_high_14d": max_high,
+        }
+
+        for target in gain_targets:
+            target_price = sig["price_at_signal"] * (1 + target / 100)
+            hit = False
+            days_to_hit = None
+
+            if not future_prices.empty:
+                hit = max_high >= target_price
+                if hit:
+                    hit_row = future_prices[future_prices["high"] >= target_price].iloc[0]
+                    sig_date = pd.Timestamp(sig["timestamp"]).date()
+                    hit_date = pd.Timestamp(hit_row["date"]).date()
+                    days_to_hit = (hit_date - sig_date).days
+
+            suffix = str(int(target))
+            row[f"hit_{suffix}pct"] = hit
+            row[f"days_to_hit_{suffix}pct"] = days_to_hit
+
+        results.append(row)
 
     con.close()
+    return pd.DataFrame(results)
 
-    if not outcomes:
+
+def signal_win_rates(gain_targets: list[float] = [5.0, 10.0], lookahead_days: int = 14) -> pd.DataFrame:
+    df = validate_buy_signals(gain_targets, lookahead_days)
+    if df.empty:
         return pd.DataFrame()
 
-    return pd.DataFrame(outcomes)
+    import datetime
+    cutoff = datetime.datetime.now() - datetime.timedelta(days=lookahead_days)
+    matured = df[df["timestamp"] <= cutoff]
 
-
-def signal_reliability_report() -> pd.DataFrame:
-    outcomes = compute_signal_outcomes()
-    if outcomes.empty:
+    if matured.empty:
         return pd.DataFrame()
 
-    con = get_connection()
-    signals = con.execute("""
-        SELECT id, signal_type, direction FROM signals_fired
-    """).fetchdf()
-    con.close()
+    agg_dict = {"hit_5pct": ["count", "sum"]}
+    for target in gain_targets:
+        suffix = str(int(target))
+        agg_dict[f"hit_{suffix}pct"] = ["sum"]
 
-    merged = outcomes.merge(signals, left_on="signal_id", right_on="id")
-
-    report = merged.groupby(["signal_type", "direction", "days_after"]).agg(
-        count=("return_pct", "count"),
-        avg_return=("return_pct", "mean"),
-        win_rate=("return_pct", lambda x: (x > 0).sum() / len(x) * 100),
-        max_gain=("return_pct", "max"),
-        max_loss=("return_pct", "min"),
+    grouped = matured.groupby(["ticker", "signal_type"]).agg(
+        total_signals=("hit_5pct", "count"),
+        **{f"wins_{int(t)}pct": (f"hit_{int(t)}pct", "sum") for t in gain_targets}
     ).reset_index()
 
-    return report
+    for target in gain_targets:
+        suffix = str(int(target))
+        grouped[f"win_rate_{suffix}pct"] = (grouped[f"wins_{suffix}pct"] / grouped["total_signals"] * 100).round(1)
+        grouped[f"summary_{suffix}pct"] = grouped.apply(
+            lambda r, s=suffix, t=target: f"{int(r[f'wins_{s}pct'])}/{int(r['total_signals'])} hit +{t}% ({r[f'win_rate_{s}pct']}%)", axis=1
+        )
+
+    grouped = grouped.sort_values(["win_rate_5pct", "total_signals"], ascending=[False, False])
+    return grouped
+
+
+def signal_detail_report(gain_targets: list[float] = [5.0, 10.0], lookahead_days: int = 14) -> pd.DataFrame:
+    df = validate_buy_signals(gain_targets, lookahead_days)
+    if df.empty:
+        return pd.DataFrame()
+
+    import datetime
+    cutoff = datetime.datetime.now() - datetime.timedelta(days=lookahead_days)
+    df["matured"] = df["timestamp"] <= cutoff
+
+    return df.sort_values("timestamp", ascending=False)
