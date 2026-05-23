@@ -6,3 +6,6 @@ market.duckdb
 market.duckdb.wal
 venv/
 .venv/
+.DS_Store
+.claude/
+design_handoff_market_monitor/
