@@ -17,13 +17,15 @@ def compute_sma(df: pd.DataFrame, period: int) -> pd.Series:
 
 def check_rsi(df: pd.DataFrame, period: int = 14, oversold: float = 30, overbought: float = 70):
     rsi = compute_rsi(df, period)
-    if rsi.empty:
+    if len(rsi) < 2:
         return None
     latest = rsi.iloc[-1]
-    if latest <= oversold:
-        return ("buy", f"RSI={latest:.1f} (oversold <{oversold})")
-    elif latest >= overbought:
-        return ("sell", f"RSI={latest:.1f} (overbought >{overbought})")
+    prev = rsi.iloc[-2]
+    # Only fire on the transition day (crossing into the zone)
+    if latest <= oversold and prev > oversold:
+        return ("buy", f"RSI={latest:.1f} (crossed into oversold <{oversold})")
+    elif latest >= overbought and prev < overbought:
+        return ("sell", f"RSI={latest:.1f} (crossed into overbought >{overbought})")
     return None
 
 

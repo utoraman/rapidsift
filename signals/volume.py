@@ -13,5 +13,9 @@ def check_volume_spike(df: pd.DataFrame, spike_multiplier: float = 2.0):
 
     ratio = current_volume / avg_volume
     if ratio >= spike_multiplier:
-        return ("alert", f"Volume spike: {ratio:.1f}x average ({current_volume:,.0f} vs avg {avg_volume:,.0f})")
+        # Direction based on price action: down day + volume spike = capitulation (buy)
+        close = df["close"].iloc[-1]
+        open_price = df["open"].iloc[-1] if "open" in df.columns else df["close"].iloc[-2]
+        direction = "buy" if close < open_price else "sell"
+        return (direction, f"Volume spike: {ratio:.1f}x average ({current_volume:,.0f} vs avg {avg_volume:,.0f})")
     return None

@@ -20,7 +20,8 @@ def fetch_daily(ticker: str, period: str = "3mo") -> pd.DataFrame:
 
 
 def fetch_all(tickers: list[str]):
-    for ticker in tickers:
+    all_tickers = list(set(tickers + ["SPY"]))
+    for ticker in all_tickers:
         fetch_intraday(ticker)
         fetch_daily(ticker)
 

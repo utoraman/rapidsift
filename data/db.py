@@ -99,6 +99,8 @@ def store_daily(ticker: str, df: pd.DataFrame):
     df = df[available_cols]
     if "adj_close" not in df.columns:
         df["adj_close"] = df["close"]
+    df["date"] = pd.to_datetime(df["date"]).dt.tz_localize(None).dt.date
+    df = df.drop_duplicates(subset=["ticker", "date"], keep="last")
     con.execute("""
         INSERT INTO daily_prices (ticker, date, open, high, low, close, adj_close, volume)
         SELECT ticker, date, open, high, low, close, adj_close, volume FROM df
@@ -112,25 +114,55 @@ def store_daily(ticker: str, df: pd.DataFrame):
 
 def compute_adjusted_returns():
     con = get_connection()
+    # Close-to-close return (standard daily return in finance)
     con.execute("""
-        UPDATE daily_prices SET
-            day_return_pct = ((close - open) / open) * 100
-        WHERE day_return_pct IS NULL AND open > 0
-    """)
-    con.execute("""
-        WITH market_avg AS (
-            SELECT date, AVG(day_return_pct) as avg_return
+        WITH prev AS (
+            SELECT ticker, date, close,
+                   LAG(close) OVER (PARTITION BY ticker ORDER BY date) as prev_close
             FROM daily_prices
-            WHERE day_return_pct IS NOT NULL
-            GROUP BY date
         )
         UPDATE daily_prices SET
-            market_return_pct = m.avg_return,
-            adjusted_return_pct = daily_prices.day_return_pct - m.avg_return
-        FROM market_avg m
-        WHERE daily_prices.date = m.date
-          AND daily_prices.day_return_pct IS NOT NULL
+            day_return_pct = ((prev.close - prev.prev_close) / prev.prev_close) * 100
+        FROM prev
+        WHERE daily_prices.ticker = prev.ticker
+          AND daily_prices.date = prev.date
+          AND prev.prev_close IS NOT NULL
+          AND prev.prev_close > 0
+          AND daily_prices.day_return_pct IS NULL
     """)
+    # Use SPY as market benchmark if available, else fall back to watchlist average
+    spy_exists = con.execute("""
+        SELECT COUNT(*) FROM daily_prices WHERE ticker = 'SPY'
+    """).fetchone()[0]
+    if spy_exists > 0:
+        con.execute("""
+            WITH spy_ret AS (
+                SELECT date, day_return_pct as spy_return
+                FROM daily_prices
+                WHERE ticker = 'SPY' AND day_return_pct IS NOT NULL
+            )
+            UPDATE daily_prices SET
+                market_return_pct = s.spy_return,
+                adjusted_return_pct = daily_prices.day_return_pct - s.spy_return
+            FROM spy_ret s
+            WHERE daily_prices.date = s.date
+              AND daily_prices.day_return_pct IS NOT NULL
+        """)
+    else:
+        con.execute("""
+            WITH market_avg AS (
+                SELECT date, AVG(day_return_pct) as avg_return
+                FROM daily_prices
+                WHERE day_return_pct IS NOT NULL
+                GROUP BY date
+            )
+            UPDATE daily_prices SET
+                market_return_pct = m.avg_return,
+                adjusted_return_pct = daily_prices.day_return_pct - m.avg_return
+            FROM market_avg m
+            WHERE daily_prices.date = m.date
+              AND daily_prices.day_return_pct IS NOT NULL
+        """)
     con.close()
 
 

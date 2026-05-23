@@ -15,15 +15,30 @@ def check_price_thresholds(ticker: str, current_price: float, rules: list[dict])
     return signals
 
 
-def check_percent_change(df: pd.DataFrame, daily_threshold: float = 3.0, intraday_threshold: float = 2.0):
+def check_percent_change(df: pd.DataFrame, daily_threshold: float = 3.0, intraday_threshold: float = 2.0,
+                         sigma_threshold: float = 2.0):
+    """Fire only when the daily move exceeds sigma_threshold standard deviations of recent returns.
+    Falls back to the fixed daily_threshold if insufficient history for volatility calc."""
     if df.empty or len(df) < 2:
         return None
 
     latest_close = df["close"].iloc[-1]
-    prev_close = df["close"].iloc[0]
+    prev_close = df["close"].iloc[-2] if len(df) >= 2 else df["close"].iloc[0]
 
     pct_change = ((latest_close - prev_close) / prev_close) * 100
 
+    # Volatility-normalized: use trailing 20-day std dev if enough data
+    if len(df) >= 22:
+        returns = df["close"].pct_change().dropna().iloc[-20:] * 100
+        std = returns.std()
+        if std > 0:
+            z_score = pct_change / std
+            if abs(z_score) >= sigma_threshold:
+                direction = "sell" if pct_change > 0 else "buy"
+                return (direction, f"Daily move {pct_change:+.2f}% ({z_score:+.1f}σ, std={std:.2f}%)")
+            return None
+
+    # Fallback to fixed threshold
     if abs(pct_change) >= daily_threshold:
         direction = "sell" if pct_change > 0 else "buy"
         return (direction, f"Daily move {pct_change:+.2f}% (threshold: {daily_threshold}%)")

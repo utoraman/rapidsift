@@ -9,6 +9,7 @@ from data.db import init_db
 from data.fetcher import fetch_all
 from signals.engine import evaluate_all, load_config
 from alerts.notifier import notify_signals
+from backtest.validator import rebuild_cache
 from dashboard.app import run_dashboard
 import threading
 
@@ -50,6 +51,8 @@ def run_cycle(config: dict):
     else:
         logger.info("No signals this cycle.")
 
+    logger.info("Rebuilding validation cache...")
+    rebuild_cache()
     logger.info("Cycle complete.")
     return signals
 
