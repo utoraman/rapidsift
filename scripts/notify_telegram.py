@@ -435,17 +435,15 @@ def run_detection():
 
 def notify(signals, prev_keys):
     new_signals = [s for s in signals if is_new_signal(s, prev_keys)]
+    # Only notify on buy signals
+    new_signals = [s for s in new_signals if s["direction"] == "buy"]
 
     if not new_signals:
-        print("No new signals.")
+        print("No new buy signals.")
         return
 
-    buy = [s for s in new_signals if s["direction"] == "buy"]
-    sell = [s for s in new_signals if s["direction"] == "sell"]
-
     # Summary message
-    summary = f"<b>🔔 RapidSift Alert</b> — {len(new_signals)} new signal{'s' if len(new_signals) != 1 else ''}\n"
-    summary += f"🟢 {len(buy)} buy · 🔴 {len(sell)} sell\n"
+    summary = f"<b>🔔 RapidSift Alert</b> — {len(new_signals)} new buy signal{'s' if len(new_signals) != 1 else ''}\n"
     summary += f"<i>{datetime.utcnow().strftime('%Y-%m-%d %H:%M')} UTC</i>\n"
     send_message(summary)
 
