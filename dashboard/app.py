@@ -1,7 +1,4 @@
 from flask import Flask, render_template_string, request
-import plotly.graph_objects as go
-from plotly.subplots import make_subplots
-import plotly.utils
 import json
 import yaml
 from pathlib import Path
@@ -110,7 +107,7 @@ TEMPLATE = """
 <html>
 <head>
     <title>RapidSift</title>
-    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <!-- charts are pure SVG, no external charting library -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -609,21 +606,20 @@ CHARTS_TAB = """
         </form>
     </div>
 
-    {% if chart_json %}
+    {% if chart_svg %}
     <div class="card" style="margin-top:20px">
         <div class="card-header">
             <div style="display:flex;align-items:center;gap:12px">
                 <h2>{{ selected_ticker }}</h2>
                 <span class="count-pill">{{ days }}d</span>
             </div>
+            <div style="display:flex;align-items:center;gap:12px;font-size:10.5px;color:var(--text-mute)">
+                <span style="display:inline-flex;align-items:center;gap:5px"><span class="legend-dot" style="background:var(--up);box-shadow:0 0 4px var(--up)"></span>buy</span>
+                <span style="display:inline-flex;align-items:center;gap:5px"><span class="legend-dot" style="background:var(--down);box-shadow:0 0 4px var(--down)"></span>sell</span>
+            </div>
         </div>
         <div class="chart-pad">
-            <div id="main-chart"></div>
-            <script>
-                var data = {{ chart_json | safe }};
-                var layout = {{ layout_json | safe }};
-                Plotly.newPlot('main-chart', data, layout, {responsive: true});
-            </script>
+            {{ chart_svg }}
         </div>
     </div>
     {% else %}
@@ -737,6 +733,26 @@ BUY_SIGNALS_TAB = """
                 <option value="10">+10%</option>
             </select>
         </div>
+        <div class="filter-group">
+            <span class="filter-label">Win Rate &ge;</span>
+            <select id="filter-wr" class="filter-select" onchange="applyFilters()">
+                <option value="0">Any</option>
+                <option value="40">40%</option>
+                <option value="50" selected>50%</option>
+                <option value="60">60%</option>
+                <option value="70">70%</option>
+            </select>
+        </div>
+        <div class="filter-group">
+            <span class="filter-label">Fired &ge;</span>
+            <select id="filter-fired" class="filter-select" onchange="applyFilters()">
+                <option value="0">Any</option>
+                <option value="2">2&times;</option>
+                <option value="3" selected>3&times;</option>
+                <option value="5">5&times;</option>
+                <option value="10">10&times;</option>
+            </select>
+        </div>
         <div style="flex:1"></div>
         <div style="display:flex;align-items:center;gap:12px;font-size:11px;color:var(--text-mute)">
             <span class="legend-dot" style="background:var(--up);box-shadow:0 0 4px var(--up)"></span> win
@@ -777,7 +793,10 @@ BUY_SIGNALS_TAB = """
                 </thead>
                 <tbody>
                 {% for sig in buy_signals_list %}
-                <tr onclick="window.location='/?ticker={{ sig.ticker }}&signal_type={{ sig.signal_type }}'">
+                <tr onclick="window.location='/?ticker={{ sig.ticker }}&signal_type={{ sig.signal_type }}'"
+                    data-wr5="{{ sig.win_rate_5pct if sig.win_rate_5pct is not none else '' }}"
+                    data-wr10="{{ sig.win_rate_10pct if sig.win_rate_10pct is not none else '' }}"
+                    data-fired="{{ sig.times_fired if sig.times_fired is not none else '' }}">
                     <td><span class="num" style="color:var(--text-faint)">{{ "%02d"|format(loop.index) }}</span></td>
                     <td>
                         <div style="display:flex;flex-direction:column;line-height:1.25">
@@ -873,7 +892,35 @@ BUY_SIGNALS_TAB = """
     function toggleTarget(val) {
         document.querySelectorAll('.target-5').forEach(el => el.style.display = val === '5' ? '' : 'none');
         document.querySelectorAll('.target-10').forEach(el => el.style.display = val === '10' ? '' : 'none');
+        applyFilters();
     }
+
+    function applyFilters() {
+        var gainTarget = document.getElementById('gain-target').value;
+        var minWr = parseFloat(document.getElementById('filter-wr').value) || 0;
+        var minFired = parseInt(document.getElementById('filter-fired').value) || 0;
+        var wrAttr = gainTarget === '10' ? 'data-wr10' : 'data-wr5';
+
+        var rows = document.querySelectorAll('.sig-table tbody tr');
+        var visible = 0;
+        rows.forEach(function(row) {
+            var wr = parseFloat(row.getAttribute(wrAttr));
+            var fired = parseInt(row.getAttribute('data-fired'));
+            var wrOk = isNaN(wr) ? (minWr === 0) : (wr >= minWr);
+            var firedOk = isNaN(fired) ? (minFired === 0) : (fired >= minFired);
+            var show = wrOk && firedOk;
+            row.style.display = show ? '' : 'none';
+            if (show) {
+                visible++;
+                row.querySelector('td:first-child .num').textContent = String(visible).padStart(2, '0');
+            }
+        });
+
+        var pill = document.querySelector('.count-pill');
+        if (pill) pill.textContent = visible + ' of {{ "{:,}".format(buy_count) }}';
+    }
+
+    document.addEventListener('DOMContentLoaded', applyFilters);
     </script>
 {% endblock %}
 """
@@ -1161,119 +1208,262 @@ def _drawdown_bar_html(value: float, worst: float) -> Markup:
     )
 
 
-def build_chart(ticker: str, signal_type: str = "all", chart_type: str = "candlestick", days: int = 60):
+def build_chart_svg(ticker: str, signal_type: str = "all", chart_type: str = "candlestick", days: int = 60) -> Markup:
+    """Build a pure SVG chart matching the RapidSift design system."""
     import pandas as pd
+    import math
     df = get_prices(ticker, days=days)
     if df.empty:
-        return None, None
+        return None
 
-    fig = make_subplots(rows=3, cols=1, shared_xaxes=True,
-                        row_heights=[0.6, 0.2, 0.2],
-                        vertical_spacing=0.05,
-                        subplot_titles=["Price", "RSI (14)", "Volume"])
+    # ── Colors ──
+    C_BG = "oklch(0.155 0.012 250)"
+    C_GRID = "oklch(0.30 0.010 250 / 0.25)"
+    C_LINE = "oklch(0.30 0.010 250 / 0.45)"
+    C_TEXT_MUTE = "oklch(0.55 0.010 250)"
+    C_TEXT_DIM = "oklch(0.74 0.008 250)"
+    C_ACCENT = "oklch(0.80 0.135 200)"
+    C_UP = "oklch(0.80 0.165 145)"
+    C_DOWN = "oklch(0.72 0.185 25)"
+    C_WARN = "oklch(0.83 0.150 80)"
+    C_RSI = "oklch(0.72 0.12 300)"
+    C_VOL = "oklch(0.80 0.135 200 / 0.30)"
+    FONT = "'JetBrains Mono', ui-monospace, monospace"
 
-    # Dark theme colors
-    accent = "#4dd8e0"
-    up_color = "#5dd672"
-    down_color = "#e8654a"
-    warn_color = "#d4b03a"
-    text_dim = "#a8adb5"
-    line_color = "#3e434c"
+    # ── Layout ──
+    W, H = 1100, 580
+    PL, PR, PT = 62, 20, 12  # left, right, top padding
+    PB = 28  # bottom padding for date labels
+    GAP = 8
+    PRICE_H = 320
+    RSI_H = 100
+    VOL_H = 90
 
-    if chart_type == "line":
-        fig.add_trace(go.Scatter(
-            x=df["date"], y=df["close"], name="Close",
-            line=dict(color=accent, width=2), fill="tozeroy",
-            fillcolor="rgba(77,216,224,0.06)"
-        ), row=1, col=1)
-    else:
-        fig.add_trace(go.Candlestick(
-            x=df["date"], open=df["open"], high=df["high"],
-            low=df["low"], close=df["close"], name="Price",
-            increasing_line_color=up_color, decreasing_line_color=down_color,
-            increasing_fillcolor=up_color, decreasing_fillcolor=down_color,
-        ), row=1, col=1)
+    price_top = PT
+    price_bot = price_top + PRICE_H
+    rsi_top = price_bot + GAP
+    rsi_bot = rsi_top + RSI_H
+    vol_top = rsi_bot + GAP
+    vol_bot = vol_top + VOL_H
+    CW = W - PL - PR  # chart width
 
+    n = len(df)
+    if n < 2:
+        return None
+
+    dates = df["date"].tolist()
+    opens = df["open"].tolist()
+    highs = df["high"].tolist()
+    lows = df["low"].tolist()
+    closes = df["close"].tolist()
+    volumes = df["volume"].tolist()
+
+    # ── Scales ──
+    price_min = min(lows) * 0.995
+    price_max = max(highs) * 1.005
+    price_range = price_max - price_min or 1
+    vol_max = max(volumes) * 1.1 or 1
+
+    def px(i):
+        """X pixel for data index i."""
+        return round(PL + (i + 0.5) / n * CW, 1)
+
+    def py_price(v):
+        return round(price_top + PRICE_H * (1 - (v - price_min) / price_range), 1)
+
+    def py_rsi(v):
+        return round(rsi_top + RSI_H * (1 - v / 100), 1)
+
+    def py_vol(v):
+        return round(vol_top + VOL_H * (1 - v / vol_max), 1)
+
+    bar_w = max(1, round(CW / n * 0.65, 1))
+
+    svg = [f'<svg viewBox="0 0 {W} {H}" style="width:100%;height:auto;display:block;font-family:{FONT}" xmlns="http://www.w3.org/2000/svg">']
+
+    # ── Defs: filters for glow effects ──
+    svg.append('<defs>')
+    svg.append('<filter id="glow-up" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>')
+    svg.append('<filter id="glow-down" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>')
+    svg.append(f'<linearGradient id="area-fill" x1="0" x2="0" y1="0" y2="1"><stop offset="0%" stop-color="{C_ACCENT}" stop-opacity=".15"/><stop offset="100%" stop-color="{C_ACCENT}" stop-opacity="0"/></linearGradient>')
+    svg.append('</defs>')
+
+    # ── Helper: horizontal grid + price labels ──
+    def _price_grid():
+        # Nice round numbers for y-axis
+        raw_step = price_range / 5
+        mag = 10 ** math.floor(math.log10(raw_step)) if raw_step > 0 else 1
+        step = round(raw_step / mag) * mag or mag
+        start = math.floor(price_min / step) * step
+        lines = []
+        v = start
+        while v <= price_max:
+            if v >= price_min:
+                y = py_price(v)
+                lines.append(f'<line x1="{PL}" x2="{W - PR}" y1="{y}" y2="{y}" stroke="{C_GRID}" stroke-width="0.5"/>')
+                lines.append(f'<text x="{PL - 6}" y="{y + 3.5}" text-anchor="end" font-size="9" fill="{C_TEXT_MUTE}">${v:,.0f}</text>')
+            v += step
+        return "\n".join(lines)
+
+    def _rsi_grid():
+        lines = []
+        for v in (0, 30, 50, 70, 100):
+            y = py_rsi(v)
+            dash = ' stroke-dasharray="3,3"' if v in (30, 70) else ""
+            color = C_UP if v == 30 else C_DOWN if v == 70 else C_GRID
+            opacity = "0.5" if v in (30, 70) else "0.3"
+            lines.append(f'<line x1="{PL}" x2="{W - PR}" y1="{y}" y2="{y}" stroke="{color}" stroke-width="0.5" opacity="{opacity}"{dash}/>')
+            if v in (30, 70):
+                lines.append(f'<text x="{PL - 6}" y="{y + 3.5}" text-anchor="end" font-size="8" fill="{C_TEXT_MUTE}">{v}</text>')
+        return "\n".join(lines)
+
+    def _date_labels():
+        labels = []
+        # Show ~8-10 date labels
+        skip = max(1, n // 9)
+        for i in range(0, n, skip):
+            d = pd.Timestamp(dates[i])
+            label = d.strftime("%b %d")
+            x = px(i)
+            labels.append(f'<text x="{x}" y="{vol_bot + 16}" text-anchor="middle" font-size="8.5" fill="{C_TEXT_MUTE}">{label}</text>')
+        return "\n".join(labels)
+
+    # ── Panel labels ──
+    svg.append(f'<text x="{PL}" y="{price_top + 11}" font-size="9.5" font-weight="500" fill="{C_TEXT_DIM}" letter-spacing="0.08em">PRICE</text>')
+    svg.append(f'<text x="{PL}" y="{rsi_top + 11}" font-size="9.5" font-weight="500" fill="{C_TEXT_DIM}" letter-spacing="0.08em">RSI (14)</text>')
+    svg.append(f'<text x="{PL}" y="{vol_top + 11}" font-size="9.5" font-weight="500" fill="{C_TEXT_DIM}" letter-spacing="0.08em">VOLUME</text>')
+
+    # ── Panel separators ──
+    svg.append(f'<line x1="{PL}" x2="{W - PR}" y1="{price_bot}" y2="{price_bot}" stroke="{C_LINE}" stroke-width="0.5"/>')
+    svg.append(f'<line x1="{PL}" x2="{W - PR}" y1="{rsi_bot}" y2="{rsi_bot}" stroke="{C_LINE}" stroke-width="0.5"/>')
+
+    # ── Grids ──
+    svg.append(_price_grid())
+    svg.append(_rsi_grid())
+
+    # ── SMAs ──
     sma20 = compute_sma(df, 20)
     sma50 = compute_sma(df, 50)
-    fig.add_trace(go.Scatter(x=df["date"], y=sma20, name="SMA20",
-                             line=dict(color=warn_color, width=1.5)), row=1, col=1)
-    fig.add_trace(go.Scatter(x=df["date"], y=sma50, name="SMA50",
-                             line=dict(color=accent, width=1.5, dash="dot")), row=1, col=1)
 
-    # Get validated buy signals to mark on chart
-    con = get_connection()
+    def _sma_path(sma_series, color, dash=""):
+        pts = []
+        for i, v in enumerate(sma_series):
+            if pd.notna(v):
+                pts.append(f"{px(i)},{py_price(v)}")
+        if not pts:
+            return ""
+        d_attr = f' stroke-dasharray="{dash}"' if dash else ""
+        return f'<polyline points="{" ".join(pts)}" fill="none" stroke="{color}" stroke-width="1.3" opacity="0.8"{d_attr}/>'
+
+    svg.append(_sma_path(sma50, C_ACCENT, "4,3"))
+    svg.append(_sma_path(sma20, C_WARN))
+
+    # ── Price chart ──
+    if chart_type == "line":
+        # Line + area fill
+        pts = [f"{px(i)},{py_price(closes[i])}" for i in range(n)]
+        area_pts = pts + [f"{px(n-1)},{price_bot}", f"{px(0)},{price_bot}"]
+        svg.append(f'<polygon points="{" ".join(area_pts)}" fill="url(#area-fill)"/>')
+        svg.append(f'<polyline points="{" ".join(pts)}" fill="none" stroke="{C_ACCENT}" stroke-width="1.5" stroke-linejoin="round"/>')
+        # Final point halo
+        lx, ly = px(n - 1), py_price(closes[-1])
+        svg.append(f'<circle cx="{lx}" cy="{ly}" r="4" fill="{C_ACCENT}" opacity=".18"/>')
+        svg.append(f'<circle cx="{lx}" cy="{ly}" r="2" fill="{C_ACCENT}"/>')
+    else:
+        # Candlestick
+        for i in range(n):
+            x = px(i)
+            o, h, l, c = opens[i], highs[i], lows[i], closes[i]
+            is_up = c >= o
+            color = C_UP if is_up else C_DOWN
+            body_top = py_price(max(o, c))
+            body_bot = py_price(min(o, c))
+            body_h = max(1, body_bot - body_top)
+            wick_top = py_price(h)
+            wick_bot = py_price(l)
+            # Wick
+            svg.append(f'<line x1="{x}" x2="{x}" y1="{wick_top}" y2="{wick_bot}" stroke="{color}" stroke-width="0.8"/>')
+            # Body
+            bx = round(x - bar_w / 2, 1)
+            svg.append(f'<rect x="{bx}" y="{body_top}" width="{bar_w}" height="{body_h}" fill="{color}" rx="0.5"/>')
+
+    # ── Buy/Sell signal dots ──
     signals_df = get_signals(ticker, days=days)
     if not signals_df.empty:
         if signal_type != "all":
             signals_df = signals_df[signals_df["signal_type"] == signal_type]
-        buy_sigs = signals_df[signals_df["direction"] == "buy"]
-        sell_sigs = signals_df[signals_df["direction"] == "sell"]
+        for _, sig in signals_df.iterrows():
+            t = sig["timestamp"]
+            matching = df[df["date"] <= t]
+            if matching.empty:
+                continue
+            idx = len(matching) - 1
+            price = matching["close"].iloc[-1]
+            is_buy = sig["direction"] == "buy"
+            color = C_UP if is_buy else C_DOWN
+            cx, cy = px(idx), py_price(price)
+            label = "Buy" if is_buy else "Sell"
+            stype = sig.get("signal_type", "")
+            # Halo + dot
+            svg.append(f'<circle cx="{cx}" cy="{cy}" r="5" fill="{color}" opacity=".15"/>')
+            svg.append(f'<circle cx="{cx}" cy="{cy}" r="2.5" fill="{color}"><title>{label}: {stype} ${price:.2f}</title></circle>')
 
-        if not buy_sigs.empty:
-            buy_prices = []
-            for t in buy_sigs["timestamp"]:
-                matching = df[df["date"] <= t]
-                buy_prices.append(matching["close"].iloc[-1] if not matching.empty else None)
-            fig.add_trace(go.Scatter(
-                x=buy_sigs["timestamp"], y=buy_prices,
-                mode="markers", name="Buy Signal",
-                marker=dict(symbol="circle", size=7, color=up_color,
-                            line=dict(width=1, color="rgba(93,214,114,0.3)")),
-                hovertemplate="%{text}<extra>Buy Signal</extra>",
-                text=[f"{row.get('signal_type','')}: ${p:.2f}" if p else "" for p, (_, row) in zip(buy_prices, buy_sigs.iterrows())]
-            ), row=1, col=1)
-
-        if not sell_sigs.empty:
-            sell_prices = []
-            for t in sell_sigs["timestamp"]:
-                matching = df[df["date"] <= t]
-                sell_prices.append(matching["close"].iloc[-1] if not matching.empty else None)
-            fig.add_trace(go.Scatter(
-                x=sell_sigs["timestamp"], y=sell_prices,
-                mode="markers", name="Sell Signal",
-                marker=dict(symbol="circle", size=7, color=down_color,
-                            line=dict(width=1, color="rgba(232,101,74,0.3)"))
-            ), row=1, col=1)
-
-    con.close()
-
+    # ── RSI ──
     rsi = compute_rsi(df, 14)
-    fig.add_trace(go.Scatter(x=df["date"], y=rsi, name="RSI",
-                             line=dict(color="#a78bfa", width=1.5)), row=2, col=1)
-    fig.add_hline(y=70, line_dash="dash", line_color=down_color, opacity=0.5, row=2, col=1)
-    fig.add_hline(y=30, line_dash="dash", line_color=up_color, opacity=0.5, row=2, col=1)
+    rsi_pts = []
+    for i, v in enumerate(rsi):
+        if pd.notna(v):
+            rsi_pts.append(f"{px(i)},{py_rsi(v)}")
+    if rsi_pts:
+        svg.append(f'<polyline points="{" ".join(rsi_pts)}" fill="none" stroke="{C_RSI}" stroke-width="1.3" stroke-linejoin="round"/>')
+        # Final halo
+        last_rsi = rsi.dropna().iloc[-1] if not rsi.dropna().empty else None
+        if last_rsi is not None:
+            last_i = rsi.dropna().index[-1]
+            pos_in_df = df.index.get_loc(last_i)
+            rlx, rly = px(pos_in_df), py_rsi(last_rsi)
+            svg.append(f'<circle cx="{rlx}" cy="{rly}" r="3.5" fill="{C_RSI}" opacity=".18"/>')
+            svg.append(f'<circle cx="{rlx}" cy="{rly}" r="1.8" fill="{C_RSI}"/>')
 
-    fig.add_trace(go.Bar(x=df["date"], y=df["volume"], name="Volume",
-                         marker_color="rgba(77,216,224,0.35)"), row=3, col=1)
+    # ── Volume ──
+    vol_bar_w = max(1, round(CW / n * 0.55, 1))
+    for i in range(n):
+        x = px(i)
+        v = volumes[i]
+        y_top = py_vol(v)
+        h = vol_bot - y_top
+        if h < 0.5:
+            continue
+        is_up = closes[i] >= opens[i]
+        color = C_UP if is_up else C_DOWN
+        bx = round(x - vol_bar_w / 2, 1)
+        svg.append(f'<rect x="{bx}" y="{y_top}" width="{vol_bar_w}" height="{h}" fill="{color}" opacity="0.3" rx="0.5"/>')
 
-    bg_color = "#1a1d23"
-    elev_color = "#22262d"
+    # ── Date labels ──
+    svg.append(_date_labels())
 
-    fig.update_layout(
-        template="plotly_dark",
-        height=650,
-        showlegend=True,
-        xaxis_rangeslider_visible=False,
-        paper_bgcolor=elev_color,
-        plot_bgcolor=bg_color,
-        font=dict(family="Inter, -apple-system, sans-serif", color=text_dim, size=11),
-        margin=dict(t=30, b=20, l=50, r=20),
-        legend=dict(
-            orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1,
-            font=dict(size=10, color=text_dim),
-            bgcolor="rgba(0,0,0,0)",
-        ),
-    )
+    # ── Legend ──
+    leg_x = W - PR
+    leg_y = price_top + 4
+    legend_items = []
+    if chart_type == "line":
+        legend_items.append((C_ACCENT, "Close", False))
+    else:
+        legend_items.append((C_UP, "Up", False))
+        legend_items.append((C_DOWN, "Down", False))
+    legend_items.append((C_WARN, "SMA20", False))
+    legend_items.append((C_ACCENT, "SMA50", True))
 
-    for ax in ["xaxis", "xaxis2", "xaxis3"]:
-        fig.update_layout(**{ax: dict(gridcolor=line_color, zerolinecolor=line_color)})
-    for ax in ["yaxis", "yaxis2", "yaxis3"]:
-        fig.update_layout(**{ax: dict(gridcolor=line_color, zerolinecolor=line_color)})
+    lx = leg_x
+    for color, label, dashed in reversed(legend_items):
+        tw = len(label) * 5.5 + 22
+        lx -= tw
+        dash = ' stroke-dasharray="3,2"' if dashed else ""
+        svg.append(f'<line x1="{lx}" x2="{lx + 12}" y1="{leg_y + 4}" y2="{leg_y + 4}" stroke="{color}" stroke-width="1.3"{dash}/>')
+        svg.append(f'<text x="{lx + 16}" y="{leg_y + 7}" font-size="9" fill="{C_TEXT_MUTE}">{label}</text>')
 
-    chart_json = json.dumps(fig.data, cls=plotly.utils.PlotlyJSONEncoder)
-    layout_json = json.dumps(fig.layout, cls=plotly.utils.PlotlyJSONEncoder)
-    return chart_json, layout_json
+    svg.append('</svg>')
+    return Markup("\n".join(svg))
 
 
 @app.route("/")
@@ -1293,7 +1483,7 @@ def index():
     if days not in (30, 60, 90, 180, 365):
         days = 60
 
-    chart_json, layout_json = build_chart(selected_ticker, selected_signal_type, chart_type, days)
+    chart_svg = build_chart_svg(selected_ticker, selected_signal_type, chart_type, days)
 
     # Get validated signal details for this ticker
     detail_df = signal_detail_report(gain_targets=[5.0, 10.0], lookahead_days=14)
@@ -1336,8 +1526,7 @@ def index():
                   selected_signal_label=selected_signal_label,
                   chart_type=chart_type,
                   days=days,
-                  chart_json=chart_json,
-                  layout_json=layout_json,
+                  chart_svg=chart_svg,
                   signals_list=signals_list,
                   total_signals=total_signals,
                   buy_signals=buy_signals,
@@ -1559,10 +1748,10 @@ def buy_signals_page():
     # Get detailed validation results and enrich with win rate
     detail_df = signal_detail_report(gain_targets=[5.0, 10.0], lookahead_days=14)
     if not detail_df.empty:
-        buy_signals_list = detail_df.head(50).to_dict("records")
+        buy_signals_list = detail_df.head(200).to_dict("records")
     else:
         if not all_signals.empty:
-            buy_only = all_signals[all_signals["direction"] == "buy"].head(50)
+            buy_only = all_signals[all_signals["direction"] == "buy"].head(200)
             buy_signals_list = buy_only.to_dict("records")
         else:
             buy_signals_list = []

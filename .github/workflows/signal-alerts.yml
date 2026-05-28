@@ -1,0 +1,46 @@
+name: Signal Alerts
+
+on:
+  schedule:
+    # Market open (9:30 AM ET / 3:30 PM CET), then every 2h until 8 PM CET
+    - cron: '30 13,15,17 * * 1-5'
+  workflow_dispatch:  # Allow manual trigger
+
+jobs:
+  detect-and-notify:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'workflow_dispatch' || (github.event_name == 'schedule')
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: |
+          pip install yfinance pandas cairosvg requests
+          # Cairo system libs for SVG→PNG
+          sudo apt-get update && sudo apt-get install -y libcairo2-dev
+
+      - name: Restore signal state
+        uses: actions/cache@v4
+        with:
+          path: .signal_state.json
+          key: signal-state-${{ github.run_id }}
+          restore-keys: signal-state-
+
+      - name: Run signal detection & notify
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: python3 scripts/notify_telegram.py
+
+      - name: Save signal state
+        if: always()
+        uses: actions/cache/save@v4
+        with:
+          path: .signal_state.json
+          key: signal-state-${{ github.run_id }}
