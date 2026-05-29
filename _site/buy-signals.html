@@ -340,13 +340,11 @@
                 <span class="num" id="nasdaq-label">--</span>
             </div>
             <div class="vdiv" style="height:14px"></div>
-            <div style="display:flex;align-items:center;gap:6px">
-                <span style="color:var(--text-mute)">ET</span>
+            <div style="display:flex;align-items:center;gap:4px">
                 <span class="num" style="color:var(--text-dim)" id="et-clock">--:--:--</span>
-            </div>
-            <div style="display:flex;align-items:center;gap:6px">
-                <span>next refresh</span>
-                <span class="num" style="color:var(--text-dim)" id="refresh-countdown">300s</span>
+                <span style="color:var(--text-faint)">ET</span>
+                <span class="num" style="color:var(--text-dim);margin-left:4px" id="cet-clock">--:--:--</span>
+                <span style="color:var(--text-faint)">CET</span>
             </div>
         </div>
         <div class="vdiv"></div>
@@ -355,7 +353,7 @@
                 <path d="M6 1.5 v 3.5 M6 1.5 L 4.2 3.2 M6 1.5 L 7.8 3.2 M2 7 a 4 4 0 1 0 8 0 v -1.2"
                       fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
             </svg>
-            <span class="btn-text">Refresh now</span>
+            <span class="btn-text">Refresh</span>
             <span class="spinner"></span>
         </button>
     </div>
@@ -433,11 +431,6 @@
             </select>
         </div>
         <div style="flex:1"></div>
-        <div style="display:flex;align-items:center;gap:12px;font-size:11px;color:var(--text-mute)">
-            <span class="legend-dot" style="background:var(--up);box-shadow:0 0 4px var(--up)"></span> win
-            <span class="legend-dot" style="background:var(--down);box-shadow:0 0 4px var(--down)"></span> loss
-            <span class="legend-dot" style="background:var(--accent);box-shadow:0 0 4px var(--accent)"></span> pending
-        </div>
     </div>
 
     <div class="card" style="margin-top:0;margin-bottom:0;border-radius:0">
@@ -13839,14 +13832,17 @@
 
 <script>
 // ET clock (ticks locally between API polls)
-function updateETClock() {
+function updateClocks() {
     var d = new Date();
     var et = d.toLocaleTimeString('en-US', {hour12:false, timeZone:'America/New_York'});
-    var el = document.getElementById('et-clock');
-    if (el) el.textContent = et;
+    var cet = d.toLocaleTimeString('en-US', {hour12:false, timeZone:'Europe/Prague'});
+    var elET = document.getElementById('et-clock');
+    var elCET = document.getElementById('cet-clock');
+    if (elET) elET.textContent = et;
+    if (elCET) elCET.textContent = cet;
 }
-setInterval(updateETClock, 1000);
-updateETClock();
+setInterval(updateClocks, 1000);
+updateClocks();
 
 // Market status polling
 function fetchMarketStatus() {
@@ -13873,24 +13869,32 @@ function fetchMarketStatus() {
 fetchMarketStatus();
 setInterval(fetchMarketStatus, 30000);
 
-// Refresh countdown
-var refreshLeft = 300;
-function updateCountdown() {
-    refreshLeft = Math.max(0, refreshLeft - 1);
-    var el = document.getElementById('refresh-countdown');
-    if (el) el.textContent = String(refreshLeft).padStart(3,'0') + 's';
-    if (refreshLeft <= 0) refreshLeft = 300;
-}
-setInterval(updateCountdown, 1000);
-
 function refreshData(btn) {
     btn.classList.add('loading');
     btn.disabled = true;
-    loadLiveSignals();
-    setTimeout(function() {
-        btn.classList.remove('loading');
-        btn.disabled = false;
-    }, 1500);
+    btn.querySelector('.btn-text').textContent = 'Triggering...';
+    fetch('/api/refresh', {method: 'POST'})
+        .then(function(r) { return r.json(); })
+        .then(function(data) {
+            btn.querySelector('.btn-text').textContent = data.status === 'triggered' ? 'Triggered!' : 'Error';
+            setTimeout(function() {
+                btn.classList.remove('loading');
+                btn.disabled = false;
+                btn.querySelector('.btn-text').textContent = 'Refresh';
+            }, 3000);
+            // Auto-reload data after ~2 min
+            if (data.status === 'triggered') {
+                setTimeout(function() { loadLiveSignals(); }, 120000);
+            }
+        })
+        .catch(function() {
+            btn.querySelector('.btn-text').textContent = 'Failed';
+            setTimeout(function() {
+                btn.classList.remove('loading');
+                btn.disabled = false;
+                btn.querySelector('.btn-text').textContent = 'Refresh';
+            }, 3000);
+        });
 }
 </script>
 <!-- Mobile bottom navigation -->
