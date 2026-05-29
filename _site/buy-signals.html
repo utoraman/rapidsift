@@ -13970,9 +13970,12 @@ function refreshData(btn) {
                     '<span class="m-ticker">' + s.ticker + '</span>' +
                     '<span class="strategy-tag tone-' + tone + '"><span class="dot"></span>' + label + '</span>' +
                 '</div>' +
-                '<div class="m-card-right">' +
-                    '<span class="m-price">$' + s.price.toLocaleString(undefined, {minimumFractionDigits:2, maximumFractionDigits:2}) + '</span>' +
-                    '<span class="m-pct ' + pctClass + '">' + pctStr + '</span>' +
+                '<div style="display:flex;align-items:center;gap:6px">' +
+                    '<div class="m-card-right">' +
+                        '<span class="m-price">$' + s.price.toLocaleString(undefined, {minimumFractionDigits:2, maximumFractionDigits:2}) + '</span>' +
+                        '<span class="m-pct ' + pctClass + '">' + pctStr + '</span>' +
+                    '</div>' +
+                    '<svg class="m-chevron" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3.5 L5 6.5 L8 3.5"/></svg>' +
                 '</div>' +
             '</div>' +
             '<div class="m-card-sub">' +

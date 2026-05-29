@@ -1,11 +1,9 @@
 /* ══════════════════════════════════════════════════════════════════════════
    RapidSift — Mobile Responsive
-   Design language: oklch palette, JetBrains Mono numbers, Inter body,
-   dark surfaces, glow accents. Every desktop datapoint accessible on
-   mobile — some revealed on card tap/expand.
+   Approved mockup: compact bottom nav (16px icons), 20px KPI values,
+   card-based signal list with tap-to-expand detail panels.
    ══════════════════════════════════════════════════════════════════════════ */
 
-/* ── Hide bottom nav on desktop ── */
 .m-bottom-nav { display: none; }
 .m-signal-cards { display: none; }
 
@@ -14,7 +12,7 @@
     /* ── Reset ── */
     body {
         min-width: 0 !important;
-        padding-bottom: 64px;
+        padding-bottom: 52px;
         -webkit-text-size-adjust: 100%;
     }
     body::before { background-size: 48px 48px; }
@@ -38,9 +36,8 @@
     }
     .topbar-right > .vdiv { display: none; }
     .market-status { gap: 8px; font-size: 10px; }
-    /* Hide "next refresh" + countdown */
     .market-status > div:nth-child(n+4) { display: none; }
-    .refresh-btn { padding: 6px 10px; font-size: 11px; gap: 5px; }
+    .refresh-btn { padding: 5px 10px; font-size: 10px; gap: 5px; border-radius: 6px; }
 
     /* ══ BOTTOM NAV ══ */
     .m-bottom-nav {
@@ -49,28 +46,28 @@
         background: oklch(0.14 0.012 250 / 0.96);
         backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
         border-top: 0.5px solid var(--line);
-        padding: 4px 0;
-        padding-bottom: max(4px, env(safe-area-inset-bottom));
+        padding: 2px 0;
+        padding-bottom: max(2px, env(safe-area-inset-bottom));
     }
     .m-bottom-nav a {
         flex: 1; display: flex; flex-direction: column;
-        align-items: center; gap: 2px; padding: 5px 0;
+        align-items: center; gap: 1px; padding: 4px 0 3px;
         text-decoration: none; color: var(--text-mute);
         font-size: 9px; font-weight: 500;
-        letter-spacing: 0.03em; transition: color 0.15s;
+        letter-spacing: 0.02em; transition: color 0.15s;
     }
     .m-bottom-nav a.active { color: var(--accent); }
-    .m-bottom-nav a svg { opacity: 0.45; transition: opacity 0.15s; }
+    .m-bottom-nav a svg { width: 16px; height: 16px; opacity: 0.4; transition: opacity 0.15s; }
     .m-bottom-nav a.active svg { opacity: 1; }
 
     /* ══ KPI STRIP ══ */
     .kpi-strip { grid-template-columns: 1fr 1fr; }
-    .kpi-cell { padding: 12px 14px 14px; gap: 5px; }
-    .kpi-value { font-size: 24px; }
-    .kpi-label { font-size: 9px; }
-    .kpi-sub { font-size: 10px; }
-    .kpi-trend { font-size: 10px; }
-    .kpi-corner { width: 18px; height: 18px; }
+    .kpi-cell { padding: 10px 12px 11px; gap: 3px; }
+    .kpi-value { font-size: 20px; }
+    .kpi-label { font-size: 8.5px; }
+    .kpi-sub { font-size: 9px; }
+    .kpi-trend { font-size: 9px; }
+    .kpi-corner { width: 16px; height: 16px; }
 
     /* ══ FILTER BAR ══ */
     .filter-bar {
@@ -81,8 +78,8 @@
     }
     .filter-bar::-webkit-scrollbar { display: none; }
     .filter-group { flex-shrink: 0; }
-    .filter-select { min-width: 88px; font-size: 11px; padding: 5px 24px 5px 8px; }
-    /* Hide legend row */
+    .filter-label { font-size: 8.5px; }
+    .filter-select { min-width: 80px; font-size: 11px; padding: 5px 24px 5px 8px; border-radius: 6px; }
     .filter-bar > div[style*="flex:1"],
     .filter-bar > div:last-child:not(.filter-group) { display: none; }
 
@@ -96,31 +93,27 @@
     .chart-pad { padding: 12px; }
     .chart-pad svg { width: 100% !important; height: auto !important; }
 
-    /* ══ DESKTOP TABLE → hide on mobile ══ */
+    /* ══ DESKTOP TABLE → hidden ══ */
     .sig-table { display: none !important; }
 
     /* ══ MOBILE SIGNAL CARDS ══ */
     .m-signal-cards { display: flex !important; flex-direction: column; }
 
     .m-card {
-        padding: 14px;
+        padding: 12px 14px;
         border-bottom: 0.5px solid var(--line-soft);
         cursor: pointer;
         -webkit-tap-highlight-color: transparent;
         transition: background 0.12s;
     }
     .m-card:active { background: oklch(0.21 0.014 250); }
+    .m-card:last-child { border-bottom: 0; }
 
-    /* ─ Row 1: Ticker + Tag … Price ─ */
     .m-card-head {
         display: flex; align-items: center;
-        justify-content: space-between;
-        gap: 8px;
+        justify-content: space-between; gap: 8px;
     }
-    .m-card-left {
-        display: flex; align-items: center; gap: 8px;
-        overflow: hidden;
-    }
+    .m-card-left { display: flex; align-items: center; gap: 8px; overflow: hidden; }
     .m-ticker {
         font-family: var(--mono); font-weight: 600;
         font-size: 14px; letter-spacing: 0.02em;
@@ -128,124 +121,79 @@
     }
     .m-card-right {
         display: flex; flex-direction: column;
-        align-items: flex-end; gap: 2px; flex-shrink: 0;
+        align-items: flex-end; gap: 1px; flex-shrink: 0;
     }
-    .m-price {
-        font-family: var(--mono); font-weight: 500;
-        font-size: 14px; color: var(--text);
-    }
-    .m-pct {
-        font-family: var(--mono); font-weight: 500;
-        font-size: 10.5px;
-    }
+    .m-price { font-family: var(--mono); font-weight: 500; font-size: 13px; color: var(--text); }
+    .m-pct { font-family: var(--mono); font-weight: 500; font-size: 10px; }
     .m-pct.up { color: var(--up); }
     .m-pct.down { color: var(--down); }
 
-    /* ─ Row 2: Date + Result pill ─ */
     .m-card-sub {
         display: flex; align-items: center;
         justify-content: space-between;
-        margin-top: 6px; gap: 8px;
+        margin-top: 5px; gap: 8px;
     }
-    .m-date {
-        font-family: var(--mono); font-size: 11px;
-        color: var(--text-mute);
-    }
+    .m-date { font-family: var(--mono); font-size: 10.5px; color: var(--text-mute); }
 
-    /* ─ Expand chevron ─ */
-    .m-card-head::after {
-        content: "";
-        width: 0; height: 0;
-        border-left: 4px solid transparent;
-        border-right: 4px solid transparent;
-        border-top: 4px solid var(--text-mute);
-        flex-shrink: 0;
-        transition: transform 0.2s;
-        margin-left: 4px;
+    /* Chevron */
+    .m-chevron {
+        width: 10px; height: 10px; flex-shrink: 0; margin-left: 2px;
+        transition: transform 0.2s; color: var(--text-faint);
     }
-    .m-card.expanded .m-card-head::after {
-        transform: rotate(180deg);
-    }
+    .m-card.expanded .m-chevron { transform: rotate(180deg); }
 
-    /* ─ Expandable detail panel ─ */
+    /* Expandable detail */
     .m-card-detail {
         display: none;
-        margin-top: 10px;
-        padding-top: 10px;
+        margin-top: 10px; padding-top: 10px;
         border-top: 0.5px solid var(--line-soft);
     }
-    .m-card.expanded .m-card-detail {
-        display: block;
-    }
+    .m-card.expanded .m-card-detail { display: block; }
 
     .m-detail-grid {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 10px 16px;
+        display: grid; grid-template-columns: 1fr 1fr;
+        gap: 10px 14px;
     }
-    .m-detail-cell {
-        display: flex; flex-direction: column; gap: 2px;
-    }
+    .m-detail-cell { display: flex; flex-direction: column; gap: 2px; }
     .m-detail-label {
-        font-size: 9px; font-weight: 500;
+        font-size: 8.5px; font-weight: 500;
         letter-spacing: 0.08em; text-transform: uppercase;
         color: var(--text-mute);
     }
-    .m-detail-value {
-        font-size: 12px; color: var(--text-dim);
-    }
+    .m-detail-value { font-size: 12px; color: var(--text-dim); }
+    .m-detail-full { grid-column: 1 / -1; display: flex; flex-direction: column; gap: 2px; }
+    .m-detail-sparkline { grid-column: 1 / -1; padding-top: 4px; }
+    .m-detail-sparkline svg { width: 100%; height: auto; }
 
-    /* Detail full-width row */
-    .m-detail-full {
-        grid-column: 1 / -1;
-        display: flex; flex-direction: column; gap: 2px;
-    }
-
-    /* Sparkline in detail */
-    .m-detail-sparkline {
-        grid-column: 1 / -1;
-        padding-top: 4px;
-    }
-    .m-detail-sparkline svg {
-        width: 100%; height: auto;
-    }
-
-    /* Win rate gauge — slightly smaller on mobile */
+    /* Gauge/bar tweaks for mobile */
     .m-detail-cell .wr-gauge { gap: 6px; }
-    .m-detail-cell .wr-bar { width: 54px; }
+    .m-detail-cell .wr-bar { width: 50px; }
     .m-detail-cell .wr-num { font-size: 11px; min-width: 36px; }
     .m-detail-cell .wr-seg { height: 6px; }
-
-    /* Drawdown bar — fit mobile */
-    .m-detail-cell .dd-track { width: 48px; }
+    .m-detail-cell .dd-track { width: 44px; }
     .m-detail-cell .dd-num { font-size: 11px; min-width: 36px; }
 
-    /* ══ RELIABILITY TABLE → CARDS ══ */
-    /* Applied same pattern via JS */
+    /* Strategy tags + result pills — compact */
+    .strategy-tag { font-size: 9px; padding: 2px 5px; gap: 4px; }
+    .result-pill { font-size: 10px; padding: 2px 7px 2px 5px; gap: 4px; }
+    .result-pill .rdot { width: 4px; height: 4px; }
 
-    /* ══ CHARTS TAB ══ */
+    /* Charts tab responsive */
     form.filter-bar { flex-wrap: nowrap; }
-    form .filter-group { flex-shrink: 0; }
-
-    /* Sparkline popovers don't work on touch — hide */
     .spark-detail { display: none !important; }
     .count-pill { font-size: 9px; }
-    .stream-dot + span { display: none; } /* hide "streaming" text */
-
-    /* Strategy tags — slightly smaller */
-    .strategy-tag { font-size: 9.5px; padding: 2px 6px; }
-    .result-pill { font-size: 10px; padding: 2px 7px 2px 6px; }
+    .stream-dot + span { display: none; }
 }
 
-/* ── Small phones (< 380px) ── */
+/* ── Small phones ── */
 @media (max-width: 380px) {
-    .kpi-value { font-size: 20px; }
-    .kpi-cell { padding: 10px; }
+    .kpi-value { font-size: 18px; }
+    .kpi-cell { padding: 8px 10px 10px; }
     .card { margin: 0 6px 10px; }
     .filter-bar { padding: 8px 10px; }
-    .m-card { padding: 12px; }
+    .m-card { padding: 10px 12px; }
     .m-ticker { font-size: 13px; }
-    .m-price { font-size: 13px; }
+    .m-price { font-size: 12px; }
     .m-detail-grid { gap: 8px 10px; }
     .refresh-btn .btn-text { display: none; }
 }

@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>RapidSift Mobile Mockup</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: oklch(0.155 0.012 250);
+            --bg-elev: oklch(0.185 0.012 250);
+            --surface: oklch(0.205 0.012 250);
+            --surface-2: oklch(0.235 0.012 250);
+            --line: oklch(0.30 0.010 250 / 0.9);
+            --line-soft: oklch(0.30 0.010 250 / 0.45);
+            --grid: oklch(0.28 0.010 250 / 0.25);
+            --text: oklch(0.965 0.005 250);
+            --text-dim: oklch(0.74 0.008 250);
+            --text-mute: oklch(0.55 0.010 250);
+            --text-faint: oklch(0.42 0.010 250);
+            --accent: oklch(0.80 0.135 200);
+            --accent-dim: oklch(0.55 0.085 200);
+            --accent-soft: oklch(0.80 0.135 200 / 0.12);
+            --up: oklch(0.80 0.165 145);
+            --up-soft: oklch(0.80 0.165 145 / 0.14);
+            --down: oklch(0.72 0.185 25);
+            --down-soft: oklch(0.72 0.185 25 / 0.14);
+            --warn: oklch(0.83 0.150 80);
+            --warn-soft: oklch(0.83 0.150 80 / 0.14);
+            --mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+            --sans: 'Inter', ui-sans-serif, system-ui, -apple-system, sans-serif;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: var(--sans);
+            font-size: 13px;
+            line-height: 1.45;
+            background: var(--bg);
+            color: var(--text);
+            padding-bottom: 52px;
+            -webkit-text-size-adjust: 100%;
+        }
+        body::before {
+            content: "";
+            position: fixed; inset: 0;
+            pointer-events: none;
+            background-image:
+                linear-gradient(var(--grid) 1px, transparent 1px),
+                linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+            background-size: 48px 48px;
+            mask-image: radial-gradient(ellipse at 50% 0%, #000 0%, transparent 70%);
+            opacity: 0.4;
+            z-index: 0;
+        }
+        .num { font-family: var(--mono); font-variant-numeric: tabular-nums; letter-spacing: -0.01em; }
+
+        /* ── Topbar ── */
+        .topbar {
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 10px 14px;
+            border-bottom: 0.5px solid var(--line);
+            background: oklch(0.16 0.012 250 / 0.85);
+            backdrop-filter: blur(12px);
+            position: sticky; top: 0; z-index: 10;
+        }
+        .logo-group { display: flex; align-items: center; gap: 8px; }
+        .logo-name { font-size: 12px; font-weight: 600; letter-spacing: 0.01em; }
+        .market-status {
+            display: flex; align-items: center; gap: 8px;
+            font-size: 10px; color: var(--text-mute);
+        }
+        .status-dot {
+            width: 5px; height: 5px; border-radius: 50%;
+            display: inline-block;
+        }
+        .status-dot.open {
+            background: var(--up); box-shadow: 0 0 5px var(--up);
+            animation: pulseDot 2s ease-in-out infinite;
+        }
+        @keyframes pulseDot { 0%,100% { opacity:1; } 50% { opacity:0.35; } }
+        .refresh-btn {
+            appearance: none; display: inline-flex; align-items: center; gap: 5px;
+            padding: 5px 10px; border-radius: 6px;
+            font-size: 11px; font-weight: 500; font-family: inherit;
+            color: var(--bg); background: var(--accent);
+            border: 0.5px solid var(--accent);
+            box-shadow: 0 0 0 1px oklch(0.80 0.135 200 / 0.25);
+            cursor: pointer;
+        }
+
+        /* ── KPI Strip ── */
+        .kpi-strip {
+            display: grid; grid-template-columns: 1fr 1fr;
+            gap: 1px; background: var(--line);
+            border-top: 0.5px solid var(--line); border-bottom: 0.5px solid var(--line);
+            position: relative; z-index: 1;
+        }
+        .kpi-cell {
+            background: var(--bg); padding: 10px 12px 11px;
+            display: flex; flex-direction: column; gap: 3px;
+            position: relative; overflow: hidden;
+        }
+        .kpi-label {
+            font-size: 8.5px; font-weight: 500; letter-spacing: 0.08em;
+            text-transform: uppercase; color: var(--text-mute);
+        }
+        .kpi-value-row { display: flex; align-items: baseline; gap: 6px; }
+        .kpi-value {
+            font-family: var(--mono); font-size: 20px; font-weight: 500;
+            letter-spacing: -0.02em; color: var(--text);
+        }
+        .kpi-trend {
+            font-family: var(--mono); font-size: 9px; font-weight: 500;
+            display: inline-flex; align-items: center; gap: 2px;
+        }
+        .kpi-trend.up { color: var(--up); }
+        .kpi-sub { font-size: 9px; color: var(--text-mute); }
+        .kpi-corner { position: absolute; top: 0; right: 0; width: 16px; height: 16px; }
+        .kpi-corner.up { background: linear-gradient(135deg, transparent 50%, var(--up-soft) 50%); }
+        .kpi-corner.down { background: linear-gradient(135deg, transparent 50%, var(--down-soft) 50%); }
+
+        /* ── Filter Bar ── */
+        .filter-bar {
+            display: flex; align-items: flex-end; gap: 8px; padding: 10px 14px;
+            border-bottom: 0.5px solid var(--line);
+            overflow-x: auto; flex-wrap: nowrap;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+            position: relative; z-index: 1;
+        }
+        .filter-bar::-webkit-scrollbar { display: none; }
+        .filter-group { display: flex; flex-direction: column; gap: 2px; flex-shrink: 0; }
+        .filter-label {
+            font-size: 8.5px; font-weight: 500; letter-spacing: 0.08em;
+            text-transform: uppercase; color: var(--text-mute);
+        }
+        .filter-select {
+            appearance: none; -webkit-appearance: none;
+            padding: 5px 24px 5px 8px;
+            background: var(--surface); border: 0.5px solid var(--line);
+            border-radius: 6px; color: var(--text);
+            font-family: inherit; font-size: 11px; cursor: pointer; min-width: 80px;
+            background-image: url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 1 L5 5 L10 1' fill='none' stroke='%23757b85' stroke-width='1' stroke-linecap='round'/%3E%3C/svg%3E");
+            background-repeat: no-repeat; background-position: right 8px center;
+        }
+
+        /* ── Card container ── */
+        .card {
+            border: 0.5px solid var(--line); border-radius: 8px;
+            background: var(--bg-elev); overflow: hidden;
+            margin: 0 10px 12px;
+            position: relative; z-index: 1;
+        }
+        .card-header {
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 10px 14px; border-bottom: 0.5px solid var(--line);
+            background: oklch(0.19 0.012 250);
+        }
+        .card-header h2 { font-size: 12px; font-weight: 500; letter-spacing: 0.01em; }
+
+        /* ── Strategy tags ── */
+        .strategy-tag {
+            display: inline-flex; align-items: center; gap: 4px;
+            font-family: var(--mono); font-size: 9px; font-weight: 500;
+            letter-spacing: 0.04em; text-transform: uppercase;
+            padding: 2px 5px; border-radius: 3px;
+        }
+        .strategy-tag .dot { width: 3px; height: 3px; border-radius: 50%; }
+        .strategy-tag.tone-accent { color: var(--accent); border: 0.5px solid var(--accent); }
+        .strategy-tag.tone-accent .dot { background: var(--accent); }
+        .strategy-tag.tone-up { color: var(--up); border: 0.5px solid var(--up); }
+        .strategy-tag.tone-up .dot { background: var(--up); }
+        .strategy-tag.tone-down { color: var(--down); border: 0.5px solid var(--down); }
+        .strategy-tag.tone-down .dot { background: var(--down); }
+        .strategy-tag.tone-warn { color: var(--warn); border: 0.5px solid var(--warn); }
+        .strategy-tag.tone-warn .dot { background: var(--warn); }
+
+        /* ── Result pills ── */
+        .result-pill {
+            display: inline-flex; align-items: center; gap: 4px;
+            font-size: 10px; font-weight: 500; letter-spacing: 0.02em;
+            padding: 2px 7px 2px 5px; border-radius: 999px;
+        }
+        .result-pill .rdot { width: 4px; height: 4px; border-radius: 50%; }
+        .result-pill.win { color: var(--up); background: var(--up-soft); border: 0.5px solid var(--up); }
+        .result-pill.win .rdot { background: var(--up); box-shadow: 0 0 4px var(--up); }
+        .result-pill.loss { color: var(--down); background: var(--down-soft); border: 0.5px solid var(--down); }
+        .result-pill.loss .rdot { background: var(--down); box-shadow: 0 0 4px var(--down); }
+        .result-pill.pending { color: var(--text-dim); background: oklch(0.30 0.008 250 / 0.5); border: 0.5px solid var(--line); }
+        .result-pill.pending .rdot { background: var(--text-dim); animation: pulseDot 1.6s ease-in-out infinite; }
+
+        /* ── Win rate gauge ── */
+        .wr-gauge { display: flex; align-items: center; gap: 6px; }
+        .wr-bar { display: flex; gap: 1.5px; width: 50px; }
+        .wr-seg { flex: 1; height: 6px; border-radius: 1px; }
+        .wr-seg.unlit { background: oklch(0.32 0.008 250); opacity: 0.7; }
+        .wr-num { font-family: var(--mono); font-weight: 500; font-size: 11px; min-width: 36px; text-align: right; }
+
+        /* ── Drawdown bar ── */
+        .dd-wrap { display: flex; align-items: center; gap: 6px; }
+        .dd-track { position: relative; width: 44px; height: 3px; border-radius: 1px; background: oklch(0.28 0.008 250); }
+        .dd-fill { position: absolute; right: 0; top: 0; bottom: 0; border-radius: 1px; }
+        .dd-num { font-family: var(--mono); font-weight: 500; font-size: 11px; min-width: 36px; text-align: right; }
+
+        /* ══ SIGNAL CARDS ══ */
+        .m-card {
+            padding: 12px 14px;
+            border-bottom: 0.5px solid var(--line-soft);
+            cursor: pointer;
+            -webkit-tap-highlight-color: transparent;
+            transition: background 0.12s;
+        }
+        .m-card:active { background: oklch(0.21 0.014 250); }
+        .m-card:last-child { border-bottom: 0; }
+
+        .m-card-head {
+            display: flex; align-items: center;
+            justify-content: space-between; gap: 8px;
+        }
+        .m-card-left { display: flex; align-items: center; gap: 8px; overflow: hidden; }
+        .m-ticker {
+            font-family: var(--mono); font-weight: 600;
+            font-size: 14px; letter-spacing: 0.02em;
+            color: var(--text); white-space: nowrap;
+        }
+        .m-card-right {
+            display: flex; flex-direction: column;
+            align-items: flex-end; gap: 1px; flex-shrink: 0;
+        }
+        .m-price { font-family: var(--mono); font-weight: 500; font-size: 13px; color: var(--text); }
+        .m-pct { font-family: var(--mono); font-weight: 500; font-size: 10px; }
+        .m-pct.up { color: var(--up); }
+        .m-pct.down { color: var(--down); }
+
+        .m-card-sub {
+            display: flex; align-items: center;
+            justify-content: space-between;
+            margin-top: 5px; gap: 8px;
+        }
+        .m-date { font-family: var(--mono); font-size: 10.5px; color: var(--text-mute); }
+
+        /* Expand chevron */
+        .m-chevron {
+            width: 10px; height: 10px; flex-shrink: 0; margin-left: 2px;
+            transition: transform 0.2s;
+            color: var(--text-faint);
+        }
+        .m-card.expanded .m-chevron { transform: rotate(180deg); }
+
+        /* Expandable detail */
+        .m-card-detail {
+            display: none;
+            margin-top: 10px; padding-top: 10px;
+            border-top: 0.5px solid var(--line-soft);
+        }
+        .m-card.expanded .m-card-detail { display: block; }
+
+        .m-detail-grid {
+            display: grid; grid-template-columns: 1fr 1fr;
+            gap: 10px 14px;
+        }
+        .m-detail-cell { display: flex; flex-direction: column; gap: 2px; }
+        .m-detail-label {
+            font-size: 8.5px; font-weight: 500;
+            letter-spacing: 0.08em; text-transform: uppercase;
+            color: var(--text-mute);
+        }
+        .m-detail-value { font-size: 12px; color: var(--text-dim); }
+        .m-detail-full { grid-column: 1 / -1; display: flex; flex-direction: column; gap: 2px; }
+
+        /* ══ BOTTOM NAV ══ */
+        .m-bottom-nav {
+            display: flex;
+            position: fixed; bottom: 0; left: 0; right: 0; z-index: 200;
+            background: oklch(0.14 0.012 250 / 0.96);
+            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            border-top: 0.5px solid var(--line);
+            padding: 2px 0;
+            padding-bottom: max(2px, env(safe-area-inset-bottom));
+        }
+        .m-bottom-nav a {
+            flex: 1; display: flex; flex-direction: column;
+            align-items: center; gap: 1px; padding: 4px 0 3px;
+            text-decoration: none; color: var(--text-mute);
+            font-size: 9px; font-weight: 500;
+            letter-spacing: 0.02em; transition: color 0.15s;
+        }
+        .m-bottom-nav a.active { color: var(--accent); }
+        .m-bottom-nav a svg { width: 16px; height: 16px; opacity: 0.4; transition: opacity 0.15s; }
+        .m-bottom-nav a.active svg { opacity: 1; }
+
+        /* ── Annotation labels (mockup only) ── */
+        .annotation {
+            position: absolute; right: 8px;
+            font-size: 9px; font-family: var(--mono);
+            color: oklch(0.70 0.18 330); background: oklch(0.70 0.18 330 / 0.12);
+            padding: 1px 5px; border-radius: 3px;
+            border: 0.5px solid oklch(0.70 0.18 330 / 0.3);
+            pointer-events: none; z-index: 50;
+        }
+    </style>
+</head>
+<body>
+
+<!-- ── TOPBAR ── -->
+<div class="topbar">
+    <div class="logo-group">
+        <svg width="20" height="20" viewBox="0 0 22 22">
+            <rect x="1" y="1" width="20" height="20" rx="4" fill="none" stroke="var(--accent)" stroke-width=".75"/>
+            <path d="M4 14 L8 9 L12 12 L18 5" fill="none" stroke="var(--accent)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="18" cy="5" r="1.6" fill="var(--accent)"/>
+        </svg>
+        <span class="logo-name">RAPIDSIFT</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:8px">
+        <div class="market-status">
+            <span class="status-dot open"></span>
+            <span class="num" style="color:var(--up);font-size:10px">OPEN</span>
+            <span class="num" style="color:var(--text-dim);font-size:10px">10:26 ET</span>
+        </div>
+        <button class="refresh-btn">
+            <svg width="10" height="10" viewBox="0 0 12 12">
+                <path d="M6 1.5 v 3.5 M6 1.5 L 4.2 3.2 M6 1.5 L 7.8 3.2 M2 7 a 4 4 0 1 0 8 0 v -1.2"
+                      fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+            </svg>
+            <span style="font-size:10px">Refresh</span>
+        </button>
+    </div>
+</div>
+
+<!-- ── KPI STRIP ── -->
+<div class="kpi-strip">
+    <div class="kpi-cell">
+        <span class="kpi-label">Buy Signals</span>
+        <div class="kpi-value-row">
+            <span class="kpi-value">12</span>
+            <span class="kpi-trend up">
+                <svg width="7" height="7" viewBox="0 0 8 8"><path d="M4 1 L7 5 L1 5 Z" fill="currentColor"/></svg>
+                14d
+            </span>
+        </div>
+        <span class="kpi-corner up"></span>
+    </div>
+    <div class="kpi-cell">
+        <span class="kpi-label">Tickers</span>
+        <div class="kpi-value-row">
+            <span class="kpi-value">10</span>
+        </div>
+        <span class="kpi-sub">unique</span>
+        <span class="kpi-corner up"></span>
+    </div>
+    <div class="kpi-cell">
+        <span class="kpi-label">Avg Win Rate</span>
+        <div class="kpi-value-row">
+            <span class="kpi-value">58.3%</span>
+        </div>
+        <span class="kpi-sub">+5% target</span>
+        <span class="kpi-corner up"></span>
+    </div>
+    <div class="kpi-cell">
+        <span class="kpi-label">Open Positions</span>
+        <div class="kpi-value-row">
+            <span class="kpi-value">8</span>
+        </div>
+        <span class="kpi-sub">pending</span>
+        <span class="kpi-corner down"></span>
+    </div>
+</div>
+
+<!-- ── FILTERS ── -->
+<div class="filter-bar">
+    <div class="filter-group">
+        <span class="filter-label">Target</span>
+        <select class="filter-select"><option>+5%</option></select>
+    </div>
+    <div class="filter-group">
+        <span class="filter-label">Win Rate &ge;</span>
+        <select class="filter-select"><option>50%</option></select>
+    </div>
+    <div class="filter-group">
+        <span class="filter-label">Fired &ge;</span>
+        <select class="filter-select"><option>3&times;</option></select>
+    </div>
+</div>
+
+<!-- ── SIGNAL CARDS ── -->
+<div class="card" style="margin-top:0;border-radius:0 0 8px 8px">
+    <div class="card-header">
+        <h2>Latest buy signals <span style="font-size:9px;color:var(--up);font-weight:400;margin-left:6px">LIVE</span></h2>
+    </div>
+
+    <!-- Card 1: Collapsed -->
+    <div class="m-card" onclick="this.classList.toggle('expanded')">
+        <div class="m-card-head">
+            <div class="m-card-left">
+                <span class="m-ticker">NVDA</span>
+                <span class="strategy-tag tone-up"><span class="dot"></span>RSI</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:6px">
+                <div class="m-card-right">
+                    <span class="m-price">$132.50</span>
+                    <span class="m-pct down">-0.53%</span>
+                </div>
+                <svg class="m-chevron" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3.5 L5 6.5 L8 3.5"/></svg>
+            </div>
+        </div>
+        <div class="m-card-sub">
+            <span class="m-date">2026-05-29</span>
+            <span class="result-pill pending"><span class="rdot"></span>Pending</span>
+        </div>
+        <div class="m-card-detail">
+            <div class="m-detail-grid">
+                <div class="m-detail-full">
+                    <span class="m-detail-label">Detail</span>
+                    <span class="m-detail-value">RSI=28.4 crossed below 30</span>
+                </div>
+                <div class="m-detail-cell">
+                    <span class="m-detail-label">Latest</span>
+                    <span class="m-detail-value num">$131.80</span>
+                </div>
+                <div class="m-detail-cell">
+                    <span class="m-detail-label">Fired</span>
+                    <span class="m-detail-value num">6x</span>
+                </div>
+                <div class="m-detail-cell">
+                    <span class="m-detail-label">Win Rate (+5%)</span>
+                    <div class="wr-gauge"><div class="wr-bar"><span class="wr-seg" style="background:var(--up);box-shadow:0 0 5px var(--up)"></span><span class="wr-seg" style="background:var(--up);box-shadow:0 0 5px var(--up)"></span><span class="wr-seg" style="background:var(--up);box-shadow:0 0 5px var(--up)"></span><span class="wr-seg" style="background:var(--up);box-shadow:0 0 5px var(--up)"></span><span class="wr-seg" style="background:var(--up);box-shadow:0 0 5px var(--up)"></span><span class="wr-seg" style="background:var(--up);box-shadow:0 0 5px var(--up)"></span><span class="wr-seg" style="background:var(--up);box-shadow:0 0 5px var(--up)"></span><span class="wr-seg unlit"></span><span class="wr-seg unlit"></span><span class="wr-seg unlit"></span></div><span class="wr-num" style="color:var(--up)">66.7%</span></div>
+                </div>
+                <div class="m-detail-cell">
+                    <span class="m-detail-label">Win Rate (+10%)</span>
+                    <div class="wr-gauge"><div class="wr-bar"><span class="wr-seg" style="background:var(--warn);box-shadow:0 0 5px var(--warn)"></span><span class="wr-seg" style="background:var(--warn);box-shadow:0 0 5px var(--warn)"></span><span class="wr-seg" style="background:var(--warn);box-shadow:0 0 5px var(--warn)"></span><span class="wr-seg unlit"></span><span class="wr-seg unlit"></span><span class="wr-seg unlit"></span><span class="wr-seg unlit"></span><span class="wr-seg unlit"></span><span class="wr-seg unlit"></span><span class="wr-seg unlit"></span></div><span class="wr-num" style="color:var(--warn)">33.3%</span></div>
+                </div>
+                <div class="m-detail-cell">
+                    <span class="m-detail-label">Max Drawdown</span>
+                    <div class="dd-wrap"><div class="dd-track"><div class="dd-fill" style="width:5%;background:var(--warn);box-shadow:0 0 4px var(--warn)"></div></div><span class="dd-num" style="color:var(--warn)">-1.2%</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Card 2: Collapsed -->
+    <div class="m-card" onclick="this.classList.toggle('expanded')">
+        <div class="m-card-head">
+            <div class="m-card-left">
+                <span class="m-ticker">TSLA</span>
+                <span class="strategy-tag tone-accent"><span class="dot"></span>MACD</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:6px">
+                <div class="m-card-right">
+                    <span class="m-price">$285.30</span>
+                    <span class="m-pct up">+0.98%</span>
+                </div>
+                <svg class="m-chevron" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3.5 L5 6.5 L8 3.5"/></svg>
+            </div>
+        </div>
+        <div class="m-card-sub">
+            <span class="m-date">2026-05-29</span>
+            <span class="result-pill pending"><span class="rdot"></span>Pending</span>
+        </div>
+        <div class="m-card-detail">
+            <div class="m-detail-grid">
+                <div class="m-detail-full">
+                    <span class="m-detail-label">Detail</span>
+                    <span class="m-detail-value">MACD bullish crossover</span>
+                </div>
+                <div class="m-detail-cell">
+                    <span class="m-detail-label">Latest</span>
+                    <span class="m-detail-value num">$288.10</span>
+                </div>
+                <div class="m-detail-cell">
+                    <span class="m-detail-label">Fired</span>
+                    <span class="m-detail-value num">4x</span>
+                </div>
+                <div class="m-detail-cell">
+                    <span class="m-detail-label">Win Rate (+5%)</span>
+                    <div class="wr-gauge"><div class="wr-bar"><span class="wr-seg" style="background:var(--warn);box-shadow:0 0 5px var(--warn)"></span><span class="wr-seg" style="background:var(--warn);box-shadow:0 0 5px var(--warn)"></span><span class="wr-seg" style="background:var(--warn);box-shadow:0 0 5px var(--warn)"></span><span class="wr-seg" style="background:var(--warn);box-shadow:0 0 5px var(--warn)"></span><span class="wr-seg" style="background:var(--warn);box-shadow:0 0 5px var(--warn)"></span><span class="wr-seg unlit"></span><span class="wr-seg unlit"></span><span class="wr-seg unlit"></span><span class="wr-seg unlit"></span><span class="wr-seg unlit"></span></div><span class="wr-num" style="color:var(--warn)">50.0%</span></div>
+                </div>
+                <div class="m-detail-cell">
+                    <span class="m-detail-label">Max Drawdown</span>
+                    <div class="dd-wrap"><div class="dd-track"><div class="dd-fill" style="width:3.2%;background:var(--warn);box-shadow:0 0 4px var(--warn)"></div></div><span class="dd-num" style="color:var(--warn)">-0.8%</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Card 3: Expanded (showing detail panel) -->
+    <div class="m-card expanded" onclick="this.classList.toggle('expanded')">
+        <div class="m-card-head">
+            <div class="m-card-left">
+                <span class="m-ticker">PLTR</span>
+                <span class="strategy-tag tone-down"><span class="dot"></span>% CHANGE</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:6px">
+                <div class="m-card-right">
+                    <span class="m-price">$42.15</span>
+                    <span class="m-pct up">+2.49%</span>
+                </div>
+                <svg class="m-chevron" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3.5 L5 6.5 L8 3.5"/></svg>
+            </div>
+        </div>
+        <div class="m-card-sub">
+            <span class="m-date">2026-05-28</span>
+            <span class="result-pill pending"><span class="rdot"></span>Pending</span>
+        </div>
+        <div class="m-card-detail">
+            <div class="m-detail-grid">
+                <div class="m-detail-full">
+                    <span class="m-detail-label">Detail</span>
+                    <span class="m-detail-value">Daily move -4.21% (-2.3&sigma;)</span>
+                </div>
+                <div class="m-detail-cell">
+                    <span class="m-detail-label">Latest</span>
+                    <span class="m-detail-value num">$43.20</span>
+                </div>
+                <div class="m-detail-cell">
+                    <span class="m-detail-label">Fired</span>
+                    <span class="m-detail-value num">5x</span>
+                </div>
+                <div class="m-detail-cell">
+                    <span class="m-detail-label">Win Rate (+5%)</span>
+                    <div class="wr-gauge"><div class="wr-bar"><span class="wr-seg" style="background:var(--up);box-shadow:0 0 5px var(--up)"></span><span class="wr-seg" style="background:var(--up);box-shadow:0 0 5px var(--up)"></span><span class="wr-seg" style="background:var(--up);box-shadow:0 0 5px var(--up)"></span><span class="wr-seg" style="background:var(--up);box-shadow:0 0 5px var(--up)"></span><span class="wr-seg" style="background:var(--up);box-shadow:0 0 5px var(--up)"></span><span class="wr-seg" style="background:var(--up);box-shadow:0 0 5px var(--up)"></span><span class="wr-seg unlit"></span><span class="wr-seg unlit"></span><span class="wr-seg unlit"></span><span class="wr-seg unlit"></span></div><span class="wr-num" style="color:var(--up)">60.0%</span></div>
+                </div>
+                <div class="m-detail-cell">
+                    <span class="m-detail-label">Win Rate (+10%)</span>
+                    <div class="wr-gauge"><div class="wr-bar"><span class="wr-seg" style="background:var(--warn);box-shadow:0 0 5px var(--warn)"></span><span class="wr-seg" style="background:var(--warn);box-shadow:0 0 5px var(--warn)"></span><span class="wr-seg" style="background:var(--warn);box-shadow:0 0 5px var(--warn)"></span><span class="wr-seg" style="background:var(--warn);box-shadow:0 0 5px var(--warn)"></span><span class="wr-seg unlit"></span><span class="wr-seg unlit"></span><span class="wr-seg unlit"></span><span class="wr-seg unlit"></span><span class="wr-seg unlit"></span><span class="wr-seg unlit"></span></div><span class="wr-num" style="color:var(--warn)">40.0%</span></div>
+                </div>
+                <div class="m-detail-cell">
+                    <span class="m-detail-label">Max Drawdown</span>
+                    <div class="dd-wrap"><div class="dd-track"><div class="dd-fill" style="width:6%;background:var(--warn);box-shadow:0 0 4px var(--warn)"></div></div><span class="dd-num" style="color:var(--warn)">-1.5%</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Card 4: Win result -->
+    <div class="m-card" onclick="this.classList.toggle('expanded')">
+        <div class="m-card-head">
+            <div class="m-card-left">
+                <span class="m-ticker">SMCI</span>
+                <span class="strategy-tag tone-accent"><span class="dot"></span>MACD</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:6px">
+                <div class="m-card-right">
+                    <span class="m-price">$38.75</span>
+                    <span class="m-pct up">+8.65%</span>
+                </div>
+                <svg class="m-chevron" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3.5 L5 6.5 L8 3.5"/></svg>
+            </div>
+        </div>
+        <div class="m-card-sub">
+            <span class="m-date">2026-05-22</span>
+            <span class="result-pill win"><span class="rdot"></span>Win</span>
+        </div>
+        <div class="m-card-detail">
+            <div class="m-detail-grid">
+                <div class="m-detail-full">
+                    <span class="m-detail-label">Detail</span>
+                    <span class="m-detail-value">MACD bullish crossover</span>
+                </div>
+                <div class="m-detail-cell">
+                    <span class="m-detail-label">Latest</span>
+                    <span class="m-detail-value num">$42.10</span>
+                </div>
+                <div class="m-detail-cell">
+                    <span class="m-detail-label">Fired</span>
+                    <span class="m-detail-value num">7x</span>
+                </div>
+                <div class="m-detail-cell">
+                    <span class="m-detail-label">Win Rate (+5%)</span>
+                    <div class="wr-gauge"><div class="wr-bar"><span class="wr-seg" style="background:var(--up);box-shadow:0 0 5px var(--up)"></span><span class="wr-seg" style="background:var(--up);box-shadow:0 0 5px var(--up)"></span><span class="wr-seg" style="background:var(--up);box-shadow:0 0 5px var(--up)"></span><span class="wr-seg" style="background:var(--up);box-shadow:0 0 5px var(--up)"></span><span class="wr-seg" style="background:var(--up);box-shadow:0 0 5px var(--up)"></span><span class="wr-seg" style="background:var(--up);box-shadow:0 0 5px var(--up)"></span><span class="wr-seg unlit"></span><span class="wr-seg unlit"></span><span class="wr-seg unlit"></span><span class="wr-seg unlit"></span></div><span class="wr-num" style="color:var(--up)">57.1%</span></div>
+                </div>
+                <div class="m-detail-cell">
+                    <span class="m-detail-label">Max Drawdown</span>
+                    <div class="dd-wrap"><div class="dd-track"><div class="dd-fill" style="width:11.6%;background:var(--warn);box-shadow:0 0 4px var(--warn)"></div></div><span class="dd-num" style="color:var(--warn)">-2.9%</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Card 5: Loss result -->
+    <div class="m-card" onclick="this.classList.toggle('expanded')">
+        <div class="m-card-head">
+            <div class="m-card-left">
+                <span class="m-ticker">PLUG</span>
+                <span class="strategy-tag tone-up"><span class="dot"></span>RSI</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:6px">
+                <div class="m-card-right">
+                    <span class="m-price">$1.85</span>
+                    <span class="m-pct down">-7.03%</span>
+                </div>
+                <svg class="m-chevron" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3.5 L5 6.5 L8 3.5"/></svg>
+            </div>
+        </div>
+        <div class="m-card-sub">
+            <span class="m-date">2026-05-20</span>
+            <span class="result-pill loss"><span class="rdot"></span>Loss</span>
+        </div>
+        <div class="m-card-detail">
+            <div class="m-detail-grid">
+                <div class="m-detail-full">
+                    <span class="m-detail-label">Detail</span>
+                    <span class="m-detail-value">RSI=22.1 crossed below 30</span>
+                </div>
+                <div class="m-detail-cell">
+                    <span class="m-detail-label">Latest</span>
+                    <span class="m-detail-value num">$1.72</span>
+                </div>
+                <div class="m-detail-cell">
+                    <span class="m-detail-label">Fired</span>
+                    <span class="m-detail-value num">6x</span>
+                </div>
+                <div class="m-detail-cell">
+                    <span class="m-detail-label">Win Rate (+5%)</span>
+                    <div class="wr-gauge"><div class="wr-bar"><span class="wr-seg" style="background:var(--down);box-shadow:0 0 5px var(--down)"></span><span class="wr-seg" style="background:var(--down);box-shadow:0 0 5px var(--down)"></span><span class="wr-seg" style="background:var(--down);box-shadow:0 0 5px var(--down)"></span><span class="wr-seg unlit"></span><span class="wr-seg unlit"></span><span class="wr-seg unlit"></span><span class="wr-seg unlit"></span><span class="wr-seg unlit"></span><span class="wr-seg unlit"></span><span class="wr-seg unlit"></span></div><span class="wr-num" style="color:var(--down)">33.3%</span></div>
+                </div>
+                <div class="m-detail-cell">
+                    <span class="m-detail-label">Max Drawdown</span>
+                    <div class="dd-wrap"><div class="dd-track"><div class="dd-fill" style="width:38%;background:var(--down);box-shadow:0 0 4px var(--down)"></div></div><span class="dd-num" style="color:var(--down)">-9.5%</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ── BOTTOM NAV ── -->
+<nav class="m-bottom-nav">
+    <a href="#">
+        <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 14 L7 8 L11 11 L17 4"/><circle cx="17" cy="4" r="1.5" fill="currentColor"/></svg>
+        Charts
+    </a>
+    <a href="#" class="active">
+        <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10 L8 14 L16 6"/></svg>
+        Signals
+    </a>
+    <a href="#">
+        <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="3" height="9" rx="1"/><rect x="8.5" y="5" width="3" height="12" rx="1"/><rect x="14" y="3" width="3" height="14" rx="1"/></svg>
+        Reliability
+    </a>
+    <a href="#">
+        <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="10" r="7"/><path d="M10 6 v4 l3 2"/></svg>
+        Strategies
+    </a>
+</nav>
+
+</body>
+</html>
