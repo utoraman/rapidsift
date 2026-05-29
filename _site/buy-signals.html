@@ -5,9 +5,11 @@
 <head>
     <title>RapidSift</title>
     <!-- charts are pure SVG, no external charting library -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/mobile.css">
     <style>
         :root {
             --bg: oklch(0.155 0.012 250);
@@ -13603,6 +13605,7 @@
                 
                 </tbody>
             </table>
+            <div class="m-signal-cards" id="m-signal-cards"></div>
         </div>
         <div class="card-footer">
             <div style="display:flex;gap:18px">
@@ -13788,6 +13791,10 @@
                     footer.innerHTML = '<span>Data from <span class="num" style="color:var(--text-dim)">' + data.generated_at + '</span></span>';
                 }
 
+                // Store for mobile renderer
+                window._liveSignalData = data.signals;
+                window.dispatchEvent(new Event('rapidsift:live-loaded'));
+
                 console.log('[RapidSift] Loaded ' + data.signals.length + ' live signals from ' + data.generated_at);
             })
             .catch(function(err) {
@@ -13867,5 +13874,279 @@ function refreshData(btn) {
     }, 1500);
 }
 </script>
+<!-- Mobile bottom navigation -->
+<nav class="m-bottom-nav">
+    <a href="/index.html">
+        <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 14 L7 8 L11 11 L17 4"/><circle cx="17" cy="4" r="1.5" fill="currentColor"/>
+        </svg>
+        Charts
+    </a>
+    <a href="/buy-signals.html" class="active">
+        <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 10 L8 14 L16 6"/>
+        </svg>
+        Signals
+    </a>
+    <a href="/reliability.html">
+        <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="8" width="3" height="9" rx="1"/><rect x="8.5" y="5" width="3" height="12" rx="1"/><rect x="14" y="3" width="3" height="14" rx="1"/>
+        </svg>
+        Reliability
+    </a>
+    <a href="/strategies.html">
+        <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="10" cy="10" r="7"/><path d="M10 6 v4 l3 2"/>
+        </svg>
+        Strategies
+    </a>
+</nav>
+
+<!-- Mobile signal card renderer -->
+<script>
+(function() {
+    var TONES = {
+        'rsi': 'up', 'macd': 'accent', 'ma_crossover': 'warn',
+        'percent_change': 'down', 'volume_spike': 'accent'
+    };
+    var LABELS = {
+        'rsi': 'RSI', 'macd': 'MACD', 'ma_crossover': 'MA Cross',
+        'percent_change': '% Change', 'volume_spike': 'Vol Spike'
+    };
+
+    function mWrColor(v) {
+        if (v >= 60) return 'var(--up)';
+        if (v >= 40) return 'var(--warn)';
+        return 'var(--down)';
+    }
+
+    function mWrGauge(wr) {
+        var lit = Math.round(wr / 10);
+        var c = mWrColor(wr);
+        var s = '';
+        for (var i = 0; i < 10; i++) {
+            s += i < lit
+                ? '<span class="wr-seg" style="background:' + c + ';box-shadow:0 0 6px ' + c + '"></span>'
+                : '<span class="wr-seg unlit"></span>';
+        }
+        return '<div class="wr-gauge"><div class="wr-bar">' + s + '</div>' +
+               '<span class="wr-num" style="color:' + c + '">' + wr.toFixed(1) + '%</span></div>';
+    }
+
+    function mDdBar(dd) {
+        var w = Math.min(100, Math.abs(dd) * 4).toFixed(1);
+        var c = Math.abs(dd) > 10 ? 'var(--down)' : 'var(--warn)';
+        return '<div class="dd-wrap"><div class="dd-track"><div class="dd-fill" style="width:' + w +
+               '%;background:' + c + ';box-shadow:0 0 4px ' + c + '"></div></div>' +
+               '<span class="dd-num" style="color:' + c + '">' + dd.toFixed(1) + '%</span></div>';
+    }
+
+    function mResultPill(r) {
+        if (r === 'win') return '<span class="result-pill win"><span class="rdot"></span>Win</span>';
+        if (r === 'loss') return '<span class="result-pill loss"><span class="rdot"></span>Loss</span>';
+        return '<span class="result-pill pending"><span class="rdot"></span>Pending</span>';
+    }
+
+    function buildMobileCard(s) {
+        var tone = TONES[s.type] || 'accent';
+        var label = LABELS[s.type] || s.type;
+        var pct = s.current_pct || 0;
+        var pctClass = pct >= 0 ? 'up' : 'down';
+        var pctStr = (pct >= 0 ? '+' : '') + pct.toFixed(2) + '%';
+        var gt = document.getElementById('gain-target');
+        var target = gt ? gt.value : '5';
+        var result = target === '10' ? s.result_10 : s.result_5;
+        var wr = target === '10' ? s.wr10 : s.wr5;
+
+        var card = document.createElement('div');
+        card.className = 'm-card';
+        card.setAttribute('data-wr5', s.wr5);
+        card.setAttribute('data-wr10', s.wr10);
+        card.setAttribute('data-fired', s.fired);
+
+        card.innerHTML =
+            '<div class="m-card-head">' +
+                '<div class="m-card-left">' +
+                    '<span class="m-ticker">' + s.ticker + '</span>' +
+                    '<span class="strategy-tag tone-' + tone + '"><span class="dot"></span>' + label + '</span>' +
+                '</div>' +
+                '<div class="m-card-right">' +
+                    '<span class="m-price">$' + s.price.toLocaleString(undefined, {minimumFractionDigits:2, maximumFractionDigits:2}) + '</span>' +
+                    '<span class="m-pct ' + pctClass + '">' + pctStr + '</span>' +
+                '</div>' +
+            '</div>' +
+            '<div class="m-card-sub">' +
+                '<span class="m-date">' + s.date + '</span>' +
+                '<span class="m-result">' + mResultPill(result) + '</span>' +
+            '</div>' +
+            '<div class="m-card-detail">' +
+                '<div class="m-detail-grid">' +
+                    '<div class="m-detail-full">' +
+                        '<span class="m-detail-label">Detail</span>' +
+                        '<span class="m-detail-value">' + s.detail + '</span>' +
+                    '</div>' +
+                    '<div class="m-detail-cell">' +
+                        '<span class="m-detail-label">Entry</span>' +
+                        '<span class="m-detail-value num">$' + (s.latest_price || s.price).toLocaleString(undefined, {minimumFractionDigits:2, maximumFractionDigits:2}) + '</span>' +
+                    '</div>' +
+                    '<div class="m-detail-cell">' +
+                        '<span class="m-detail-label">Fired</span>' +
+                        '<span class="m-detail-value num">' + s.fired + 'x</span>' +
+                    '</div>' +
+                    '<div class="m-detail-cell">' +
+                        '<span class="m-detail-label">Win Rate (+5%)</span>' +
+                        '<span class="m-detail-value">' + mWrGauge(s.wr5) + '</span>' +
+                    '</div>' +
+                    '<div class="m-detail-cell">' +
+                        '<span class="m-detail-label">Win Rate (+10%)</span>' +
+                        '<span class="m-detail-value">' + mWrGauge(s.wr10) + '</span>' +
+                    '</div>' +
+                    '<div class="m-detail-cell">' +
+                        '<span class="m-detail-label">Max Drawdown</span>' +
+                        '<span class="m-detail-value">' + mDdBar(s.max_drawdown_pct) + '</span>' +
+                    '</div>' +
+                    '<div class="m-detail-cell">' +
+                        '<span class="m-detail-label">Result (+10%)</span>' +
+                        '<span class="m-detail-value">' + mResultPill(s.result_10) + '</span>' +
+                    '</div>' +
+                    (s.sparkline ? '<div class="m-detail-sparkline">' + s.sparkline + '</div>' : '') +
+                '</div>' +
+            '</div>';
+
+        card.addEventListener('click', function(e) {
+            card.classList.toggle('expanded');
+        });
+
+        return card;
+    }
+
+    // Listen for live data loaded event from desktop renderer
+    window.addEventListener('rapidsift:live-loaded', function() {
+        var signals = window._liveSignalData;
+        if (!signals || !signals.length) return;
+
+        var container = document.getElementById('m-signal-cards');
+        if (!container) return;
+        container.innerHTML = '';
+
+        signals.forEach(function(s) {
+            container.appendChild(buildMobileCard(s));
+        });
+
+        applyMobileFilters();
+    });
+
+    // Filter mobile cards when filters change
+    window.applyMobileFilters = function() {
+        var gt = document.getElementById('gain-target');
+        var target = gt ? gt.value : '5';
+        var wrAttr = target === '10' ? 'data-wr10' : 'data-wr5';
+        var minWr = parseFloat((document.getElementById('filter-wr') || {}).value) || 0;
+        var minFired = parseInt((document.getElementById('filter-fired') || {}).value) || 0;
+
+        var cards = document.querySelectorAll('.m-card');
+        cards.forEach(function(card) {
+            var wr = parseFloat(card.getAttribute(wrAttr));
+            var fired = parseInt(card.getAttribute('data-fired'));
+            var wrOk = isNaN(wr) ? (minWr === 0) : (wr >= minWr);
+            var firedOk = isNaN(fired) ? (minFired === 0) : (fired >= minFired);
+            card.style.display = (wrOk && firedOk) ? '' : 'none';
+        });
+    };
+
+    // Patch applyFilters to also filter mobile cards
+    var _origApply = window.applyFilters;
+    window.applyFilters = function() {
+        _origApply();
+        if (window.applyMobileFilters) applyMobileFilters();
+    };
+
+    // Build mobile cards from existing static desktop table (fallback)
+    function buildMobileFromDesktop() {
+        var container = document.getElementById('m-signal-cards');
+        if (!container) return;
+        var rows = document.querySelectorAll('.sig-table tbody tr');
+        if (!rows.length) return;
+
+        container.innerHTML = '';
+        rows.forEach(function(row) {
+            var tds = row.querySelectorAll('td');
+            if (tds.length < 10) return;
+
+            var card = document.createElement('div');
+            card.className = 'm-card';
+            card.setAttribute('data-wr5', row.getAttribute('data-wr5') || '0');
+            card.setAttribute('data-wr10', row.getAttribute('data-wr10') || '0');
+            card.setAttribute('data-fired', row.getAttribute('data-fired') || '0');
+
+            var ticker = (tds[2].textContent || '').trim();
+            var tag = tds[4] ? tds[4].innerHTML : '';
+            var price = (tds[6].textContent || '').trim();
+            var date = tds[1] ? (tds[1].querySelector('.num') || {}).textContent || '' : '';
+            var detail = (tds[5].textContent || '').trim();
+            var entry = tds[7] ? tds[7].innerHTML : '';
+            var result = tds[8] ? tds[8].innerHTML : '';
+            var dd = tds[9] ? tds[9].innerHTML : '';
+            var wr = tds[10] ? tds[10].innerHTML : '';
+            var fired = (tds[11] ? tds[11].textContent : '').trim();
+
+            card.innerHTML =
+                '<div class="m-card-head">' +
+                    '<div class="m-card-left">' +
+                        '<span class="m-ticker">' + ticker + '</span>' +
+                        tag +
+                    '</div>' +
+                    '<div class="m-card-right">' +
+                        '<span class="m-price">' + price + '</span>' +
+                    '</div>' +
+                '</div>' +
+                '<div class="m-card-sub">' +
+                    '<span class="m-date">' + date.trim() + '</span>' +
+                    '<span class="m-result">' + result + '</span>' +
+                '</div>' +
+                '<div class="m-card-detail">' +
+                    '<div class="m-detail-grid">' +
+                        '<div class="m-detail-full">' +
+                            '<span class="m-detail-label">Detail</span>' +
+                            '<span class="m-detail-value">' + detail + '</span>' +
+                        '</div>' +
+                        '<div class="m-detail-cell">' +
+                            '<span class="m-detail-label">Entry</span>' +
+                            '<span class="m-detail-value">' + entry + '</span>' +
+                        '</div>' +
+                        '<div class="m-detail-cell">' +
+                            '<span class="m-detail-label">Fired</span>' +
+                            '<span class="m-detail-value num">' + fired + '</span>' +
+                        '</div>' +
+                        '<div class="m-detail-cell">' +
+                            '<span class="m-detail-label">Win Rate</span>' +
+                            '<span class="m-detail-value">' + wr + '</span>' +
+                        '</div>' +
+                        '<div class="m-detail-cell">' +
+                            '<span class="m-detail-label">Drawdown</span>' +
+                            '<span class="m-detail-value">' + dd + '</span>' +
+                        '</div>' +
+                    '</div>' +
+                '</div>';
+
+            card.addEventListener('click', function() {
+                card.classList.toggle('expanded');
+            });
+
+            container.appendChild(card);
+        });
+
+        applyMobileFilters();
+    }
+
+    // On load, build mobile cards from static table (live loader will replace them)
+    document.addEventListener('DOMContentLoaded', function() {
+        if (window.innerWidth <= 820) {
+            buildMobileFromDesktop();
+        }
+    });
+})();
+</script>
+
 </body>
 </html>
