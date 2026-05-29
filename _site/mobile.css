@@ -20,13 +20,15 @@
 
     /* ══ TOPBAR ══ */
     .topbar {
-        padding: 5px 10px;
-        gap: 4px;
+        padding: 4px 8px !important;
+        gap: 3px !important;
         flex-wrap: wrap;
+        overflow: hidden;
     }
     .topbar-left {
         width: 100%;
         justify-content: space-between;
+        overflow: hidden;
     }
     .topbar-left > .vdiv,
     .topbar-left .tab-nav { display: none !important; }
@@ -34,11 +36,12 @@
         width: 100%;
         justify-content: space-between;
         gap: 4px;
+        overflow: hidden;
     }
     .topbar-right > .vdiv { display: none; }
-    .market-status { gap: 6px; font-size: 9px; }
+    .market-status { gap: 5px; font-size: 8px; }
     .market-status > div:nth-child(n+4) { display: none; }
-    .refresh-btn { padding: 3px 8px; font-size: 9px; gap: 4px; border-radius: 2px; }
+    .refresh-btn { padding: 3px 6px; font-size: 8px; gap: 3px; border-radius: 2px; }
 
     /* ══ BOTTOM NAV ══ */
     .m-bottom-nav {
@@ -65,31 +68,44 @@
 
     /* ══ KPI STRIP ══ */
     .kpi-strip {
-        flex-wrap: wrap;
+        flex-wrap: wrap !important;
+        padding: 0 !important;
+        gap: 0 !important;
     }
-    .kpi-cell { padding: 4px 10px; gap: 4px; }
-    .kpi-value { font-size: 9px; }
-    .kpi-label { font-size: 8px; }
+    .kpi-cell {
+        flex: 1 1 auto !important;
+        min-width: 0 !important;
+        padding: 6px 8px !important;
+        gap: 3px !important;
+        flex-direction: column !important;
+        align-items: flex-start !important;
+    }
+    .kpi-label { font-size: 7px !important; letter-spacing: 0.04em !important; }
+    .kpi-value-row { gap: 3px !important; }
+    .kpi-value { font-size: 11px !important; }
+    .kpi-trend { font-size: 7px !important; }
+    .kpi-sub { display: none !important; }
+    .kpi-corner { display: none !important; }
 
     /* ══ FILTER BAR ══ */
     .filter-bar {
-        padding: 4px 10px; gap: 6px;
-        overflow-x: auto; flex-wrap: nowrap;
+        padding: 4px 8px !important; gap: 6px !important;
+        overflow-x: auto; flex-wrap: nowrap !important;
         -webkit-overflow-scrolling: touch;
         scrollbar-width: none;
     }
     .filter-bar::-webkit-scrollbar { display: none; }
     .filter-group { flex-shrink: 0; }
-    .filter-label { font-size: 8px; }
-    .filter-select { min-width: 60px; font-size: 10px; padding: 2px 18px 2px 5px; border-radius: 2px; }
+    .filter-label { font-size: 7px !important; }
+    .filter-select { min-width: 55px; font-size: 9px !important; padding: 2px 16px 2px 4px !important; border-radius: 2px; }
     .filter-bar > div[style*="flex:1"],
     .filter-bar > div:last-child:not(.filter-group) { display: none; }
 
     /* ══ CARDS ══ */
-    .card { margin: 0 6px 8px; border-radius: 2px; }
-    .card-header { padding: 4px 10px; }
-    .card-header h2 { font-size: 9px; }
-    .card-footer { padding: 4px 10px; font-size: 9px; }
+    .card { margin: 0 !important; border-radius: 0 !important; }
+    .card-header { padding: 4px 8px !important; overflow: hidden; }
+    .card-header h2 { font-size: 8px !important; white-space: nowrap; }
+    .card-footer { padding: 4px 8px !important; font-size: 8px !important; }
     .card-footer .kbd { display: none; }
     .card-footer > div:last-child { display: none; }
     .chart-pad { padding: 8px; }
@@ -179,17 +195,32 @@
     .result-pill { font-size: 9px; padding: 1px 4px; }
     .result-pill .rdot { display: none; }
 
+    /* Hide overflow elements on mobile */
+    .legend-dot { width: 5px !important; height: 5px !important; }
+    .stream-dot + span { display: none; }
+
+    /* Card header: wrap and prevent overflow */
+    .card-header > div {
+        flex-wrap: wrap !important;
+        gap: 4px 8px !important;
+        overflow: hidden !important;
+    }
+
+    /* Filter bar legend: hide on mobile (colors are self-explanatory) */
+    .filter-bar > div[style*="gap"]:last-of-type {
+        font-size: 8px !important;
+    }
+
     /* Charts tab responsive */
     form.filter-bar { flex-wrap: nowrap; }
     .spark-detail { display: none !important; }
     .count-pill { font-size: 8px; }
-    .stream-dot + span { display: none; }
 }
 
 /* ── Small phones ── */
 @media (max-width: 380px) {
-    .kpi-value { font-size: 8px; }
-    .kpi-cell { padding: 3px 8px; }
+    .kpi-value { font-size: 9px !important; }
+    .kpi-cell { padding: 4px 6px !important; }
     .card { margin: 0 4px 6px; }
     .filter-bar { padding: 3px 6px; }
     .m-card { padding: 6px 8px; }
