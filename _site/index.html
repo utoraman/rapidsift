@@ -1,0 +1,1519 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>RapidSift</title>
+    <!-- charts are pure SVG, no external charting library -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: oklch(0.155 0.012 250);
+            --bg-elev: oklch(0.185 0.012 250);
+            --surface: oklch(0.205 0.012 250);
+            --surface-2: oklch(0.235 0.012 250);
+            --line: oklch(0.30 0.010 250 / 0.9);
+            --line-soft: oklch(0.30 0.010 250 / 0.45);
+            --grid: oklch(0.28 0.010 250 / 0.25);
+            --text: oklch(0.965 0.005 250);
+            --text-dim: oklch(0.74 0.008 250);
+            --text-mute: oklch(0.55 0.010 250);
+            --text-faint: oklch(0.42 0.010 250);
+            --accent: oklch(0.80 0.135 200);
+            --accent-dim: oklch(0.55 0.085 200);
+            --accent-soft: oklch(0.80 0.135 200 / 0.12);
+            --up: oklch(0.80 0.165 145);
+            --up-soft: oklch(0.80 0.165 145 / 0.14);
+            --down: oklch(0.72 0.185 25);
+            --down-soft: oklch(0.72 0.185 25 / 0.14);
+            --warn: oklch(0.83 0.150 80);
+            --warn-soft: oklch(0.83 0.150 80 / 0.14);
+            --mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+            --sans: 'Inter', ui-sans-serif, system-ui, -apple-system, sans-serif;
+            --row-h: 44px;
+            --r-sm: 4px;
+            --r-md: 6px;
+            --r-lg: 10px;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: var(--sans);
+            font-size: 13px;
+            line-height: 1.45;
+            background: var(--bg);
+            color: var(--text);
+            min-width: 1200px;
+        }
+        body::before {
+            content: "";
+            position: fixed; inset: 0;
+            pointer-events: none;
+            background-image:
+                linear-gradient(var(--grid) 1px, transparent 1px),
+                linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+            background-size: 80px 80px;
+            mask-image: radial-gradient(ellipse at 50% 0%, #000 0%, transparent 70%);
+            opacity: 0.4;
+            z-index: 0;
+        }
+        .num { font-family: var(--mono); font-variant-numeric: tabular-nums; letter-spacing: -0.01em; }
+
+        /* ── Top Bar ── */
+        .topbar {
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 14px 28px;
+            border-bottom: 0.5px solid var(--line);
+            background: oklch(0.16 0.012 250 / 0.85);
+            backdrop-filter: blur(12px);
+            position: sticky; top: 0; z-index: 10;
+        }
+        .topbar-left { display: flex; align-items: center; gap: 18px; }
+        .topbar-right { display: flex; align-items: center; gap: 18px; }
+        .logo-group { display: flex; align-items: center; gap: 10px; }
+        .logo-text { display: flex; flex-direction: column; line-height: 1.1; }
+        .logo-name { font-size: 13px; font-weight: 600; letter-spacing: 0.01em; }
+        .logo-sub { font-size: 10px; color: var(--text-mute); font-family: var(--mono); letter-spacing: 0.05em; }
+        .vdiv { width: 1px; height: 22px; background: var(--line); }
+
+        /* Tab nav */
+        .tab-nav { display: flex; gap: 2px; }
+        .tab-btn {
+            appearance: none; border: 0; background: transparent;
+            color: var(--text-mute); padding: 7px 12px; border-radius: 6px;
+            font-size: 12px; font-weight: 400; letter-spacing: 0.005em;
+            cursor: pointer; font-family: inherit; position: relative;
+            text-decoration: none; display: inline-block;
+        }
+        .tab-btn:hover { color: var(--text-dim); }
+        .tab-btn.active {
+            color: var(--text); font-weight: 500; background: var(--surface);
+        }
+        .tab-btn.active::after {
+            content: ""; position: absolute; left: 8px; right: 8px; bottom: -1px;
+            height: 1.5px; background: var(--accent); border-radius: 1px;
+            box-shadow: 0 0 6px var(--accent);
+        }
+
+        /* Market status */
+        .market-status { display: flex; align-items: center; gap: 14px; font-size: 11px; color: var(--text-mute); }
+        .pulse-dot {
+            width: 6px; height: 6px; border-radius: 50%; background: var(--up);
+            box-shadow: 0 0 6px var(--up); animation: pulseDot 2s ease-in-out infinite;
+            display: inline-block;
+        }
+        .status-dot {
+            width: 6px; height: 6px; border-radius: 50%;
+            display: inline-block; transition: all 0.3s;
+        }
+        .status-dot.open {
+            background: var(--up); box-shadow: 0 0 6px var(--up);
+            animation: pulseDot 2s ease-in-out infinite;
+        }
+        .status-dot.closed {
+            background: var(--down); box-shadow: 0 0 4px var(--down);
+            opacity: 0.7;
+        }
+        @keyframes pulseDot {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.35; }
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        /* Refresh button */
+        .refresh-btn {
+            appearance: none; display: inline-flex; align-items: center; gap: 8px;
+            padding: 7px 13px 7px 11px; border-radius: 7px;
+            font-size: 12px; font-weight: 500; font-family: inherit;
+            color: var(--bg); background: var(--accent);
+            border: 0.5px solid var(--accent);
+            box-shadow: 0 0 0 1px oklch(0.80 0.135 200 / 0.25), 0 4px 14px oklch(0.80 0.135 200 / 0.25);
+            cursor: pointer;
+        }
+        .refresh-btn:hover { filter: brightness(1.1); }
+        .refresh-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+        .refresh-btn .spinner {
+            display: none; width: 12px; height: 12px;
+            border: 2px solid var(--bg); border-top-color: transparent;
+            border-radius: 50%; animation: spin 0.6s linear infinite;
+        }
+        .refresh-btn.loading .spinner { display: inline-block; }
+        .refresh-btn.loading .btn-text { display: none; }
+
+        /* ── KPI Strip ── */
+        .kpi-strip {
+            display: grid; grid-template-columns: repeat(4, 1fr);
+            gap: 1px; background: var(--line);
+            border-top: 0.5px solid var(--line); border-bottom: 0.5px solid var(--line);
+        }
+        .kpi-cell {
+            background: var(--bg); padding: 18px 24px 20px;
+            display: flex; flex-direction: column; gap: 8px;
+            position: relative; overflow: hidden;
+        }
+        .kpi-label {
+            font-size: 10.5px; font-weight: 500; letter-spacing: 0.08em;
+            text-transform: uppercase; color: var(--text-mute);
+        }
+        .kpi-value-row { display: flex; align-items: baseline; gap: 10px; }
+        .kpi-value { font-family: var(--mono); font-size: 32px; font-weight: 500; letter-spacing: -0.02em; color: var(--text); }
+        .kpi-trend {
+            font-family: var(--mono); font-size: 11px; font-weight: 500;
+            display: inline-flex; align-items: center; gap: 3px;
+        }
+        .kpi-trend.up { color: var(--up); }
+        .kpi-trend.down { color: var(--down); }
+        .kpi-sub { font-size: 11px; color: var(--text-mute); }
+        .kpi-corner {
+            position: absolute; top: 0; right: 0; width: 24px; height: 24px;
+        }
+        .kpi-corner.up { background: linear-gradient(135deg, transparent 50%, var(--up-soft) 50%); }
+        .kpi-corner.down { background: linear-gradient(135deg, transparent 50%, var(--down-soft) 50%); }
+
+        /* ── Controls / Filter Bar ── */
+        .filter-bar {
+            display: flex; align-items: flex-end; gap: 14px; padding: 14px 28px;
+            border-bottom: 0.5px solid var(--line); flex-wrap: wrap;
+        }
+        .filter-group { display: flex; flex-direction: column; gap: 3px; }
+        .filter-label {
+            font-size: 9.5px; font-weight: 500; letter-spacing: 0.08em;
+            text-transform: uppercase; color: var(--text-mute);
+        }
+        .filter-select {
+            appearance: none; -webkit-appearance: none;
+            padding: 6px 28px 6px 10px;
+            background: var(--surface); border: 0.5px solid var(--line);
+            border-radius: 7px; color: var(--text);
+            font-family: inherit; font-size: 12px; cursor: pointer; min-width: 128px;
+            background-image: url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 1 L5 5 L10 1' fill='none' stroke='%23757b85' stroke-width='1' stroke-linecap='round'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 10px center;
+        }
+        .filter-select:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent-soft); }
+        .filter-select option { background: var(--bg-elev); color: var(--text); }
+
+        /* ── Cards ── */
+        .card {
+            border: 0.5px solid var(--line); border-radius: var(--r-lg);
+            background: var(--bg-elev); overflow: hidden; margin: 0 28px 28px;
+        }
+        .card-header {
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 14px 18px; border-bottom: 0.5px solid var(--line);
+            background: oklch(0.19 0.012 250);
+        }
+        .card-header h2 { font-size: 13px; font-weight: 500; letter-spacing: 0.01em; margin: 0; }
+        .card-footer {
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 12px 18px; border-top: 0.5px solid var(--line);
+            background: oklch(0.18 0.012 250); font-size: 11px; color: var(--text-mute);
+        }
+        .chart-pad { padding: 24px; }
+
+        /* ── Signals Table ── */
+        .sig-table { width: 100%; border-collapse: separate; border-spacing: 0; font-size: 12.5px; }
+        .sig-table thead th {
+            text-align: left; padding: 11px 14px;
+            font-size: 9.5px; font-weight: 500; letter-spacing: 0.08em;
+            text-transform: uppercase; color: var(--text-mute);
+            border-bottom: 0.5px solid var(--line);
+            background: oklch(0.18 0.012 250);
+            position: sticky; top: 0; white-space: nowrap;
+        }
+        .sig-table thead th.r { text-align: right; }
+        .sig-table tbody td {
+            padding: 0 14px; height: var(--row-h);
+            border-bottom: 0.5px solid var(--line-soft);
+            color: var(--text); vertical-align: middle;
+        }
+        .sig-table tbody td.r { text-align: right; }
+        .sig-table tbody tr { transition: background 0.12s; cursor: pointer; }
+        .sig-table tbody tr:hover { background: oklch(0.21 0.014 250); }
+
+        /* ── Inline Components ── */
+        .strategy-tag {
+            display: inline-flex; align-items: center; gap: 6px;
+            font-family: var(--mono); font-size: 10.5px; font-weight: 500;
+            letter-spacing: 0.04em; text-transform: uppercase;
+            padding: 2.5px 7px; border-radius: 3px; background: transparent;
+        }
+        .strategy-tag .dot { width: 3px; height: 3px; border-radius: 50%; }
+        .strategy-tag.tone-accent { color: var(--accent); border: 0.5px solid var(--accent); }
+        .strategy-tag.tone-accent .dot { background: var(--accent); }
+        .strategy-tag.tone-up { color: var(--up); border: 0.5px solid var(--up); }
+        .strategy-tag.tone-up .dot { background: var(--up); }
+        .strategy-tag.tone-down { color: var(--down); border: 0.5px solid var(--down); }
+        .strategy-tag.tone-down .dot { background: var(--down); }
+        .strategy-tag.tone-warn { color: var(--warn); border: 0.5px solid var(--warn); }
+        .strategy-tag.tone-warn .dot { background: var(--warn); }
+
+        .result-pill {
+            display: inline-flex; align-items: center; gap: 6px;
+            font-size: 11px; font-weight: 500; letter-spacing: 0.02em;
+            padding: 3px 8px 3px 7px; border-radius: 999px;
+        }
+        .result-pill .rdot { width: 5px; height: 5px; border-radius: 50%; }
+        .result-pill.win { color: var(--up); background: var(--up-soft); border: 0.5px solid var(--up); }
+        .result-pill.win .rdot { background: var(--up); box-shadow: 0 0 5px var(--up); }
+        .result-pill.loss { color: var(--down); background: var(--down-soft); border: 0.5px solid var(--down); }
+        .result-pill.loss .rdot { background: var(--down); box-shadow: 0 0 5px var(--down); }
+        .result-pill.pending { color: var(--text-dim); background: oklch(0.30 0.008 250 / 0.5); border: 0.5px solid var(--line); }
+        .result-pill.pending .rdot { background: var(--text-dim); animation: pulseDot 1.6s ease-in-out infinite; }
+
+        .wr-gauge { display: flex; align-items: center; gap: 8px; }
+        .wr-bar { display: flex; gap: 2px; width: 64px; }
+        .wr-seg { flex: 1; height: 8px; border-radius: 1px; }
+        .wr-seg.unlit { background: oklch(0.32 0.008 250); opacity: 0.7; }
+        .wr-num { font-family: var(--mono); font-weight: 500; font-size: 12px; min-width: 42px; text-align: right; }
+
+        .dd-wrap { display: flex; align-items: center; gap: 8px; justify-content: flex-end; }
+        .dd-track { position: relative; width: 56px; height: 4px; border-radius: 1px; background: oklch(0.28 0.008 250); }
+        .dd-fill { position: absolute; right: 0; top: 0; bottom: 0; border-radius: 1px; }
+        .dd-num { font-family: var(--mono); font-weight: 500; font-size: 12px; min-width: 42px; text-align: right; }
+
+        /* Sparkline popovers */
+        .spark-wrap { position: relative; display: inline-block; cursor: default; }
+        .spark-detail {
+            display: none; position: absolute; z-index: 100;
+            left: 50%; top: 100%; transform: translateX(-50%);
+            padding: 6px; background: var(--bg-elev);
+            border: 0.5px solid var(--line); border-radius: 8px;
+            box-shadow: 0 4px 16px oklch(0 0 0 / 0.4); white-space: nowrap;
+        }
+        .spark-wrap:hover .spark-detail { display: block; }
+
+        .no-data { color: var(--text-mute); font-style: italic; padding: 40px; text-align: center; }
+        .content-area { position: relative; z-index: 1; }
+
+        /* Legend dots */
+        .legend-dot { width: 6px; height: 6px; border-radius: 50%; display: inline-block; }
+
+        /* Kbd chips */
+        .kbd {
+            font-family: var(--mono); font-size: 10px; color: var(--text-dim);
+            padding: 1px 5px; border-radius: 3px;
+            border: 0.5px solid var(--line); background: var(--surface);
+        }
+
+        /* Streaming dot */
+        .stream-dot {
+            width: 5px; height: 5px; border-radius: 50%; background: var(--up);
+            box-shadow: 0 0 4px var(--up); animation: pulseDot 1.6s ease-in-out infinite;
+            display: inline-block;
+        }
+        .count-pill {
+            padding: 2px 7px; border-radius: 999px;
+            border: 0.5px solid var(--line); background: var(--surface);
+            font-family: var(--mono); font-size: 10.5px; color: var(--text-dim);
+        }
+    </style>
+    
+</head>
+<body>
+<div class="topbar">
+    <div class="topbar-left">
+        <div class="logo-group">
+            <svg width="22" height="22" viewBox="0 0 22 22">
+                <rect x="1" y="1" width="20" height="20" rx="4" fill="none" stroke="var(--accent)" stroke-width=".75"/>
+                <path d="M4 14 L8 9 L12 12 L18 5" fill="none" stroke="var(--accent)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+                <circle cx="18" cy="5" r="1.6" fill="var(--accent)"/>
+            </svg>
+            <div class="logo-text">
+                <span class="logo-name">RAPIDSIFT</span>
+            </div>
+        </div>
+        <div class="vdiv"></div>
+        <nav class="tab-nav">
+            <a href="/index.html" class="tab-btn active">Charts</a>
+            <a href="/buy-signals.html" class="tab-btn ">Buy signals</a>
+            <a href="/reliability.html" class="tab-btn ">Signal reliability</a>
+            <a href="/strategies.html" class="tab-btn ">Strategies</a>
+        </nav>
+    </div>
+    <div class="topbar-right">
+        <div class="market-status" id="market-status-block">
+            <div style="display:flex;align-items:center;gap:6px">
+                <span id="nyse-dot" class="status-dot"></span>
+                <span style="color:var(--text-dim)">NYSE</span>
+                <span class="num" id="nyse-label">--</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:6px">
+                <span id="nasdaq-dot" class="status-dot"></span>
+                <span style="color:var(--text-dim)">NASDAQ</span>
+                <span class="num" id="nasdaq-label">--</span>
+            </div>
+            <div class="vdiv" style="height:14px"></div>
+            <div style="display:flex;align-items:center;gap:6px">
+                <span style="color:var(--text-mute)">ET</span>
+                <span class="num" style="color:var(--text-dim)" id="et-clock">--:--:--</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:6px">
+                <span>next refresh</span>
+                <span class="num" style="color:var(--text-dim)" id="refresh-countdown">300s</span>
+            </div>
+        </div>
+        <div class="vdiv"></div>
+        <button class="refresh-btn" onclick="refreshData(this)">
+            <svg width="11" height="11" viewBox="0 0 12 12">
+                <path d="M6 1.5 v 3.5 M6 1.5 L 4.2 3.2 M6 1.5 L 7.8 3.2 M2 7 a 4 4 0 1 0 8 0 v -1.2"
+                      fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+            </svg>
+            <span class="btn-text">Refresh now</span>
+            <span class="spinner"></span>
+        </button>
+    </div>
+</div>
+
+<div class="content-area">
+    
+    <div class="kpi-strip">
+        <div class="kpi-cell">
+            <span class="kpi-label">Tickers Tracked</span>
+            <div class="kpi-value-row">
+                <span class="kpi-value">200</span>
+            </div>
+            <span class="kpi-sub">watchlist</span>
+            <span class="kpi-corner up"></span>
+        </div>
+        <div class="kpi-cell">
+            <span class="kpi-label">Total Signals &middot; 30d</span>
+            <div class="kpi-value-row">
+                <span class="kpi-value">1,080</span>
+            </div>
+            <span class="kpi-sub">all strategies</span>
+            <span class="kpi-corner up"></span>
+        </div>
+        <div class="kpi-cell">
+            <span class="kpi-label">Buy Signals</span>
+            <div class="kpi-value-row">
+                <span class="kpi-value">455</span>
+            </div>
+            <span class="kpi-sub">30 day window</span>
+            <span class="kpi-corner up"></span>
+        </div>
+        <div class="kpi-cell">
+            <span class="kpi-label">Sell Signals</span>
+            <div class="kpi-value-row">
+                <span class="kpi-value">625</span>
+            </div>
+            <span class="kpi-sub">30 day window</span>
+            <span class="kpi-corner down"></span>
+        </div>
+    </div>
+
+    <div class="filter-bar">
+        <form style="display:flex;gap:14px;align-items:flex-end;" method="GET" action="/" id="chart-form">
+            <div class="filter-group">
+                <span class="filter-label">Ticker</span>
+                <select name="ticker" class="filter-select" onchange="this.form.submit()">
+                    
+                    <option value="NVDA" selected>NVDA</option>
+                    
+                    <option value="INTC" >INTC</option>
+                    
+                    <option value="PLUG" >PLUG</option>
+                    
+                    <option value="SOFI" >SOFI</option>
+                    
+                    <option value="AAL" >AAL</option>
+                    
+                    <option value="TSLA" >TSLA</option>
+                    
+                    <option value="F" >F</option>
+                    
+                    <option value="NU" >NU</option>
+                    
+                    <option value="SNAP" >SNAP</option>
+                    
+                    <option value="GRAB" >GRAB</option>
+                    
+                    <option value="PLTR" >PLTR</option>
+                    
+                    <option value="MARA" >MARA</option>
+                    
+                    <option value="AMZN" >AMZN</option>
+                    
+                    <option value="MU" >MU</option>
+                    
+                    <option value="NFLX" >NFLX</option>
+                    
+                    <option value="AAPL" >AAPL</option>
+                    
+                    <option value="OPEN" >OPEN</option>
+                    
+                    <option value="NIO" >NIO</option>
+                    
+                    <option value="IREN" >IREN</option>
+                    
+                    <option value="T" >T</option>
+                    
+                    <option value="BAC" >BAC</option>
+                    
+                    <option value="AMD" >AMD</option>
+                    
+                    <option value="PFE" >PFE</option>
+                    
+                    <option value="SMCI" >SMCI</option>
+                    
+                    <option value="HIMS" >HIMS</option>
+                    
+                    <option value="BBAI" >BBAI</option>
+                    
+                    <option value="MSFT" >MSFT</option>
+                    
+                    <option value="DNN" >DNN</option>
+                    
+                    <option value="CMCSA" >CMCSA</option>
+                    
+                    <option value="PATH" >PATH</option>
+                    
+                    <option value="ACHR" >ACHR</option>
+                    
+                    <option value="BITF" >BITF</option>
+                    
+                    <option value="HOOD" >HOOD</option>
+                    
+                    <option value="GOOGL" >GOOGL</option>
+                    
+                    <option value="RGTI" >RGTI</option>
+                    
+                    <option value="SMR" >SMR</option>
+                    
+                    <option value="VALE" >VALE</option>
+                    
+                    <option value="SOUN" >SOUN</option>
+                    
+                    <option value="CCL" >CCL</option>
+                    
+                    <option value="IONQ" >IONQ</option>
+                    
+                    <option value="ORCL" >ORCL</option>
+                    
+                    <option value="RIVN" >RIVN</option>
+                    
+                    <option value="JOBY" >JOBY</option>
+                    
+                    <option value="CIFR" >CIFR</option>
+                    
+                    <option value="VZ" >VZ</option>
+                    
+                    <option value="MRVL" >MRVL</option>
+                    
+                    <option value="AVGO" >AVGO</option>
+                    
+                    <option value="RKLB" >RKLB</option>
+                    
+                    <option value="RDW" >RDW</option>
+                    
+                    <option value="WBD" >WBD</option>
+                    
+                    <option value="CSCO" >CSCO</option>
+                    
+                    <option value="NCLH" >NCLH</option>
+                    
+                    <option value="CPNG" >CPNG</option>
+                    
+                    <option value="NOW" >NOW</option>
+                    
+                    <option value="NKE" >NKE</option>
+                    
+                    <option value="XOM" >XOM</option>
+                    
+                    <option value="BTBT" >BTBT</option>
+                    
+                    <option value="APLD" >APLD</option>
+                    
+                    <option value="NVO" >NVO</option>
+                    
+                    <option value="CLSK" >CLSK</option>
+                    
+                    <option value="PINS" >PINS</option>
+                    
+                    <option value="WMT" >WMT</option>
+                    
+                    <option value="GOOG" >GOOG</option>
+                    
+                    <option value="MSTR" >MSTR</option>
+                    
+                    <option value="PYPL" >PYPL</option>
+                    
+                    <option value="RIOT" >RIOT</option>
+                    
+                    <option value="WFC" >WFC</option>
+                    
+                    <option value="QS" >QS</option>
+                    
+                    <option value="OXY" >OXY</option>
+                    
+                    <option value="FCX" >FCX</option>
+                    
+                    <option value="QCOM" >QCOM</option>
+                    
+                    <option value="UBER" >UBER</option>
+                    
+                    <option value="CLF" >CLF</option>
+                    
+                    <option value="SLB" >SLB</option>
+                    
+                    <option value="BSX" >BSX</option>
+                    
+                    <option value="LYFT" >LYFT</option>
+                    
+                    <option value="ET" >ET</option>
+                    
+                    <option value="ASTS" >ASTS</option>
+                    
+                    <option value="CMG" >CMG</option>
+                    
+                    <option value="DVN" >DVN</option>
+                    
+                    <option value="KO" >KO</option>
+                    
+                    <option value="META" >META</option>
+                    
+                    <option value="HAL" >HAL</option>
+                    
+                    <option value="U" >U</option>
+                    
+                    <option value="CORZ" >CORZ</option>
+                    
+                    <option value="C" >C</option>
+                    
+                    <option value="TSM" >TSM</option>
+                    
+                    <option value="LUNR" >LUNR</option>
+                    
+                    <option value="CRM" >CRM</option>
+                    
+                    <option value="DKNG" >DKNG</option>
+                    
+                    <option value="LCID" >LCID</option>
+                    
+                    <option value="KMI" >KMI</option>
+                    
+                    <option value="CSX" >CSX</option>
+                    
+                    <option value="CVX" >CVX</option>
+                    
+                    <option value="ABT" >ABT</option>
+                    
+                    <option value="BMY" >BMY</option>
+                    
+                    <option value="COIN" >COIN</option>
+                    
+                    <option value="DAL" >DAL</option>
+                    
+                    <option value="BABA" >BABA</option>
+                    
+                    <option value="RBLX" >RBLX</option>
+                    
+                    <option value="JD" >JD</option>
+                    
+                    <option value="SHOP" >SHOP</option>
+                    
+                    <option value="BE" >BE</option>
+                    
+                    <option value="SCHW" >SCHW</option>
+                    
+                    <option value="UUUU" >UUUU</option>
+                    
+                    <option value="TME" >TME</option>
+                    
+                    <option value="IQ" >IQ</option>
+                    
+                    <option value="RUN" >RUN</option>
+                    
+                    <option value="LRCX" >LRCX</option>
+                    
+                    <option value="PG" >PG</option>
+                    
+                    <option value="DIS" >DIS</option>
+                    
+                    <option value="ON" >ON</option>
+                    
+                    <option value="COP" >COP</option>
+                    
+                    <option value="MRK" >MRK</option>
+                    
+                    <option value="JPM" >JPM</option>
+                    
+                    <option value="NEM" >NEM</option>
+                    
+                    <option value="PANW" >PANW</option>
+                    
+                    <option value="UEC" >UEC</option>
+                    
+                    <option value="BKR" >BKR</option>
+                    
+                    <option value="MDT" >MDT</option>
+                    
+                    <option value="LUV" >LUV</option>
+                    
+                    <option value="UNH" >UNH</option>
+                    
+                    <option value="BX" >BX</option>
+                    
+                    <option value="CVS" >CVS</option>
+                    
+                    <option value="MRNA" >MRNA</option>
+                    
+                    <option value="ARM" >ARM</option>
+                    
+                    <option value="JNJ" >JNJ</option>
+                    
+                    <option value="CELH" >CELH</option>
+                    
+                    <option value="UAL" >UAL</option>
+                    
+                    <option value="TEAM" >TEAM</option>
+                    
+                    <option value="SBUX" >SBUX</option>
+                    
+                    <option value="GM" >GM</option>
+                    
+                    <option value="V" >V</option>
+                    
+                    <option value="TXN" >TXN</option>
+                    
+                    <option value="PDD" >PDD</option>
+                    
+                    <option value="KKR" >KKR</option>
+                    
+                    <option value="SNOW" >SNOW</option>
+                    
+                    <option value="ACN" >ACN</option>
+                    
+                    <option value="AMAT" >AMAT</option>
+                    
+                    <option value="BA" >BA</option>
+                    
+                    <option value="TEVA" >TEVA</option>
+                    
+                    <option value="ABBV" >ABBV</option>
+                    
+                    <option value="CARR" >CARR</option>
+                    
+                    <option value="FISV" >FISV</option>
+                    
+                    <option value="XPEV" >XPEV</option>
+                    
+                    <option value="MS" >MS</option>
+                    
+                    <option value="ENPH" >ENPH</option>
+                    
+                    <option value="WMB" >WMB</option>
+                    
+                    <option value="IBM" >IBM</option>
+                    
+                    <option value="FIS" >FIS</option>
+                    
+                    <option value="UPS" >UPS</option>
+                    
+                    <option value="PEP" >PEP</option>
+                    
+                    <option value="GILD" >GILD</option>
+                    
+                    <option value="FTNT" >FTNT</option>
+                    
+                    <option value="O" >O</option>
+                    
+                    <option value="CL" >CL</option>
+                    
+                    <option value="GE" >GE</option>
+                    
+                    <option value="BBWI" >BBWI</option>
+                    
+                    <option value="TMUS" >TMUS</option>
+                    
+                    <option value="RTX" >RTX</option>
+                    
+                    <option value="MNST" >MNST</option>
+                    
+                    <option value="AI" >AI</option>
+                    
+                    <option value="AA" >AA</option>
+                    
+                    <option value="AFRM" >AFRM</option>
+                    
+                    <option value="ADBE" >ADBE</option>
+                    
+                    <option value="DDOG" >DDOG</option>
+                    
+                    <option value="TGT" >TGT</option>
+                    
+                    <option value="WDAY" >WDAY</option>
+                    
+                    <option value="NTLA" >NTLA</option>
+                    
+                    <option value="APO" >APO</option>
+                    
+                    <option value="SE" >SE</option>
+                    
+                    <option value="DASH" >DASH</option>
+                    
+                    <option value="APP" >APP</option>
+                    
+                    <option value="COF" >COF</option>
+                    
+                    <option value="UPST" >UPST</option>
+                    
+                    <option value="EW" >EW</option>
+                    
+                    <option value="EOG" >EOG</option>
+                    
+                    <option value="HUT" >HUT</option>
+                    
+                    <option value="KMB" >KMB</option>
+                    
+                    <option value="MGM" >MGM</option>
+                    
+                    <option value="FCEL" >FCEL</option>
+                    
+                    <option value="LIDR" >LIDR</option>
+                    
+                    <option value="NVAX" >NVAX</option>
+                    
+                    <option value="ZM" >ZM</option>
+                    
+                    <option value="DXCM" >DXCM</option>
+                    
+                    <option value="GSK" >GSK</option>
+                    
+                    <option value="NET" >NET</option>
+                    
+                    <option value="EPD" >EPD</option>
+                    
+                    <option value="DOCU" >DOCU</option>
+                    
+                    <option value="TLRY" >TLRY</option>
+                    
+                    <option value="EL" >EL</option>
+                    
+                    <option value="BROS" >BROS</option>
+                    
+                    <option value="DHR" >DHR</option>
+                    
+                    <option value="WOLF" >WOLF</option>
+                    
+                    <option value="EVGO" >EVGO</option>
+                    
+                    <option value="PENN" >PENN</option>
+                    
+                    <option value="LVS" >LVS</option>
+                    
+                    <option value="HD" >HD</option>
+                    
+                    <option value="SEDG" >SEDG</option>
+                    
+                    <option value="GFS" >GFS</option>
+                    
+                </select>
+            </div>
+            <div class="filter-group">
+                <span class="filter-label">Strategy</span>
+                <select name="signal_type" class="filter-select" onchange="this.form.submit()">
+                    
+                    <option value="all" selected>All Signals</option>
+                    
+                    <option value="rsi" >RSI</option>
+                    
+                    <option value="macd" >MACD Crossover</option>
+                    
+                    <option value="ma_crossover" >Moving Average Crossover</option>
+                    
+                    <option value="percent_change" >% Change</option>
+                    
+                    <option value="volume_spike" >Volume Spike</option>
+                    
+                    <option value="adjusted_drop" >Market-Adjusted Drop</option>
+                    
+                    <option value="adjusted_surge" >Market-Adjusted Surge</option>
+                    
+                    <option value="price_threshold" >Price Threshold</option>
+                    
+                    <option value="confluence" >Confluence (2+ signals)</option>
+                    
+                </select>
+            </div>
+            <div class="filter-group">
+                <span class="filter-label">Chart Type</span>
+                <select name="chart_type" class="filter-select" onchange="this.form.submit()">
+                    <option value="candlestick" >Candlestick</option>
+                    <option value="line" selected>Line</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <span class="filter-label">Date Range</span>
+                <select name="days" class="filter-select" onchange="this.form.submit()">
+                    
+                    <option value="30" >1 Month</option>
+                    
+                    <option value="60" selected>2 Months</option>
+                    
+                    <option value="90" >3 Months</option>
+                    
+                    <option value="180" >6 Months</option>
+                    
+                    <option value="365" >1 Year</option>
+                    
+                </select>
+            </div>
+        </form>
+    </div>
+
+    
+    <div class="card" style="margin-top:20px">
+        <div class="card-header">
+            <div style="display:flex;align-items:center;gap:12px">
+                <h2>NVDA</h2>
+                <span class="count-pill">60d</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:12px;font-size:10.5px;color:var(--text-mute)">
+                <span style="display:inline-flex;align-items:center;gap:5px"><span class="legend-dot" style="background:var(--up);box-shadow:0 0 4px var(--up)"></span>buy</span>
+                <span style="display:inline-flex;align-items:center;gap:5px"><span class="legend-dot" style="background:var(--down);box-shadow:0 0 4px var(--down)"></span>sell</span>
+            </div>
+        </div>
+        <div class="chart-pad">
+            <svg viewBox="0 0 1100 580" style="width:100%;height:auto;display:block;font-family:'JetBrains Mono', ui-monospace, monospace" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<filter id="glow-up" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+<filter id="glow-down" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+<linearGradient id="area-fill" x1="0" x2="0" y1="0" y2="1"><stop offset="0%" stop-color="oklch(0.80 0.135 200)" stop-opacity=".15"/><stop offset="100%" stop-color="oklch(0.80 0.135 200)" stop-opacity="0"/></linearGradient>
+</defs>
+<text x="62" y="23" font-size="9.5" font-weight="500" fill="oklch(0.74 0.008 250)" letter-spacing="0.08em">PRICE</text>
+<text x="62" y="351" font-size="9.5" font-weight="500" fill="oklch(0.74 0.008 250)" letter-spacing="0.08em">RSI (14)</text>
+<text x="62" y="459" font-size="9.5" font-weight="500" fill="oklch(0.74 0.008 250)" letter-spacing="0.08em">VOLUME</text>
+<line x1="62" x2="1080" y1="332" y2="332" stroke="oklch(0.30 0.010 250 / 0.45)" stroke-width="0.5"/>
+<line x1="62" x2="1080" y1="440" y2="440" stroke="oklch(0.30 0.010 250 / 0.45)" stroke-width="0.5"/>
+<line x1="62" x2="1080" y1="303.8" y2="303.8" stroke="oklch(0.30 0.010 250 / 0.25)" stroke-width="0.5"/>
+<text x="56" y="307.3" text-anchor="end" font-size="9" fill="oklch(0.55 0.010 250)">$170</text>
+<line x1="62" x2="1080" y1="260.7" y2="260.7" stroke="oklch(0.30 0.010 250 / 0.25)" stroke-width="0.5"/>
+<text x="56" y="264.2" text-anchor="end" font-size="9" fill="oklch(0.55 0.010 250)">$180</text>
+<line x1="62" x2="1080" y1="217.6" y2="217.6" stroke="oklch(0.30 0.010 250 / 0.25)" stroke-width="0.5"/>
+<text x="56" y="221.1" text-anchor="end" font-size="9" fill="oklch(0.55 0.010 250)">$190</text>
+<line x1="62" x2="1080" y1="174.5" y2="174.5" stroke="oklch(0.30 0.010 250 / 0.25)" stroke-width="0.5"/>
+<text x="56" y="178.0" text-anchor="end" font-size="9" fill="oklch(0.55 0.010 250)">$200</text>
+<line x1="62" x2="1080" y1="131.4" y2="131.4" stroke="oklch(0.30 0.010 250 / 0.25)" stroke-width="0.5"/>
+<text x="56" y="134.9" text-anchor="end" font-size="9" fill="oklch(0.55 0.010 250)">$210</text>
+<line x1="62" x2="1080" y1="88.4" y2="88.4" stroke="oklch(0.30 0.010 250 / 0.25)" stroke-width="0.5"/>
+<text x="56" y="91.9" text-anchor="end" font-size="9" fill="oklch(0.55 0.010 250)">$220</text>
+<line x1="62" x2="1080" y1="45.3" y2="45.3" stroke="oklch(0.30 0.010 250 / 0.25)" stroke-width="0.5"/>
+<text x="56" y="48.8" text-anchor="end" font-size="9" fill="oklch(0.55 0.010 250)">$230</text>
+<line x1="62" x2="1080" y1="440.0" y2="440.0" stroke="oklch(0.30 0.010 250 / 0.25)" stroke-width="0.5" opacity="0.3"/>
+<line x1="62" x2="1080" y1="410.0" y2="410.0" stroke="oklch(0.80 0.165 145)" stroke-width="0.5" opacity="0.5" stroke-dasharray="3,3"/>
+<text x="56" y="413.5" text-anchor="end" font-size="8" fill="oklch(0.55 0.010 250)">30</text>
+<line x1="62" x2="1080" y1="390.0" y2="390.0" stroke="oklch(0.30 0.010 250 / 0.25)" stroke-width="0.5" opacity="0.3"/>
+<line x1="62" x2="1080" y1="370.0" y2="370.0" stroke="oklch(0.72 0.185 25)" stroke-width="0.5" opacity="0.5" stroke-dasharray="3,3"/>
+<text x="56" y="373.5" text-anchor="end" font-size="8" fill="oklch(0.55 0.010 250)">70</text>
+<line x1="62" x2="1080" y1="340.0" y2="340.0" stroke="oklch(0.30 0.010 250 / 0.25)" stroke-width="0.5" opacity="0.3"/>
+
+<polyline points="571.0,214.0 597.1,203.7 623.2,196.2 649.3,191.0 675.4,186.5 701.5,182.0 727.6,178.0 753.7,172.5 779.8,166.5 805.9,160.8 832.0,154.3 858.1,149.1 884.2,143.3 910.3,135.2 936.4,130.1 962.5,125.8 988.6,121.3 1014.7,116.8 1040.8,112.5 1066.9,111.0" fill="none" stroke="oklch(0.83 0.150 80)" stroke-width="1.3" opacity="0.8"/>
+<polygon points="75.1,324.6 101.2,284.8 127.3,279.0 153.4,271.9 179.5,270.9 205.6,268.9 231.7,251.7 257.8,243.8 283.9,223.5 310.0,220.6 336.1,189.6 362.2,179.4 388.3,181.6 414.4,167.3 440.5,165.6 466.6,175.0 492.7,163.8 518.8,176.1 544.9,138.9 571.0,103.0 597.1,117.8 623.2,134.7 649.3,176.4 675.4,181.2 701.5,181.1 727.6,189.6 753.7,140.8 779.8,125.0 805.9,109.0 832.0,90.8 858.1,85.0 884.2,63.2 910.3,20.5 936.4,65.4 962.5,78.4 988.6,85.7 1014.7,73.4 1040.8,90.5 1066.9,108.5 1066.9,332 75.1,332" fill="url(#area-fill)"/>
+<polyline points="75.1,324.6 101.2,284.8 127.3,279.0 153.4,271.9 179.5,270.9 205.6,268.9 231.7,251.7 257.8,243.8 283.9,223.5 310.0,220.6 336.1,189.6 362.2,179.4 388.3,181.6 414.4,167.3 440.5,165.6 466.6,175.0 492.7,163.8 518.8,176.1 544.9,138.9 571.0,103.0 597.1,117.8 623.2,134.7 649.3,176.4 675.4,181.2 701.5,181.1 727.6,189.6 753.7,140.8 779.8,125.0 805.9,109.0 832.0,90.8 858.1,85.0 884.2,63.2 910.3,20.5 936.4,65.4 962.5,78.4 988.6,85.7 1014.7,73.4 1040.8,90.5 1066.9,108.5" fill="none" stroke="oklch(0.80 0.135 200)" stroke-width="1.5" stroke-linejoin="round"/>
+<circle cx="1066.9" cy="108.5" r="4" fill="oklch(0.80 0.135 200)" opacity=".18"/>
+<circle cx="1066.9" cy="108.5" r="2" fill="oklch(0.80 0.135 200)"/>
+<circle cx="884.2" cy="63.2" r="5" fill="oklch(0.72 0.185 25)" opacity=".15"/>
+<circle cx="884.2" cy="63.2" r="2.5" fill="oklch(0.72 0.185 25)"><title>Sell: rsi $225.83</title></circle>
+<circle cx="805.9" cy="109.0" r="5" fill="oklch(0.80 0.165 145)" opacity=".15"/>
+<circle cx="805.9" cy="109.0" r="2.5" fill="oklch(0.80 0.165 145)"><title>Buy: macd $215.20</title></circle>
+<circle cx="753.7" cy="140.8" r="5" fill="oklch(0.72 0.185 25)" opacity=".15"/>
+<circle cx="753.7" cy="140.8" r="2.5" fill="oklch(0.72 0.185 25)"><title>Sell: percent_change $207.83</title></circle>
+<circle cx="675.4" cy="181.2" r="5" fill="oklch(0.72 0.185 25)" opacity=".15"/>
+<circle cx="675.4" cy="181.2" r="2.5" fill="oklch(0.72 0.185 25)"><title>Sell: macd $198.45</title></circle>
+<circle cx="649.3" cy="176.4" r="5" fill="oklch(0.80 0.165 145)" opacity=".15"/>
+<circle cx="649.3" cy="176.4" r="2.5" fill="oklch(0.80 0.165 145)"><title>Buy: percent_change $199.57</title></circle>
+<circle cx="649.3" cy="176.4" r="5" fill="oklch(0.80 0.165 145)" opacity=".15"/>
+<circle cx="649.3" cy="176.4" r="2.5" fill="oklch(0.80 0.165 145)"><title>Buy: adjusted_drop $199.57</title></circle>
+<circle cx="649.3" cy="176.4" r="5" fill="oklch(0.80 0.165 145)" opacity=".15"/>
+<circle cx="649.3" cy="176.4" r="2.5" fill="oklch(0.80 0.165 145)"><title>Buy: confluence $199.57</title></circle>
+<circle cx="544.9" cy="138.9" r="5" fill="oklch(0.72 0.185 25)" opacity=".15"/>
+<circle cx="544.9" cy="138.9" r="2.5" fill="oklch(0.72 0.185 25)"><title>Sell: percent_change $208.27</title></circle>
+<circle cx="544.9" cy="138.9" r="5" fill="oklch(0.72 0.185 25)" opacity=".15"/>
+<circle cx="544.9" cy="138.9" r="2.5" fill="oklch(0.72 0.185 25)"><title>Sell: rsi $208.27</title></circle>
+<circle cx="492.7" cy="163.8" r="5" fill="oklch(0.80 0.165 145)" opacity=".15"/>
+<circle cx="492.7" cy="163.8" r="2.5" fill="oklch(0.80 0.165 145)"><title>Buy: ma_crossover $202.50</title></circle>
+<circle cx="362.2" cy="179.4" r="5" fill="oklch(0.72 0.185 25)" opacity=".15"/>
+<circle cx="362.2" cy="179.4" r="2.5" fill="oklch(0.72 0.185 25)"><title>Sell: rsi $198.87</title></circle>
+<circle cx="153.4" cy="271.9" r="5" fill="oklch(0.80 0.165 145)" opacity=".15"/>
+<circle cx="153.4" cy="271.9" r="2.5" fill="oklch(0.80 0.165 145)"><title>Buy: macd $177.39</title></circle>
+<circle cx="101.2" cy="284.8" r="5" fill="oklch(0.72 0.185 25)" opacity=".15"/>
+<circle cx="101.2" cy="284.8" r="2.5" fill="oklch(0.72 0.185 25)"><title>Sell: percent_change $174.40</title></circle>
+<polyline points="414.4,342.0 440.5,341.9 466.6,351.0 492.7,349.8 518.8,359.9 544.9,354.6 571.0,351.4 597.1,359.2 623.2,367.1 649.3,382.0 675.4,383.5 701.5,383.5 727.6,386.2 753.7,375.6 779.8,372.9 805.9,370.4 832.0,367.9 858.1,367.1 884.2,364.3 910.3,360.0 936.4,373.4 962.5,376.7 988.6,378.5 1014.7,376.6 1040.8,381.0 1066.9,385.3" fill="none" stroke="oklch(0.72 0.12 300)" stroke-width="1.3" stroke-linejoin="round"/>
+<circle cx="1066.9" cy="385.3" r="3.5" fill="oklch(0.72 0.12 300)" opacity=".18"/>
+<circle cx="1066.9" cy="385.3" r="1.8" fill="oklch(0.72 0.12 300)"/>
+<rect x="67.9" y="470.9" width="14.4" height="67.10000000000002" fill="oklch(0.72 0.185 25)" opacity="0.3" rx="0.5"/>
+<rect x="94.0" y="456.2" width="14.4" height="81.80000000000001" fill="oklch(0.80 0.165 145)" opacity="0.3" rx="0.5"/>
+<rect x="120.1" y="477.2" width="14.4" height="60.80000000000001" fill="oklch(0.72 0.185 25)" opacity="0.3" rx="0.5"/>
+<rect x="146.2" y="486.2" width="14.4" height="51.80000000000001" fill="oklch(0.80 0.165 145)" opacity="0.3" rx="0.5"/>
+<rect x="172.3" y="499.1" width="14.4" height="38.89999999999998" fill="oklch(0.80 0.165 145)" opacity="0.3" rx="0.5"/>
+<rect x="198.4" y="490.1" width="14.4" height="47.89999999999998" fill="oklch(0.80 0.165 145)" opacity="0.3" rx="0.5"/>
+<rect x="224.5" y="484.6" width="14.4" height="53.39999999999998" fill="oklch(0.72 0.185 25)" opacity="0.3" rx="0.5"/>
+<rect x="250.6" y="495.9" width="14.4" height="42.10000000000002" fill="oklch(0.80 0.165 145)" opacity="0.3" rx="0.5"/>
+<rect x="276.7" y="480.0" width="14.4" height="58.0" fill="oklch(0.80 0.165 145)" opacity="0.3" rx="0.5"/>
+<rect x="302.8" y="489.7" width="14.4" height="48.30000000000001" fill="oklch(0.80 0.165 145)" opacity="0.3" rx="0.5"/>
+<rect x="328.9" y="479.6" width="14.4" height="58.39999999999998" fill="oklch(0.80 0.165 145)" opacity="0.3" rx="0.5"/>
+<rect x="355.0" y="471.0" width="14.4" height="67.0" fill="oklch(0.80 0.165 145)" opacity="0.3" rx="0.5"/>
+<rect x="381.1" y="489.5" width="14.4" height="48.5" fill="oklch(0.80 0.165 145)" opacity="0.3" rx="0.5"/>
+<rect x="407.2" y="480.0" width="14.4" height="58.0" fill="oklch(0.80 0.165 145)" opacity="0.3" rx="0.5"/>
+<rect x="433.3" y="494.8" width="14.4" height="43.19999999999999" fill="oklch(0.80 0.165 145)" opacity="0.3" rx="0.5"/>
+<rect x="459.4" y="499.0" width="14.4" height="39.0" fill="oklch(0.72 0.185 25)" opacity="0.3" rx="0.5"/>
+<rect x="485.5" y="499.1" width="14.4" height="38.89999999999998" fill="oklch(0.80 0.165 145)" opacity="0.3" rx="0.5"/>
+<rect x="511.6" y="496.9" width="14.4" height="41.10000000000002" fill="oklch(0.72 0.185 25)" opacity="0.3" rx="0.5"/>
+<rect x="537.7" y="460.5" width="14.4" height="77.5" fill="oklch(0.80 0.165 145)" opacity="0.3" rx="0.5"/>
+<rect x="563.8" y="470.3" width="14.4" height="67.69999999999999" fill="oklch(0.80 0.165 145)" opacity="0.3" rx="0.5"/>
+<rect x="589.9" y="472.8" width="14.4" height="65.19999999999999" fill="oklch(0.80 0.165 145)" opacity="0.3" rx="0.5"/>
+<rect x="616.0" y="493.2" width="14.4" height="44.80000000000001" fill="oklch(0.72 0.185 25)" opacity="0.3" rx="0.5"/>
+<rect x="642.1" y="456.5" width="14.4" height="81.5" fill="oklch(0.72 0.185 25)" opacity="0.3" rx="0.5"/>
+<rect x="668.2" y="491.5" width="14.4" height="46.5" fill="oklch(0.72 0.185 25)" opacity="0.3" rx="0.5"/>
+<rect x="694.3" y="492.6" width="14.4" height="45.39999999999998" fill="oklch(0.72 0.185 25)" opacity="0.3" rx="0.5"/>
+<rect x="720.4" y="497.0" width="14.4" height="41.0" fill="oklch(0.72 0.185 25)" opacity="0.3" rx="0.5"/>
+<rect x="746.5" y="469.9" width="14.4" height="68.10000000000002" fill="oklch(0.80 0.165 145)" opacity="0.3" rx="0.5"/>
+<rect x="772.6" y="477.1" width="14.4" height="60.89999999999998" fill="oklch(0.80 0.165 145)" opacity="0.3" rx="0.5"/>
+<rect x="798.7" y="488.7" width="14.4" height="49.30000000000001" fill="oklch(0.80 0.165 145)" opacity="0.3" rx="0.5"/>
+<rect x="824.8" y="479.9" width="14.4" height="58.10000000000002" fill="oklch(0.80 0.165 145)" opacity="0.3" rx="0.5"/>
+<rect x="850.9" y="480.4" width="14.4" height="57.60000000000002" fill="oklch(0.80 0.165 145)" opacity="0.3" rx="0.5"/>
+<rect x="877.0" y="483.6" width="14.4" height="54.39999999999998" fill="oklch(0.80 0.165 145)" opacity="0.3" rx="0.5"/>
+<rect x="903.1" y="472.6" width="14.4" height="65.39999999999998" fill="oklch(0.80 0.165 145)" opacity="0.3" rx="0.5"/>
+<rect x="929.2" y="472.5" width="14.4" height="65.5" fill="oklch(0.72 0.185 25)" opacity="0.3" rx="0.5"/>
+<rect x="955.3" y="485.1" width="14.4" height="52.89999999999998" fill="oklch(0.72 0.185 25)" opacity="0.3" rx="0.5"/>
+<rect x="981.4" y="487.0" width="14.4" height="51.0" fill="oklch(0.80 0.165 145)" opacity="0.3" rx="0.5"/>
+<rect x="1007.5" y="471.4" width="14.4" height="66.60000000000002" fill="oklch(0.80 0.165 145)" opacity="0.3" rx="0.5"/>
+<rect x="1033.6" y="464.4" width="14.4" height="73.60000000000002" fill="oklch(0.72 0.185 25)" opacity="0.3" rx="0.5"/>
+<rect x="1059.7" y="477.1" width="14.4" height="60.89999999999998" fill="oklch(0.72 0.185 25)" opacity="0.3" rx="0.5"/>
+<text x="75.1" y="554" text-anchor="middle" font-size="8.5" fill="oklch(0.55 0.010 250)">Mar 30</text>
+<text x="179.5" y="554" text-anchor="middle" font-size="8.5" fill="oklch(0.55 0.010 250)">Apr 06</text>
+<text x="283.9" y="554" text-anchor="middle" font-size="8.5" fill="oklch(0.55 0.010 250)">Apr 10</text>
+<text x="388.3" y="554" text-anchor="middle" font-size="8.5" fill="oklch(0.55 0.010 250)">Apr 16</text>
+<text x="492.7" y="554" text-anchor="middle" font-size="8.5" fill="oklch(0.55 0.010 250)">Apr 22</text>
+<text x="597.1" y="554" text-anchor="middle" font-size="8.5" fill="oklch(0.55 0.010 250)">Apr 28</text>
+<text x="701.5" y="554" text-anchor="middle" font-size="8.5" fill="oklch(0.55 0.010 250)">May 04</text>
+<text x="805.9" y="554" text-anchor="middle" font-size="8.5" fill="oklch(0.55 0.010 250)">May 08</text>
+<text x="910.3" y="554" text-anchor="middle" font-size="8.5" fill="oklch(0.55 0.010 250)">May 14</text>
+<text x="1014.7" y="554" text-anchor="middle" font-size="8.5" fill="oklch(0.55 0.010 250)">May 20</text>
+<line x1="1030.5" x2="1042.5" y1="20" y2="20" stroke="oklch(0.80 0.135 200)" stroke-width="1.3" stroke-dasharray="3,2"/>
+<text x="1046.5" y="23" font-size="9" fill="oklch(0.55 0.010 250)">SMA50</text>
+<line x1="981.0" x2="993.0" y1="20" y2="20" stroke="oklch(0.83 0.150 80)" stroke-width="1.3"/>
+<text x="997.0" y="23" font-size="9" fill="oklch(0.55 0.010 250)">SMA20</text>
+<line x1="931.5" x2="943.5" y1="20" y2="20" stroke="oklch(0.80 0.135 200)" stroke-width="1.3"/>
+<text x="947.5" y="23" font-size="9" fill="oklch(0.55 0.010 250)">Close</text>
+</svg>
+        </div>
+    </div>
+    
+
+    
+    <div class="card">
+        <div class="card-header">
+            <div style="display:flex;align-items:center;gap:12px">
+                <h2>Signals &mdash; NVDA</h2>
+                
+            </div>
+        </div>
+        <div style="overflow:auto">
+            <table class="sig-table">
+                <thead>
+                    <tr><th>Time</th><th>Direction</th><th>Strategy</th><th>Detail</th><th class="r">Price</th><th>Result (+5%)</th></tr>
+                </thead>
+                <tbody>
+                
+                <tr>
+                    <td><span class="num" style="color:var(--text-dim)">2026-05-08 00:00:00</span></td>
+                    <td>
+                        <span style="color:var(--up);font-weight:600">BUY</span>
+                        
+                    </td>
+                    <td><span class="strategy-tag tone-accent"><span class="dot"></span>MACD</span></td>
+                    <td style="color:var(--text-dim)">MACD bullish crossover (MACD=5.849)</td>
+                    <td class="r"><span class="num" style="font-weight:500">$215.20</span></td>
+                    <td>
+                        
+                            
+                                <span class="result-pill win"><span class="rdot"></span>+5% in 2.0d</span>
+                            
+                        
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td><span class="num" style="color:var(--text-dim)">2026-04-30 00:00:00</span></td>
+                    <td>
+                        <span style="color:var(--up);font-weight:600">BUY</span>
+                        
+                    </td>
+                    <td><span class="strategy-tag tone-warn"><span class="dot"></span>PCT CHG</span></td>
+                    <td style="color:var(--text-dim)">Daily move -4.63% (-2.1σ, std=2.18%)</td>
+                    <td class="r"><span class="num" style="font-weight:500">$199.57</span></td>
+                    <td>
+                        
+                            
+                                <span class="result-pill win"><span class="rdot"></span>+5% in 6.0d</span>
+                            
+                        
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td><span class="num" style="color:var(--text-dim)">2026-04-30 00:00:00</span></td>
+                    <td>
+                        <span style="color:var(--up);font-weight:600">BUY</span>
+                        
+                    </td>
+                    <td><span class="strategy-tag tone-down"><span class="dot"></span>ADJ DROP</span></td>
+                    <td style="color:var(--text-dim)">Market-adjusted drop -5.62% (stock -4.63%, market +0.99%)</td>
+                    <td class="r"><span class="num" style="font-weight:500">$199.57</span></td>
+                    <td>
+                        
+                            
+                                <span class="result-pill win"><span class="rdot"></span>+5% in 6.0d</span>
+                            
+                        
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td><span class="num" style="color:var(--text-dim)">2026-04-30 00:00:00</span></td>
+                    <td>
+                        <span style="color:var(--up);font-weight:600">BUY</span>
+                        
+                    </td>
+                    <td><span class="strategy-tag tone-up"><span class="dot"></span>CONFLUENCE</span></td>
+                    <td style="color:var(--text-dim)">Confluence (2 signals): percent_change, adjusted_drop</td>
+                    <td class="r"><span class="num" style="font-weight:500">$199.57</span></td>
+                    <td>
+                        
+                            
+                                <span class="result-pill win"><span class="rdot"></span>+5% in 6.0d</span>
+                            
+                        
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td><span class="num" style="color:var(--text-dim)">2026-04-22 00:00:00</span></td>
+                    <td>
+                        <span style="color:var(--up);font-weight:600">BUY</span>
+                        
+                    </td>
+                    <td><span class="strategy-tag tone-warn"><span class="dot"></span>MA CROSS</span></td>
+                    <td style="color:var(--text-dim)">SMA20 crossed above SMA50</td>
+                    <td class="r"><span class="num" style="font-weight:500">$202.50</span></td>
+                    <td>
+                        
+                            
+                                <span class="result-pill win"><span class="rdot"></span>+5% in 4.0d</span>
+                            
+                        
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td><span class="num" style="color:var(--text-dim)">2026-04-02 00:00:00</span></td>
+                    <td>
+                        <span style="color:var(--up);font-weight:600">BUY</span>
+                        
+                    </td>
+                    <td><span class="strategy-tag tone-accent"><span class="dot"></span>MACD</span></td>
+                    <td style="color:var(--text-dim)">MACD bullish crossover (MACD=-2.945)</td>
+                    <td class="r"><span class="num" style="font-weight:500">$177.39</span></td>
+                    <td>
+                        
+                            
+                                <span class="result-pill win"><span class="rdot"></span>+5% in 4.0d</span>
+                            
+                        
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td><span class="num" style="color:var(--text-dim)">2026-02-26 00:00:00</span></td>
+                    <td>
+                        <span style="color:var(--up);font-weight:600">BUY</span>
+                        
+                    </td>
+                    <td><span class="strategy-tag tone-accent"><span class="dot"></span>VOL SPIKE</span></td>
+                    <td style="color:var(--text-dim)">Volume spike: 2.0x average (360,807,900 vs avg 178,640,360)</td>
+                    <td class="r"><span class="num" style="font-weight:500">$184.88</span></td>
+                    <td>
+                        
+                            
+                                <span class="result-pill loss"><span class="rdot"></span>Missed</span>
+                            
+                        
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td><span class="num" style="color:var(--text-dim)">2026-02-18 00:00:00</span></td>
+                    <td>
+                        <span style="color:var(--up);font-weight:600">BUY</span>
+                        
+                    </td>
+                    <td><span class="strategy-tag tone-accent"><span class="dot"></span>MACD</span></td>
+                    <td style="color:var(--text-dim)">MACD bullish crossover (MACD=0.364)</td>
+                    <td class="r"><span class="num" style="font-weight:500">$187.97</span></td>
+                    <td>
+                        
+                            
+                                <span class="result-pill win"><span class="rdot"></span>+5% in 6.0d</span>
+                            
+                        
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td><span class="num" style="color:var(--text-dim)">2026-02-10 00:00:00</span></td>
+                    <td>
+                        <span style="color:var(--up);font-weight:600">BUY</span>
+                        
+                    </td>
+                    <td><span class="strategy-tag tone-accent"><span class="dot"></span>MACD</span></td>
+                    <td style="color:var(--text-dim)">MACD bullish crossover (MACD=-0.082)</td>
+                    <td class="r"><span class="num" style="font-weight:500">$188.53</span></td>
+                    <td>
+                        
+                            
+                                <span class="result-pill loss"><span class="rdot"></span>Missed</span>
+                            
+                        
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td><span class="num" style="color:var(--text-dim)">2026-01-26 00:00:00</span></td>
+                    <td>
+                        <span style="color:var(--up);font-weight:600">BUY</span>
+                        
+                    </td>
+                    <td><span class="strategy-tag tone-accent"><span class="dot"></span>MACD</span></td>
+                    <td style="color:var(--text-dim)">MACD bullish crossover (MACD=0.030)</td>
+                    <td class="r"><span class="num" style="font-weight:500">$186.46</span></td>
+                    <td>
+                        
+                            
+                                <span class="result-pill loss"><span class="rdot"></span>Missed</span>
+                            
+                        
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td><span class="num" style="color:var(--text-dim)">2026-01-20 00:00:00</span></td>
+                    <td>
+                        <span style="color:var(--up);font-weight:600">BUY</span>
+                        
+                    </td>
+                    <td><span class="strategy-tag tone-warn"><span class="dot"></span>PCT CHG</span></td>
+                    <td style="color:var(--text-dim)">Daily move -4.38% (-2.4σ, std=1.82%)</td>
+                    <td class="r"><span class="num" style="font-weight:500">$178.06</span></td>
+                    <td>
+                        
+                            
+                                <span class="result-pill win"><span class="rdot"></span>+5% in 2.0d</span>
+                            
+                        
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td><span class="num" style="color:var(--text-dim)">2026-01-15 00:00:00</span></td>
+                    <td>
+                        <span style="color:var(--up);font-weight:600">BUY</span>
+                        
+                    </td>
+                    <td><span class="strategy-tag tone-warn"><span class="dot"></span>MA CROSS</span></td>
+                    <td style="color:var(--text-dim)">SMA20 crossed above SMA50</td>
+                    <td class="r"><span class="num" style="font-weight:500">$187.04</span></td>
+                    <td>
+                        
+                            
+                                <span class="result-pill loss"><span class="rdot"></span>Missed</span>
+                            
+                        
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td><span class="num" style="color:var(--text-dim)">2025-12-22 00:00:00</span></td>
+                    <td>
+                        <span style="color:var(--up);font-weight:600">BUY</span>
+                        
+                    </td>
+                    <td><span class="strategy-tag tone-accent"><span class="dot"></span>MACD</span></td>
+                    <td style="color:var(--text-dim)">MACD bullish crossover (MACD=-2.055)</td>
+                    <td class="r"><span class="num" style="font-weight:500">$183.68</span></td>
+                    <td>
+                        
+                            
+                                <span class="result-pill win"><span class="rdot"></span>+5% in 3.0d</span>
+                            
+                        
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td><span class="num" style="color:var(--text-dim)">2025-12-08 00:00:00</span></td>
+                    <td>
+                        <span style="color:var(--up);font-weight:600">BUY</span>
+                        
+                    </td>
+                    <td><span class="strategy-tag tone-accent"><span class="dot"></span>MACD</span></td>
+                    <td style="color:var(--text-dim)">MACD bullish crossover (MACD=-1.858)</td>
+                    <td class="r"><span class="num" style="font-weight:500">$185.54</span></td>
+                    <td>
+                        
+                            
+                                <span class="result-pill loss"><span class="rdot"></span>Missed</span>
+                            
+                        
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td><span class="num" style="color:var(--text-dim)">2025-10-27 00:00:00</span></td>
+                    <td>
+                        <span style="color:var(--up);font-weight:600">BUY</span>
+                        
+                    </td>
+                    <td><span class="strategy-tag tone-accent"><span class="dot"></span>MACD</span></td>
+                    <td style="color:var(--text-dim)">MACD bullish crossover (MACD=1.342)</td>
+                    <td class="r"><span class="num" style="font-weight:500">$191.47</span></td>
+                    <td>
+                        
+                            
+                                <span class="result-pill win"><span class="rdot"></span>+5% in 0.0d</span>
+                            
+                        
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td><span class="num" style="color:var(--text-dim)">2025-10-10 00:00:00</span></td>
+                    <td>
+                        <span style="color:var(--up);font-weight:600">BUY</span>
+                        
+                    </td>
+                    <td><span class="strategy-tag tone-warn"><span class="dot"></span>PCT CHG</span></td>
+                    <td style="color:var(--text-dim)">Daily move -4.89% (-2.2σ, std=2.19%)</td>
+                    <td class="r"><span class="num" style="font-weight:500">$183.14</span></td>
+                    <td>
+                        
+                            
+                                <span class="result-pill loss"><span class="rdot"></span>Missed</span>
+                            
+                        
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td><span class="num" style="color:var(--text-dim)">2025-10-03 00:00:00</span></td>
+                    <td>
+                        <span style="color:var(--up);font-weight:600">BUY</span>
+                        
+                    </td>
+                    <td><span class="strategy-tag tone-warn"><span class="dot"></span>MA CROSS</span></td>
+                    <td style="color:var(--text-dim)">SMA20 crossed above SMA50</td>
+                    <td class="r"><span class="num" style="font-weight:500">$187.60</span></td>
+                    <td>
+                        
+                            
+                                <span class="result-pill win"><span class="rdot"></span>+5% in 3.0d</span>
+                            
+                        
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td><span class="num" style="color:var(--text-dim)">2025-09-15 00:00:00</span></td>
+                    <td>
+                        <span style="color:var(--up);font-weight:600">BUY</span>
+                        
+                    </td>
+                    <td><span class="strategy-tag tone-accent"><span class="dot"></span>MACD</span></td>
+                    <td style="color:var(--text-dim)">MACD bullish crossover (MACD=0.177)</td>
+                    <td class="r"><span class="num" style="font-weight:500">$177.73</span></td>
+                    <td>
+                        
+                            
+                                <span class="result-pill win"><span class="rdot"></span>+5% in 14.0d</span>
+                            
+                        
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td><span class="num" style="color:var(--text-dim)">2025-08-29 00:00:00</span></td>
+                    <td>
+                        <span style="color:var(--up);font-weight:600">BUY</span>
+                        
+                    </td>
+                    <td><span class="strategy-tag tone-warn"><span class="dot"></span>PCT CHG</span></td>
+                    <td style="color:var(--text-dim)">Daily move -3.32% (-2.1σ, std=1.59%)</td>
+                    <td class="r"><span class="num" style="font-weight:500">$174.15</span></td>
+                    <td>
+                        
+                            
+                                <span class="result-pill win"><span class="rdot"></span>+5% in 8.0d</span>
+                            
+                        
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td><span class="num" style="color:var(--text-dim)">2025-08-19 00:00:00</span></td>
+                    <td>
+                        <span style="color:var(--up);font-weight:600">BUY</span>
+                        
+                    </td>
+                    <td><span class="strategy-tag tone-warn"><span class="dot"></span>PCT CHG</span></td>
+                    <td style="color:var(--text-dim)">Daily move -3.50% (-2.1σ, std=1.66%)</td>
+                    <td class="r"><span class="num" style="font-weight:500">$175.61</span></td>
+                    <td>
+                        
+                            
+                                <span class="result-pill win"><span class="rdot"></span>+5% in 8.0d</span>
+                            
+                        
+                    </td>
+                </tr>
+                
+                </tbody>
+            </table>
+        </div>
+        <div class="card-footer">
+            <span>20 signal(s)</span>
+        </div>
+    </div>
+    
+
+</div>
+
+<script>
+// ET clock (ticks locally between API polls)
+function updateETClock() {
+    var d = new Date();
+    var et = d.toLocaleTimeString('en-US', {hour12:false, timeZone:'America/New_York'});
+    var el = document.getElementById('et-clock');
+    if (el) el.textContent = et;
+}
+setInterval(updateETClock, 1000);
+updateETClock();
+
+// Market status polling
+function fetchMarketStatus() {
+    fetch('/api/market-status')
+        .then(r => r.json())
+        .then(data => {
+            var nyseDot = document.getElementById('nyse-dot');
+            var nyseLabel = document.getElementById('nyse-label');
+            var nasdaqDot = document.getElementById('nasdaq-dot');
+            var nasdaqLabel = document.getElementById('nasdaq-label');
+            if (nyseDot && nyseLabel) {
+                nyseDot.className = 'status-dot ' + (data.nyse_open ? 'open' : 'closed');
+                nyseLabel.textContent = data.nyse_open ? 'OPEN' : 'CLOSED';
+                nyseLabel.style.color = data.nyse_open ? 'var(--up)' : 'var(--down)';
+            }
+            if (nasdaqDot && nasdaqLabel) {
+                nasdaqDot.className = 'status-dot ' + (data.nasdaq_open ? 'open' : 'closed');
+                nasdaqLabel.textContent = data.nasdaq_open ? 'OPEN' : 'CLOSED';
+                nasdaqLabel.style.color = data.nasdaq_open ? 'var(--up)' : 'var(--down)';
+            }
+        })
+        .catch(() => {});
+}
+fetchMarketStatus();
+setInterval(fetchMarketStatus, 30000);
+
+// Refresh countdown
+var refreshLeft = 300;
+function updateCountdown() {
+    refreshLeft = Math.max(0, refreshLeft - 1);
+    var el = document.getElementById('refresh-countdown');
+    if (el) el.textContent = String(refreshLeft).padStart(3,'0') + 's';
+    if (refreshLeft <= 0) refreshLeft = 300;
+}
+setInterval(updateCountdown, 1000);
+
+function refreshData(btn) {
+    btn.classList.add('loading');
+    btn.disabled = true;
+    Promise.resolve({json:()=>Promise.resolve({})})
+        .then(r => r.json())
+        .then(data => { window.location.reload(); })
+        .catch(() => { btn.classList.remove('loading'); btn.disabled = false; });
+}
+</script>
+
+<script>
+(function() {
+    // ── Chart switching: use live API with fallback to pre-rendered files ──
+    var form = document.getElementById('chart-form');
+    if (!form) return;
+
+    function loadChart() {
+        var ticker = form.querySelector('[name=ticker]').value;
+        var chartType = form.querySelector('[name=chart_type]').value;
+        var days = form.querySelector('[name=days]').value;
+        var chartDiv = document.querySelector('.chart-pad');
+        if (!chartDiv) return;
+
+        var titleEl = chartDiv.closest('.card').querySelector('h2');
+        if (titleEl) titleEl.textContent = ticker;
+        var pill = chartDiv.closest('.card').querySelector('.count-pill');
+        if (pill) pill.textContent = days + 'd';
+
+        // Try live API first, fall back to pre-rendered static file
+        fetch('/api/chart?ticker=' + ticker + '&type=' + chartType + '&days=' + days)
+            .then(function(r) {
+                if (!r.ok) throw new Error('API error');
+                return r.text();
+            })
+            .then(function(svg) { chartDiv.innerHTML = svg; })
+            .catch(function() {
+                // Fallback to pre-rendered static file
+                fetch('/charts/' + ticker + '_' + chartType + '_' + days + '.html')
+                    .then(function(r) { return r.text(); })
+                    .then(function(svg) { chartDiv.innerHTML = svg; });
+            });
+    }
+
+    var selects = form.querySelectorAll('select');
+    selects.forEach(function(sel) {
+        sel.removeAttribute('onchange');
+        sel.addEventListener('change', loadChart);
+    });
+
+    // ── Refresh button: call live API ──
+    window.refreshData = function(btn) {
+        btn.classList.add('loading');
+        btn.disabled = true;
+
+        var ticker = form ? form.querySelector('[name=ticker]').value : null;
+        var url = '/api/refresh' + (ticker ? '?ticker=' + ticker : '');
+
+        fetch(url, {method: 'POST'})
+            .then(function(r) { return r.json(); })
+            .then(function(data) {
+                // Update KPI counts if available
+                var kpis = document.querySelectorAll('.kpi-value');
+                if (kpis.length >= 3 && data.total_signals !== undefined) {
+                    kpis[0].textContent = data.total_signals;
+                    kpis[1].textContent = data.buy_signals;
+                    kpis[2].textContent = data.sell_signals;
+                }
+                // Reload the chart with fresh data
+                loadChart();
+                btn.classList.remove('loading');
+                btn.disabled = false;
+            })
+            .catch(function(err) {
+                console.error('Refresh failed:', err);
+                btn.classList.remove('loading');
+                btn.disabled = false;
+            });
+    };
+})();
+</script>
+</body>
+</html>

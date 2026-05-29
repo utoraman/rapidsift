@@ -9,7 +9,7 @@ venv/
 .DS_Store
 .claude/
 design_handoff_market_monitor/
-_site/
+_site/charts/
 .vercel
 .env*.local
 .signal_state.json
