@@ -460,9 +460,12 @@ def scan_signals(all_data, spy_data=None):
                     sparkline = build_sparkline_svg(closes, idx, f"{len(all_signals)}")
 
                     signal_date = str(dates[idx])[:10]
+                    # Include detection timestamp (when GH Actions ran)
+                    signal_time = datetime.utcnow().strftime("%H:%M")
                     sig_out = {
                         "ticker": ticker,
                         "date": signal_date,
+                        "time": signal_time,
                         "type": s["type"],
                         "direction": s["direction"],
                         "detail": s["detail"],
@@ -495,6 +498,7 @@ def scan_signals(all_data, spy_data=None):
                     all_signals.append({
                         "ticker": ticker,
                         "date": signal_date,
+                        "time": datetime.utcnow().strftime("%H:%M"),
                         "type": "confluence",
                         "direction": "buy",
                         "detail": detail,
@@ -581,6 +585,7 @@ def build_json(all_signals, win_rates, baseline):
         sig_out = {
             "ticker": s["ticker"],
             "date": s["date"],
+            "time": s.get("time", ""),
             "type": s["type"],
             "detail": s["detail"],
             "price": s["price"],

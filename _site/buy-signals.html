@@ -13698,10 +13698,12 @@
         return '<span class="result-pill pending"><span class="rdot"></span>Pending</span>';
     }
 
-    function formatSignalDate(dateStr) {
-        // "2026-05-20" → "05-20" with no fake time
+    function formatSignalDate(dateStr, timeStr) {
+        // "2026-05-20" → "05-20" + optional time
         if (!dateStr || dateStr.length < 10) return dateStr || '';
-        return dateStr.substring(5, 10);
+        var d = dateStr.substring(5, 10);
+        if (timeStr) return d + '<br><span style="color:var(--text-faint);font-size:9px">' + timeStr + '</span>';
+        return d;
     }
 
     function buildSignalRow(s, idx) {
@@ -13719,7 +13721,7 @@
         tr.innerHTML =
             '<td><span class="num" style="color:var(--text-faint)">' + String(idx + 1).padStart(2, '0') + '</span></td>' +
             '<td><div style="display:flex;flex-direction:column;line-height:1.25">' +
-                '<span class="num" style="color:var(--text-dim);font-size:12px">' + formatSignalDate(s.date) + '</span></div></td>' +
+                '<span class="num" style="color:var(--text-dim);font-size:12px">' + formatSignalDate(s.date, s.time) + '</span></div></td>' +
             '<td><div style="display:flex;flex-direction:column;line-height:1.2">' +
                 '<span style="font-family:var(--mono);font-weight:600;font-size:13px;letter-spacing:0.02em">' + s.ticker + '</span></div></td>' +
             '<td>' + (s.sparkline || '') + '</td>' +
@@ -13996,7 +13998,7 @@ function refreshData(btn) {
                 '</div>' +
             '</div>' +
             '<div class="m-card-sub">' +
-                '<span class="m-date">' + formatSignalDate(s.date) + '</span>' +
+                '<span class="m-date">' + (s.date ? s.date.substring(5,10) : '') + (s.time ? ' ' + s.time : '') + '</span>' +
                 '<span class="m-result">' + mResultPill(result) + '</span>' +
             '</div>' +
             '<div class="m-card-detail">' +

@@ -68,7 +68,7 @@
         flex-wrap: wrap;
     }
     .kpi-cell { padding: 4px 10px; gap: 4px; }
-    .kpi-value { font-size: 11px; }
+    .kpi-value { font-size: 9px; }
     .kpi-label { font-size: 8px; }
 
     /* ══ FILTER BAR ══ */
@@ -188,7 +188,7 @@
 
 /* ── Small phones ── */
 @media (max-width: 380px) {
-    .kpi-value { font-size: 10px; }
+    .kpi-value { font-size: 8px; }
     .kpi-cell { padding: 3px 8px; }
     .card { margin: 0 4px 6px; }
     .filter-bar { padding: 3px 6px; }
