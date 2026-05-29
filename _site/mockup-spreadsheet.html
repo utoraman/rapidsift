@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>RapidSift — Spreadsheet Mockup</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: oklch(0.155 0.012 250);
+            --bg-elev: oklch(0.175 0.010 250);
+            --surface: oklch(0.195 0.010 250);
+            --surface-2: oklch(0.22 0.010 250);
+            --line: oklch(0.28 0.008 250 / 0.9);
+            --line-soft: oklch(0.25 0.008 250 / 0.5);
+            --grid-line: oklch(0.26 0.006 250 / 0.6);
+            --text: oklch(0.93 0.003 250);
+            --text-dim: oklch(0.72 0.006 250);
+            --text-mute: oklch(0.52 0.008 250);
+            --text-faint: oklch(0.40 0.008 250);
+            --up: oklch(0.78 0.16 145);
+            --up-soft: oklch(0.78 0.16 145 / 0.12);
+            --down: oklch(0.70 0.18 25);
+            --down-soft: oklch(0.70 0.18 25 / 0.12);
+            --warn: oklch(0.80 0.14 80);
+            --warn-soft: oklch(0.80 0.14 80 / 0.12);
+            --accent: oklch(0.70 0.08 200);
+            --accent-dim: oklch(0.50 0.06 200);
+            --mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+            --sans: 'Inter', ui-sans-serif, system-ui, -apple-system, sans-serif;
+            --row-h: 28px;
+            --r-sm: 2px;
+            --r-md: 3px;
+            --r-lg: 3px;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: var(--mono);
+            font-size: 11px;
+            line-height: 1.35;
+            background: var(--bg);
+            color: var(--text);
+            min-width: 1200px;
+        }
+        /* NO decorative grid overlay */
+
+        .num { font-family: var(--mono); font-variant-numeric: tabular-nums; letter-spacing: -0.01em; }
+
+        /* -- Top Bar -- */
+        .topbar {
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 6px 16px;
+            border-bottom: 1px solid var(--line);
+            background: var(--bg);
+            position: sticky; top: 0; z-index: 10;
+        }
+        .topbar-left { display: flex; align-items: center; gap: 12px; }
+        .topbar-right { display: flex; align-items: center; gap: 12px; }
+        .logo-group { display: flex; align-items: center; gap: 6px; }
+        .logo-name {
+            font-family: var(--mono); font-size: 11px; font-weight: 600;
+            letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-dim);
+        }
+        .vdiv { width: 1px; height: 16px; background: var(--line); }
+
+        /* Tab nav */
+        .tab-nav { display: flex; gap: 0; }
+        .tab-btn {
+            appearance: none; border: 0; background: transparent;
+            color: var(--text-mute); padding: 5px 10px;
+            font-size: 10px; font-weight: 500; letter-spacing: 0.04em;
+            text-transform: uppercase; cursor: pointer;
+            font-family: var(--mono); position: relative;
+            text-decoration: none; display: inline-block;
+            border-bottom: 2px solid transparent;
+        }
+        .tab-btn:hover { color: var(--text-dim); }
+        .tab-btn.active {
+            color: var(--text); border-bottom-color: var(--text-dim);
+        }
+
+        /* Market status */
+        .market-status { display: flex; align-items: center; gap: 10px; font-size: 10px; color: var(--text-mute); }
+        .status-dot {
+            width: 5px; height: 5px; border-radius: 50%;
+            display: inline-block;
+        }
+        .status-dot.open { background: var(--up); }
+        .status-dot.closed { background: var(--down); opacity: 0.7; }
+
+        /* Refresh button */
+        .refresh-btn {
+            appearance: none; display: inline-flex; align-items: center; gap: 5px;
+            padding: 3px 8px; border-radius: 2px;
+            font-size: 10px; font-weight: 500; font-family: var(--mono);
+            color: var(--text); background: var(--surface);
+            border: 1px solid var(--line); cursor: pointer;
+        }
+        .refresh-btn:hover { background: var(--surface-2); }
+
+        /* -- KPI Strip -- inline single bar */
+        .kpi-strip {
+            display: flex; align-items: center;
+            gap: 0;
+            border-bottom: 1px solid var(--line);
+            background: var(--bg-elev);
+            padding: 0;
+            font-family: var(--mono);
+            font-size: 10px;
+        }
+        .kpi-cell {
+            display: flex; align-items: center; gap: 6px;
+            padding: 5px 14px;
+            border-right: 1px solid var(--line);
+            white-space: nowrap;
+        }
+        .kpi-cell:last-child { border-right: 0; }
+        .kpi-label {
+            font-size: 9px; font-weight: 500; letter-spacing: 0.06em;
+            text-transform: uppercase; color: var(--text-mute);
+        }
+        .kpi-value {
+            font-family: var(--mono); font-size: 12px; font-weight: 600;
+            color: var(--text);
+        }
+        .kpi-value.up { color: var(--up); }
+        .kpi-value.down { color: var(--down); }
+
+        /* -- Filter Bar -- */
+        .filter-bar {
+            display: flex; align-items: center; gap: 10px;
+            padding: 4px 16px;
+            border-bottom: 1px solid var(--line);
+            background: var(--bg);
+            font-family: var(--mono);
+        }
+        .filter-group { display: flex; align-items: center; gap: 4px; }
+        .filter-label {
+            font-size: 9px; font-weight: 500; letter-spacing: 0.06em;
+            text-transform: uppercase; color: var(--text-mute);
+        }
+        .filter-select {
+            appearance: none; -webkit-appearance: none;
+            padding: 2px 20px 2px 6px;
+            background: var(--surface); border: 1px solid var(--line);
+            border-radius: 2px; color: var(--text);
+            font-family: var(--mono); font-size: 10px; cursor: pointer;
+            background-image: url("data:image/svg+xml,%3Csvg width='8' height='5' viewBox='0 0 8 5' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0.5 L4 4 L8 0.5' fill='none' stroke='%23666' stroke-width='1' stroke-linecap='round'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 5px center;
+        }
+        .filter-select:focus { outline: none; border-color: var(--text-mute); }
+
+        /* -- Table Section -- */
+        .table-section {
+            margin: 0;
+            border-bottom: 1px solid var(--line);
+        }
+        .table-header {
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 4px 16px;
+            border-bottom: 1px solid var(--line);
+            background: var(--bg-elev);
+            font-family: var(--mono);
+            font-size: 10px;
+        }
+        .table-header h2 {
+            font-size: 10px; font-weight: 600; letter-spacing: 0.06em;
+            text-transform: uppercase; color: var(--text-dim);
+        }
+        .table-meta { color: var(--text-mute); font-size: 10px; }
+
+        /* -- Signals Table (spreadsheet style) -- */
+        .sig-table {
+            width: 100%; border-collapse: collapse; font-size: 11px;
+            font-family: var(--mono);
+        }
+        .sig-table thead th {
+            text-align: left; padding: 4px 8px;
+            font-size: 9px; font-weight: 600; letter-spacing: 0.06em;
+            text-transform: uppercase; color: var(--text-mute);
+            border-bottom: 1px solid var(--line);
+            border-right: 1px solid var(--grid-line);
+            background: oklch(0.175 0.010 250);
+            position: sticky; top: 32px; /* account for topbar */
+            white-space: nowrap; height: 24px;
+            cursor: pointer; user-select: none;
+        }
+        .sig-table thead th:last-child { border-right: 0; }
+        .sig-table thead th.r { text-align: right; }
+        .sig-table thead th .sort-arrow {
+            display: inline-block; margin-left: 3px; font-size: 7px;
+            color: var(--text-faint); vertical-align: middle;
+        }
+        .sig-table thead th:hover { color: var(--text-dim); }
+        .sig-table thead th:hover .sort-arrow { color: var(--text-mute); }
+
+        .sig-table tbody td {
+            padding: 0 8px; height: var(--row-h);
+            border-bottom: 1px solid var(--grid-line);
+            border-right: 1px solid var(--grid-line);
+            color: var(--text); vertical-align: middle;
+            font-family: var(--mono); font-size: 11px;
+        }
+        .sig-table tbody td:last-child { border-right: 0; }
+        .sig-table tbody td.r { text-align: right; }
+        .sig-table tbody tr { cursor: pointer; }
+        /* alternating rows */
+        .sig-table tbody tr:nth-child(even) { background: oklch(0.16 0.010 250); }
+        .sig-table tbody tr:nth-child(odd) { background: var(--bg); }
+        .sig-table tbody tr:hover { background: oklch(0.20 0.012 250); }
+
+        /* -- Inline Components -- */
+        .strategy-tag {
+            font-family: var(--mono); font-size: 9px; font-weight: 500;
+            letter-spacing: 0.04em; text-transform: uppercase;
+            padding: 1px 4px; border-radius: 1px; background: transparent;
+            display: inline-block;
+        }
+        .strategy-tag.tone-accent { color: var(--accent); }
+        .strategy-tag.tone-up { color: var(--up); }
+        .strategy-tag.tone-down { color: var(--down); }
+        .strategy-tag.tone-warn { color: var(--warn); }
+
+        .result-pill {
+            font-size: 10px; font-weight: 500; letter-spacing: 0.02em;
+            padding: 1px 5px; border-radius: 1px; display: inline-block;
+        }
+        .result-pill.win { color: var(--up); background: var(--up-soft); }
+        .result-pill.loss { color: var(--down); background: var(--down-soft); }
+        .result-pill.pending { color: var(--text-mute); background: oklch(0.24 0.006 250 / 0.5); }
+
+        .wr-num { font-family: var(--mono); font-weight: 500; font-size: 11px; }
+
+        .dd-num { font-family: var(--mono); font-weight: 500; font-size: 11px; }
+
+        /* Footer */
+        .table-footer {
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 4px 16px;
+            border-top: 1px solid var(--line);
+            background: var(--bg-elev);
+            font-size: 10px; color: var(--text-mute);
+            font-family: var(--mono);
+        }
+        .kbd {
+            font-family: var(--mono); font-size: 9px; color: var(--text-mute);
+            padding: 0px 3px; border-radius: 1px;
+            border: 1px solid var(--line); background: var(--surface);
+        }
+
+        /* Legend */
+        .legend-dot { width: 5px; height: 5px; border-radius: 50%; display: inline-block; }
+
+        /* Sparkline */
+        .spark-wrap { display: inline-block; }
+
+        /* Streaming indicator */
+        .stream-dot {
+            width: 4px; height: 4px; border-radius: 50%; background: var(--up);
+            display: inline-block;
+            animation: pulseDot 1.6s ease-in-out infinite;
+        }
+        @keyframes pulseDot {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        /* Mockup label */
+        .mockup-banner {
+            background: oklch(0.30 0.08 60); color: oklch(0.95 0.02 60);
+            padding: 4px 16px; font-size: 10px; font-family: var(--mono);
+            letter-spacing: 0.04em; text-transform: uppercase;
+        }
+    </style>
+</head>
+<body>
+
+<div class="mockup-banner">MOCKUP: Spreadsheet-dense Buy Signals redesign</div>
+
+<div class="topbar">
+    <div class="topbar-left">
+        <div class="logo-group">
+            <svg width="16" height="16" viewBox="0 0 22 22">
+                <rect x="1" y="1" width="20" height="20" rx="3" fill="none" stroke="var(--text-mute)" stroke-width=".75"/>
+                <path d="M4 14 L8 9 L12 12 L18 5" fill="none" stroke="var(--text-dim)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+                <circle cx="18" cy="5" r="1.6" fill="var(--text-dim)"/>
+            </svg>
+            <span class="logo-name">RAPIDSIFT</span>
+        </div>
+        <div class="vdiv"></div>
+        <nav class="tab-nav">
+            <a href="/index.html" class="tab-btn">CHARTS</a>
+            <a href="/buy-signals.html" class="tab-btn active">SIGNALS</a>
+            <a href="/reliability.html" class="tab-btn">RELIABILITY</a>
+            <a href="/strategies.html" class="tab-btn">STRATEGIES</a>
+        </nav>
+    </div>
+    <div class="topbar-right">
+        <div class="market-status">
+            <span class="status-dot open"></span>
+            <span>NYSE OPEN</span>
+            <div class="vdiv" style="height:12px"></div>
+            <span class="status-dot open"></span>
+            <span>NASDAQ OPEN</span>
+            <div class="vdiv" style="height:12px"></div>
+            <span style="color:var(--text-dim)">ET 14:32:18</span>
+            <span>next 287s</span>
+        </div>
+        <button class="refresh-btn">
+            <svg width="10" height="10" viewBox="0 0 12 12"><path d="M6 1.5 v 3.5 M6 1.5 L 4.2 3.2 M6 1.5 L 7.8 3.2 M2 7 a 4 4 0 1 0 8 0 v -1.2" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+            REFRESH
+        </button>
+    </div>
+</div>
+
+<!-- KPI Strip: single horizontal bar -->
+<div class="kpi-strip">
+    <div class="kpi-cell">
+        <span class="kpi-label">SIGNALS</span>
+        <span class="kpi-value">1,617</span>
+    </div>
+    <div class="kpi-cell">
+        <span class="kpi-label">TICKERS</span>
+        <span class="kpi-value">199</span>
+    </div>
+    <div class="kpi-cell">
+        <span class="kpi-label">WIN RATE</span>
+        <span class="kpi-value up">54.9%</span>
+    </div>
+    <div class="kpi-cell">
+        <span class="kpi-label">PENDING</span>
+        <span class="kpi-value">166</span>
+    </div>
+    <div class="kpi-cell">
+        <span class="kpi-label">+5% TARGET</span>
+        <span class="kpi-value up">54.9%</span>
+    </div>
+    <div class="kpi-cell" style="flex:1"></div>
+    <div class="kpi-cell" style="border-right:0">
+        <span class="stream-dot"></span>
+        <span style="color:var(--text-mute)">STREAMING</span>
+        <span style="color:var(--text-dim)">200 / 1,617</span>
+    </div>
+</div>
+
+<!-- Filter bar -->
+<div class="filter-bar">
+    <div class="filter-group">
+        <span class="filter-label">TARGET</span>
+        <select class="filter-select">
+            <option>+5%</option>
+            <option>+10%</option>
+        </select>
+    </div>
+    <div class="filter-group">
+        <span class="filter-label">WR &ge;</span>
+        <select class="filter-select">
+            <option>Any</option>
+            <option>40%</option>
+            <option selected>50%</option>
+            <option>60%</option>
+            <option>70%</option>
+        </select>
+    </div>
+    <div class="filter-group">
+        <span class="filter-label">FIRED &ge;</span>
+        <select class="filter-select">
+            <option>Any</option>
+            <option>2x</option>
+            <option selected>3x</option>
+            <option>5x</option>
+            <option>10x</option>
+        </select>
+    </div>
+    <div style="flex:1"></div>
+    <div style="display:flex;align-items:center;gap:8px;font-size:9px;color:var(--text-mute)">
+        <span class="legend-dot" style="background:var(--up)"></span> WIN
+        <span class="legend-dot" style="background:var(--down)"></span> LOSS
+        <span class="legend-dot" style="background:var(--text-mute)"></span> PEND
+    </div>
+</div>
+
+<!-- Table -->
+<div class="table-section">
+    <div style="overflow:auto">
+        <table class="sig-table">
+            <thead>
+                <tr>
+                    <th style="width:30px">#</th>
+                    <th style="width:82px">TIME <span class="sort-arrow">&#9660;</span></th>
+                    <th style="width:60px">TICKER</th>
+                    <th style="width:90px">14D CHART</th>
+                    <th style="width:70px">STRATEGY</th>
+                    <th>DETAIL</th>
+                    <th class="r" style="width:70px">SIGNAL $</th>
+                    <th class="r" style="width:70px">ENTRY $</th>
+                    <th class="r" style="width:56px">CHG%</th>
+                    <th style="width:64px">RESULT</th>
+                    <th class="r" style="width:56px">MAX DD</th>
+                    <th class="r" style="width:56px">WR%</th>
+                    <th class="r" style="width:40px">FIRED</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><span style="color:var(--text-faint)">01</span></td>
+                    <td>
+                        <span style="color:var(--text-dim)">05-20</span>
+                        <span style="color:var(--text-faint);font-size:9px"> 22:06</span>
+                    </td>
+                    <td><span style="font-weight:600;letter-spacing:0.02em">TME</span></td>
+                    <td>
+                        <svg width="80" height="20" viewBox="0 0 80 20" style="display:block;overflow:visible">
+                            <path d="M2 8 L10 2 L18 7 L26 7.5 L34 8.5 L42 10 L50 12 L58 17 L66 10 L74 8.5 L78 13" fill="none" stroke="var(--down)" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+                            <circle cx="78" cy="13" r="1.5" fill="var(--down)"/>
+                        </svg>
+                    </td>
+                    <td><span class="strategy-tag tone-accent">MACD</span></td>
+                    <td style="color:var(--text-dim)">MACD bullish crossover (MACD=-0.128)</td>
+                    <td class="r"><span style="font-weight:500">9.16</span></td>
+                    <td class="r"><span style="color:var(--text-dim)">8.91</span></td>
+                    <td class="r"><span style="color:var(--down)">-2.73</span></td>
+                    <td><span class="result-pill pending">PEND</span></td>
+                    <td class="r"><span style="color:var(--warn)">-2.4</span></td>
+                    <td class="r"><span style="color:var(--warn)">33.3</span></td>
+                    <td class="r">6</td>
+                </tr>
+                <tr>
+                    <td><span style="color:var(--text-faint)">02</span></td>
+                    <td>
+                        <span style="color:var(--text-dim)">05-20</span>
+                        <span style="color:var(--text-faint);font-size:9px"> 22:06</span>
+                    </td>
+                    <td><span style="font-weight:600">T</span></td>
+                    <td>
+                        <svg width="80" height="20" viewBox="0 0 80 20" style="display:block;overflow:visible">
+                            <path d="M2 12 L14 8 L26 6 L38 5 L50 4 L62 3 L74 2 L78 5" fill="none" stroke="var(--up)" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+                            <circle cx="78" cy="5" r="1.5" fill="var(--up)"/>
+                        </svg>
+                    </td>
+                    <td><span class="strategy-tag tone-accent">MACD</span></td>
+                    <td style="color:var(--text-dim)">MACD bullish crossover (MACD=-0.076)</td>
+                    <td class="r"><span style="font-weight:500">28.52</span></td>
+                    <td class="r"><span style="color:var(--text-dim)">29.84</span></td>
+                    <td class="r"><span style="color:var(--up)">+4.63</span></td>
+                    <td><span class="result-pill pending">PEND</span></td>
+                    <td class="r"><span style="color:var(--up)">-0.8</span></td>
+                    <td class="r"><span style="color:var(--warn)">25.0</span></td>
+                    <td class="r">4</td>
+                </tr>
+                <tr>
+                    <td><span style="color:var(--text-faint)">03</span></td>
+                    <td>
+                        <span style="color:var(--text-dim)">05-20</span>
+                        <span style="color:var(--text-faint);font-size:9px"> 22:06</span>
+                    </td>
+                    <td><span style="font-weight:600">AAPL</span></td>
+                    <td>
+                        <svg width="80" height="20" viewBox="0 0 80 20" style="display:block;overflow:visible">
+                            <path d="M2 15 L14 12 L26 8 L38 6 L50 4 L62 5 L74 3 L78 2" fill="none" stroke="var(--up)" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+                            <circle cx="78" cy="2" r="1.5" fill="var(--up)"/>
+                        </svg>
+                    </td>
+                    <td><span class="strategy-tag tone-up">RSI</span></td>
+                    <td style="color:var(--text-dim)">RSI oversold bounce (RSI=28.4)</td>
+                    <td class="r"><span style="font-weight:500">198.32</span></td>
+                    <td class="r"><span style="color:var(--text-dim)">211.45</span></td>
+                    <td class="r"><span style="color:var(--up)">+6.62</span></td>
+                    <td><span class="result-pill win">+5% WIN</span></td>
+                    <td class="r"><span style="color:var(--up)">-1.2</span></td>
+                    <td class="r"><span style="color:var(--up)">72.1</span></td>
+                    <td class="r">14</td>
+                </tr>
+                <tr>
+                    <td><span style="color:var(--text-faint)">04</span></td>
+                    <td>
+                        <span style="color:var(--text-dim)">05-19</span>
+                        <span style="color:var(--text-faint);font-size:9px"> 15:42</span>
+                    </td>
+                    <td><span style="font-weight:600">NVDA</span></td>
+                    <td>
+                        <svg width="80" height="20" viewBox="0 0 80 20" style="display:block;overflow:visible">
+                            <path d="M2 10 L14 12 L26 14 L38 16 L50 15 L62 18 L74 17 L78 18" fill="none" stroke="var(--down)" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+                            <circle cx="78" cy="18" r="1.5" fill="var(--down)"/>
+                        </svg>
+                    </td>
+                    <td><span class="strategy-tag tone-warn">BOLL</span></td>
+                    <td style="color:var(--text-dim)">Bollinger band lower touch (BB=-2.1s)</td>
+                    <td class="r"><span style="font-weight:500">134.88</span></td>
+                    <td class="r"><span style="color:var(--text-dim)">126.92</span></td>
+                    <td class="r"><span style="color:var(--down)">-5.90</span></td>
+                    <td><span class="result-pill loss">LOSS</span></td>
+                    <td class="r"><span style="color:var(--down)">-8.3</span></td>
+                    <td class="r"><span style="color:var(--up)">58.3</span></td>
+                    <td class="r">12</td>
+                </tr>
+                <tr>
+                    <td><span style="color:var(--text-faint)">05</span></td>
+                    <td>
+                        <span style="color:var(--text-dim)">05-19</span>
+                        <span style="color:var(--text-faint);font-size:9px"> 15:42</span>
+                    </td>
+                    <td><span style="font-weight:600">MSFT</span></td>
+                    <td>
+                        <svg width="80" height="20" viewBox="0 0 80 20" style="display:block;overflow:visible">
+                            <path d="M2 14 L14 10 L26 8 L38 6 L50 5 L62 4 L74 3 L78 2" fill="none" stroke="var(--up)" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+                            <circle cx="78" cy="2" r="1.5" fill="var(--up)"/>
+                        </svg>
+                    </td>
+                    <td><span class="strategy-tag tone-accent">MACD</span></td>
+                    <td style="color:var(--text-dim)">MACD bullish crossover (MACD=0.215)</td>
+                    <td class="r"><span style="font-weight:500">452.10</span></td>
+                    <td class="r"><span style="color:var(--text-dim)">468.33</span></td>
+                    <td class="r"><span style="color:var(--up)">+3.59</span></td>
+                    <td><span class="result-pill pending">PEND</span></td>
+                    <td class="r"><span style="color:var(--up)">-0.4</span></td>
+                    <td class="r"><span style="color:var(--up)">61.5</span></td>
+                    <td class="r">26</td>
+                </tr>
+                <tr>
+                    <td><span style="color:var(--text-faint)">06</span></td>
+                    <td>
+                        <span style="color:var(--text-dim)">05-19</span>
+                        <span style="color:var(--text-faint);font-size:9px"> 15:42</span>
+                    </td>
+                    <td><span style="font-weight:600">AMZN</span></td>
+                    <td>
+                        <svg width="80" height="20" viewBox="0 0 80 20" style="display:block;overflow:visible">
+                            <path d="M2 8 L14 7 L26 9 L38 10 L50 8 L62 6 L74 4 L78 3" fill="none" stroke="var(--up)" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+                            <circle cx="78" cy="3" r="1.5" fill="var(--up)"/>
+                        </svg>
+                    </td>
+                    <td><span class="strategy-tag tone-up">RSI</span></td>
+                    <td style="color:var(--text-dim)">RSI oversold bounce (RSI=31.2)</td>
+                    <td class="r"><span style="font-weight:500">207.44</span></td>
+                    <td class="r"><span style="color:var(--text-dim)">218.91</span></td>
+                    <td class="r"><span style="color:var(--up)">+5.53</span></td>
+                    <td><span class="result-pill win">+5% WIN</span></td>
+                    <td class="r"><span style="color:var(--up)">-0.9</span></td>
+                    <td class="r"><span style="color:var(--up)">66.7</span></td>
+                    <td class="r">9</td>
+                </tr>
+                <tr>
+                    <td><span style="color:var(--text-faint)">07</span></td>
+                    <td>
+                        <span style="color:var(--text-dim)">05-18</span>
+                        <span style="color:var(--text-faint);font-size:9px"> 22:06</span>
+                    </td>
+                    <td><span style="font-weight:600">TSLA</span></td>
+                    <td>
+                        <svg width="80" height="20" viewBox="0 0 80 20" style="display:block;overflow:visible">
+                            <path d="M2 4 L14 6 L26 8 L38 12 L50 14 L62 16 L74 18 L78 17" fill="none" stroke="var(--down)" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+                            <circle cx="78" cy="17" r="1.5" fill="var(--down)"/>
+                        </svg>
+                    </td>
+                    <td><span class="strategy-tag tone-warn">BOLL</span></td>
+                    <td style="color:var(--text-dim)">Bollinger band lower touch (BB=-1.8s)</td>
+                    <td class="r"><span style="font-weight:500">341.22</span></td>
+                    <td class="r"><span style="color:var(--text-dim)">318.45</span></td>
+                    <td class="r"><span style="color:var(--down)">-6.67</span></td>
+                    <td><span class="result-pill loss">LOSS</span></td>
+                    <td class="r"><span style="color:var(--down)">-9.1</span></td>
+                    <td class="r"><span style="color:var(--warn)">42.9</span></td>
+                    <td class="r">7</td>
+                </tr>
+                <tr>
+                    <td><span style="color:var(--text-faint)">08</span></td>
+                    <td>
+                        <span style="color:var(--text-dim)">05-18</span>
+                        <span style="color:var(--text-faint);font-size:9px"> 22:06</span>
+                    </td>
+                    <td><span style="font-weight:600">GOOG</span></td>
+                    <td>
+                        <svg width="80" height="20" viewBox="0 0 80 20" style="display:block;overflow:visible">
+                            <path d="M2 12 L14 10 L26 8 L38 6 L50 5 L62 4 L74 3 L78 4" fill="none" stroke="var(--up)" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+                            <circle cx="78" cy="4" r="1.5" fill="var(--up)"/>
+                        </svg>
+                    </td>
+                    <td><span class="strategy-tag tone-accent">MACD</span></td>
+                    <td style="color:var(--text-dim)">MACD bullish crossover (MACD=0.842)</td>
+                    <td class="r"><span style="font-weight:500">178.90</span></td>
+                    <td class="r"><span style="color:var(--text-dim)">189.12</span></td>
+                    <td class="r"><span style="color:var(--up)">+5.71</span></td>
+                    <td><span class="result-pill win">+5% WIN</span></td>
+                    <td class="r"><span style="color:var(--up)">-0.6</span></td>
+                    <td class="r"><span style="color:var(--up)">69.2</span></td>
+                    <td class="r">13</td>
+                </tr>
+                <tr>
+                    <td><span style="color:var(--text-faint)">09</span></td>
+                    <td>
+                        <span style="color:var(--text-dim)">05-18</span>
+                        <span style="color:var(--text-faint);font-size:9px"> 15:42</span>
+                    </td>
+                    <td><span style="font-weight:600">META</span></td>
+                    <td>
+                        <svg width="80" height="20" viewBox="0 0 80 20" style="display:block;overflow:visible">
+                            <path d="M2 16 L14 14 L26 10 L38 8 L50 6 L62 5 L74 4 L78 3" fill="none" stroke="var(--up)" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+                            <circle cx="78" cy="3" r="1.5" fill="var(--up)"/>
+                        </svg>
+                    </td>
+                    <td><span class="strategy-tag tone-up">RSI</span></td>
+                    <td style="color:var(--text-dim)">RSI oversold bounce (RSI=26.8)</td>
+                    <td class="r"><span style="font-weight:500">612.30</span></td>
+                    <td class="r"><span style="color:var(--text-dim)">648.77</span></td>
+                    <td class="r"><span style="color:var(--up)">+5.96</span></td>
+                    <td><span class="result-pill win">+5% WIN</span></td>
+                    <td class="r"><span style="color:var(--up)">-0.3</span></td>
+                    <td class="r"><span style="color:var(--up)">75.0</span></td>
+                    <td class="r">8</td>
+                </tr>
+                <tr>
+                    <td><span style="color:var(--text-faint)">10</span></td>
+                    <td>
+                        <span style="color:var(--text-dim)">05-17</span>
+                        <span style="color:var(--text-faint);font-size:9px"> 22:06</span>
+                    </td>
+                    <td><span style="font-weight:600">JPM</span></td>
+                    <td>
+                        <svg width="80" height="20" viewBox="0 0 80 20" style="display:block;overflow:visible">
+                            <path d="M2 10 L14 9 L26 8 L38 7 L50 8 L62 6 L74 5 L78 4" fill="none" stroke="var(--up)" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+                            <circle cx="78" cy="4" r="1.5" fill="var(--up)"/>
+                        </svg>
+                    </td>
+                    <td><span class="strategy-tag tone-accent">MACD</span></td>
+                    <td style="color:var(--text-dim)">MACD bullish crossover (MACD=1.42)</td>
+                    <td class="r"><span style="font-weight:500">268.44</span></td>
+                    <td class="r"><span style="color:var(--text-dim)">279.88</span></td>
+                    <td class="r"><span style="color:var(--up)">+4.26</span></td>
+                    <td><span class="result-pill pending">PEND</span></td>
+                    <td class="r"><span style="color:var(--up)">-0.5</span></td>
+                    <td class="r"><span style="color:var(--up)">63.6</span></td>
+                    <td class="r">22</td>
+                </tr>
+                <tr>
+                    <td><span style="color:var(--text-faint)">11</span></td>
+                    <td>
+                        <span style="color:var(--text-dim)">05-17</span>
+                        <span style="color:var(--text-faint);font-size:9px"> 15:42</span>
+                    </td>
+                    <td><span style="font-weight:600">BAC</span></td>
+                    <td>
+                        <svg width="80" height="20" viewBox="0 0 80 20" style="display:block;overflow:visible">
+                            <path d="M2 6 L14 8 L26 10 L38 12 L50 11 L62 13 L74 14 L78 16" fill="none" stroke="var(--down)" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+                            <circle cx="78" cy="16" r="1.5" fill="var(--down)"/>
+                        </svg>
+                    </td>
+                    <td><span class="strategy-tag tone-down">VWAP</span></td>
+                    <td style="color:var(--text-dim)">VWAP reclaim from below (dev=-1.4%)</td>
+                    <td class="r"><span style="font-weight:500">45.12</span></td>
+                    <td class="r"><span style="color:var(--text-dim)">43.88</span></td>
+                    <td class="r"><span style="color:var(--down)">-2.75</span></td>
+                    <td><span class="result-pill loss">LOSS</span></td>
+                    <td class="r"><span style="color:var(--down)">-4.2</span></td>
+                    <td class="r"><span style="color:var(--warn)">38.5</span></td>
+                    <td class="r">13</td>
+                </tr>
+                <tr>
+                    <td><span style="color:var(--text-faint)">12</span></td>
+                    <td>
+                        <span style="color:var(--text-dim)">05-17</span>
+                        <span style="color:var(--text-faint);font-size:9px"> 22:06</span>
+                    </td>
+                    <td><span style="font-weight:600">DIS</span></td>
+                    <td>
+                        <svg width="80" height="20" viewBox="0 0 80 20" style="display:block;overflow:visible">
+                            <path d="M2 14 L14 12 L26 10 L38 8 L50 6 L62 5 L74 4 L78 3" fill="none" stroke="var(--up)" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+                            <circle cx="78" cy="3" r="1.5" fill="var(--up)"/>
+                        </svg>
+                    </td>
+                    <td><span class="strategy-tag tone-up">RSI</span></td>
+                    <td style="color:var(--text-dim)">RSI oversold bounce (RSI=29.5)</td>
+                    <td class="r"><span style="font-weight:500">112.76</span></td>
+                    <td class="r"><span style="color:var(--text-dim)">119.82</span></td>
+                    <td class="r"><span style="color:var(--up)">+6.26</span></td>
+                    <td><span class="result-pill win">+5% WIN</span></td>
+                    <td class="r"><span style="color:var(--up)">-0.7</span></td>
+                    <td class="r"><span style="color:var(--up)">64.3</span></td>
+                    <td class="r">14</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="table-footer">
+    <span>1-200 of 1,617</span>
+    <div style="display:flex;align-items:center;gap:8px">
+        <span class="kbd">J</span><span class="kbd">K</span> nav
+        <span class="vdiv" style="height:10px"></span>
+        <span class="kbd">RET</span> chart
+    </div>
+</div>
+
+</body>
+</html>

@@ -21,15 +21,8 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install yfinance pandas cairosvg requests
+          pip install yfinance pandas pyyaml cairosvg requests
           sudo apt-get update && sudo apt-get install -y libcairo2-dev
-
-      - name: Restore signal state
-        uses: actions/cache@v4
-        with:
-          path: .signal_state.json
-          key: signal-state-${{ github.run_id }}
-          restore-keys: signal-state-
 
       - name: Run signal detection & notify
         env:
@@ -42,27 +35,10 @@ jobs:
           mkdir -p _site/data
           python3 scripts/generate_signals_json.py
 
-      - name: Commit updated signals data
+      - name: Commit updated signals and state data
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -f _site/data/signals.json
+          git add -f _site/data/signals.json .signal_state.json
           git diff --cached --quiet && echo "No changes to commit" || \
             (git commit -m "Update live signals data [skip ci]" && git push)
-
-      - name: Deploy to Vercel
-        if: success()
-        run: |
-          npm i -g vercel@latest
-          vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
-          vercel deploy --prod --token=${{ secrets.VERCEL_TOKEN }}
-        env:
-          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
-          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
-
-      - name: Save signal state
-        if: always()
-        uses: actions/cache/save@v4
-        with:
-          path: .signal_state.json
-          key: signal-state-${{ github.run_id }}

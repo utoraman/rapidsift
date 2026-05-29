@@ -16,6 +16,8 @@ Usage:
 import json
 import math
 import sys
+import time
+import yaml
 from pathlib import Path
 from datetime import datetime, timedelta
 from collections import defaultdict
@@ -25,33 +27,25 @@ import pandas as pd
 
 ROOT = Path(__file__).parent.parent
 OUT_DIR = ROOT / "_site" / "data"
+CONFIG_PATH = ROOT / "config.yaml"
 
-WATCHLIST = [
-    "NVDA","INTC","PLUG","SOFI","AAL","TSLA","F","NU","SNAP","GRAB",
-    "PLTR","MARA","AMZN","MU","NFLX","AAPL","OPEN","NIO","IREN","T",
-    "BAC","AMD","PFE","SMCI","HIMS","BBAI","MSFT","DNN","CMCSA","PATH",
-    "ACHR","BITF","HOOD","GOOGL","RGTI","SMR","VALE","SOUN","CCL","IONQ",
-    "ORCL","RIVN","JOBY","CIFR","VZ","MRVL","AVGO","RKLB","RDW","WBD",
-    "CSCO","NCLH","CPNG","NOW","NKE","XOM","BTBT","APLD","NVO","CLSK",
-    "PINS","WMT","GOOG","MSTR","PYPL","RIOT","WFC","QS","OXY","FCX",
-    "QCOM","UBER","CLF","SLB","BSX","LYFT","ET","ASTS","CMG","DVN",
-    "KO","META","HAL","U","CORZ","C","TSM","LUNR","CRM","DKNG",
-    "LCID","KMI","CSX","CVX","ABT","BMY","COIN","DAL","BABA","RBLX",
-    "JD","SHOP","BE","SCHW","UUUU","TME","IQ","RUN","LRCX","PG",
-    "DIS","ON","COP","MRK","JPM","NEM","PANW","UEC","BKR","MDT",
-    "LUV","UNH","BX","CVS","MRNA","ARM","JNJ","CELH","UAL","TEAM",
-    "SBUX","GM","V","TXN","PDD","KKR","SNOW","ACN","AMAT","BA",
-    "TEVA","ABBV","CARR","FISV","XPEV","MS","ENPH","WMB","IBM","FIS",
-    "UPS","PEP","GILD","FTNT","O","CL","GE","BBWI","TMUS","RTX",
-    "MNST","AI","AA","AFRM","ADBE","DDOG","TGT","WDAY","NTLA","APO",
-    "SE","DASH","APP","COF","UPST","EW","EOG","HUT","KMB","MGM",
-    "FCEL","LIDR","NVAX","ZM","DXCM","GSK","NET","EPD","DOCU","TLRY",
-    "EL","BROS","DHR","WOLF","EVGO","PENN","LVS","HD","SEDG","GFS",
-]
+BATCH_SIZE = 50             # Download tickers in batches of 50
+MAX_RETRIES = 1             # Retry failed tickers once
+RETRY_WAIT = 5              # Seconds to wait before retry
 
 SIGNAL_SCAN_DAYS = 14       # Scan the last N trading days for signals
 LOOKAHEAD_DAYS = 14         # Check win/loss over next N calendar days
 COOLDOWN_DAYS = 5           # De-duplicate: same signal type+ticker within N days
+
+
+def load_watchlist():
+    """Load watchlist from config.yaml (single source of truth)."""
+    with open(CONFIG_PATH) as f:
+        config = yaml.safe_load(f)
+    return [str(t) for t in config["watchlist"]]
+
+
+WATCHLIST = load_watchlist()
 
 
 # ── Signal Detection (mirrors notify_telegram.py) ──────────────────────────
@@ -176,17 +170,24 @@ def detect_signals_at(closes, opens, highs, lows, volumes, idx):
 
 # ── Win/loss evaluation ────────────────────────────────────────────────────
 
-def evaluate_signal(closes, highs, lows, signal_idx, lookahead=14):
+def evaluate_signal(closes, opens, highs, lows, signal_idx, lookahead=14):
     """
     Given a signal at signal_idx, check the next `lookahead` trading days.
-    Returns dict with result_5, result_10, current_pct, max_drawdown_pct.
+    Entry price is the next trading day's open (you can't buy at the close).
+    Returns dict with result_5, result_10, current_pct, max_drawdown_pct,
+    days_to_5, days_to_10, and entry_price.
     """
-    entry_price = closes[signal_idx]
-    end_idx = min(signal_idx + lookahead, len(closes) - 1)
+    signal_close = closes[signal_idx]
 
+    # Need at least one day after signal to have an entry
     if signal_idx >= len(closes) - 1:
         return {"result_5": "pending", "result_10": "pending",
-                "current_pct": 0, "max_drawdown_pct": 0, "latest_price": entry_price}
+                "current_pct": 0, "max_drawdown_pct": 0, "latest_price": signal_close,
+                "entry_price": None, "days_to_5": None, "days_to_10": None}
+
+    # Entry at next day's open (matches DuckDB validator behavior)
+    entry_price = opens[signal_idx + 1]
+    end_idx = min(signal_idx + 1 + lookahead, len(closes) - 1)
 
     future_closes = closes[signal_idx+1:end_idx+1]
     future_highs = highs[signal_idx+1:end_idx+1]
@@ -194,7 +195,8 @@ def evaluate_signal(closes, highs, lows, signal_idx, lookahead=14):
 
     if not future_closes:
         return {"result_5": "pending", "result_10": "pending",
-                "current_pct": 0, "max_drawdown_pct": 0, "latest_price": entry_price}
+                "current_pct": 0, "max_drawdown_pct": 0, "latest_price": signal_close,
+                "entry_price": round(entry_price, 2), "days_to_5": None, "days_to_10": None}
 
     latest_price = future_closes[-1]
     current_pct = ((latest_price - entry_price) / entry_price) * 100
@@ -206,11 +208,21 @@ def evaluate_signal(closes, highs, lows, signal_idx, lookahead=14):
         if dd < max_dd:
             max_dd = dd
 
-    # Check if hit +5% / +10%
-    hit_5 = any(((h - entry_price) / entry_price) * 100 >= 5 for h in future_highs)
-    hit_10 = any(((h - entry_price) / entry_price) * 100 >= 10 for h in future_highs)
+    # Check if hit +5% / +10% and track days to hit
+    days_to_5 = None
+    days_to_10 = None
+    hit_5 = False
+    hit_10 = False
+    for i, h in enumerate(future_highs):
+        pct = ((h - entry_price) / entry_price) * 100
+        if not hit_5 and pct >= 5:
+            hit_5 = True
+            days_to_5 = i + 1  # 1-based: day 1 is the first day after signal
+        if not hit_10 and pct >= 10:
+            hit_10 = True
+            days_to_10 = i + 1
 
-    days_elapsed = end_idx - signal_idx
+    days_elapsed = end_idx - (signal_idx + 1)
     is_complete = days_elapsed >= lookahead
 
     result_5 = ("win" if hit_5 else ("loss" if is_complete else "pending"))
@@ -222,6 +234,9 @@ def evaluate_signal(closes, highs, lows, signal_idx, lookahead=14):
         "current_pct": round(current_pct, 2),
         "max_drawdown_pct": round(max_dd, 2),
         "latest_price": round(latest_price, 2),
+        "entry_price": round(entry_price, 2),
+        "days_to_5": days_to_5,
+        "days_to_10": days_to_10,
     }
 
 
@@ -290,16 +305,14 @@ def build_sparkline_svg(closes, signal_idx, uid):
 
 # ── Main pipeline ──────────────────────────────────────────────────────────
 
-def fetch_all_prices():
-    """Fetch 3mo of daily prices for all watchlist tickers."""
-    print(f"Fetching prices for {len(WATCHLIST)} tickers...")
-    all_data = {}
-    errors = []
-
-    for ticker in WATCHLIST:
+def _parse_batch_data(raw_data, batch, all_data, errors):
+    """Extract per-ticker DataFrames from a yf.download() result."""
+    for ticker in batch:
         try:
-            t = yf.Ticker(ticker)
-            df = t.history(period="3mo", interval="1d")
+            if len(batch) > 1:
+                df = raw_data[ticker].dropna(how="all")
+            else:
+                df = raw_data.dropna(how="all")
             if df.empty:
                 errors.append(f"{ticker}: empty")
                 continue
@@ -316,22 +329,79 @@ def fetch_all_prices():
         except Exception as e:
             errors.append(f"{ticker}: {e}")
 
-    if errors:
-        print(f"  {len(errors)} errors: {errors[:10]}")
-    print(f"  Got data for {len(all_data)} tickers")
+
+def fetch_all_prices():
+    """Fetch 3mo of daily prices using batched yf.download() for speed."""
+    # Include SPY for adjusted return signals
+    fetch_list = WATCHLIST + (["SPY"] if "SPY" not in WATCHLIST else [])
+    print(f"Fetching prices for {len(fetch_list)} tickers in batches of {BATCH_SIZE}...")
+    all_data = {}
+    errors = []
+    failed_tickers = []
+
+    total_batches = (len(fetch_list) + BATCH_SIZE - 1) // BATCH_SIZE
+    for i in range(0, len(fetch_list), BATCH_SIZE):
+        batch = fetch_list[i:i + BATCH_SIZE]
+        batch_num = i // BATCH_SIZE + 1
+        print(f"  Batch {batch_num}/{total_batches}: downloading {len(batch)} tickers...")
+        try:
+            raw = yf.download(batch, period="3mo", interval="1d",
+                              group_by="ticker", progress=False, threads=True)
+            before = len(all_data)
+            _parse_batch_data(raw, batch, all_data, errors)
+            # Track tickers that didn't make it into all_data
+            for t in batch:
+                if t not in all_data:
+                    failed_tickers.append(t)
+            print(f"    Got {len(all_data) - before} tickers from this batch")
+        except Exception as e:
+            print(f"    Batch download error: {e}")
+            failed_tickers.extend(batch)
+
+    # Retry failed tickers once after a short wait
+    if failed_tickers and MAX_RETRIES > 0:
+        retry_list = [t for t in failed_tickers if t not in all_data]
+        if retry_list:
+            print(f"  Retrying {len(retry_list)} failed tickers after {RETRY_WAIT}s...")
+            time.sleep(RETRY_WAIT)
+            for rb_start in range(0, len(retry_list), BATCH_SIZE):
+                retry_batch = retry_list[rb_start:rb_start + BATCH_SIZE]
+                try:
+                    raw = yf.download(retry_batch, period="3mo", interval="1d",
+                                      group_by="ticker", progress=False, threads=True)
+                    _parse_batch_data(raw, retry_batch, all_data, errors)
+                except Exception as e:
+                    print(f"    Retry batch error: {e}")
+
+    # Report success rate
+    final_failed = [t for t in fetch_list if t not in all_data]
+    success_rate = (len(all_data) / len(fetch_list)) * 100 if fetch_list else 0
+    print(f"  Success: {len(all_data)}/{len(fetch_list)} tickers ({success_rate:.0f}%)")
+    if final_failed:
+        print(f"  Failed ({len(final_failed)}): {final_failed[:20]}")
     return all_data
 
 
-def scan_signals(all_data):
+def scan_signals(all_data, spy_data=None):
     """
     Scan last SIGNAL_SCAN_DAYS trading days for each ticker.
     Returns list of signal dicts sorted by date descending.
+    spy_data: optional dict with SPY price data for adjusted return signals.
     """
     print(f"Scanning for signals (last {SIGNAL_SCAN_DAYS} days)...")
 
     all_signals = []
     # Track signal history per (ticker, type) for cooldown dedup
     cooldown_tracker = defaultdict(list)  # (ticker, type) -> list of signal_idx
+
+    # Pre-compute SPY daily returns keyed by date string for adjusted signals
+    spy_returns = {}
+    if spy_data is not None:
+        spy_closes = spy_data["close"].tolist()
+        spy_dates = spy_data["date"].tolist()
+        for i in range(1, len(spy_closes)):
+            date_key = str(spy_dates[i])[:10]
+            spy_returns[date_key] = ((spy_closes[i] - spy_closes[i-1]) / spy_closes[i-1]) * 100
 
     for ticker, df in all_data.items():
         closes = df["close"].tolist()
@@ -349,6 +419,31 @@ def scan_signals(all_data):
         for idx in range(scan_start, n):
             sigs = detect_signals_at(closes, opens, highs, lows, volumes, idx)
 
+            # Adjusted return signals (requires SPY data)
+            if spy_returns and idx >= 1:
+                date_key = str(dates[idx])[:10]
+                spy_ret = spy_returns.get(date_key)
+                if spy_ret is not None:
+                    stock_ret = ((closes[idx] - closes[idx-1]) / closes[idx-1]) * 100
+                    adj_ret = stock_ret - spy_ret
+                    if adj_ret <= -5.0:
+                        sigs.append({
+                            "type": "adjusted_drop",
+                            "direction": "buy",
+                            "detail": f"Market-adjusted drop {adj_ret:+.2f}% "
+                                      f"(stock {stock_ret:+.2f}%, market {spy_ret:+.2f}%)",
+                        })
+                    elif adj_ret >= 5.0:
+                        sigs.append({
+                            "type": "adjusted_surge",
+                            "direction": "sell",
+                            "detail": f"Market-adjusted surge +{adj_ret:.2f}% "
+                                      f"(stock {stock_ret:+.2f}%, market {spy_ret:+.2f}%)",
+                        })
+
+            # Collect emitted signals for this ticker+day for confluence detection
+            emitted_buy_sigs = []
+
             for s in sigs:
                 key = (ticker, s["type"])
 
@@ -361,22 +456,57 @@ def scan_signals(all_data):
 
                 # Only emit signals from the recent window
                 if idx >= emit_start:
-                    eval_result = evaluate_signal(closes, highs, lows, idx, LOOKAHEAD_DAYS)
+                    eval_result = evaluate_signal(closes, opens, highs, lows, idx, LOOKAHEAD_DAYS)
                     sparkline = build_sparkline_svg(closes, idx, f"{len(all_signals)}")
 
                     signal_date = str(dates[idx])[:10]
-                    all_signals.append({
+                    sig_out = {
                         "ticker": ticker,
                         "date": signal_date,
                         "type": s["type"],
                         "direction": s["direction"],
                         "detail": s["detail"],
                         "price": round(closes[idx], 2),
+                        "entry_price": eval_result["entry_price"],
                         "result_5": eval_result["result_5"],
                         "result_10": eval_result["result_10"],
                         "current_pct": eval_result["current_pct"],
                         "latest_price": eval_result["latest_price"],
                         "max_drawdown_pct": eval_result["max_drawdown_pct"],
+                        "days_to_5": eval_result["days_to_5"],
+                        "days_to_10": eval_result["days_to_10"],
+                        "sparkline": sparkline,
+                    }
+                    all_signals.append(sig_out)
+                    if s["direction"] == "buy":
+                        emitted_buy_sigs.append(sig_out)
+
+            # Confluence: 2+ buy signals on the same ticker+day (mirrors engine.py)
+            if len(emitted_buy_sigs) >= 2:
+                conf_key = (ticker, "confluence")
+                recent_conf = [i for i in cooldown_tracker[conf_key] if idx - i <= COOLDOWN_DAYS]
+                if not recent_conf:
+                    cooldown_tracker[conf_key].append(idx)
+                    components = ", ".join(s["type"] for s in emitted_buy_sigs)
+                    detail = f"Confluence ({len(emitted_buy_sigs)} signals): {components}"
+                    eval_result = evaluate_signal(closes, opens, highs, lows, idx, LOOKAHEAD_DAYS)
+                    sparkline = build_sparkline_svg(closes, idx, f"{len(all_signals)}")
+                    signal_date = str(dates[idx])[:10]
+                    all_signals.append({
+                        "ticker": ticker,
+                        "date": signal_date,
+                        "type": "confluence",
+                        "direction": "buy",
+                        "detail": detail,
+                        "price": round(closes[idx], 2),
+                        "entry_price": eval_result["entry_price"],
+                        "result_5": eval_result["result_5"],
+                        "result_10": eval_result["result_10"],
+                        "current_pct": eval_result["current_pct"],
+                        "latest_price": eval_result["latest_price"],
+                        "max_drawdown_pct": eval_result["max_drawdown_pct"],
+                        "days_to_5": eval_result["days_to_5"],
+                        "days_to_10": eval_result["days_to_10"],
                         "sparkline": sparkline,
                     })
 
@@ -409,7 +539,37 @@ def compute_win_rates(all_signals):
     return stats
 
 
-def build_json(all_signals, win_rates):
+def compute_baseline(all_data, lookahead=LOOKAHEAD_DAYS):
+    """Compute random-entry baseline: for every ticker+day, did a random buy hit +5%/+10%?"""
+    total = 0
+    hits_5 = 0
+    hits_10 = 0
+
+    for ticker, df in all_data.items():
+        opens = df["open"].tolist()
+        highs = df["high"].tolist()
+        n = len(df)
+        for idx in range(n - lookahead):
+            entry = opens[idx + 1] if idx + 1 < n else opens[idx]
+            if entry <= 0:
+                continue
+            total += 1
+            future_highs = highs[idx + 1:idx + 1 + lookahead]
+            if any(((h - entry) / entry) * 100 >= 5 for h in future_highs):
+                hits_5 += 1
+            if any(((h - entry) / entry) * 100 >= 10 for h in future_highs):
+                hits_10 += 1
+
+    if total == 0:
+        return {"total": 0, "wr5": 0, "wr10": 0}
+    return {
+        "total": total,
+        "wr5": round(hits_5 / total * 100, 1),
+        "wr10": round(hits_10 / total * 100, 1),
+    }
+
+
+def build_json(all_signals, win_rates, baseline):
     """Build the final JSON structure."""
     buy_signals = [s for s in all_signals if s["direction"] == "buy"]
 
@@ -418,7 +578,7 @@ def build_json(all_signals, win_rates):
         key = (s["ticker"], s["type"])
         wr = win_rates.get(key, {"wr5": 0, "wr10": 0, "fired": 1})
 
-        signals_out.append({
+        sig_out = {
             "ticker": s["ticker"],
             "date": s["date"],
             "type": s["type"],
@@ -433,7 +593,15 @@ def build_json(all_signals, win_rates):
             "wr10": wr["wr10"],
             "fired": wr["fired"],
             "sparkline": s["sparkline"],
-        })
+        }
+        # Include entry_price and days-to-hit if available
+        if s.get("entry_price") is not None:
+            sig_out["entry_price"] = s["entry_price"]
+        if s.get("days_to_5") is not None:
+            sig_out["days_to_5"] = s["days_to_5"]
+        if s.get("days_to_10") is not None:
+            sig_out["days_to_10"] = s["days_to_10"]
+        signals_out.append(sig_out)
 
     # KPI summary
     total_buy = len(buy_signals)
@@ -444,6 +612,19 @@ def build_json(all_signals, win_rates):
     if completed:
         avg_wr5 = round(sum(1 for s in completed if s["result_5"] == "win") / len(completed) * 100, 1)
 
+    # Build reliability table: per (ticker, strategy) win rates sorted by wr5 desc
+    reliability = []
+    for (ticker, sig_type), wr in sorted(win_rates.items(), key=lambda x: -x[1]["wr5"]):
+        reliability.append({
+            "ticker": ticker,
+            "type": sig_type,
+            "fired": wr["fired"],
+            "wr5": wr["wr5"],
+            "wr10": wr["wr10"],
+            "summary_5": f"{int(wr['wr5'] * wr['fired'] / 100 + 0.5)}/{wr['fired']} hit +5% ({wr['wr5']}%)",
+            "summary_10": f"{int(wr['wr10'] * wr['fired'] / 100 + 0.5)}/{wr['fired']} hit +10% ({wr['wr10']}%)",
+        })
+
     return {
         "generated_at": datetime.utcnow().strftime("%Y-%m-%d %H:%M UTC"),
         "kpi": {
@@ -453,6 +634,8 @@ def build_json(all_signals, win_rates):
             "avg_win_rate_5": avg_wr5,
         },
         "signals": signals_out,
+        "reliability": reliability,
+        "baseline": baseline,
     }
 
 
@@ -464,9 +647,21 @@ def main():
         print("No data fetched. Exiting.")
         sys.exit(1)
 
-    all_signals = scan_signals(all_data)
+    # Extract SPY data for adjusted return signals, remove from signal scanning
+    spy_data = all_data.pop("SPY", None)
+    if spy_data is not None:
+        print(f"  SPY benchmark: {len(spy_data)} days loaded")
+    else:
+        print("  Warning: SPY data unavailable, adjusted return signals disabled")
+
+    all_signals = scan_signals(all_data, spy_data=spy_data)
     win_rates = compute_win_rates(all_signals)
-    output = build_json(all_signals, win_rates)
+
+    print("Computing random baseline...")
+    baseline = compute_baseline(all_data)
+    print(f"  Baseline: {baseline['total']} entries, +5% wr={baseline['wr5']}%, +10% wr={baseline['wr10']}%")
+
+    output = build_json(all_signals, win_rates, baseline)
 
     out_path = OUT_DIR / "signals.json"
     out_path.write_text(json.dumps(output, separators=(",", ":")))
