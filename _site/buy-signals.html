@@ -13742,7 +13742,7 @@
     }
 
     function loadLiveSignals() {
-        fetch('/data/signals.json?t=' + Date.now())
+        fetch('/api/signals?t=' + Date.now())
             .then(function(r) { if (!r.ok) throw new Error(r.status); return r.json(); })
             .then(function(data) {
                 // Update KPIs
