@@ -42,3 +42,8 @@ jobs:
           git add -f _site/data/signals.json .signal_state.json
           git diff --cached --quiet && echo "No changes to commit" || \
             (git commit -m "Update live signals data [skip ci]" && git push)
+
+      - name: Trigger Vercel deploy
+        if: always()
+        run: |
+          curl -s -X POST "${{ secrets.VERCEL_DEPLOY_HOOK }}" || echo "Deploy hook failed (non-fatal)"
