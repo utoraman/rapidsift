@@ -312,7 +312,11 @@ def _parse_batch_data(raw_data, batch, all_data, errors):
             if len(batch) > 1:
                 df = raw_data[ticker].dropna(how="all")
             else:
-                df = raw_data.dropna(how="all")
+                # Single-ticker batch: may have MultiIndex columns
+                if isinstance(raw_data.columns, pd.MultiIndex):
+                    df = raw_data[ticker].dropna(how="all")
+                else:
+                    df = raw_data.dropna(how="all")
             if df.empty:
                 errors.append(f"{ticker}: empty")
                 continue
