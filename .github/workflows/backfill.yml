@@ -1,0 +1,47 @@
+name: Backfill Signal History
+
+on:
+  workflow_dispatch:
+    inputs:
+      months:
+        description: 'Months of history to backfill'
+        required: false
+        default: '6'
+      clear:
+        description: 'Clear existing history first'
+        required: false
+        default: 'true'
+
+permissions:
+  contents: write
+
+jobs:
+  backfill:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: pip install yfinance pandas pyyaml
+
+      - name: Run backfill
+        run: |
+          args="--months ${{ github.event.inputs.months }}"
+          if [ "${{ github.event.inputs.clear }}" = "true" ]; then
+            args="$args --clear"
+          fi
+          python3 scripts/backfill_history.py $args
+
+      - name: Commit history CSV
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -f data/signal_history.csv
+          git diff --cached --quiet && echo "No changes to commit" || \
+            (git commit -m "Backfill signal history [skip ci]" && git push)
