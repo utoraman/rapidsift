@@ -13647,13 +13647,14 @@
 
     var STRATEGY_TONES = {
         'rsi': 'up', 'macd': 'accent', 'ma_crossover': 'warn',
-        'percent_change': 'down', 'volume_spike': 'accent',
-        'adjusted_drop': 'up', 'adjusted_surge': 'down', 'confluence': 'up'
+        'volume_spike': 'accent', 'adjusted_drop': 'up', 'adjusted_surge': 'down',
+        'gap_and_go': 'up', 'rel_strength': 'accent', 'earnings_drift': 'warn',
+        'confluence': 'up'
     };
     var STRATEGY_LABELS = {
         'rsi': 'RSI', 'macd': 'MACD', 'ma_crossover': 'MA Cross',
-        'percent_change': '% Change', 'volume_spike': 'Vol Spike',
-        'adjusted_drop': 'Adj Drop', 'adjusted_surge': 'Adj Surge',
+        'volume_spike': 'Vol Spike', 'adjusted_drop': 'Adj Drop', 'adjusted_surge': 'Adj Surge',
+        'gap_and_go': 'Gap & Go', 'rel_strength': 'Rel Strength', 'earnings_drift': 'Earnings Drift',
         'confluence': 'Confluence'
     };
 
@@ -13923,11 +13924,15 @@ function refreshData(btn) {
 (function() {
     var TONES = {
         'rsi': 'up', 'macd': 'accent', 'ma_crossover': 'warn',
-        'percent_change': 'down', 'volume_spike': 'accent'
+        'volume_spike': 'accent', 'adjusted_drop': 'up', 'adjusted_surge': 'down',
+        'gap_and_go': 'up', 'rel_strength': 'accent', 'earnings_drift': 'warn',
+        'confluence': 'up'
     };
     var LABELS = {
         'rsi': 'RSI', 'macd': 'MACD', 'ma_crossover': 'MA Cross',
-        'percent_change': '% Change', 'volume_spike': 'Vol Spike'
+        'volume_spike': 'Vol Spike', 'adjusted_drop': 'Adj Drop', 'adjusted_surge': 'Adj Surge',
+        'gap_and_go': 'Gap & Go', 'rel_strength': 'Rel Strength', 'earnings_drift': 'Earnings Drift',
+        'confluence': 'Confluence'
     };
 
     function mWrColor(v) {

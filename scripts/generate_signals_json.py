@@ -89,6 +89,13 @@ def detect_signals_at(closes, opens, highs, lows, volumes, idx):
     """
     Detect signals at a given index (treating closes[:idx+1] as the history).
     Returns list of signal dicts (without ticker/date, those are added later).
+
+    Strategy overhaul (June 2026):
+    - Removed: percent_change (no edge over baseline)
+    - MACD: only fires buy when price > SMA20 (trend confirmation)
+    - MA crossover: faster 10/30 instead of 20/50 for short-term trades
+    - Volume spike: only buy when price > SMA20 (trend filter)
+    - Added: gap_and_go, relative_strength
     """
     signals = []
     if idx < 1:
@@ -96,30 +103,14 @@ def detect_signals_at(closes, opens, highs, lows, volumes, idx):
 
     latest_close = closes[idx]
     prev_close = closes[idx - 1]
+    c = closes[:idx+1]
 
-    # Percent change (volatility-normalized)
-    pct = ((latest_close - prev_close) / prev_close) * 100
-    if idx >= 21:
-        rets = [(closes[i] - closes[i-1]) / closes[i-1] * 100
-                for i in range(max(1, idx - 19), idx + 1)]
-        mean_r = sum(rets) / len(rets)
-        std = (sum((r - mean_r) ** 2 for r in rets) / len(rets)) ** 0.5
-        if std > 0 and abs(pct / std) >= 2.0:
-            z = pct / std
-            signals.append({
-                "type": "percent_change",
-                "direction": "sell" if pct > 0 else "buy",
-                "detail": f"Daily move {pct:+.2f}% ({z:+.1f}σ)",
-            })
-    elif abs(pct) >= 3.0:
-        signals.append({
-            "type": "percent_change",
-            "direction": "sell" if pct > 0 else "buy",
-            "detail": f"Daily move {pct:+.2f}%",
-        })
+    # Pre-compute SMAs used by multiple signals
+    sma20 = compute_sma(c, 20) if len(c) >= 20 else [float('nan')] * len(c)
+    above_sma20 = not math.isnan(sma20[-1]) and latest_close > sma20[-1]
 
-    # RSI transition
-    rsi = compute_rsi(closes[:idx+1], 14)
+    # ── RSI transition (keep as-is, strong edge) ──
+    rsi = compute_rsi(c, 14)
     if len(rsi) >= 2 and not math.isnan(rsi[-1]) and not math.isnan(rsi[-2]):
         if rsi[-1] <= 30 and rsi[-2] > 30:
             signals.append({"type": "rsi", "direction": "buy",
@@ -128,8 +119,7 @@ def detect_signals_at(closes, opens, highs, lows, volumes, idx):
             signals.append({"type": "rsi", "direction": "sell",
                            "detail": f"RSI={rsi[-1]:.1f} crossed above 70"})
 
-    # MACD crossover
-    c = closes[:idx+1]
+    # ── MACD crossover (trend-filtered: only buy when above SMA20) ──
     if len(c) >= 35:
         ema12 = compute_ema(c, 12)
         ema26 = compute_ema(c, 26)
@@ -137,33 +127,65 @@ def detect_signals_at(closes, opens, highs, lows, volumes, idx):
         sig_line = compute_ema(macd, 9)
         prev_d = macd[-2] - sig_line[-2]
         curr_d = macd[-1] - sig_line[-1]
-        if prev_d < 0 and curr_d > 0:
-            signals.append({"type": "macd", "direction": "buy", "detail": "MACD bullish crossover"})
+        if prev_d < 0 and curr_d > 0 and above_sma20:
+            signals.append({"type": "macd", "direction": "buy",
+                           "detail": "MACD bullish crossover (above SMA20)"})
         elif prev_d > 0 and curr_d < 0:
-            signals.append({"type": "macd", "direction": "sell", "detail": "MACD bearish crossover"})
+            signals.append({"type": "macd", "direction": "sell",
+                           "detail": "MACD bearish crossover"})
 
-    # MA crossover
-    if len(c) >= 51:
-        sma20 = compute_sma(c, 20)
-        sma50 = compute_sma(c, 50)
-        if not any(math.isnan(v) for v in [sma20[-1], sma20[-2], sma50[-1], sma50[-2]]):
-            prev_d = sma20[-2] - sma50[-2]
-            curr_d = sma20[-1] - sma50[-1]
+    # ── MA crossover (fast: 10/30 for short-term trades) ──
+    if len(c) >= 31:
+        sma10 = compute_sma(c, 10)
+        sma30 = compute_sma(c, 30)
+        if not any(math.isnan(v) for v in [sma10[-1], sma10[-2], sma30[-1], sma30[-2]]):
+            prev_d = sma10[-2] - sma30[-2]
+            curr_d = sma10[-1] - sma30[-1]
             if prev_d < 0 and curr_d > 0:
                 signals.append({"type": "ma_crossover", "direction": "buy",
-                               "detail": "SMA20 crossed above SMA50"})
+                               "detail": "SMA10 crossed above SMA30"})
             elif prev_d > 0 and curr_d < 0:
                 signals.append({"type": "ma_crossover", "direction": "sell",
-                               "detail": "SMA20 crossed below SMA50"})
+                               "detail": "SMA10 crossed below SMA30"})
 
-    # Volume spike
+    # ── Volume spike (trend-filtered: only buy when above SMA20) ──
     if idx >= 20:
         avg_vol = sum(volumes[idx-20:idx]) / 20
         if avg_vol > 0 and volumes[idx] / avg_vol >= 2.0:
             ratio = volumes[idx] / avg_vol
-            direction = "buy" if latest_close < opens[idx] else "sell"
-            signals.append({"type": "volume_spike", "direction": direction,
-                           "detail": f"Volume spike: {ratio:.1f}x average"})
+            if latest_close < opens[idx]:
+                # Down day on heavy volume — only buy if still in uptrend
+                if above_sma20:
+                    signals.append({"type": "volume_spike", "direction": "buy",
+                                   "detail": f"Volume spike {ratio:.1f}x (dip in uptrend)"})
+            else:
+                # Up day on heavy volume — momentum confirmation
+                signals.append({"type": "volume_spike", "direction": "sell",
+                               "detail": f"Volume spike {ratio:.1f}x (surge)"})
+
+    # ── Gap-and-go momentum (NEW) ──
+    # Stock gaps up 3%+ at open on heavy volume — ride the momentum
+    if idx >= 20:
+        gap_pct = ((opens[idx] - prev_close) / prev_close) * 100
+        avg_vol = sum(volumes[idx-20:idx]) / 20
+        vol_ratio = volumes[idx] / avg_vol if avg_vol > 0 else 0
+        if gap_pct >= 3.0 and vol_ratio >= 1.5:
+            # Gap up on volume — momentum buy
+            signals.append({"type": "gap_and_go", "direction": "buy",
+                           "detail": f"Gap up {gap_pct:+.1f}% on {vol_ratio:.1f}x volume"})
+        elif gap_pct <= -3.0 and vol_ratio >= 1.5:
+            # Gap down on volume — momentum sell
+            signals.append({"type": "gap_and_go", "direction": "sell",
+                           "detail": f"Gap down {gap_pct:+.1f}% on {vol_ratio:.1f}x volume"})
+
+    # ── Relative strength breakout (NEW) ──
+    # Stock makes a new 20-day high — catches momentum leaders
+    if idx >= 20:
+        high_20d = max(highs[idx-20:idx])  # Previous 20 days (excluding today)
+        if highs[idx] > high_20d and above_sma20:
+            breakout_pct = ((highs[idx] - high_20d) / high_20d) * 100
+            signals.append({"type": "rel_strength", "direction": "buy",
+                           "detail": f"New 20-day high ({breakout_pct:+.1f}% above prev)"})
 
     return signals
 
@@ -498,6 +520,31 @@ def fetch_all_prices():
     return all_data
 
 
+def _fetch_earnings_dates(tickers):
+    """
+    Fetch recent earnings dates for all tickers.
+    Returns dict: ticker -> set of date strings (YYYY-MM-DD) when earnings were reported.
+    Uses yfinance calendar; failures are silently skipped.
+    """
+    print("  Fetching earnings dates...")
+    earnings = {}
+    for ticker in tickers:
+        try:
+            t = yf.Ticker(ticker)
+            # earnings_dates returns a DataFrame with earnings dates
+            ed = t.earnings_dates
+            if ed is not None and not ed.empty:
+                dates_set = set()
+                for dt in ed.index:
+                    d = pd.Timestamp(dt).tz_localize(None) if hasattr(dt, 'tz_localize') else pd.Timestamp(dt)
+                    dates_set.add(str(d)[:10])
+                earnings[ticker] = dates_set
+        except Exception:
+            pass
+    print(f"  Got earnings dates for {len(earnings)} tickers")
+    return earnings
+
+
 def scan_signals(all_data, spy_data=None):
     """
     Scan last SIGNAL_SCAN_DAYS trading days for each ticker.
@@ -519,6 +566,9 @@ def scan_signals(all_data, spy_data=None):
             date_key = str(spy_dates[i])[:10]
             spy_returns[date_key] = ((spy_closes[i] - spy_closes[i-1]) / spy_closes[i-1]) * 100
 
+    # Fetch earnings dates for post-earnings drift detection
+    earnings_dates = _fetch_earnings_dates(list(all_data.keys()))
+
     for ticker, df in all_data.items():
         closes = df["close"].tolist()
         opens = df["open"].tolist()
@@ -536,6 +586,8 @@ def scan_signals(all_data, spy_data=None):
             sigs = detect_signals_at(closes, opens, highs, lows, volumes, idx)
 
             # Adjusted return signals (requires SPY data)
+            # Adjusted drop: skip if stock is in sustained downtrend
+            # (below SMA50 for 5+ consecutive days)
             if spy_returns and idx >= 1:
                 date_key = str(dates[idx])[:10]
                 spy_ret = spy_returns.get(date_key)
@@ -543,18 +595,50 @@ def scan_signals(all_data, spy_data=None):
                     stock_ret = ((closes[idx] - closes[idx-1]) / closes[idx-1]) * 100
                     adj_ret = stock_ret - spy_ret
                     if adj_ret <= -5.0:
-                        sigs.append({
-                            "type": "adjusted_drop",
-                            "direction": "buy",
-                            "detail": f"Market-adjusted drop {adj_ret:+.2f}% "
-                                      f"(stock {stock_ret:+.2f}%, market {spy_ret:+.2f}%)",
-                        })
+                        # Downtrend filter: check if below SMA50 for 5+ days
+                        in_downtrend = False
+                        if idx >= 54:
+                            sma50 = compute_sma(closes[:idx+1], 50)
+                            below_count = sum(1 for i in range(idx-4, idx+1)
+                                            if not math.isnan(sma50[i]) and closes[i] < sma50[i])
+                            in_downtrend = below_count >= 5
+                        if not in_downtrend:
+                            sigs.append({
+                                "type": "adjusted_drop",
+                                "direction": "buy",
+                                "detail": f"Market-adjusted drop {adj_ret:+.2f}% "
+                                          f"(stock {stock_ret:+.2f}%, market {spy_ret:+.2f}%)",
+                            })
                     elif adj_ret >= 5.0:
                         sigs.append({
                             "type": "adjusted_surge",
                             "direction": "sell",
                             "detail": f"Market-adjusted surge +{adj_ret:.2f}% "
                                       f"(stock {stock_ret:+.2f}%, market {spy_ret:+.2f}%)",
+                        })
+
+            # Earnings momentum: post-earnings drift
+            # If yesterday was an earnings day and stock gapped up, buy the drift
+            if ticker in earnings_dates and idx >= 2:
+                prev_date_str = str(dates[idx-1])[:10]
+                if prev_date_str in earnings_dates[ticker]:
+                    # Earnings were reported on the previous trading day
+                    # Check if stock reacted positively (gap up or big close-to-close move)
+                    earnings_ret = ((closes[idx] - closes[idx-1]) / closes[idx-1]) * 100
+                    gap = ((opens[idx] - closes[idx-1]) / closes[idx-1]) * 100
+                    if gap >= 2.0 or earnings_ret >= 3.0:
+                        sigs.append({
+                            "type": "earnings_drift",
+                            "direction": "buy",
+                            "detail": f"Post-earnings drift: gap {gap:+.1f}%, "
+                                      f"move {earnings_ret:+.1f}%",
+                        })
+                    elif gap <= -2.0 or earnings_ret <= -3.0:
+                        sigs.append({
+                            "type": "earnings_drift",
+                            "direction": "sell",
+                            "detail": f"Post-earnings drop: gap {gap:+.1f}%, "
+                                      f"move {earnings_ret:+.1f}%",
                         })
 
             # Collect emitted signals for this ticker+day for confluence detection
@@ -600,14 +684,18 @@ def scan_signals(all_data, spy_data=None):
                     if s["direction"] == "buy":
                         emitted_buy_sigs.append(sig_out)
 
-            # Confluence: 2+ buy signals on the same ticker+day (mirrors engine.py)
-            if len(emitted_buy_sigs) >= 2:
+            # Confluence: 2+ STRONG buy signals on same ticker+day
+            # Only count signals with demonstrated edge: rsi, ma_crossover,
+            # adjusted_drop, rel_strength, gap_and_go
+            STRONG_TYPES = {"rsi", "ma_crossover", "adjusted_drop", "rel_strength", "gap_and_go", "earnings_drift"}
+            strong_buy_sigs = [s for s in emitted_buy_sigs if s["type"] in STRONG_TYPES]
+            if len(strong_buy_sigs) >= 2:
                 conf_key = (ticker, "confluence")
                 recent_conf = [i for i in cooldown_tracker[conf_key] if idx - i <= COOLDOWN_DAYS]
                 if not recent_conf:
                     cooldown_tracker[conf_key].append(idx)
-                    components = ", ".join(s["type"] for s in emitted_buy_sigs)
-                    detail = f"Confluence ({len(emitted_buy_sigs)} signals): {components}"
+                    components = ", ".join(s["type"] for s in strong_buy_sigs)
+                    detail = f"Confluence ({len(strong_buy_sigs)} strong signals): {components}"
                     eval_result = evaluate_signal(closes, opens, highs, lows, idx, LOOKAHEAD_DAYS)
                     sparkline = build_sparkline_svg(closes, idx, f"{len(all_signals)}")
                     signal_date = str(dates[idx])[:10]

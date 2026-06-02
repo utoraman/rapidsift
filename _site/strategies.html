@@ -417,7 +417,7 @@
                     <span style="margin-left:auto;font-size:11px;color:var(--text-mute)">Buy + Sell</span>
                 </div>
                 <p style="color:var(--text-dim);font-size:12.5px;line-height:1.65;margin-bottom:16px">
-                    Tracks the relationship between two exponential moving averages. When the MACD line crosses above the signal line &rarr; <strong>buy</strong>. When it crosses below &rarr; <strong>sell</strong>.
+                    Tracks the relationship between two exponential moving averages. When the MACD line crosses above the signal line &rarr; <strong>buy</strong> (only when price is above SMA20 — trend filter). When it crosses below &rarr; <strong>sell</strong>.
                 </p>
                 <div style="display:flex;flex-wrap:wrap;gap:10px">
                     
@@ -453,18 +453,18 @@
                     <span style="margin-left:auto;font-size:11px;color:var(--text-mute)">Buy + Sell</span>
                 </div>
                 <p style="color:var(--text-dim);font-size:12.5px;line-height:1.65;margin-bottom:16px">
-                    When the fast SMA crosses above the slow SMA &rarr; <strong>buy</strong>. Crossing below &rarr; <strong>sell</strong>.
+                    When the fast SMA crosses above the slow SMA &rarr; <strong>buy</strong>. Crossing below &rarr; <strong>sell</strong>. Faster periods (10/30) tuned for short-term trades.
                 </p>
                 <div style="display:flex;flex-wrap:wrap;gap:10px">
-                    
+
                     <div style="display:flex;align-items:center;gap:8px;padding:6px 12px;border-radius:var(--r-sm);background:var(--surface);border:0.5px solid var(--line)">
                         <span style="font-size:10px;text-transform:uppercase;letter-spacing:0.06em;color:var(--text-mute)">Fast SMA</span>
-                        <span class="num" style="font-size:12px;font-weight:500;color:var(--accent)">20</span>
+                        <span class="num" style="font-size:12px;font-weight:500;color:var(--accent)">10</span>
                     </div>
-                    
+
                     <div style="display:flex;align-items:center;gap:8px;padding:6px 12px;border-radius:var(--r-sm);background:var(--surface);border:0.5px solid var(--line)">
                         <span style="font-size:10px;text-transform:uppercase;letter-spacing:0.06em;color:var(--text-mute)">Slow SMA</span>
-                        <span class="num" style="font-size:12px;font-weight:500;color:var(--accent)">50</span>
+                        <span class="num" style="font-size:12px;font-weight:500;color:var(--accent)">30</span>
                     </div>
                     
                     <div style="display:flex;align-items:center;gap:8px;padding:6px 12px;border-radius:var(--r-sm);background:var(--surface);border:0.5px solid var(--line)">
@@ -484,7 +484,7 @@
                     <span style="margin-left:auto;font-size:11px;color:var(--text-mute)">Buy + Sell</span>
                 </div>
                 <p style="color:var(--text-dim);font-size:12.5px;line-height:1.65;margin-bottom:16px">
-                    Detects abnormally high volume vs 20-day average. Down day + spike &rarr; <strong>buy</strong>. Up day + spike &rarr; <strong>sell</strong>.
+                    Detects abnormally high volume vs 20-day average. Down day + spike in an uptrend (above SMA20) &rarr; <strong>buy</strong>. Up day + spike &rarr; <strong>sell</strong>.
                 </p>
                 <div style="display:flex;flex-wrap:wrap;gap:10px">
                     
@@ -510,35 +510,80 @@
         <div class="card" style="margin:0 0 16px;border-radius:var(--r-md)">
             <div style="padding:18px 20px">
                 <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px">
-                    <span class="strategy-tag tone-warn"><span class="dot"></span>PCT CHG</span>
-                    <span style="font-size:14px;font-weight:500">Percent Change (Volatility-Normalized)</span>
+                    <span class="strategy-tag tone-up"><span class="dot"></span>GAP &amp; GO</span>
+                    <span style="font-size:14px;font-weight:500">Gap-and-Go Momentum</span>
                     <span style="margin-left:auto;font-size:11px;color:var(--text-mute)">Buy + Sell</span>
                 </div>
                 <p style="color:var(--text-dim);font-size:12.5px;line-height:1.65;margin-bottom:16px">
-                    Fires when a single-day move exceeds N standard deviations of trailing 20-day returns. Big drop &rarr; <strong>buy</strong>. Big surge &rarr; <strong>sell</strong>.
+                    Detects stocks that gap significantly at the open on high volume. Gap up &ge; 3% with &ge; 1.5x volume &rarr; <strong>buy</strong> (momentum continuation). Gap down &le; -3% with high volume &rarr; <strong>sell</strong>.
                 </p>
                 <div style="display:flex;flex-wrap:wrap;gap:10px">
-                    
                     <div style="display:flex;align-items:center;gap:8px;padding:6px 12px;border-radius:var(--r-sm);background:var(--surface);border:0.5px solid var(--line)">
-                        <span style="font-size:10px;text-transform:uppercase;letter-spacing:0.06em;color:var(--text-mute)">Sigma</span>
-                        <span class="num" style="font-size:12px;font-weight:500;color:var(--accent)">2.0&sigma;</span>
+                        <span style="font-size:10px;text-transform:uppercase;letter-spacing:0.06em;color:var(--text-mute)">Min Gap</span>
+                        <span class="num" style="font-size:12px;font-weight:500;color:var(--accent)">&pm;3.0%</span>
                     </div>
-                    
                     <div style="display:flex;align-items:center;gap:8px;padding:6px 12px;border-radius:var(--r-sm);background:var(--surface);border:0.5px solid var(--line)">
-                        <span style="font-size:10px;text-transform:uppercase;letter-spacing:0.06em;color:var(--text-mute)">Lookback</span>
-                        <span class="num" style="font-size:12px;font-weight:500;color:var(--accent)">20 days</span>
+                        <span style="font-size:10px;text-transform:uppercase;letter-spacing:0.06em;color:var(--text-mute)">Min Volume</span>
+                        <span class="num" style="font-size:12px;font-weight:500;color:var(--accent)">1.5x</span>
                     </div>
-                    
-                    <div style="display:flex;align-items:center;gap:8px;padding:6px 12px;border-radius:var(--r-sm);background:var(--surface);border:0.5px solid var(--line)">
-                        <span style="font-size:10px;text-transform:uppercase;letter-spacing:0.06em;color:var(--text-mute)">Fallback</span>
-                        <span class="num" style="font-size:12px;font-weight:500;color:var(--accent)">3.0%</span>
-                    </div>
-                    
                     <div style="display:flex;align-items:center;gap:8px;padding:6px 12px;border-radius:var(--r-sm);background:var(--surface);border:0.5px solid var(--line)">
                         <span style="font-size:10px;text-transform:uppercase;letter-spacing:0.06em;color:var(--text-mute)">Cooldown</span>
                         <span class="num" style="font-size:12px;font-weight:500;color:var(--accent)">5d</span>
                     </div>
-                    
+                </div>
+            </div>
+        </div>
+
+        <div class="card" style="margin:0 0 16px;border-radius:var(--r-md)">
+            <div style="padding:18px 20px">
+                <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px">
+                    <span class="strategy-tag tone-accent"><span class="dot"></span>REL STR</span>
+                    <span style="font-size:14px;font-weight:500">Relative Strength Breakout</span>
+                    <span style="margin-left:auto;font-size:11px;color:var(--text-mute)">Buy only</span>
+                </div>
+                <p style="color:var(--text-dim);font-size:12.5px;line-height:1.65;margin-bottom:16px">
+                    Fires when a stock makes a new 20-day high while trading above its SMA20 (confirming uptrend). Breakout to new highs in established uptrends tends to have positive momentum continuation over 1&ndash;2 weeks.
+                </p>
+                <div style="display:flex;flex-wrap:wrap;gap:10px">
+                    <div style="display:flex;align-items:center;gap:8px;padding:6px 12px;border-radius:var(--r-sm);background:var(--surface);border:0.5px solid var(--line)">
+                        <span style="font-size:10px;text-transform:uppercase;letter-spacing:0.06em;color:var(--text-mute)">Lookback</span>
+                        <span class="num" style="font-size:12px;font-weight:500;color:var(--accent)">20 days</span>
+                    </div>
+                    <div style="display:flex;align-items:center;gap:8px;padding:6px 12px;border-radius:var(--r-sm);background:var(--surface);border:0.5px solid var(--line)">
+                        <span style="font-size:10px;text-transform:uppercase;letter-spacing:0.06em;color:var(--text-mute)">Trend Filter</span>
+                        <span class="num" style="font-size:12px;font-weight:500;color:var(--accent)">Above SMA20</span>
+                    </div>
+                    <div style="display:flex;align-items:center;gap:8px;padding:6px 12px;border-radius:var(--r-sm);background:var(--surface);border:0.5px solid var(--line)">
+                        <span style="font-size:10px;text-transform:uppercase;letter-spacing:0.06em;color:var(--text-mute)">Cooldown</span>
+                        <span class="num" style="font-size:12px;font-weight:500;color:var(--accent)">5d</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card" style="margin:0 0 16px;border-radius:var(--r-md)">
+            <div style="padding:18px 20px">
+                <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px">
+                    <span class="strategy-tag tone-warn"><span class="dot"></span>EARNINGS</span>
+                    <span style="font-size:14px;font-weight:500">Post-Earnings Drift</span>
+                    <span style="margin-left:auto;font-size:11px;color:var(--text-mute)">Buy + Sell</span>
+                </div>
+                <p style="color:var(--text-dim);font-size:12.5px;line-height:1.65;margin-bottom:16px">
+                    Exploits the well-documented Post-Earnings Announcement Drift (PEAD) anomaly. When a stock gaps up &ge; 2% or moves &ge; 3% on the day after earnings &rarr; <strong>buy</strong> (drift continues). Negative reaction &rarr; <strong>sell</strong>.
+                </p>
+                <div style="display:flex;flex-wrap:wrap;gap:10px">
+                    <div style="display:flex;align-items:center;gap:8px;padding:6px 12px;border-radius:var(--r-sm);background:var(--surface);border:0.5px solid var(--line)">
+                        <span style="font-size:10px;text-transform:uppercase;letter-spacing:0.06em;color:var(--text-mute)">Min Gap</span>
+                        <span class="num" style="font-size:12px;font-weight:500;color:var(--accent)">&pm;2.0%</span>
+                    </div>
+                    <div style="display:flex;align-items:center;gap:8px;padding:6px 12px;border-radius:var(--r-sm);background:var(--surface);border:0.5px solid var(--line)">
+                        <span style="font-size:10px;text-transform:uppercase;letter-spacing:0.06em;color:var(--text-mute)">Min Move</span>
+                        <span class="num" style="font-size:12px;font-weight:500;color:var(--accent)">&pm;3.0%</span>
+                    </div>
+                    <div style="display:flex;align-items:center;gap:8px;padding:6px 12px;border-radius:var(--r-sm);background:var(--surface);border:0.5px solid var(--line)">
+                        <span style="font-size:10px;text-transform:uppercase;letter-spacing:0.06em;color:var(--text-mute)">Cooldown</span>
+                        <span class="num" style="font-size:12px;font-weight:500;color:var(--accent)">5d</span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -551,7 +596,7 @@
                     <span style="margin-left:auto;font-size:11px;color:var(--text-mute)">Buy only</span>
                 </div>
                 <p style="color:var(--text-dim);font-size:12.5px;line-height:1.65;margin-bottom:16px">
-                    Stock return minus SPY return. When adjusted return crosses below threshold &rarr; <strong>buy</strong>.
+                    Stock return minus SPY return. When adjusted return crosses below threshold &rarr; <strong>buy</strong>. Filtered: skips stocks in sustained downtrends (below SMA50 for 5+ consecutive days).
                 </p>
                 <div style="display:flex;flex-wrap:wrap;gap:10px">
                     
@@ -605,27 +650,6 @@
             </div>
         </div>
         
-        <div class="card" style="margin:0 0 16px;border-radius:var(--r-md)">
-            <div style="padding:18px 20px">
-                <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px">
-                    <span class="strategy-tag tone-accent"><span class="dot"></span>THRESHOLD</span>
-                    <span style="font-size:14px;font-weight:500">Price Threshold</span>
-                    <span style="margin-left:auto;font-size:11px;color:var(--text-mute)">Buy + Sell</span>
-                </div>
-                <p style="color:var(--text-dim);font-size:12.5px;line-height:1.65;margin-bottom:16px">
-                    User-defined price alerts per ticker.
-                </p>
-                <div style="display:flex;flex-wrap:wrap;gap:10px">
-                    
-                    <div style="display:flex;align-items:center;gap:8px;padding:6px 12px;border-radius:var(--r-sm);background:var(--surface);border:0.5px solid var(--line)">
-                        <span style="font-size:10px;text-transform:uppercase;letter-spacing:0.06em;color:var(--text-mute)">Rules</span>
-                        <span class="num" style="font-size:12px;font-weight:500;color:var(--accent)">Custom per ticker</span>
-                    </div>
-                    
-                </div>
-            </div>
-        </div>
-        
 
         <div class="card" style="margin:0 0 16px;border-radius:var(--r-md)">
             <div style="padding:18px 20px">
@@ -635,10 +659,8 @@
                     <span style="margin-left:auto;font-size:11px;color:var(--text-mute)">Buy only</span>
                 </div>
                 <p style="color:var(--text-dim);font-size:12.5px;line-height:1.65;margin-bottom:16px">
-                    Not an independent strategy &mdash; fires automatically when <strong>2 or more</strong> buy signals
-                    trigger on the same ticker on the same day. The idea is that multiple indicators agreeing
-                    simultaneously is a stronger signal than any one alone. Tracked and validated separately
-                    so you can compare its win rate against individual strategies.
+                    Not an independent strategy &mdash; fires automatically when <strong>2 or more strong</strong> buy signals
+                    trigger on the same ticker on the same day. Strong signal types: RSI, MA Cross, Adj Drop, Rel Strength, Gap &amp; Go, Earnings Drift. Weaker signals (MACD, Vol Spike) don't count toward confluence. Tracked and validated separately.
                 </p>
                 <div style="display:flex;flex-wrap:wrap;gap:10px">
                     <div style="display:flex;align-items:center;gap:8px;padding:6px 12px;border-radius:var(--r-sm);background:var(--surface);border:0.5px solid var(--line)">
