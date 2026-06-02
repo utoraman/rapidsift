@@ -59,141 +59,42 @@ WATCHLIST = [
 ]
 
 
-# ── Signal Detection ─────────────────────────────────────────────────────────
+# ── Signal Detection (shared module) ─────────────────────────────────────────
 
-def compute_rsi(closes, period=14):
-    deltas = [0.0] + [closes[i] - closes[i-1] for i in range(1, len(closes))]
-    gains = [max(d, 0) for d in deltas]
-    losses = [-min(d, 0) for d in deltas]
-    rsi = [float('nan')] * len(closes)
-    if len(closes) < period + 1:
-        return rsi
-    avg_gain = sum(gains[1:period+1]) / period
-    avg_loss = sum(losses[1:period+1]) / period
-    for i in range(period, len(closes)):
-        if i > period:
-            avg_gain = (avg_gain * (period - 1) + gains[i]) / period
-            avg_loss = (avg_loss * (period - 1) + losses[i]) / period
-        if avg_loss == 0:
-            rsi[i] = 100.0
-        else:
-            rsi[i] = 100 - (100 / (1 + avg_gain / avg_loss))
-    return rsi
-
-
-def compute_sma(closes, period):
-    sma = [float('nan')] * len(closes)
-    for i in range(period - 1, len(closes)):
-        sma[i] = sum(closes[i - period + 1:i + 1]) / period
-    return sma
-
-
-def compute_ema(data, period):
-    ema = [data[0]]
-    k = 2 / (period + 1)
-    for i in range(1, len(data)):
-        ema.append(data[i] * k + ema[-1] * (1 - k))
-    return ema
+from signals import (
+    compute_rsi, compute_sma, compute_ema,
+    detect_signals_at, detect_earnings_drift,
+)
 
 
 def detect_signals(ticker, df):
     """
     Detect signals on the latest bar of the DataFrame.
-    Mirrors the strategy overhaul in generate_signals_json.py.
+    Thin wrapper around the shared detect_signals_at().
     """
-    signals = []
     if df.empty or len(df) < 2:
-        return signals
+        return []
 
     closes = df["close"].tolist()
     opens = df["open"].tolist()
     highs = df["high"].tolist() if "high" in df.columns else closes
+    lows = df["low"].tolist() if "low" in df.columns else closes
     volumes = df["volume"].tolist()
     idx = len(closes) - 1
-    latest_close = closes[idx]
-    prev_close = closes[idx - 1]
     latest_date = str(df["date"].iloc[-1])[:10]
 
-    # Pre-compute SMA20 for trend filter
-    sma20 = compute_sma(closes, 20) if len(closes) >= 20 else [float('nan')] * len(closes)
-    above_sma20 = not math.isnan(sma20[-1]) and latest_close > sma20[-1]
+    # Core signal detection
+    signals = detect_signals_at(closes, opens, highs, lows, volumes, idx)
 
-    # RSI transition (strong edge, keep as-is)
-    rsi = compute_rsi(closes, 14)
-    if len(rsi) >= 2 and not math.isnan(rsi[-1]) and not math.isnan(rsi[-2]):
-        if rsi[-1] <= 30 and rsi[-2] > 30:
-            signals.append({"type": "rsi", "direction": "buy",
-                           "detail": f"RSI={rsi[-1]:.1f} crossed below 30"})
-        elif rsi[-1] >= 70 and rsi[-2] < 70:
-            signals.append({"type": "rsi", "direction": "sell",
-                           "detail": f"RSI={rsi[-1]:.1f} crossed above 70"})
+    # Post-catalyst drift (needs multi-day context)
+    drift_sig = detect_earnings_drift(closes, opens, volumes, idx)
+    if drift_sig:
+        signals.append(drift_sig)
 
-    # MACD crossover (trend-filtered: buy only when above SMA20)
-    if len(closes) >= 35:
-        ema12 = compute_ema(closes, 12)
-        ema26 = compute_ema(closes, 26)
-        macd = [ema12[i] - ema26[i] for i in range(len(closes))]
-        sig_line = compute_ema(macd, 9)
-        prev_d = macd[-2] - sig_line[-2]
-        curr_d = macd[-1] - sig_line[-1]
-        if prev_d < 0 and curr_d > 0 and above_sma20:
-            signals.append({"type": "macd", "direction": "buy",
-                           "detail": "MACD bullish crossover (above SMA20)"})
-        elif prev_d > 0 and curr_d < 0:
-            signals.append({"type": "macd", "direction": "sell",
-                           "detail": "MACD bearish crossover"})
-
-    # MA crossover (fast: 10/30 for short-term trades)
-    if len(closes) >= 31:
-        sma10 = compute_sma(closes, 10)
-        sma30 = compute_sma(closes, 30)
-        if not any(math.isnan(v) for v in [sma10[-1], sma10[-2], sma30[-1], sma30[-2]]):
-            prev_d = sma10[-2] - sma30[-2]
-            curr_d = sma10[-1] - sma30[-1]
-            if prev_d < 0 and curr_d > 0:
-                signals.append({"type": "ma_crossover", "direction": "buy",
-                               "detail": "SMA10 crossed above SMA30"})
-            elif prev_d > 0 and curr_d < 0:
-                signals.append({"type": "ma_crossover", "direction": "sell",
-                               "detail": "SMA10 crossed below SMA30"})
-
-    # Volume spike (trend-filtered: buy only when above SMA20)
-    if len(df) >= 21:
-        avg_vol = sum(volumes[-21:-1]) / 20
-        if avg_vol > 0 and volumes[-1] / avg_vol >= 2.0:
-            ratio = volumes[-1] / avg_vol
-            if latest_close < opens[-1] and above_sma20:
-                signals.append({"type": "volume_spike", "direction": "buy",
-                               "detail": f"Volume spike {ratio:.1f}x (dip in uptrend)"})
-            elif latest_close >= opens[-1]:
-                signals.append({"type": "volume_spike", "direction": "sell",
-                               "detail": f"Volume spike {ratio:.1f}x (surge)"})
-
-    # Gap-and-go momentum
-    if idx >= 20:
-        gap_pct = ((opens[idx] - prev_close) / prev_close) * 100
-        avg_vol = sum(volumes[idx-20:idx]) / 20
-        vol_ratio = volumes[idx] / avg_vol if avg_vol > 0 else 0
-        if gap_pct >= 3.0 and vol_ratio >= 1.5:
-            signals.append({"type": "gap_and_go", "direction": "buy",
-                           "detail": f"Gap up {gap_pct:+.1f}% on {vol_ratio:.1f}x volume"})
-        elif gap_pct <= -3.0 and vol_ratio >= 1.5:
-            signals.append({"type": "gap_and_go", "direction": "sell",
-                           "detail": f"Gap down {gap_pct:+.1f}% on {vol_ratio:.1f}x volume"})
-
-    # Relative strength breakout (new 20-day high with volume conviction)
-    if idx >= 20:
-        high_20d = max(highs[idx-20:idx])
-        breakout_pct = ((highs[idx] - high_20d) / high_20d) * 100
-        avg_vol = sum(volumes[idx-20:idx]) / 20
-        vol_ratio = volumes[idx] / avg_vol if avg_vol > 0 else 0
-        if highs[idx] > high_20d and above_sma20 and breakout_pct >= 1.0 and vol_ratio >= 1.3:
-            signals.append({"type": "rel_strength", "direction": "buy",
-                           "detail": f"New 20-day high ({breakout_pct:+.1f}% above prev, {vol_ratio:.1f}x vol)"})
-
+    # Attach ticker metadata
     for s in signals:
         s["ticker"] = ticker
-        s["price"] = latest_close
+        s["price"] = closes[idx]
         s["date"] = latest_date
 
     return signals
@@ -489,38 +390,6 @@ def run_detection():
                 df = _overlay_intraday_single(ticker, df)
 
             sigs = detect_signals(ticker, df)
-
-            # Post-catalyst drift: detect from market signature (gap>=5% + vol>=3x)
-            # then check if the day after the catalyst continues the move
-            if len(df) >= 22:
-                closes = df["close"].tolist()
-                opens = df["open"].tolist()
-                volumes = df["volume"].tolist()
-                dates = df["date"].tolist()
-                idx = len(closes) - 1
-                # Check if yesterday (idx-1) was a catalyst day
-                if idx >= 22:
-                    prev_gap = abs((opens[idx-1] - closes[idx-2]) / closes[idx-2]) * 100
-                    prev_avg_vol = sum(volumes[idx-21:idx-1]) / 20
-                    prev_vol_ratio = volumes[idx-1] / prev_avg_vol if prev_avg_vol > 0 else 0
-                    if prev_gap >= 5.0 and prev_vol_ratio >= 3.0:
-                        catalyst_gap = ((opens[idx-1] - closes[idx-2]) / closes[idx-2]) * 100
-                        drift_ret = ((closes[idx] - closes[idx-1]) / closes[idx-1]) * 100
-                        latest_date = str(dates[idx])[:10]
-                        if catalyst_gap > 0 and drift_ret >= 0:
-                            sigs.append({
-                                "type": "earnings_drift", "direction": "buy",
-                                "ticker": ticker, "price": closes[idx], "date": latest_date,
-                                "detail": f"Post-catalyst drift: catalyst gap {catalyst_gap:+.1f}%, "
-                                          f"day-2 move {drift_ret:+.1f}%",
-                            })
-                        elif catalyst_gap < 0 and drift_ret <= 0:
-                            sigs.append({
-                                "type": "earnings_drift", "direction": "sell",
-                                "ticker": ticker, "price": closes[idx], "date": latest_date,
-                                "detail": f"Post-catalyst drop: catalyst gap {catalyst_gap:+.1f}%, "
-                                          f"day-2 move {drift_ret:+.1f}%",
-                            })
 
             for s in sigs:
                 s["_df"] = df
