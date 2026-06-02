@@ -13,8 +13,10 @@ Usage:
     python3 scripts/generate_signals_json.py
 """
 
+import csv
 import json
 import math
+import os
 import sys
 import time
 import yaml
@@ -28,6 +30,7 @@ import pandas as pd
 ROOT = Path(__file__).parent.parent
 OUT_DIR = ROOT / "_site" / "data"
 CONFIG_PATH = ROOT / "config.yaml"
+HISTORY_CSV = ROOT / "data" / "signal_history.csv"
 
 BATCH_SIZE = 50             # Download tickers in batches of 50
 MAX_RETRIES = 1             # Retry failed tickers once
@@ -724,6 +727,59 @@ def main():
     size_kb = out_path.stat().st_size / 1024
     print(f"Wrote {out_path} ({size_kb:.1f} KB)")
     print(f"  {len(output['signals'])} buy signals, generated at {output['generated_at']}")
+
+    # Append to signal history CSV for long-term analysis
+    append_signal_history(all_signals)
+
+
+def append_signal_history(all_signals):
+    """
+    Append completed (non-pending) signals to the history CSV.
+    Only writes signals whose result_5 is 'win' or 'loss' (i.e., the 14-day
+    lookahead has elapsed). Deduplicates by (date, ticker, type) so re-runs
+    don't create duplicates.
+    """
+    HISTORY_CSV.parent.mkdir(parents=True, exist_ok=True)
+
+    FIELDS = [
+        "date", "ticker", "type", "direction", "detail",
+        "price", "entry_price", "result_5", "result_10",
+        "current_pct", "max_drawdown_pct", "days_to_5", "days_to_10",
+    ]
+
+    # Load existing keys to deduplicate
+    existing_keys = set()
+    if HISTORY_CSV.exists():
+        with open(HISTORY_CSV, "r") as f:
+            reader = csv.DictReader(f)
+            for row in reader:
+                existing_keys.add((row["date"], row["ticker"], row["type"]))
+
+    # Filter to completed signals only
+    completed = [s for s in all_signals
+                 if s.get("result_5") in ("win", "loss")
+                 and s.get("direction") == "buy"]
+
+    new_rows = []
+    for s in completed:
+        key = (s["date"], s["ticker"], s["type"])
+        if key not in existing_keys:
+            new_rows.append({f: s.get(f, "") for f in FIELDS})
+            existing_keys.add(key)
+
+    if not new_rows:
+        print(f"Signal history: no new completed signals to add")
+        return
+
+    write_header = not HISTORY_CSV.exists() or HISTORY_CSV.stat().st_size == 0
+    with open(HISTORY_CSV, "a", newline="") as f:
+        writer = csv.DictWriter(f, fieldnames=FIELDS)
+        if write_header:
+            writer.writeheader()
+        writer.writerows(new_rows)
+
+    print(f"Signal history: appended {len(new_rows)} rows "
+          f"(total: {len(existing_keys)} in {HISTORY_CSV})")
 
 
 if __name__ == "__main__":

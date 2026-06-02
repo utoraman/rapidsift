@@ -47,7 +47,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -f _site/data/signals.json .signal_state.json
+          git add -f _site/data/signals.json .signal_state.json data/signal_history.csv
           git diff --cached --quiet && echo "No changes to commit" || \
             (git commit -m "Update live signals data [skip ci]" && git push)
 
