@@ -395,8 +395,53 @@ def is_new_signal(sig, prev_keys):
 
 # ── Main ──────────────────────────────────────────────────────────────────────
 
+def _is_market_hours():
+    """Check if US markets are currently open (roughly 13:30-20:00 UTC weekdays)."""
+    now = datetime.utcnow()
+    if now.weekday() >= 5:
+        return False
+    hour_utc = now.hour + now.minute / 60
+    return 13.5 <= hour_utc <= 20.0
+
+
+def _overlay_intraday_single(ticker, daily_df):
+    """Fetch live intraday data for a single ticker and overlay onto daily bars."""
+    try:
+        t = yf.Ticker(ticker)
+        idf = t.history(period="1d", interval="5m")
+        if idf.empty or len(idf) < 1:
+            return daily_df
+
+        idf = idf.reset_index()
+        today_str = datetime.utcnow().strftime("%Y-%m-%d")
+        today_open = float(idf["Open"].iloc[0])
+        today_high = float(idf["High"].max())
+        today_low = float(idf["Low"].min())
+        today_close = float(idf["Close"].iloc[-1])
+        today_vol = int(idf["Volume"].sum()) if "Volume" in idf.columns else 0
+
+        last_date = str(daily_df["date"].iloc[-1])[:10]
+        today_bar = pd.DataFrame([{
+            "date": pd.Timestamp(today_str),
+            "open": today_open, "high": today_high,
+            "low": today_low, "close": today_close, "volume": today_vol,
+        }])
+
+        if last_date == today_str:
+            return pd.concat([daily_df.iloc[:-1], today_bar], ignore_index=True)
+        else:
+            return pd.concat([daily_df, today_bar], ignore_index=True)
+    except Exception:
+        return daily_df
+
+
 def run_detection():
     print(f"Scanning {len(WATCHLIST)} tickers...")
+    market_open = _is_market_hours()
+    if market_open:
+        print("  Market is open — using live intraday prices")
+    else:
+        print("  Market is closed — using end-of-day data")
 
     all_signals = []
     errors = []
@@ -418,6 +463,10 @@ def run_detection():
             df = df[cols].dropna()
             if len(df) < 5:
                 continue
+
+            # Overlay live intraday price during market hours
+            if market_open:
+                df = _overlay_intraday_single(ticker, df)
 
             sigs = detect_signals(ticker, df)
             for s in sigs:

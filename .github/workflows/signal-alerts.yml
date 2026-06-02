@@ -2,8 +2,13 @@ name: Signal Alerts
 
 on:
   schedule:
-    # Market open (9:30 AM ET / 3:30 PM CET), then every 2h until 8 PM CET
-    - cron: '30 13,15,17 * * 1-5'
+    # Every 90 min during US market hours (9:30 AM - 4 PM ET = 13:30-20:00 UTC)
+    # Plus one after-close run at 20:30 UTC for final EOD signals
+    - cron: '30 14 * * 1-5'    # 10:30 AM ET / 16:30 CET
+    - cron: '0 16 * * 1-5'     # 12:00 PM ET / 18:00 CET
+    - cron: '30 17 * * 1-5'    # 01:30 PM ET / 19:30 CET
+    - cron: '0 19 * * 1-5'     # 03:00 PM ET / 21:00 CET
+    - cron: '30 20 * * 1-5'    # 04:30 PM ET / 22:30 CET (after close, final EOD)
   workflow_dispatch:  # Allow manual trigger
 
 permissions:

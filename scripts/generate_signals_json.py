@@ -334,6 +334,114 @@ def _parse_batch_data(raw_data, batch, all_data, errors):
             errors.append(f"{ticker}: {e}")
 
 
+def _is_market_hours():
+    """Check if US markets are currently open (roughly 13:30-20:00 UTC weekdays)."""
+    now = datetime.utcnow()
+    if now.weekday() >= 5:  # Saturday/Sunday
+        return False
+    hour_utc = now.hour + now.minute / 60
+    return 13.5 <= hour_utc <= 20.0
+
+
+def _overlay_intraday(all_data, fetch_list):
+    """
+    Fetch current intraday prices and overlay them onto daily data.
+
+    During market hours, yfinance daily bars may not include today's partial bar,
+    or the "close" is stale (yesterday's). This function fetches 1-day of 5-minute
+    bars, synthesizes today's OHLCV, and appends/replaces the last row so that
+    signal detection uses the LIVE price, not yesterday's close.
+    """
+    if not _is_market_hours():
+        print("  Market closed — skipping intraday overlay")
+        return
+
+    print("  Fetching intraday prices for live overlay...")
+    today_str = datetime.utcnow().strftime("%Y-%m-%d")
+    updated = 0
+    skipped = 0
+
+    # Batch-fetch intraday data
+    for i in range(0, len(fetch_list), BATCH_SIZE):
+        batch = fetch_list[i:i + BATCH_SIZE]
+        try:
+            raw = yf.download(batch, period="1d", interval="5m",
+                              group_by="ticker", progress=False, threads=True)
+            if raw.empty:
+                continue
+
+            for ticker in batch:
+                if ticker not in all_data:
+                    continue
+                try:
+                    if len(batch) > 1:
+                        tdf = raw[ticker].dropna(how="all")
+                    else:
+                        if isinstance(raw.columns, pd.MultiIndex):
+                            tdf = raw[ticker].dropna(how="all")
+                        else:
+                            tdf = raw.dropna(how="all")
+
+                    if tdf.empty or len(tdf) < 1:
+                        skipped += 1
+                        continue
+
+                    tdf = tdf.reset_index()
+                    # Rename columns to match our convention
+                    col_map = {}
+                    for c in tdf.columns:
+                        cl = str(c).lower()
+                        if "open" in cl: col_map[c] = "open"
+                        elif "high" in cl: col_map[c] = "high"
+                        elif "low" in cl: col_map[c] = "low"
+                        elif "close" in cl: col_map[c] = "close"
+                        elif "volume" in cl: col_map[c] = "volume"
+                        elif "datetime" in cl or "date" in cl: col_map[c] = "datetime"
+                    tdf = tdf.rename(columns=col_map)
+
+                    if "close" not in tdf.columns:
+                        skipped += 1
+                        continue
+
+                    # Synthesize today's daily bar from intraday
+                    today_open = float(tdf["open"].iloc[0])
+                    today_high = float(tdf["high"].max())
+                    today_low = float(tdf["low"].min())
+                    today_close = float(tdf["close"].iloc[-1])  # Latest price
+                    today_vol = int(tdf["volume"].sum()) if "volume" in tdf.columns else 0
+
+                    daily = all_data[ticker]
+                    last_date = str(daily["date"].iloc[-1])[:10]
+
+                    today_bar = pd.DataFrame([{
+                        "date": pd.Timestamp(today_str),
+                        "open": today_open,
+                        "high": today_high,
+                        "low": today_low,
+                        "close": today_close,
+                        "volume": today_vol,
+                    }])
+
+                    if last_date == today_str:
+                        # Replace today's stale bar with live data
+                        all_data[ticker] = pd.concat(
+                            [daily.iloc[:-1], today_bar], ignore_index=True
+                        )
+                    else:
+                        # Append today's bar (wasn't in daily data yet)
+                        all_data[ticker] = pd.concat(
+                            [daily, today_bar], ignore_index=True
+                        )
+                    updated += 1
+
+                except Exception:
+                    skipped += 1
+        except Exception as e:
+            print(f"    Intraday batch error: {e}")
+
+    print(f"  Intraday overlay: {updated} tickers updated, {skipped} skipped")
+
+
 def fetch_all_prices():
     """Fetch 3mo of daily prices using batched yf.download() for speed."""
     # Include SPY for adjusted return signals
@@ -383,6 +491,10 @@ def fetch_all_prices():
     print(f"  Success: {len(all_data)}/{len(fetch_list)} tickers ({success_rate:.0f}%)")
     if final_failed:
         print(f"  Failed ({len(final_failed)}): {final_failed[:20]}")
+
+    # Overlay live intraday prices during market hours
+    _overlay_intraday(all_data, [t for t in fetch_list if t in all_data])
+
     return all_data
 
 
