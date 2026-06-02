@@ -542,12 +542,20 @@
                     <span style="margin-left:auto;font-size:11px;color:var(--text-mute)">Buy only</span>
                 </div>
                 <p style="color:var(--text-dim);font-size:12.5px;line-height:1.65;margin-bottom:16px">
-                    Fires when a stock makes a new 20-day high while trading above its SMA20 (confirming uptrend). Breakout to new highs in established uptrends tends to have positive momentum continuation over 1&ndash;2 weeks.
+                    Fires when a stock makes a convincing new 20-day high (&ge; 1% above prior) on above-average volume (&ge; 1.3x), while trading above its SMA20. Filters out marginal new highs and low-conviction drift, keeping only breakouts with institutional participation.
                 </p>
                 <div style="display:flex;flex-wrap:wrap;gap:10px">
                     <div style="display:flex;align-items:center;gap:8px;padding:6px 12px;border-radius:var(--r-sm);background:var(--surface);border:0.5px solid var(--line)">
                         <span style="font-size:10px;text-transform:uppercase;letter-spacing:0.06em;color:var(--text-mute)">Lookback</span>
                         <span class="num" style="font-size:12px;font-weight:500;color:var(--accent)">20 days</span>
+                    </div>
+                    <div style="display:flex;align-items:center;gap:8px;padding:6px 12px;border-radius:var(--r-sm);background:var(--surface);border:0.5px solid var(--line)">
+                        <span style="font-size:10px;text-transform:uppercase;letter-spacing:0.06em;color:var(--text-mute)">Min Breakout</span>
+                        <span class="num" style="font-size:12px;font-weight:500;color:var(--accent)">&ge; 1.0%</span>
+                    </div>
+                    <div style="display:flex;align-items:center;gap:8px;padding:6px 12px;border-radius:var(--r-sm);background:var(--surface);border:0.5px solid var(--line)">
+                        <span style="font-size:10px;text-transform:uppercase;letter-spacing:0.06em;color:var(--text-mute)">Min Volume</span>
+                        <span class="num" style="font-size:12px;font-weight:500;color:var(--accent)">&ge; 1.3x</span>
                     </div>
                     <div style="display:flex;align-items:center;gap:8px;padding:6px 12px;border-radius:var(--r-sm);background:var(--surface);border:0.5px solid var(--line)">
                         <span style="font-size:10px;text-transform:uppercase;letter-spacing:0.06em;color:var(--text-mute)">Trend Filter</span>
@@ -569,16 +577,16 @@
                     <span style="margin-left:auto;font-size:11px;color:var(--text-mute)">Buy + Sell</span>
                 </div>
                 <p style="color:var(--text-dim);font-size:12.5px;line-height:1.65;margin-bottom:16px">
-                    Exploits the well-documented Post-Earnings Announcement Drift (PEAD) anomaly. When a stock gaps up &ge; 2% or moves &ge; 3% on the day after earnings &rarr; <strong>buy</strong> (drift continues). Negative reaction &rarr; <strong>sell</strong>.
+                    Exploits the Post-Earnings Announcement Drift (PEAD) anomaly. Detects catalyst days by their market signature (gap &ge; 5% on &ge; 3x volume) rather than relying on earnings calendars. The day <em>after</em> the catalyst, if the move continues in the same direction &rarr; <strong>buy</strong> (positive drift) or <strong>sell</strong> (negative drift). Catches earnings, FDA decisions, and other major catalysts.
                 </p>
                 <div style="display:flex;flex-wrap:wrap;gap:10px">
                     <div style="display:flex;align-items:center;gap:8px;padding:6px 12px;border-radius:var(--r-sm);background:var(--surface);border:0.5px solid var(--line)">
-                        <span style="font-size:10px;text-transform:uppercase;letter-spacing:0.06em;color:var(--text-mute)">Min Gap</span>
-                        <span class="num" style="font-size:12px;font-weight:500;color:var(--accent)">&pm;2.0%</span>
+                        <span style="font-size:10px;text-transform:uppercase;letter-spacing:0.06em;color:var(--text-mute)">Catalyst Gap</span>
+                        <span class="num" style="font-size:12px;font-weight:500;color:var(--accent)">&ge; 5.0%</span>
                     </div>
                     <div style="display:flex;align-items:center;gap:8px;padding:6px 12px;border-radius:var(--r-sm);background:var(--surface);border:0.5px solid var(--line)">
-                        <span style="font-size:10px;text-transform:uppercase;letter-spacing:0.06em;color:var(--text-mute)">Min Move</span>
-                        <span class="num" style="font-size:12px;font-weight:500;color:var(--accent)">&pm;3.0%</span>
+                        <span style="font-size:10px;text-transform:uppercase;letter-spacing:0.06em;color:var(--text-mute)">Catalyst Vol</span>
+                        <span class="num" style="font-size:12px;font-weight:500;color:var(--accent)">&ge; 3.0x</span>
                     </div>
                     <div style="display:flex;align-items:center;gap:8px;padding:6px 12px;border-radius:var(--r-sm);background:var(--surface);border:0.5px solid var(--line)">
                         <span style="font-size:10px;text-transform:uppercase;letter-spacing:0.06em;color:var(--text-mute)">Cooldown</span>

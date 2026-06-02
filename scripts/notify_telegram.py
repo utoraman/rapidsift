@@ -181,13 +181,15 @@ def detect_signals(ticker, df):
             signals.append({"type": "gap_and_go", "direction": "sell",
                            "detail": f"Gap down {gap_pct:+.1f}% on {vol_ratio:.1f}x volume"})
 
-    # Relative strength breakout (new 20-day high above SMA20)
+    # Relative strength breakout (new 20-day high with volume conviction)
     if idx >= 20:
         high_20d = max(highs[idx-20:idx])
-        if highs[idx] > high_20d and above_sma20:
-            breakout_pct = ((highs[idx] - high_20d) / high_20d) * 100
+        breakout_pct = ((highs[idx] - high_20d) / high_20d) * 100
+        avg_vol = sum(volumes[idx-20:idx]) / 20
+        vol_ratio = volumes[idx] / avg_vol if avg_vol > 0 else 0
+        if highs[idx] > high_20d and above_sma20 and breakout_pct >= 1.0 and vol_ratio >= 1.3:
             signals.append({"type": "rel_strength", "direction": "buy",
-                           "detail": f"New 20-day high ({breakout_pct:+.1f}% above prev)"})
+                           "detail": f"New 20-day high ({breakout_pct:+.1f}% above prev, {vol_ratio:.1f}x vol)"})
 
     for s in signals:
         s["ticker"] = ticker
@@ -453,29 +455,6 @@ def _overlay_intraday_single(ticker, daily_df):
         return daily_df
 
 
-def _fetch_earnings_dates(tickers):
-    """
-    Fetch recent earnings dates for all tickers.
-    Returns dict: ticker -> set of date strings (YYYY-MM-DD).
-    """
-    print("  Fetching earnings dates...")
-    earnings = {}
-    for ticker in tickers:
-        try:
-            t = yf.Ticker(ticker)
-            ed = t.earnings_dates
-            if ed is not None and not ed.empty:
-                dates_set = set()
-                for dt in ed.index:
-                    d = pd.Timestamp(dt).tz_localize(None) if hasattr(dt, 'tz_localize') else pd.Timestamp(dt)
-                    dates_set.add(str(d)[:10])
-                earnings[ticker] = dates_set
-        except Exception:
-            pass
-    print(f"  Got earnings dates for {len(earnings)} tickers")
-    return earnings
-
-
 def run_detection():
     print(f"Scanning {len(WATCHLIST)} tickers...")
     market_open = _is_market_hours()
@@ -483,9 +462,6 @@ def run_detection():
         print("  Market is open — using live intraday prices")
     else:
         print("  Market is closed — using end-of-day data")
-
-    # Fetch earnings dates for post-earnings drift detection
-    earnings_dates = _fetch_earnings_dates(WATCHLIST)
 
     all_signals = []
     errors = []
@@ -514,29 +490,37 @@ def run_detection():
 
             sigs = detect_signals(ticker, df)
 
-            # Earnings drift: check if previous day was an earnings day
-            if ticker in earnings_dates and len(df) >= 3:
+            # Post-catalyst drift: detect from market signature (gap>=5% + vol>=3x)
+            # then check if the day after the catalyst continues the move
+            if len(df) >= 22:
                 closes = df["close"].tolist()
                 opens = df["open"].tolist()
+                volumes = df["volume"].tolist()
                 dates = df["date"].tolist()
                 idx = len(closes) - 1
-                prev_date_str = str(dates[idx-1])[:10]
-                if prev_date_str in earnings_dates[ticker]:
-                    earnings_ret = ((closes[idx] - closes[idx-1]) / closes[idx-1]) * 100
-                    gap = ((opens[idx] - closes[idx-1]) / closes[idx-1]) * 100
-                    latest_date = str(dates[idx])[:10]
-                    if gap >= 2.0 or earnings_ret >= 3.0:
-                        sigs.append({
-                            "type": "earnings_drift", "direction": "buy",
-                            "ticker": ticker, "price": closes[idx], "date": latest_date,
-                            "detail": f"Post-earnings drift: gap {gap:+.1f}%, move {earnings_ret:+.1f}%",
-                        })
-                    elif gap <= -2.0 or earnings_ret <= -3.0:
-                        sigs.append({
-                            "type": "earnings_drift", "direction": "sell",
-                            "ticker": ticker, "price": closes[idx], "date": latest_date,
-                            "detail": f"Post-earnings drop: gap {gap:+.1f}%, move {earnings_ret:+.1f}%",
-                        })
+                # Check if yesterday (idx-1) was a catalyst day
+                if idx >= 22:
+                    prev_gap = abs((opens[idx-1] - closes[idx-2]) / closes[idx-2]) * 100
+                    prev_avg_vol = sum(volumes[idx-21:idx-1]) / 20
+                    prev_vol_ratio = volumes[idx-1] / prev_avg_vol if prev_avg_vol > 0 else 0
+                    if prev_gap >= 5.0 and prev_vol_ratio >= 3.0:
+                        catalyst_gap = ((opens[idx-1] - closes[idx-2]) / closes[idx-2]) * 100
+                        drift_ret = ((closes[idx] - closes[idx-1]) / closes[idx-1]) * 100
+                        latest_date = str(dates[idx])[:10]
+                        if catalyst_gap > 0 and drift_ret >= 0:
+                            sigs.append({
+                                "type": "earnings_drift", "direction": "buy",
+                                "ticker": ticker, "price": closes[idx], "date": latest_date,
+                                "detail": f"Post-catalyst drift: catalyst gap {catalyst_gap:+.1f}%, "
+                                          f"day-2 move {drift_ret:+.1f}%",
+                            })
+                        elif catalyst_gap < 0 and drift_ret <= 0:
+                            sigs.append({
+                                "type": "earnings_drift", "direction": "sell",
+                                "ticker": ticker, "price": closes[idx], "date": latest_date,
+                                "detail": f"Post-catalyst drop: catalyst gap {catalyst_gap:+.1f}%, "
+                                          f"day-2 move {drift_ret:+.1f}%",
+                            })
 
             for s in sigs:
                 s["_df"] = df
