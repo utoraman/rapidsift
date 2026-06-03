@@ -2222,3 +2222,14 @@ date,ticker,type,direction,detail,price,entry_price,result_5,result_10,current_p
 2026-05-13,F,rel_strength,buy,"New 20-day high (+8.2% above prev, 5.1x vol)",13.57,13.75,win,win,17.45,-7.49,1,8
 2026-05-13,ENPH,rel_strength,buy,"New 20-day high (+8.9% above prev, 1.6x vol)",42.0,41.81,win,win,73.0,-4.33,1,1
 2026-05-13,ACN,adjusted_drop,buy,"Market-adjusted drop -6.53% (stock -5.97%, market +0.56%)",159.64,162.0,win,win,14.95,-0.93,3,4
+2026-06-01,RIVN,rel_strength,buy,"New 20-day high (+3.6% above prev, 1.3x vol)",16.95,16.99,win,pending,7.62,-1.88,2,
+2026-05-29,TXN,volume_spike,buy,Volume spike 2.3x (dip in uptrend),305.68,297.38,win,pending,4.1,-2.51,3,
+2026-05-29,TXN,sector_drop,buy,"Sector-adjusted drop -5.48% (stock -3.25%, XLK +2.23%)",305.68,297.38,win,pending,4.1,-2.51,3,
+2026-05-29,INTC,adjusted_drop,buy,"Market-adjusted drop -5.39% (stock -5.14%, market +0.25%)",114.68,109.43,win,pending,2.9,-4.81,3,
+2026-05-29,INTC,sector_drop,buy,"Sector-adjusted drop -7.37% (stock -5.14%, XLK +2.23%)",114.68,109.43,win,pending,2.9,-4.81,3,
+2026-05-29,INTC,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",114.68,109.43,win,pending,2.9,-4.81,3,
+2026-05-27,IREN,macd,buy,MACD bullish crossover (above SMA20),67.84,66.54,win,pending,0.72,-9.44,5,
+2026-05-27,IREN,gap_and_go,buy,Gap up +3.4% on 1.6x volume,67.84,66.54,win,pending,0.72,-9.44,5,
+2026-05-27,IREN,rel_strength,buy,"New 20-day high (+3.8% above prev, 1.6x vol)",67.84,66.54,win,pending,0.72,-9.44,5,
+2026-05-27,IREN,confluence,buy,"Confluence (2 strong signals): gap_and_go, rel_strength",67.84,66.54,win,pending,0.72,-9.44,5,
+2026-05-15,WOLF,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",62.13,63.54,win,win,3.62,-21.84,1,4
