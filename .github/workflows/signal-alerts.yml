@@ -2,8 +2,9 @@ name: Signal Alerts
 
 on:
   schedule:
-    # Every 90 min during US market hours (9:30 AM - 4 PM ET = 13:30-20:00 UTC)
-    # Plus one after-close run at 20:30 UTC for final EOD signals
+    # Runs during US market hours (9:30 AM - 4 PM ET = 13:30-20:00 UTC)
+    # First run 15 min after open to catch gap/drop signals early
+    - cron: '45 13 * * 1-5'    # 09:45 AM ET / 15:45 CET (15 min after open)
     - cron: '30 14 * * 1-5'    # 10:30 AM ET / 16:30 CET
     - cron: '0 16 * * 1-5'     # 12:00 PM ET / 18:00 CET
     - cron: '30 17 * * 1-5'    # 01:30 PM ET / 19:30 CET

@@ -64,7 +64,9 @@ WATCHLIST = [
 from signals import (
     compute_rsi, compute_sma, compute_ema,
     detect_signals_at, detect_earnings_drift,
+    load_sector_map,
 )
+from signal_scorer import get_scorer
 
 
 def detect_signals(ticker, df):
@@ -404,6 +406,60 @@ def run_detection():
     return all_signals
 
 
+def _conf_label(v):
+    if v >= 70: return "Strong"
+    if v >= 55: return "Medium"
+    return "Weak"
+
+
+def _score_signals(signals):
+    """Score all signals using the confidence model. Returns signals with scores attached."""
+    history_path = Path(__file__).parent.parent / "data" / "signal_history.csv"
+    scorer = get_scorer(history_path)
+    sector_map = load_sector_map()
+
+    for sig in signals:
+        df = sig.get("_df")
+        ticker = sig["ticker"]
+        sector = sector_map.get(ticker, "SPY")
+
+        stock_momentum = 0.0
+        volume_ratio = 1.5
+        volatility = 2.0
+
+        if df is not None and len(df) >= 20:
+            closes = df["close"].tolist()
+            volumes = df["volume"].tolist()
+            stock_momentum = ((closes[-1] - closes[-20]) / closes[-20]) * 100
+            avg_vol = sum(volumes[-20:]) / 20
+            if avg_vol > 0:
+                volume_ratio = volumes[-1] / avg_vol
+            rets = [((closes[i] - closes[i-1]) / closes[i-1]) * 100
+                    for i in range(max(1, len(closes)-20), len(closes))]
+            if rets:
+                mean_r = sum(rets) / len(rets)
+                volatility = (sum((r - mean_r)**2 for r in rets) / len(rets)) ** 0.5
+
+        score = scorer.score(
+            signal_type=sig["type"],
+            ticker=ticker,
+            sector=sector,
+            stock_momentum=stock_momentum,
+            volume_ratio=volume_ratio,
+            volatility=volatility,
+            market_regime=1,
+        )
+        sig["confidence"] = score["confidence"]
+        sig["score_logistic"] = score["logistic"]
+        sig["score_bayesian"] = score["bayesian"]
+        sig["score_survival"] = score["survival"]
+
+    return signals
+
+
+MAX_NOTIFICATIONS = 5
+
+
 def notify(signals, prev_keys):
     new_signals = [s for s in signals if is_new_signal(s, prev_keys)]
     # Only notify on buy signals
@@ -413,21 +469,34 @@ def notify(signals, prev_keys):
         print("No new buy signals.")
         return
 
+    # Score all new signals
+    print(f"Scoring {len(new_signals)} new buy signals...")
+    new_signals = _score_signals(new_signals)
+
+    # Sort by confidence (highest first) and take top 5
+    new_signals.sort(key=lambda s: s.get("confidence", 0), reverse=True)
+    top_signals = new_signals[:MAX_NOTIFICATIONS]
+    skipped = len(new_signals) - len(top_signals)
+
     # Summary message
-    summary = f"<b>🔔 RapidSift Alert</b> — {len(new_signals)} new buy signal{'s' if len(new_signals) != 1 else ''}\n"
+    summary = f"<b>🔔 RapidSift Alert</b> — Top {len(top_signals)} of {len(new_signals)} new buy signals\n"
     summary += f"<i>{datetime.utcnow().strftime('%Y-%m-%d %H:%M')} UTC</i>\n"
+    if skipped > 0:
+        summary += f"<i>{skipped} lower-confidence signals omitted</i>\n"
     send_message(summary)
 
     # Individual signal messages with charts
-    for sig in new_signals:
-        emoji = "🟢" if sig["direction"] == "buy" else "🔴"
+    for sig in top_signals:
+        conf = sig.get("confidence", 50)
+        strength = _conf_label(conf)
         label = SIGNAL_LABELS.get(sig["type"], sig["type"])
-        direction = sig["direction"].upper()
 
         caption = (
-            f"{emoji} <b>{sig['ticker']}</b> — {direction}\n"
+            f"🟢 <b>{sig['ticker']}</b> — BUY\n"
             f"<b>{label}</b>: {sig['detail']}\n"
             f"Price: <code>${sig['price']:,.2f}</code>\n"
+            f"Confidence: <b>{conf}</b> ({strength})"
+            f"  <i>LR {sig.get('score_logistic',50)} · BY {sig.get('score_bayesian',50)} · SV {sig.get('score_survival',50)}</i>\n"
             f"<a href=\"{SITE_URL}/?ticker={sig['ticker']}&signal_type={sig['type']}\">View on RapidSift →</a>"
         )
 
@@ -446,7 +515,7 @@ def notify(signals, prev_keys):
         # Fallback: text-only
         send_message(caption)
 
-    print(f"Sent {len(new_signals)} notifications.")
+    print(f"Sent {len(top_signals)} notifications (top {MAX_NOTIFICATIONS} by confidence, {skipped} skipped).")
 
 
 def main():
