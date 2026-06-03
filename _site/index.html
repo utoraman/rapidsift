@@ -13659,6 +13659,13 @@
         'gap_and_go': 'Gap & Go', 'rel_strength': 'Rel Strength', 'earnings_drift': 'Earnings Drift',
         'confluence': 'Confluence'
     };
+    var SECTOR_LABELS = {
+        'XLK': 'Technology', 'XLC': 'Communication', 'XLY': 'Consumer Discr.',
+        'XLF': 'Financials', 'XLE': 'Energy', 'XLV': 'Healthcare',
+        'XLI': 'Industrials', 'XLB': 'Materials', 'XLP': 'Consumer Staples',
+        'XLU': 'Utilities', 'XLRE': 'Real Estate', 'BITO': 'Crypto',
+        'SPY': 'Broad Market'
+    };
 
     function wrColor(v) {
         if (v >= 60) return 'var(--up)';
@@ -13720,7 +13727,10 @@
             '<td><div style="display:flex;flex-direction:column;line-height:1.2">' +
                 '<span style="font-family:var(--mono);font-weight:600;font-size:13px;letter-spacing:0.02em">' + s.ticker + '</span></div></td>' +
             '<td>' + (s.sparkline || '') + '</td>' +
-            '<td><span class="strategy-tag tone-' + tone + '"><span class="dot"></span>' + label + '</span></td>' +
+            '<td><div style="display:flex;flex-direction:column;gap:2px">' +
+                '<span class="strategy-tag tone-' + tone + '"><span class="dot"></span>' + label + '</span>' +
+                (s.sector ? '<span style="font-size:10px;color:var(--text-faint);letter-spacing:0.02em">' + (SECTOR_LABELS[s.sector] || s.sector) + '</span>' : '') +
+            '</div></td>' +
             '<td style="color:var(--text-dim);font-size:12.5px">' + s.detail + '</td>' +
             '<td class="r"><span class="num" style="font-weight:500">$' + s.price.toLocaleString(undefined, {minimumFractionDigits:2, maximumFractionDigits:2}) + '</span></td>' +
             '<td class="r"><div style="display:flex;flex-direction:column;align-items:flex-end;line-height:1.2">' +
@@ -13938,6 +13948,13 @@ function refreshData(btn) {
         'gap_and_go': 'Gap & Go', 'rel_strength': 'Rel Strength', 'earnings_drift': 'Earnings Drift',
         'confluence': 'Confluence'
     };
+    var M_SECTORS = {
+        'XLK': 'Technology', 'XLC': 'Communication', 'XLY': 'Consumer Discr.',
+        'XLF': 'Financials', 'XLE': 'Energy', 'XLV': 'Healthcare',
+        'XLI': 'Industrials', 'XLB': 'Materials', 'XLP': 'Consumer Staples',
+        'XLU': 'Utilities', 'XLRE': 'Real Estate', 'BITO': 'Crypto',
+        'SPY': 'Broad Market'
+    };
 
     function mWrColor(v) {
         if (v >= 60) return 'var(--up)';
@@ -13993,7 +14010,10 @@ function refreshData(btn) {
             '<div class="m-card-head">' +
                 '<div class="m-card-left">' +
                     '<span class="m-ticker">' + s.ticker + '</span>' +
-                    '<span class="strategy-tag tone-' + tone + '"><span class="dot"></span>' + label + '</span>' +
+                    '<div style="display:flex;flex-direction:column;gap:1px">' +
+                        '<span class="strategy-tag tone-' + tone + '"><span class="dot"></span>' + label + '</span>' +
+                        (s.sector ? '<span style="font-size:10px;color:var(--text-faint)">' + (M_SECTORS[s.sector] || s.sector) + '</span>' : '') +
+                    '</div>' +
                 '</div>' +
                 '<div style="display:flex;align-items:center;gap:6px">' +
                     '<div class="m-card-right">' +

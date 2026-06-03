@@ -186,6 +186,15 @@ def build_sparkline_svg(closes, signal_idx, uid):
     svg += f'<polyline points="{pts}" fill="none" stroke="{color}" '
     svg += f'stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/>'
 
+    # Signal marker — small diamond at the point where signal fired
+    sx, sy = px(sig_pos), py(entry)
+    svg += f'<line x1="{sx}" x2="{sx}" y1="{MARGIN}" y2="{H-MARGIN}" '
+    svg += f'stroke="oklch(0.65 0.15 280)" stroke-width="0.5" stroke-dasharray="1.5 1.5" opacity="0.5"/>'
+    svg += f'<polygon points="{sx},{sy-3.5} {sx+2.5},{sy} {sx},{sy+3.5} {sx-2.5},{sy}" '
+    svg += f'fill="oklch(0.65 0.15 280)" opacity="0.85"/>'
+    svg += f'<polygon points="{sx},{sy-2} {sx+1.4},{sy} {sx},{sy+2} {sx-1.4},{sy}" '
+    svg += f'fill="oklch(0.85 0.12 280)"/>'
+
     # End dot
     lx, ly = px(n-1), py(last)
     svg += f'<circle cx="{lx}" cy="{ly}" r="3" fill="{color}" opacity=".18"/>'
@@ -582,6 +591,7 @@ def scan_signals(all_data, spy_data=None, sector_data=None):
                         "days_to_5": eval_result["days_to_5"],
                         "days_to_10": eval_result["days_to_10"],
                         "sparkline": sparkline,
+                        "sector": sector_map.get(ticker, ""),
                     }
                     all_signals.append(sig_out)
                     if s["direction"] == "buy":
@@ -616,6 +626,7 @@ def scan_signals(all_data, spy_data=None, sector_data=None):
                         "days_to_5": eval_result["days_to_5"],
                         "days_to_10": eval_result["days_to_10"],
                         "sparkline": sparkline,
+                        "sector": sector_map.get(ticker, ""),
                     })
 
     # Sort by date descending, then ticker
@@ -702,6 +713,7 @@ def build_json(all_signals, win_rates, baseline):
             "wr10": wr["wr10"],
             "fired": wr["fired"],
             "sparkline": s["sparkline"],
+            "sector": s.get("sector", ""),
         }
         # Include entry_price and days-to-hit if available
         if s.get("entry_price") is not None:
