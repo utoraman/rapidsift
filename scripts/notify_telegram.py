@@ -303,11 +303,13 @@ def load_state():
     return {"last_signals": [], "last_run": ""}
 
 
-def save_state(signals):
+def save_state(signals, extra=None):
     state = {
         "last_signals": [f"{s['ticker']}_{s['type']}_{s['date']}" for s in signals],
         "last_run": datetime.utcnow().isoformat(),
     }
+    if extra:
+        state.update(extra)
     STATE_FILE.write_text(json.dumps(state, indent=2))
 
 
@@ -518,6 +520,79 @@ def notify(signals, prev_keys):
     print(f"Sent {len(top_signals)} notifications (top {MAX_NOTIFICATIONS} by confidence, {skipped} skipped).")
 
 
+def _should_send_daily_brief(state):
+    """Send daily brief once per trading day (on the first run of the day)."""
+    last_brief = state.get("last_brief_date", "")
+    today = datetime.utcnow().strftime("%Y-%m-%d")
+    weekday = datetime.utcnow().weekday()
+    return today != last_brief and weekday < 5  # Mon-Fri only
+
+
+def _send_daily_brief(all_signals):
+    """
+    Send a morning pipeline health summary via Telegram.
+    Covers: signal count, top types, pending positions, data freshness.
+    """
+    import csv
+
+    buy = [s for s in all_signals if s["direction"] == "buy"]
+    today_str = datetime.utcnow().strftime("%Y-%m-%d")
+    today_buy = [s for s in buy if s.get("date") == today_str]
+
+    # Type distribution
+    type_counts = {}
+    for s in buy:
+        type_counts[s["type"]] = type_counts.get(s["type"], 0) + 1
+    top_types = sorted(type_counts.items(), key=lambda x: -x[1])[:4]
+
+    # Load history stats
+    history_path = Path(__file__).parent.parent / "data" / "signal_history.csv"
+    history_stats = ""
+    if history_path.exists():
+        try:
+            wins = losses = 0
+            with open(history_path) as f:
+                for row in csv.DictReader(f):
+                    if row.get("result_5") == "win":
+                        wins += 1
+                    elif row.get("result_5") == "loss":
+                        losses += 1
+            total = wins + losses
+            if total > 0:
+                wr = wins / total * 100
+                history_stats = f"History: {total} signals, {wr:.1f}% WR (+5%)\n"
+        except Exception:
+            pass
+
+    # Check data freshness
+    signals_json = Path(__file__).parent.parent / "_site" / "data" / "signals.json"
+    freshness = ""
+    if signals_json.exists():
+        try:
+            data = json.loads(signals_json.read_text())
+            gen_at = data.get("generated_at", "")
+            if gen_at:
+                freshness = f"Last data: {gen_at}\n"
+        except Exception:
+            freshness = "Last data: <i>error reading</i>\n"
+
+    type_lines = "  ".join(f"{SIGNAL_LABELS.get(t, t)} {n}" for t, n in top_types)
+
+    msg = (
+        f"<b>📊 RapidSift Daily Brief</b>\n"
+        f"<i>{datetime.utcnow().strftime('%Y-%m-%d %H:%M')} UTC</i>\n\n"
+        f"Active signals: <b>{len(buy)}</b> buy across 14-day window\n"
+        f"Today so far: <b>{len(today_buy)}</b> new signals\n"
+        f"Types: {type_lines}\n"
+        f"{history_stats}"
+        f"{freshness}"
+        f"\n<a href=\"{SITE_URL}\">Open Dashboard →</a>"
+    )
+
+    send_message(msg)
+    print("Sent daily brief.")
+
+
 def main():
     if not BOT_TOKEN or not CHAT_ID:
         print("Error: TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID must be set")
@@ -539,9 +614,14 @@ def main():
     print(f"Found {len(all_signals)} total signals ({len([s for s in all_signals if s['direction']=='buy'])} buy, "
           f"{len([s for s in all_signals if s['direction']=='sell'])} sell)")
 
+    # Daily brief — once per trading day on first run
+    brief_date = state.get("last_brief_date", "")
+    if _should_send_daily_brief(state):
+        _send_daily_brief(all_signals)
+        brief_date = datetime.utcnow().strftime("%Y-%m-%d")
+
     notify(all_signals, prev_keys)
-    save_state(all_signals)
-    print("Done.")
+    save_state(all_signals, extra={"last_brief_date": brief_date})
 
 
 if __name__ == "__main__":
