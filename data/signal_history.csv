@@ -2233,3 +2233,7 @@ date,ticker,type,direction,detail,price,entry_price,result_5,result_10,current_p
 2026-05-27,IREN,rel_strength,buy,"New 20-day high (+3.8% above prev, 1.6x vol)",67.84,66.54,win,pending,0.72,-9.44,5,
 2026-05-27,IREN,confluence,buy,"Confluence (2 strong signals): gap_and_go, rel_strength",67.84,66.54,win,pending,0.72,-9.44,5,
 2026-05-15,WOLF,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",62.13,63.54,win,win,3.62,-21.84,1,4
+2026-05-22,NET,macd,buy,MACD bullish crossover (above SMA20),216.17,216.25,win,win,22.7,-3.82,3,4
+2026-05-22,AI,macd,buy,MACD bullish crossover (above SMA20),9.29,9.27,win,win,15.6,-0.92,1,3
+2026-05-19,EW,macd,buy,MACD bullish crossover (above SMA20),82.16,81.74,win,pending,5.21,-0.62,3,
+2026-05-19,EVGO,sector_drop,buy,"Sector-adjusted drop -6.12% (stock -5.21%, XLU +0.91%)",1.82,1.81,win,win,27.07,-1.66,1,4
