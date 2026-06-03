@@ -18,7 +18,7 @@ jobs:
           python-version: '3.12'
 
       - name: Install dependencies
-        run: pip install requests pyyaml
+        run: pip install requests pyyaml yfinance pandas
 
       - name: Generate and send weekly report
         env:

@@ -11,6 +11,7 @@ Requires env vars:
 """
 
 import csv
+import json
 import os
 import sys
 from collections import defaultdict
@@ -18,6 +19,7 @@ from datetime import datetime, timedelta
 from pathlib import Path
 
 import requests
+import yfinance as yf
 
 BOT_TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN", "")
 CHAT_ID = os.environ.get("TELEGRAM_CHAT_ID", "")
@@ -62,6 +64,134 @@ def load_history():
                     continue
                 rows.append(row)
     return rows
+
+
+def _simulate_portfolio(last_week_signals, week_ago, today):
+    """
+    Simulate: $100 invested in each buy signal from last week.
+    Fetches latest prices to compute current portfolio value.
+
+    Uses signals.json for entry prices of recent (possibly still pending) signals,
+    falls back to signal_history.csv entry_price if available.
+    """
+    if not last_week_signals:
+        return "<b>💰 Portfolio Sim:</b> No signals last week\n"
+
+    # Collect (ticker, entry_price) pairs for last week's buy signals
+    # First try signals.json for fresh entry prices
+    signals_json = Path(__file__).parent.parent / "_site" / "data" / "signals.json"
+    json_entries = {}
+    if signals_json.exists():
+        try:
+            data = json.loads(signals_json.read_text())
+            for s in data.get("signals", []):
+                key = f"{s['ticker']}_{s['type']}_{s['date']}"
+                json_entries[key] = s.get("entry_price") or s.get("price", 0)
+        except Exception:
+            pass
+
+    positions = []  # [(ticker, entry_price, signal_type)]
+    seen = set()  # deduplicate same ticker from multiple signals
+    for s in last_week_signals:
+        if s.get("direction", "buy") != "buy":
+            continue
+        ticker = s["ticker"]
+        # Use entry_price (next-day open) if available, else signal-day price
+        key = f"{ticker}_{s['type']}_{s['date']}"
+        entry = json_entries.get(key)
+        if not entry:
+            entry = float(s.get("entry_price", 0)) or float(s.get("price", 0))
+        if not entry or entry <= 0:
+            continue
+        positions.append((ticker, float(entry), s["type"]))
+
+    if not positions:
+        return "<b>💰 Portfolio Sim:</b> No valid entry prices\n"
+
+    # Get latest prices — try signals.json first (always available), then yfinance
+    unique_tickers = list(set(t for t, _, _ in positions))
+    print(f"  Getting latest prices for {len(unique_tickers)} tickers...")
+
+    latest_prices = {}
+
+    # Primary source: signals.json has latest_price for all active signals
+    if signals_json.exists():
+        try:
+            data = json.loads(signals_json.read_text())
+            for s in data.get("signals", []):
+                tk = s["ticker"]
+                if tk in unique_tickers and s.get("latest_price"):
+                    latest_prices[tk] = float(s["latest_price"])
+        except Exception:
+            pass
+
+    # Fill gaps with yfinance batch fetch
+    missing = [t for t in unique_tickers if t not in latest_prices]
+    if missing:
+        print(f"  Fetching {len(missing)} missing prices from yfinance...")
+        try:
+            raw = yf.download(missing, period="5d", interval="1d",
+                              group_by="ticker", progress=False, threads=True)
+            if not raw.empty:
+                for ticker in missing:
+                    try:
+                        tdf = raw[ticker].dropna(how="all") if len(missing) > 1 else raw.dropna(how="all")
+                        if not tdf.empty:
+                            close_col = [c for c in tdf.columns if "close" in str(c).lower()]
+                            if close_col:
+                                latest_prices[ticker] = float(tdf[close_col[0]].iloc[-1])
+                    except Exception:
+                        pass
+        except Exception as e:
+            print(f"  yfinance batch error: {e}")
+
+    print(f"  Got prices for {len(latest_prices)}/{len(unique_tickers)} tickers")
+
+    if not latest_prices:
+        return "<b>💰 Portfolio Sim:</b> Could not fetch current prices\n"
+
+    # Calculate portfolio value
+    per_signal = 100.0
+    total_invested = 0.0
+    total_current = 0.0
+    best_trade = ("", 0.0)
+    worst_trade = ("", 0.0)
+
+    for ticker, entry, sig_type in positions:
+        if ticker not in latest_prices:
+            continue
+        current = latest_prices[ticker]
+        ret_pct = ((current - entry) / entry) * 100
+        total_invested += per_signal
+        total_current += per_signal * (1 + ret_pct / 100)
+
+        if ret_pct > best_trade[1]:
+            best_trade = (ticker, ret_pct)
+        if ret_pct < worst_trade[1]:
+            worst_trade = (ticker, ret_pct)
+
+    if total_invested == 0:
+        return "<b>💰 Portfolio Sim:</b> No price data available\n"
+
+    n_signals = int(total_invested / per_signal)
+    pnl = total_current - total_invested
+    pnl_pct = (pnl / total_invested) * 100
+    pnl_sign = "+" if pnl >= 0 else ""
+    emoji = "📈" if pnl >= 0 else "📉"
+
+    block = (
+        f"<b>{emoji} Portfolio Sim:</b> $100 × {n_signals} signals = "
+        f"<b>${total_invested:,.0f}</b> invested\n"
+        f"Current value: <b>${total_current:,.0f}</b> "
+        f"({pnl_sign}${pnl:,.0f}, {pnl_sign}{pnl_pct:.1f}%)\n"
+    )
+    if best_trade[0]:
+        block += f"Best: {best_trade[0]} {'+' if best_trade[1]>=0 else ''}{best_trade[1]:.1f}%"
+    if worst_trade[0]:
+        block += f"  Worst: {worst_trade[0]} {'+' if worst_trade[1]>=0 else ''}{worst_trade[1]:.1f}%"
+    block += "\n"
+
+    return block
 
 
 def analyze(rows):
@@ -139,6 +269,9 @@ def analyze(rows):
     avg_dd = sum(all_dd) / len(all_dd) if all_dd else 0
     worst_dd = min(all_dd) if all_dd else 0
 
+    # ── Hypothetical portfolio: $100 per signal from last week ──
+    portfolio_block = _simulate_portfolio(last_week, week_ago, today)
+
     date_range = f"{week_ago.strftime('%b %d')} — {today.strftime('%b %d, %Y')}"
 
     msg = (
@@ -147,6 +280,7 @@ def analyze(rows):
         f"<b>This Week:</b> {tw_n} signals, {tw_wr}% WR (+5%)\n"
         f"<b>Last Week:</b> {lw_n} signals, {lw_wr}% WR\n"
         f"<b>All Time:</b>  {all_n} signals, {all_wr}% WR\n\n"
+        f"{portfolio_block}\n"
         f"<b>By Type (30d):</b>\n<pre>{type_block}</pre>\n\n"
         f"<b>Top Wins:</b> {wins_str}\n"
         f"<b>Top Losses:</b> {losses_str}\n\n"
