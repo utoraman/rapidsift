@@ -58,6 +58,7 @@ from signals import (
     detect_signals_at, detect_catalyst_days,
     load_sector_map, SECTOR_ETFS, STRONG_TYPES,
 )
+from signal_scorer import get_scorer
 
 
 # ── Win/loss evaluation ────────────────────────────────────────────────────
@@ -714,6 +715,10 @@ def build_json(all_signals, win_rates, baseline):
             "fired": wr["fired"],
             "sparkline": s["sparkline"],
             "sector": s.get("sector", ""),
+            "confidence": s.get("confidence", 50),
+            "score_logistic": s.get("score_logistic", 50),
+            "score_bayesian": s.get("score_bayesian", 50),
+            "score_survival": s.get("score_survival", 50),
         }
         # Include entry_price and days-to-hit if available
         if s.get("entry_price") is not None:
@@ -784,6 +789,74 @@ def main():
 
     all_signals = scan_signals(all_data, spy_data=spy_data, sector_data=sector_data)
     win_rates = compute_win_rates(all_signals)
+
+    # ── Score each signal with the confidence model ──
+    print("Training signal confidence scorer...")
+    scorer = get_scorer(HISTORY_CSV)
+    sector_map = load_sector_map()
+
+    # Determine market regime: is SPY above its 50-day SMA?
+    market_regime = 1
+    if spy_data is not None:
+        spy_closes = spy_data["close"].tolist()
+        if len(spy_closes) >= 50:
+            sma50 = sum(spy_closes[-50:]) / 50
+            market_regime = 1 if spy_closes[-1] >= sma50 else 0
+
+    for s in all_signals:
+        ticker = s["ticker"]
+        sector = sector_map.get(ticker, "SPY")
+
+        # Approximate features from available data
+        df = all_data.get(ticker)
+        stock_momentum = 0.0
+        volume_ratio = 1.5
+        volatility = 2.0
+        days_elapsed = 0
+
+        if df is not None and len(df) >= 20:
+            closes = df["close"].tolist()
+            volumes = df["volume"].tolist()
+            # 20-day momentum
+            stock_momentum = ((closes[-1] - closes[-20]) / closes[-20]) * 100
+            # Volume ratio (signal day vs 20d avg)
+            avg_vol = sum(volumes[-20:]) / 20
+            if avg_vol > 0:
+                volume_ratio = volumes[-1] / avg_vol
+            # 20-day volatility (daily return std)
+            rets = [((closes[i] - closes[i-1]) / closes[i-1]) * 100
+                    for i in range(max(1, len(closes)-20), len(closes))]
+            if rets:
+                mean_r = sum(rets) / len(rets)
+                volatility = (sum((r - mean_r)**2 for r in rets) / len(rets)) ** 0.5
+
+        # Days elapsed since signal
+        if s.get("date"):
+            try:
+                sig_date = datetime.strptime(s["date"], "%Y-%m-%d").date()
+                today = datetime.utcnow().date()
+                days_elapsed = max(0, (today - sig_date).days)
+                # Approximate trading days (rough: calendar days * 5/7)
+                days_elapsed = int(days_elapsed * 5 / 7)
+            except Exception:
+                pass
+
+        score = scorer.score(
+            signal_type=s["type"],
+            ticker=ticker,
+            sector=sector,
+            stock_momentum=stock_momentum,
+            volume_ratio=volume_ratio,
+            volatility=volatility,
+            market_regime=market_regime,
+            days_elapsed=days_elapsed,
+        )
+        s["confidence"] = score["confidence"]
+        s["score_logistic"] = score["logistic"]
+        s["score_bayesian"] = score["bayesian"]
+        s["score_survival"] = score["survival"]
+
+    print(f"  Scored {len(all_signals)} signals (scorer trained={scorer.trained})")
 
     print("Computing random baseline...")
     baseline = compute_baseline(all_data)

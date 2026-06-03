@@ -429,6 +429,16 @@
                 <option value="10">10&times;</option>
             </select>
         </div>
+        <div class="filter-group">
+            <span class="filter-label">Confidence &ge;</span>
+            <select id="filter-conf" class="filter-select" onchange="applyFilters()">
+                <option value="0" selected>Any</option>
+                <option value="40">40</option>
+                <option value="50">50</option>
+                <option value="60">60</option>
+                <option value="70">70</option>
+            </select>
+        </div>
         <div style="flex:1"></div>
     </div>
 
@@ -460,6 +470,7 @@
                         <th class="r" style="width:132px">Drawdown</th>
                         <th style="width:138px">Win Rate</th>
                         <th class="r" style="width:68px">Fired</th>
+                        <th class="r" style="width:78px">Confidence</th>
                     </tr>
                 </thead>
                 <tbody id="signals-tbody">
@@ -13616,6 +13627,7 @@
         var gainTarget = document.getElementById('gain-target').value;
         var minWr = parseFloat(document.getElementById('filter-wr').value) || 0;
         var minFired = parseInt(document.getElementById('filter-fired').value) || 0;
+        var minConf = parseInt((document.getElementById('filter-conf') || {}).value) || 0;
         var wrAttr = gainTarget === '10' ? 'data-wr10' : 'data-wr5';
 
         var rows = document.querySelectorAll('.sig-table tbody tr');
@@ -13623,9 +13635,11 @@
         rows.forEach(function(row) {
             var wr = parseFloat(row.getAttribute(wrAttr));
             var fired = parseInt(row.getAttribute('data-fired'));
+            var conf = parseInt(row.getAttribute('data-conf'));
             var wrOk = isNaN(wr) ? (minWr === 0) : (wr >= minWr);
             var firedOk = isNaN(fired) ? (minFired === 0) : (fired >= minFired);
-            var show = wrOk && firedOk;
+            var confOk = isNaN(conf) ? (minConf === 0) : (conf >= minConf);
+            var show = wrOk && firedOk && confOk;
             row.style.display = show ? '' : 'none';
             if (show) {
                 visible++;
@@ -13708,17 +13722,30 @@
         return d;
     }
 
+    function confColor(v) {
+        if (v >= 65) return 'var(--up)';
+        if (v >= 50) return 'var(--warn)';
+        return 'var(--down)';
+    }
+    function confLabel(v) {
+        if (v >= 70) return 'Strong';
+        if (v >= 55) return 'Medium';
+        return 'Weak';
+    }
+
     function buildSignalRow(s, idx) {
         var tone = STRATEGY_TONES[s.type] || 'accent';
         var label = STRATEGY_LABELS[s.type] || s.type;
         var entryPct = s.latest_price && s.price ? ((s.latest_price - s.price) / s.price * 100) : 0;
         var entryColor = entryPct >= 0 ? 'var(--up)' : 'var(--down)';
+        var conf = s.confidence || 50;
 
         var tr = document.createElement('tr');
         tr.setAttribute('onclick', "window.location='/?ticker=" + s.ticker + "&signal_type=" + s.type + "'");
         tr.setAttribute('data-wr5', String(s.wr5));
         tr.setAttribute('data-wr10', String(s.wr10));
         tr.setAttribute('data-fired', String(s.fired));
+        tr.setAttribute('data-conf', String(conf));
 
         tr.innerHTML =
             '<td><span class="num" style="color:var(--text-faint)">' + String(idx + 1).padStart(2, '0') + '</span></td>' +
@@ -13745,7 +13772,11 @@
                 '<span class="target-5">' + buildWrGauge(s.wr5) + '</span>' +
                 '<span class="target-10" style="display:none">' + buildWrGauge(s.wr10) + '</span>' +
             '</td>' +
-            '<td class="r"><span class="num" style="color:var(--text-dim)">' + s.fired + '</span></td>';
+            '<td class="r"><span class="num" style="color:var(--text-dim)">' + s.fired + '</span></td>' +
+            '<td class="r"><div style="display:flex;flex-direction:column;align-items:flex-end;gap:1px">' +
+                '<span class="num" style="font-weight:600;font-size:12px;color:' + confColor(conf) + '">' + conf + '</span>' +
+                '<span style="font-size:8px;letter-spacing:0.04em;text-transform:uppercase;color:' + confColor(conf) + ';opacity:0.7">' + confLabel(conf) + '</span>' +
+            '</div></td>';
 
         return tr;
     }
@@ -13989,6 +14020,17 @@ function refreshData(btn) {
         return '<span class="result-pill pending"><span class="rdot"></span>Pending</span>';
     }
 
+    function mConfColor(v) {
+        if (v >= 65) return 'var(--up)';
+        if (v >= 50) return 'var(--warn)';
+        return 'var(--down)';
+    }
+    function mConfLabel(v) {
+        if (v >= 70) return 'Strong';
+        if (v >= 55) return 'Medium';
+        return 'Weak';
+    }
+
     function buildMobileCard(s) {
         var tone = TONES[s.type] || 'accent';
         var label = LABELS[s.type] || s.type;
@@ -13999,12 +14041,14 @@ function refreshData(btn) {
         var target = gt ? gt.value : '5';
         var result = target === '10' ? s.result_10 : s.result_5;
         var wr = target === '10' ? s.wr10 : s.wr5;
+        var conf = s.confidence || 50;
 
         var card = document.createElement('div');
         card.className = 'm-card';
         card.setAttribute('data-wr5', s.wr5);
         card.setAttribute('data-wr10', s.wr10);
         card.setAttribute('data-fired', s.fired);
+        card.setAttribute('data-conf', String(conf));
 
         card.innerHTML =
             '<div class="m-card-head">' +
@@ -14016,6 +14060,7 @@ function refreshData(btn) {
                     '</div>' +
                 '</div>' +
                 '<div style="display:flex;align-items:center;gap:6px">' +
+                    '<span style="font-family:var(--mono);font-size:11px;font-weight:600;color:' + mConfColor(conf) + ';min-width:24px;text-align:right">' + conf + '</span>' +
                     '<div class="m-card-right">' +
                         '<span class="m-price">$' + s.price.toLocaleString(undefined, {minimumFractionDigits:2, maximumFractionDigits:2}) + '</span>' +
                         '<span class="m-pct ' + pctClass + '">' + pctStr + '</span>' +
@@ -14057,6 +14102,18 @@ function refreshData(btn) {
                         '<span class="m-detail-label">Result (+10%)</span>' +
                         '<span class="m-detail-value">' + mResultPill(s.result_10) + '</span>' +
                     '</div>' +
+                    '<div class="m-detail-full" style="margin-top:4px;padding-top:4px;border-top:1px solid var(--grid-line)">' +
+                        '<span class="m-detail-label">Confidence Score</span>' +
+                        '<div style="display:flex;gap:10px;align-items:center;margin-top:2px">' +
+                            '<span style="font-family:var(--mono);font-size:16px;font-weight:700;color:' + mConfColor(conf) + '">' + conf + '</span>' +
+                            '<span style="font-size:9px;letter-spacing:0.04em;text-transform:uppercase;color:' + mConfColor(conf) + '">' + mConfLabel(conf) + '</span>' +
+                            '<div style="flex:1;display:flex;gap:8px;justify-content:flex-end;font-size:9px;color:var(--text-mute)">' +
+                                '<span title="Logistic regression">LR ' + (s.score_logistic || 50) + '</span>' +
+                                '<span title="Bayesian estimate">BY ' + (s.score_bayesian || 50) + '</span>' +
+                                '<span title="Survival analysis">SV ' + (s.score_survival || 50) + '</span>' +
+                            '</div>' +
+                        '</div>' +
+                    '</div>' +
                     (s.sparkline ? '<div class="m-detail-sparkline">' + s.sparkline + '</div>' : '') +
                 '</div>' +
             '</div>';
@@ -14091,14 +14148,17 @@ function refreshData(btn) {
         var wrAttr = target === '10' ? 'data-wr10' : 'data-wr5';
         var minWr = parseFloat((document.getElementById('filter-wr') || {}).value) || 0;
         var minFired = parseInt((document.getElementById('filter-fired') || {}).value) || 0;
+        var minConf = parseInt((document.getElementById('filter-conf') || {}).value) || 0;
 
         var cards = document.querySelectorAll('.m-card');
         cards.forEach(function(card) {
             var wr = parseFloat(card.getAttribute(wrAttr));
             var fired = parseInt(card.getAttribute('data-fired'));
+            var conf = parseInt(card.getAttribute('data-conf'));
             var wrOk = isNaN(wr) ? (minWr === 0) : (wr >= minWr);
             var firedOk = isNaN(fired) ? (minFired === 0) : (fired >= minFired);
-            card.style.display = (wrOk && firedOk) ? '' : 'none';
+            var confOk = isNaN(conf) ? (minConf === 0) : (conf >= minConf);
+            card.style.display = (wrOk && firedOk && confOk) ? '' : 'none';
         });
     };
 
