@@ -1,0 +1,239 @@
+# Sector ETF mapping for industry-adjusted signals.
+# Each ticker maps to its sector ETF. When computing sector_drop,
+# the stock's return is compared to its sector ETF instead of SPY.
+#
+# ETFs used:
+#   XLK  - Technology          XLC  - Communication Services
+#   XLY  - Consumer Discret.   XLF  - Financials
+#   XLE  - Energy              XLV  - Healthcare
+#   XLI  - Industrials         XLB  - Materials
+#   XLP  - Consumer Staples    XLU  - Utilities / Clean Energy
+#   XLRE - Real Estate         BITO - Crypto / Mining
+#   SPY  - Broad market (fallback)
+
+sectors:
+  XLK:
+    - NVDA
+    - INTC
+    - AAPL
+    - MSFT
+    - AMD
+    - AVGO
+    - QCOM
+    - TSM
+    - MRVL
+    - LRCX
+    - AMAT
+    - TXN
+    - CSCO
+    - PANW
+    - FTNT
+    - NOW
+    - CRM
+    - ADBE
+    - ORCL
+    - ACN
+    - WDAY
+    - DDOG
+    - NET
+    - SNOW
+    - TEAM
+    - APP
+    - FISV
+    - FIS
+    - "ON"
+    - ARM
+    - SMCI
+    - GFS
+    - DOCU
+    - MU
+    - IBM
+    - ZM
+
+  XLC:
+    - GOOGL
+    - GOOG
+    - META
+    - NFLX
+    - SNAP
+    - DIS
+    - T
+    - VZ
+    - CMCSA
+    - TMUS
+    - WBD
+    - PINS
+    - RBLX
+    - TME
+    - IQ
+    - U
+
+  XLY:
+    - TSLA
+    - AMZN
+    - NKE
+    - CMG
+    - DKNG
+    - DASH
+    - UBER
+    - LYFT
+    - SHOP
+    - GM
+    - BBWI
+    - HD
+    - TGT
+    - NIO
+    - XPEV
+    - RIVN
+    - LVS
+    - MGM
+    - PENN
+    - CCL
+    - NCLH
+    - EL
+    - BROS
+    - CELH
+    - SBUX
+    - F
+    - AAL
+
+  XLF:
+    - SOFI
+    - NU
+    - BAC
+    - JPM
+    - WFC
+    - C
+    - SCHW
+    - MS
+    - BX
+    - KKR
+    - APO
+    - COF
+    - HOOD
+    - COIN
+    - V
+    - PYPL
+    - AFRM
+    - UPST
+    - GRAB
+
+  XLE:
+    - XOM
+    - OXY
+    - CVX
+    - SLB
+    - HAL
+    - DVN
+    - COP
+    - BKR
+    - EOG
+    - ET
+    - WMB
+    - EPD
+    - KMI
+
+  XLV:
+    - PFE
+    - MRK
+    - JNJ
+    - UNH
+    - ABBV
+    - BMY
+    - CVS
+    - MRNA
+    - BSX
+    - ABT
+    - MDT
+    - GILD
+    - DXCM
+    - EW
+    - HIMS
+    - DHR
+    - TEVA
+    - GSK
+    - NVAX
+    - NTLA
+
+  XLI:
+    - BA
+    - GE
+    - UPS
+    - RTX
+    - DAL
+    - UAL
+    - LUV
+    - CSX
+    - CARR
+    - JOBY
+    - ACHR
+    - RKLB
+    - LUNR
+    - RDW
+    - LIDR
+
+  XLB:
+    - FCX
+    - CLF
+    - NEM
+    - AA
+    - VALE
+
+  XLP:
+    - WMT
+    - KO
+    - PG
+    - PEP
+    - CL
+    - KMB
+    - MNST
+    - TLRY
+
+  XLU:
+    - PLUG
+    - FCEL
+    - BE
+    - ENPH
+    - SEDG
+    - RUN
+    - EVGO
+    - WOLF
+    - SMR
+    - CLSK
+
+  XLRE:
+    - O
+    - OPEN
+
+  BITO:
+    - MARA
+    - MSTR
+    - RIOT
+    - BITF
+    - BTBT
+    - CORZ
+    - HUT
+    - CIFR
+    - APLD
+    - IREN
+
+  SPY:
+    - PLTR
+    - PATH
+    - BBAI
+    - SOUN
+    - IONQ
+    - RGTI
+    - QS
+    - SE
+    - AI
+    - PDD
+    - BABA
+    - JD
+    - CPNG
+    - NVO
+    - ASTS
+    - UUUU
+    - UEC
+    - DNN
+    - LCID

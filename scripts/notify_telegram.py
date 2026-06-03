@@ -264,12 +264,12 @@ def svg_to_png(svg_string):
 API = f"https://api.telegram.org/bot{BOT_TOKEN}"
 
 SIGNAL_LABELS = {
-    "rsi": "RSI",
     "macd": "MACD",
-    "ma_crossover": "MA Cross",
     "volume_spike": "Vol Spike",
     "adjusted_drop": "Adj Drop",
     "adjusted_surge": "Adj Surge",
+    "sector_drop": "Sector Drop",
+    "sector_surge": "Sector Surge",
     "gap_and_go": "Gap & Go",
     "rel_strength": "Rel Strength",
     "earnings_drift": "Earnings Drift",

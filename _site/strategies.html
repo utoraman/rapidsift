@@ -376,39 +376,34 @@
         <div class="card" style="margin:0 0 16px;border-radius:var(--r-md)">
             <div style="padding:18px 20px">
                 <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px">
-                    <span class="strategy-tag tone-up"><span class="dot"></span>RSI</span>
-                    <span style="font-size:14px;font-weight:500">RSI (Relative Strength Index)</span>
+                    <span class="strategy-tag tone-up"><span class="dot"></span>SECTOR DROP</span>
+                    <span style="font-size:14px;font-weight:500">Sector-Adjusted Drop</span>
                     <span style="margin-left:auto;font-size:11px;color:var(--text-mute)">Buy + Sell</span>
                 </div>
                 <p style="color:var(--text-dim);font-size:12.5px;line-height:1.65;margin-bottom:16px">
-                    Measures momentum by comparing the magnitude of recent gains to recent losses over a rolling window. When RSI crosses below the oversold threshold, a <strong>buy</strong> signal fires. When it crosses above the overbought threshold, a <strong>sell</strong> signal fires. Only fires on the <em>transition day</em>.
+                    Compares each stock's daily return against its own <strong>sector ETF</strong> (XLK for tech, XLF for financials, etc.) rather than the broad market. Fires when the stock drops &ge;5% more than its sector &mdash; isolating company-specific moves from sector-wide rotation. Same downtrend filter as Adj Drop: skips stocks below SMA50 for 5+ consecutive days.
                 </p>
                 <div style="display:flex;flex-wrap:wrap;gap:10px">
-                    
+
                     <div style="display:flex;align-items:center;gap:8px;padding:6px 12px;border-radius:var(--r-sm);background:var(--surface);border:0.5px solid var(--line)">
-                        <span style="font-size:10px;text-transform:uppercase;letter-spacing:0.06em;color:var(--text-mute)">Period</span>
-                        <span class="num" style="font-size:12px;font-weight:500;color:var(--accent)">14</span>
+                        <span style="font-size:10px;text-transform:uppercase;letter-spacing:0.06em;color:var(--text-mute)">Threshold</span>
+                        <span class="num" style="font-size:12px;font-weight:500;color:var(--accent)">&pm;5.0%</span>
                     </div>
-                    
+
                     <div style="display:flex;align-items:center;gap:8px;padding:6px 12px;border-radius:var(--r-sm);background:var(--surface);border:0.5px solid var(--line)">
-                        <span style="font-size:10px;text-transform:uppercase;letter-spacing:0.06em;color:var(--text-mute)">Oversold</span>
-                        <span class="num" style="font-size:12px;font-weight:500;color:var(--accent)">&le; 30</span>
+                        <span style="font-size:10px;text-transform:uppercase;letter-spacing:0.06em;color:var(--text-mute)">Benchmark</span>
+                        <span class="num" style="font-size:12px;font-weight:500;color:var(--accent)">Sector ETF</span>
                     </div>
-                    
-                    <div style="display:flex;align-items:center;gap:8px;padding:6px 12px;border-radius:var(--r-sm);background:var(--surface);border:0.5px solid var(--line)">
-                        <span style="font-size:10px;text-transform:uppercase;letter-spacing:0.06em;color:var(--text-mute)">Overbought</span>
-                        <span class="num" style="font-size:12px;font-weight:500;color:var(--accent)">&ge; 70</span>
-                    </div>
-                    
+
                     <div style="display:flex;align-items:center;gap:8px;padding:6px 12px;border-radius:var(--r-sm);background:var(--surface);border:0.5px solid var(--line)">
                         <span style="font-size:10px;text-transform:uppercase;letter-spacing:0.06em;color:var(--text-mute)">Cooldown</span>
                         <span class="num" style="font-size:12px;font-weight:500;color:var(--accent)">5d</span>
                     </div>
-                    
+
                 </div>
             </div>
         </div>
-        
+
         <div class="card" style="margin:0 0 16px;border-radius:var(--r-md)">
             <div style="padding:18px 20px">
                 <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px">
@@ -434,37 +429,6 @@
                     <div style="display:flex;align-items:center;gap:8px;padding:6px 12px;border-radius:var(--r-sm);background:var(--surface);border:0.5px solid var(--line)">
                         <span style="font-size:10px;text-transform:uppercase;letter-spacing:0.06em;color:var(--text-mute)">Signal EMA</span>
                         <span class="num" style="font-size:12px;font-weight:500;color:var(--accent)">9</span>
-                    </div>
-                    
-                    <div style="display:flex;align-items:center;gap:8px;padding:6px 12px;border-radius:var(--r-sm);background:var(--surface);border:0.5px solid var(--line)">
-                        <span style="font-size:10px;text-transform:uppercase;letter-spacing:0.06em;color:var(--text-mute)">Cooldown</span>
-                        <span class="num" style="font-size:12px;font-weight:500;color:var(--accent)">5d</span>
-                    </div>
-                    
-                </div>
-            </div>
-        </div>
-        
-        <div class="card" style="margin:0 0 16px;border-radius:var(--r-md)">
-            <div style="padding:18px 20px">
-                <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px">
-                    <span class="strategy-tag tone-warn"><span class="dot"></span>MA CROSS</span>
-                    <span style="font-size:14px;font-weight:500">Moving Average Crossover</span>
-                    <span style="margin-left:auto;font-size:11px;color:var(--text-mute)">Buy + Sell</span>
-                </div>
-                <p style="color:var(--text-dim);font-size:12.5px;line-height:1.65;margin-bottom:16px">
-                    When the fast SMA crosses above the slow SMA &rarr; <strong>buy</strong>. Crossing below &rarr; <strong>sell</strong>. Faster periods (10/30) tuned for short-term trades.
-                </p>
-                <div style="display:flex;flex-wrap:wrap;gap:10px">
-
-                    <div style="display:flex;align-items:center;gap:8px;padding:6px 12px;border-radius:var(--r-sm);background:var(--surface);border:0.5px solid var(--line)">
-                        <span style="font-size:10px;text-transform:uppercase;letter-spacing:0.06em;color:var(--text-mute)">Fast SMA</span>
-                        <span class="num" style="font-size:12px;font-weight:500;color:var(--accent)">10</span>
-                    </div>
-
-                    <div style="display:flex;align-items:center;gap:8px;padding:6px 12px;border-radius:var(--r-sm);background:var(--surface);border:0.5px solid var(--line)">
-                        <span style="font-size:10px;text-transform:uppercase;letter-spacing:0.06em;color:var(--text-mute)">Slow SMA</span>
-                        <span class="num" style="font-size:12px;font-weight:500;color:var(--accent)">30</span>
                     </div>
                     
                     <div style="display:flex;align-items:center;gap:8px;padding:6px 12px;border-radius:var(--r-sm);background:var(--surface);border:0.5px solid var(--line)">
@@ -668,7 +632,7 @@
                 </div>
                 <p style="color:var(--text-dim);font-size:12.5px;line-height:1.65;margin-bottom:16px">
                     Not an independent strategy &mdash; fires automatically when <strong>2 or more strong</strong> buy signals
-                    trigger on the same ticker on the same day. Strong signal types: RSI, MA Cross, Adj Drop, Rel Strength, Gap &amp; Go, Earnings Drift. Weaker signals (MACD, Vol Spike) don't count toward confluence. Tracked and validated separately.
+                    trigger on the same ticker on the same day. Strong signal types: Adj Drop, Sector Drop, Rel Strength, Gap &amp; Go, Earnings Drift. Weaker signals (MACD, Vol Spike) don't count toward confluence. Tracked and validated separately.
                 </p>
                 <div style="display:flex;flex-wrap:wrap;gap:10px">
                     <div style="display:flex;align-items:center;gap:8px;padding:6px 12px;border-radius:var(--r-sm);background:var(--surface);border:0.5px solid var(--line)">

@@ -6,13 +6,15 @@ dashboard JSON generator import from this module so thresholds, filters,
 and new signal types only need to be changed in one place.
 
 Signal types:
-    rsi             RSI transition (crosses below 30 or above 70)
     macd            MACD crossover (trend-filtered: buy only above SMA20)
-    ma_crossover    SMA10/SMA30 crossover
     volume_spike    2x+ volume spike (trend-filtered: buy only above SMA20)
     gap_and_go      3%+ gap on 1.5x+ volume
     rel_strength    New 20-day high, 1%+ breakout, 1.3x+ volume, above SMA20
     earnings_drift  Post-catalyst drift (gap>=5%, vol>=3x → continuation next day)
+
+Disabled (data showed no edge over random baseline):
+    rsi             Removed — EV +0.29pp, profit factor 0.59x
+    ma_crossover    Removed — WR 60.9%, worse than 62.5% random baseline
 """
 
 import math
@@ -87,16 +89,6 @@ def detect_signals_at(closes, opens, highs, lows, volumes, idx):
     sma20 = compute_sma(c, 20) if len(c) >= 20 else [float('nan')] * len(c)
     above_sma20 = not math.isnan(sma20[-1]) and latest_close > sma20[-1]
 
-    # ── RSI transition ──
-    rsi = compute_rsi(c, 14)
-    if len(rsi) >= 2 and not math.isnan(rsi[-1]) and not math.isnan(rsi[-2]):
-        if rsi[-1] <= 30 and rsi[-2] > 30:
-            signals.append({"type": "rsi", "direction": "buy",
-                           "detail": f"RSI={rsi[-1]:.1f} crossed below 30"})
-        elif rsi[-1] >= 70 and rsi[-2] < 70:
-            signals.append({"type": "rsi", "direction": "sell",
-                           "detail": f"RSI={rsi[-1]:.1f} crossed above 70"})
-
     # ── MACD crossover (trend-filtered: buy only above SMA20) ──
     if len(c) >= 35:
         ema12 = compute_ema(c, 12)
@@ -111,20 +103,6 @@ def detect_signals_at(closes, opens, highs, lows, volumes, idx):
         elif prev_d > 0 and curr_d < 0:
             signals.append({"type": "macd", "direction": "sell",
                            "detail": "MACD bearish crossover"})
-
-    # ── MA crossover (SMA10/SMA30 for short-term trades) ──
-    if len(c) >= 31:
-        sma10 = compute_sma(c, 10)
-        sma30 = compute_sma(c, 30)
-        if not any(math.isnan(v) for v in [sma10[-1], sma10[-2], sma30[-1], sma30[-2]]):
-            prev_d = sma10[-2] - sma30[-2]
-            curr_d = sma10[-1] - sma30[-1]
-            if prev_d < 0 and curr_d > 0:
-                signals.append({"type": "ma_crossover", "direction": "buy",
-                               "detail": "SMA10 crossed above SMA30"})
-            elif prev_d > 0 and curr_d < 0:
-                signals.append({"type": "ma_crossover", "direction": "sell",
-                               "detail": "SMA10 crossed below SMA30"})
 
     # ── Volume spike (trend-filtered: buy only above SMA20) ──
     if idx >= 20:
@@ -251,6 +229,32 @@ def detect_earnings_drift(closes, opens, volumes, idx):
 
 # ── Constants ────────────────────────────────────────────────────────────────
 
+# ── Sector Mapping ──────────────────────────────────────────────────────────
+
+def load_sector_map():
+    """
+    Load ticker → sector ETF mapping from data/sectors.yaml.
+    Returns dict: ticker -> sector ETF symbol (e.g. 'NVDA' -> 'XLK').
+    """
+    import yaml
+    from pathlib import Path
+    sector_path = Path(__file__).parent.parent / "data" / "sectors.yaml"
+    if not sector_path.exists():
+        return {}
+    with open(sector_path) as f:
+        data = yaml.safe_load(f)
+    mapping = {}
+    for etf, tickers in data.get("sectors", {}).items():
+        for t in tickers:
+            mapping[str(t)] = etf
+    return mapping
+
+
+# All sector ETFs that need to be fetched for sector_drop signals
+SECTOR_ETFS = ["XLK", "XLC", "XLY", "XLF", "XLE", "XLV", "XLI",
+               "XLB", "XLP", "XLU", "XLRE", "BITO"]
+
+
 # Signal types that count toward confluence (strong edge signals only)
-STRONG_TYPES = {"rsi", "ma_crossover", "adjusted_drop", "rel_strength",
+STRONG_TYPES = {"adjusted_drop", "sector_drop", "rel_strength",
                 "gap_and_go", "earnings_drift"}

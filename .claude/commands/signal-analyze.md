@@ -10,7 +10,7 @@ Read **`data/signal_history.csv`**. Columns:
 |--------|-------------|
 | `date` | Signal fire date (YYYY-MM-DD) |
 | `ticker` | Stock ticker |
-| `type` | Signal type: rsi, macd, ma_crossover, volume_spike, gap_and_go, rel_strength, earnings_drift, adjusted_drop, confluence |
+| `type` | Signal type: macd, volume_spike, gap_and_go, rel_strength, earnings_drift, adjusted_drop, sector_drop, confluence |
 | `direction` | Always "buy" (only buy signals are tracked) |
 | `detail` | Human-readable signal description |
 | `price` | Close price on signal day |

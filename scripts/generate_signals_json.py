@@ -56,7 +56,7 @@ WATCHLIST = load_watchlist()
 from signals import (
     compute_rsi, compute_sma, compute_ema,
     detect_signals_at, detect_catalyst_days,
-    STRONG_TYPES,
+    load_sector_map, SECTOR_ETFS, STRONG_TYPES,
 )
 
 
@@ -336,8 +336,9 @@ def _overlay_intraday(all_data, fetch_list):
 
 def fetch_all_prices():
     """Fetch 3mo of daily prices using batched yf.download() for speed."""
-    # Include SPY for adjusted return signals
-    fetch_list = WATCHLIST + (["SPY"] if "SPY" not in WATCHLIST else [])
+    # Include SPY + sector ETFs for adjusted return signals
+    extra = ["SPY"] + [e for e in SECTOR_ETFS if e not in WATCHLIST]
+    fetch_list = WATCHLIST + [e for e in extra if e not in WATCHLIST]
     print(f"Fetching prices for {len(fetch_list)} tickers in batches of {BATCH_SIZE}...")
     all_data = {}
     errors = []
@@ -398,11 +399,12 @@ def _detect_catalyst_days(all_data):
     return catalysts
 
 
-def scan_signals(all_data, spy_data=None):
+def scan_signals(all_data, spy_data=None, sector_data=None):
     """
     Scan last SIGNAL_SCAN_DAYS trading days for each ticker.
     Returns list of signal dicts sorted by date descending.
     spy_data: optional dict with SPY price data for adjusted return signals.
+    sector_data: optional dict of {etf_symbol: DataFrame} for sector-adjusted signals.
     """
     print(f"Scanning for signals (last {SIGNAL_SCAN_DAYS} days)...")
 
@@ -418,6 +420,22 @@ def scan_signals(all_data, spy_data=None):
         for i in range(1, len(spy_closes)):
             date_key = str(spy_dates[i])[:10]
             spy_returns[date_key] = ((spy_closes[i] - spy_closes[i-1]) / spy_closes[i-1]) * 100
+
+    # Pre-compute sector ETF daily returns keyed by (etf, date)
+    sector_returns = {}  # etf -> {date_str: return_pct}
+    if sector_data:
+        for etf, sdf in sector_data.items():
+            s_closes = sdf["close"].tolist()
+            s_dates = sdf["date"].tolist()
+            etf_rets = {}
+            for i in range(1, len(s_closes)):
+                date_key = str(s_dates[i])[:10]
+                etf_rets[date_key] = ((s_closes[i] - s_closes[i-1]) / s_closes[i-1]) * 100
+            sector_returns[etf] = etf_rets
+        print(f"  Sector benchmarks: {len(sector_returns)} ETFs loaded")
+
+    # Load sector mapping
+    sector_map = load_sector_map()
 
     # Detect catalyst days (earnings, FDA, etc.) from market signatures
     catalyst_days = _detect_catalyst_days(all_data)
@@ -469,6 +487,38 @@ def scan_signals(all_data, spy_data=None):
                             "detail": f"Market-adjusted surge +{adj_ret:.2f}% "
                                       f"(stock {stock_ret:+.2f}%, market {spy_ret:+.2f}%)",
                         })
+
+            # Sector-adjusted drop: stock vs its own sector ETF
+            if sector_returns and idx >= 1:
+                sector_etf = sector_map.get(ticker)
+                if sector_etf and sector_etf in sector_returns:
+                    date_key = str(dates[idx])[:10]
+                    sector_ret = sector_returns[sector_etf].get(date_key)
+                    if sector_ret is not None:
+                        stock_ret_s = ((closes[idx] - closes[idx-1]) / closes[idx-1]) * 100
+                        sector_adj = stock_ret_s - sector_ret
+                        if sector_adj <= -5.0:
+                            # Same downtrend filter as adjusted_drop
+                            in_downtrend = False
+                            if idx >= 54:
+                                sma50 = compute_sma(closes[:idx+1], 50)
+                                below_count = sum(1 for i in range(idx-4, idx+1)
+                                                if not math.isnan(sma50[i]) and closes[i] < sma50[i])
+                                in_downtrend = below_count >= 5
+                            if not in_downtrend:
+                                sigs.append({
+                                    "type": "sector_drop",
+                                    "direction": "buy",
+                                    "detail": f"Sector-adjusted drop {sector_adj:+.2f}% "
+                                              f"(stock {stock_ret_s:+.2f}%, {sector_etf} {sector_ret:+.2f}%)",
+                                })
+                        elif sector_adj >= 5.0:
+                            sigs.append({
+                                "type": "sector_surge",
+                                "direction": "sell",
+                                "detail": f"Sector-adjusted surge +{sector_adj:.2f}% "
+                                          f"(stock {stock_ret_s:+.2f}%, {sector_etf} {sector_ret:+.2f}%)",
+                            })
 
             # Post-catalyst drift (PEAD-style)
             # If yesterday was a catalyst day (big gap + huge volume), ride the drift
@@ -713,7 +763,14 @@ def main():
     else:
         print("  Warning: SPY data unavailable, adjusted return signals disabled")
 
-    all_signals = scan_signals(all_data, spy_data=spy_data)
+    # Extract sector ETF data for sector-adjusted signals
+    sector_data = {}
+    for etf in SECTOR_ETFS:
+        if etf in all_data:
+            sector_data[etf] = all_data.pop(etf)
+    print(f"  Sector ETFs loaded: {len(sector_data)} ({', '.join(sorted(sector_data.keys()))})")
+
+    all_signals = scan_signals(all_data, spy_data=spy_data, sector_data=sector_data)
     win_rates = compute_win_rates(all_signals)
 
     print("Computing random baseline...")

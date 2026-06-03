@@ -35,7 +35,7 @@ HISTORY_CSV = ROOT / "data" / "signal_history.csv"
 from signals import (
     compute_rsi, compute_sma, compute_ema,
     detect_signals_at, detect_catalyst_days,
-    STRONG_TYPES,
+    load_sector_map, SECTOR_ETFS, STRONG_TYPES,
 )
 
 LOOKAHEAD_DAYS = 14
@@ -172,6 +172,22 @@ def scan_all_signals(all_data):
             spy_returns[date_key] = ((spy_closes[i] - spy_closes[i-1]) / spy_closes[i-1]) * 100
         print(f"  SPY benchmark: {len(spy_data)} days")
 
+    # Compute sector ETF returns
+    sector_returns = {}
+    for etf in list(SECTOR_ETFS):
+        sdf = all_data.pop(etf, None)
+        if sdf is not None:
+            s_closes = sdf["close"].tolist()
+            s_dates = sdf["date"].tolist()
+            etf_rets = {}
+            for i in range(1, len(s_closes)):
+                date_key = str(s_dates[i])[:10]
+                etf_rets[date_key] = ((s_closes[i] - s_closes[i-1]) / s_closes[i-1]) * 100
+            sector_returns[etf] = etf_rets
+    print(f"  Sector benchmarks: {len(sector_returns)} ETFs")
+
+    sector_map = load_sector_map()
+
     all_signals = []
     for ticker_idx, (ticker, df) in enumerate(all_data.items()):
         if (ticker_idx + 1) % 50 == 0:
@@ -216,6 +232,34 @@ def scan_all_signals(all_data):
                             "type": "adjusted_surge", "direction": "sell",
                             "detail": f"Market-adjusted surge +{adj_ret:.2f}%",
                         })
+
+            # Sector-adjusted drop: stock vs its own sector ETF
+            if sector_returns and idx >= 1:
+                sector_etf = sector_map.get(ticker)
+                if sector_etf and sector_etf in sector_returns:
+                    date_key = str(dates[idx])[:10]
+                    sector_ret = sector_returns[sector_etf].get(date_key)
+                    if sector_ret is not None:
+                        stock_ret_s = ((closes[idx] - closes[idx-1]) / closes[idx-1]) * 100
+                        sector_adj = stock_ret_s - sector_ret
+                        if sector_adj <= -5.0:
+                            in_downtrend = False
+                            if idx >= 54:
+                                sma50 = compute_sma(closes[:idx+1], 50)
+                                below_count = sum(1 for i in range(idx-4, idx+1)
+                                                if not math.isnan(sma50[i]) and closes[i] < sma50[i])
+                                in_downtrend = below_count >= 5
+                            if not in_downtrend:
+                                sigs.append({
+                                    "type": "sector_drop", "direction": "buy",
+                                    "detail": f"Sector-adjusted drop {sector_adj:+.2f}% "
+                                              f"(stock {stock_ret_s:+.2f}%, {sector_etf} {sector_ret:+.2f}%)",
+                                })
+                        elif sector_adj >= 5.0:
+                            sigs.append({
+                                "type": "sector_surge", "direction": "sell",
+                                "detail": f"Sector-adjusted surge +{sector_adj:.2f}%",
+                            })
 
             # Post-catalyst drift
             if ticker in catalyst_days and (idx - 1) in catalyst_days[ticker] and idx >= 2:
@@ -323,8 +367,9 @@ def main():
 
     print(f"Backfilling {args.months} months of signal history...")
     watchlist = load_watchlist()
-    tickers = watchlist + ["SPY"]
-    print(f"  {len(tickers)} tickers (including SPY benchmark)")
+    extra = ["SPY"] + [e for e in SECTOR_ETFS if e not in watchlist]
+    tickers = watchlist + [e for e in extra if e not in watchlist]
+    print(f"  {len(tickers)} tickers (including SPY + {len(SECTOR_ETFS)} sector ETFs)")
 
     all_data = fetch_prices(tickers, args.months)
     if not all_data:

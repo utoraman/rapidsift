@@ -13646,14 +13646,16 @@
     // and replaces the static table with live data.
 
     var STRATEGY_TONES = {
-        'rsi': 'up', 'macd': 'accent', 'ma_crossover': 'warn',
+        'macd': 'accent',
         'volume_spike': 'accent', 'adjusted_drop': 'up', 'adjusted_surge': 'down',
+        'sector_drop': 'up', 'sector_surge': 'down',
         'gap_and_go': 'up', 'rel_strength': 'accent', 'earnings_drift': 'warn',
         'confluence': 'up'
     };
     var STRATEGY_LABELS = {
-        'rsi': 'RSI', 'macd': 'MACD', 'ma_crossover': 'MA Cross',
+        'macd': 'MACD',
         'volume_spike': 'Vol Spike', 'adjusted_drop': 'Adj Drop', 'adjusted_surge': 'Adj Surge',
+        'sector_drop': 'Sector Drop', 'sector_surge': 'Sector Surge',
         'gap_and_go': 'Gap & Go', 'rel_strength': 'Rel Strength', 'earnings_drift': 'Earnings Drift',
         'confluence': 'Confluence'
     };
@@ -13923,14 +13925,16 @@ function refreshData(btn) {
 <script>
 (function() {
     var TONES = {
-        'rsi': 'up', 'macd': 'accent', 'ma_crossover': 'warn',
+        'macd': 'accent',
         'volume_spike': 'accent', 'adjusted_drop': 'up', 'adjusted_surge': 'down',
+        'sector_drop': 'up', 'sector_surge': 'down',
         'gap_and_go': 'up', 'rel_strength': 'accent', 'earnings_drift': 'warn',
         'confluence': 'up'
     };
     var LABELS = {
-        'rsi': 'RSI', 'macd': 'MACD', 'ma_crossover': 'MA Cross',
+        'macd': 'MACD',
         'volume_spike': 'Vol Spike', 'adjusted_drop': 'Adj Drop', 'adjusted_surge': 'Adj Surge',
+        'sector_drop': 'Sector Drop', 'sector_surge': 'Sector Surge',
         'gap_and_go': 'Gap & Go', 'rel_strength': 'Rel Strength', 'earnings_drift': 'Earnings Drift',
         'confluence': 'Confluence'
     };
