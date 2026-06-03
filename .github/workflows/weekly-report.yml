@@ -1,0 +1,27 @@
+name: Weekly Report
+
+on:
+  schedule:
+    - cron: '0 7 * * 1'    # Every Monday at 07:00 UTC = 09:00 CET
+  workflow_dispatch:  # Allow manual trigger
+
+jobs:
+  report:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: pip install requests pyyaml
+
+      - name: Generate and send weekly report
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: python3 scripts/weekly_report.py
