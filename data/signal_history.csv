@@ -2254,3 +2254,4 @@ date,ticker,type,direction,detail,price,entry_price,result_5,result_10,current_p
 2026-06-01,C,macd,buy,MACD bullish crossover (above SMA20),129.09,128.69,win,pending,4.74,-0.33,3,
 2026-06-03,ORCL,adjusted_drop,buy,"Market-adjusted drop -5.12% (stock -5.83%, market -0.70%)",230.33,227.0,win,pending,4.9,-1.32,1,
 2026-06-03,HOOD,adjusted_drop,buy,"Market-adjusted drop -5.32% (stock -6.02%, market -0.70%)",82.85,83.25,win,pending,6.04,-0.54,1,
+2026-05-22,CCL,macd,buy,MACD bullish crossover (above SMA20),25.98,26.82,win,pending,3.84,-1.19,2,

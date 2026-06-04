@@ -3,19 +3,24 @@
     "AAL_macd_2026-06-04",
     "SNAP_macd_2026-06-04",
     "CMCSA_macd_2026-06-04",
+    "MRVL_volume_spike_2026-06-04",
     "MRVL_gap_and_go_2026-06-04",
     "MRVL_earnings_drift_2026-06-04",
     "AVGO_volume_spike_2026-06-04",
     "AVGO_gap_and_go_2026-06-04",
     "WBD_macd_2026-06-04",
-    "UUUU_macd_2026-06-04",
+    "QCOM_macd_2026-06-04",
+    "RUN_macd_2026-06-04",
     "COP_macd_2026-06-04",
     "JPM_macd_2026-06-04",
+    "MDT_rel_strength_2026-06-04",
     "FIS_macd_2026-06-04",
     "AI_volume_spike_2026-06-04",
     "AI_gap_and_go_2026-06-04",
-    "LIDR_macd_2026-06-04"
+    "LIDR_macd_2026-06-04",
+    "DHR_rel_strength_2026-06-04",
+    "GFS_macd_2026-06-04"
   ],
-  "last_run": "2026-06-04T19:37:47.178702",
+  "last_run": "2026-06-04T20:55:03.723708",
   "last_brief_date": "2026-06-04"
 }
