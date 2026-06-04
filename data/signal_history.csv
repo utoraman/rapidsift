@@ -2237,3 +2237,16 @@ date,ticker,type,direction,detail,price,entry_price,result_5,result_10,current_p
 2026-05-22,AI,macd,buy,MACD bullish crossover (above SMA20),9.29,9.27,win,win,15.6,-0.92,1,3
 2026-05-19,EW,macd,buy,MACD bullish crossover (above SMA20),82.16,81.74,win,pending,5.21,-0.62,3,
 2026-05-19,EVGO,sector_drop,buy,"Sector-adjusted drop -6.12% (stock -5.21%, XLU +0.91%)",1.82,1.81,win,win,27.07,-1.66,1,4
+2026-06-03,RGTI,adjusted_drop,buy,"Market-adjusted drop -9.66% (stock -10.36%, market -0.70%)",24.09,23.38,win,pending,2.69,-1.85,1,
+2026-06-03,OPEN,adjusted_drop,buy,"Market-adjusted drop -9.28% (stock -9.98%, market -0.70%)",4.87,4.89,win,pending,2.35,-0.41,1,
+2026-06-03,OPEN,sector_drop,buy,"Sector-adjusted drop -10.03% (stock -9.98%, XLRE +0.05%)",4.87,4.89,win,pending,2.35,-0.41,1,
+2026-06-03,OPEN,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",4.87,4.89,win,pending,2.35,-0.41,1,
+2026-06-03,MRVL,gap_and_go,buy,Gap up +9.2% on 3.4x volume,301.65,282.95,win,win,10.21,-1.89,1,1
+2026-06-03,MRVL,rel_strength,buy,"New 20-day high (+11.3% above prev, 3.4x vol)",301.65,282.95,win,win,10.21,-1.89,1,1
+2026-06-03,MRVL,earnings_drift,buy,"Post-catalyst drift: catalyst gap +15.5%, day-2 move +3.7%",301.65,282.95,win,win,10.21,-1.89,1,1
+2026-06-03,MRVL,confluence,buy,"Confluence (3 strong signals): gap_and_go, rel_strength, earnings_drift",301.65,282.95,win,win,10.21,-1.89,1,1
+2026-06-01,NET,rel_strength,buy,"New 20-day high (+4.8% above prev, 1.7x vol)",270.82,262.77,win,pending,3.97,-3.36,3,
+2026-06-01,META,adjusted_drop,buy,"Market-adjusted drop -5.34% (stock -5.07%, market +0.27%)",600.47,603.24,win,pending,4.72,-1.09,3,
+2026-06-01,HIMS,macd,buy,MACD bullish crossover (above SMA20),27.76,27.93,win,pending,2.51,-7.94,3,
+2026-05-29,MS,rel_strength,buy,"New 20-day high (+1.8% above prev, 1.5x vol)",208.0,207.61,win,pending,5.27,-0.49,4,
+2026-05-28,NTLA,macd,buy,MACD bullish crossover (above SMA20),13.68,13.7,win,win,8.59,-8.98,5,5
