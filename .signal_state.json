@@ -8,15 +8,14 @@
     "AVGO_volume_spike_2026-06-04",
     "AVGO_gap_and_go_2026-06-04",
     "WBD_macd_2026-06-04",
-    "QCOM_macd_2026-06-04",
     "UUUU_macd_2026-06-04",
-    "RUN_macd_2026-06-04",
     "COP_macd_2026-06-04",
     "JPM_macd_2026-06-04",
     "FIS_macd_2026-06-04",
     "AI_volume_spike_2026-06-04",
-    "AI_gap_and_go_2026-06-04"
+    "AI_gap_and_go_2026-06-04",
+    "LIDR_macd_2026-06-04"
   ],
-  "last_run": "2026-06-04T18:11:17.218400",
+  "last_run": "2026-06-04T19:37:47.178702",
   "last_brief_date": "2026-06-04"
 }
