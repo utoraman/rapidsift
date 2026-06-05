@@ -2256,3 +2256,7 @@ date,ticker,type,direction,detail,price,entry_price,result_5,result_10,current_p
 2026-06-03,HOOD,adjusted_drop,buy,"Market-adjusted drop -5.32% (stock -6.02%, market -0.70%)",82.85,83.25,win,pending,6.04,-0.54,1,
 2026-05-22,CCL,macd,buy,MACD bullish crossover (above SMA20),25.98,26.82,win,pending,3.84,-1.19,2,
 2026-05-21,APLD,confluence,buy,"Confluence (2 strong signals): gap_and_go, rel_strength",48.02,47.59,win,pending,-17.78,-17.99,4,
+2026-05-27,PENN,macd,buy,MACD bullish crossover (above SMA20),19.09,18.85,win,pending,2.02,-0.74,3,
+2026-05-27,BBAI,macd,buy,MACD bullish crossover (above SMA20),4.37,4.28,win,win,-1.87,-3.97,1,1
+2026-05-26,MARA,macd,buy,MACD bullish crossover (above SMA20),14.28,14.21,win,pending,-13.3,-16.68,4,
+2026-05-21,DAL,macd,buy,MACD bullish crossover (above SMA20),75.65,76.03,win,win,4.46,-0.68,3,3
