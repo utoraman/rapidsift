@@ -2276,3 +2276,6 @@ date,ticker,type,direction,detail,price,entry_price,result_5,result_10,current_p
 2026-06-05,IREN,adjusted_drop,buy,"Market-adjusted drop -9.56% (stock -12.14%, market -2.58%)",54.35,56.44,win,pending,5.08,-2.29,1,
 2026-06-05,IREN,sector_drop,buy,"Sector-adjusted drop -7.17% (stock -12.14%, BITO -4.97%)",54.35,56.44,win,pending,5.08,-2.29,1,
 2026-06-05,IREN,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",54.35,56.44,win,pending,5.08,-2.29,1,
+2026-06-05,CIFR,adjusted_drop,buy,"Market-adjusted drop -9.55% (stock -12.13%, market -2.58%)",22.45,23.32,win,pending,4.18,-2.42,1,
+2026-06-05,CIFR,sector_drop,buy,"Sector-adjusted drop -7.16% (stock -12.13%, BITO -4.97%)",22.45,23.32,win,pending,4.18,-2.42,1,
+2026-06-05,CIFR,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",22.45,23.32,win,pending,4.18,-2.42,1,
