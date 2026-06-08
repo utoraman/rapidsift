@@ -2273,3 +2273,6 @@ date,ticker,type,direction,detail,price,entry_price,result_5,result_10,current_p
 2026-05-29,HIMS,macd,buy,MACD bullish crossover (above SMA20),26.15,26.19,win,win,3.09,-3.02,1,4
 2026-05-26,SEDG,confluence,buy,"Confluence (2 strong signals): gap_and_go, rel_strength",70.75,70.22,win,win,-5.2,-11.4,1,3
 2026-05-22,NIO,adjusted_drop,buy,"Market-adjusted drop -7.54% (stock -7.14%, market +0.39%)",5.2,5.33,win,win,2.53,-2.44,2,5
+2026-06-05,IREN,adjusted_drop,buy,"Market-adjusted drop -9.56% (stock -12.14%, market -2.58%)",54.35,56.44,win,pending,5.08,-2.29,1,
+2026-06-05,IREN,sector_drop,buy,"Sector-adjusted drop -7.17% (stock -12.14%, BITO -4.97%)",54.35,56.44,win,pending,5.08,-2.29,1,
+2026-06-05,IREN,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",54.35,56.44,win,pending,5.08,-2.29,1,
