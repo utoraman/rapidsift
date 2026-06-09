@@ -2297,3 +2297,5 @@ date,ticker,type,direction,detail,price,entry_price,result_5,result_10,current_p
 2026-06-05,APLD,sector_drop,buy,"Sector-adjusted drop -5.29% (stock -10.26%, BITO -4.97%)",39.62,41.22,win,win,-4.91,-6.11,2,2
 2026-06-05,AMAT,adjusted_drop,buy,"Market-adjusted drop -7.12% (stock -9.71%, market -2.58%)",453.01,476.0,win,win,-0.12,-1.03,2,2
 2026-06-02,AMAT,rel_strength,buy,"New 20-day high (+6.0% above prev, 1.3x vol)",490.05,487.95,win,pending,-2.57,-7.18,5,
+2026-06-03,CARR,macd,buy,MACD bullish crossover (above SMA20),67.58,67.86,win,pending,4.98,-2.11,4,
+2026-05-26,FISV,sector_drop,buy,"Sector-adjusted drop -5.29% (stock -2.66%, XLK +2.63%)",55.61,55.45,win,pending,-2.56,-5.5,4,
