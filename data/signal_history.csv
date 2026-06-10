@@ -2299,3 +2299,10 @@ date,ticker,type,direction,detail,price,entry_price,result_5,result_10,current_p
 2026-06-02,AMAT,rel_strength,buy,"New 20-day high (+6.0% above prev, 1.3x vol)",490.05,487.95,win,pending,-2.57,-7.18,5,
 2026-06-03,CARR,macd,buy,MACD bullish crossover (above SMA20),67.58,67.86,win,pending,4.98,-2.11,4,
 2026-05-26,FISV,sector_drop,buy,"Sector-adjusted drop -5.29% (stock -2.66%, XLK +2.63%)",55.61,55.45,win,pending,-2.56,-5.5,4,
+2026-06-09,FCEL,gap_and_go,buy,Gap up +16.5% on 1.8x volume,17.49,17.31,win,win,-3.96,-4.33,1,1
+2026-06-09,DKNG,macd,buy,MACD bullish crossover (above SMA20),27.59,28.02,win,pending,3.64,-0.25,1,
+2026-06-09,DKNG,rel_strength,buy,"New 20-day high (+3.0% above prev, 1.7x vol)",27.59,28.02,win,pending,3.64,-0.25,1,
+2026-06-09,APLD,gap_and_go,buy,Gap up +11.9% on 2.1x volume,41.91,40.54,win,pending,-3.13,-3.72,1,
+2026-06-05,HOOD,sector_drop,buy,"Sector-adjusted drop -6.84% (stock -6.63%, XLF +0.21%)",82.47,84.62,win,pending,4.17,-6.72,3,
+2026-06-05,CMG,gap_and_go,buy,Gap up +3.2% on 2.2x volume,29.34,29.0,win,pending,5.4,-1.0,3,
+2026-05-26,BAC,macd,buy,MACD bullish crossover (above SMA20),51.93,52.12,win,pending,5.85,-3.4,11,
