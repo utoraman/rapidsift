@@ -2306,3 +2306,4 @@ date,ticker,type,direction,detail,price,entry_price,result_5,result_10,current_p
 2026-06-05,HOOD,sector_drop,buy,"Sector-adjusted drop -6.84% (stock -6.63%, XLF +0.21%)",82.47,84.62,win,pending,4.17,-6.72,3,
 2026-06-05,CMG,gap_and_go,buy,Gap up +3.2% on 2.2x volume,29.34,29.0,win,pending,5.4,-1.0,3,
 2026-05-26,BAC,macd,buy,MACD bullish crossover (above SMA20),51.93,52.12,win,pending,5.85,-3.4,11,
+2026-05-27,PDD,adjusted_drop,buy,"Market-adjusted drop -10.36% (stock -10.38%, market -0.02%)",86.61,84.3,win,pending,-2.94,-3.9,4,

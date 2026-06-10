@@ -3,14 +3,18 @@
     "SOFI_macd_2026-06-10",
     "SMCI_gap_and_go_2026-06-10",
     "CCL_macd_2026-06-10",
+    "ORCL_gap_and_go_2026-06-10",
     "LYFT_macd_2026-06-10",
     "KO_macd_2026-06-10",
     "DKNG_volume_spike_2026-06-10",
     "DKNG_rel_strength_2026-06-10",
     "CSX_macd_2026-06-10",
     "RBLX_macd_2026-06-10",
+    "BE_gap_and_go_2026-06-10",
     "LUV_macd_2026-06-10",
     "CVS_macd_2026-06-10",
+    "KKR_macd_2026-06-10",
+    "AMAT_rel_strength_2026-06-10",
     "MS_macd_2026-06-10",
     "IBM_macd_2026-06-10",
     "O_macd_2026-06-10",
@@ -22,6 +26,6 @@
     "BROS_rel_strength_2026-06-10",
     "PENN_rel_strength_2026-06-10"
   ],
-  "last_run": "2026-06-10T19:56:27.598818",
+  "last_run": "2026-06-10T21:22:32.892713",
   "last_brief_date": "2026-06-10"
 }
