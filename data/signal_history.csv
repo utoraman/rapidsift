@@ -2307,3 +2307,7 @@ date,ticker,type,direction,detail,price,entry_price,result_5,result_10,current_p
 2026-06-05,CMG,gap_and_go,buy,Gap up +3.2% on 2.2x volume,29.34,29.0,win,pending,5.4,-1.0,3,
 2026-05-26,BAC,macd,buy,MACD bullish crossover (above SMA20),51.93,52.12,win,pending,5.85,-3.4,11,
 2026-05-27,PDD,adjusted_drop,buy,"Market-adjusted drop -10.36% (stock -10.38%, market -0.02%)",86.61,84.3,win,pending,-2.94,-3.9,4,
+2026-06-10,CLSK,adjusted_drop,buy,"Market-adjusted drop -5.12% (stock -6.70%, market -1.58%)",14.9,14.81,win,pending,2.77,-0.27,1,
+2026-06-10,CLSK,sector_drop,buy,"Sector-adjusted drop -6.75% (stock -6.70%, XLU +0.05%)",14.9,14.81,win,pending,2.77,-0.27,1,
+2026-06-10,CLSK,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",14.9,14.81,win,pending,2.77,-0.27,1,
+2026-05-27,GFS,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",81.11,81.13,win,pending,-4.74,-13.12,4,
