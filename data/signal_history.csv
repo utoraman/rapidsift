@@ -2317,3 +2317,8 @@ date,ticker,type,direction,detail,price,entry_price,result_5,result_10,current_p
 2026-06-09,RDW,adjusted_drop,buy,"Market-adjusted drop -14.89% (stock -15.19%, market -0.29%)",15.75,15.89,win,pending,4.66,-7.49,2,
 2026-06-09,RDW,sector_drop,buy,"Sector-adjusted drop -16.32% (stock -15.19%, XLI +1.13%)",15.75,15.89,win,pending,4.66,-7.49,2,
 2026-06-09,RDW,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",15.75,15.89,win,pending,4.66,-7.49,2,
+2026-06-10,AMAT,rel_strength,buy,"New 20-day high (+1.6% above prev, 1.3x vol)",497.01,522.1,win,pending,5.87,-0.41,1,
+2026-06-09,ENPH,adjusted_drop,buy,"Market-adjusted drop -5.63% (stock -5.92%, market -0.29%)",53.51,52.33,win,pending,4.87,-3.42,2,
+2026-06-04,MU,adjusted_drop,buy,"Market-adjusted drop -8.12% (stock -7.74%, market +0.38%)",996.0,944.4,win,pending,5.4,-9.54,5,
+2026-06-04,MU,sector_drop,buy,"Sector-adjusted drop -6.18% (stock -7.74%, XLK -1.56%)",996.0,944.4,win,pending,5.4,-9.54,5,
+2026-06-04,MU,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",996.0,944.4,win,pending,5.4,-9.54,5,
