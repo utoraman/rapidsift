@@ -3,14 +3,18 @@
     "SMCI_volume_spike_2026-06-11",
     "ORCL_gap_and_go_2026-06-11",
     "RIVN_macd_2026-06-11",
+    "CPNG_volume_spike_2026-06-11",
     "CPNG_gap_and_go_2026-06-11",
     "CPNG_rel_strength_2026-06-11",
+    "BMY_macd_2026-06-11",
+    "LRCX_macd_2026-06-11",
+    "LUV_macd_2026-06-11",
     "GM_macd_2026-06-11",
-    "KKR_macd_2026-06-11",
-    "UPS_macd_2026-06-11",
     "TMUS_macd_2026-06-11",
-    "WDAY_macd_2026-06-11"
+    "WDAY_macd_2026-06-11",
+    "EOG_macd_2026-06-11",
+    "EL_macd_2026-06-11"
   ],
-  "last_run": "2026-06-11T17:28:27.700713",
+  "last_run": "2026-06-11T17:51:01.146811",
   "last_brief_date": "2026-06-11"
 }
