@@ -2322,3 +2322,6 @@ date,ticker,type,direction,detail,price,entry_price,result_5,result_10,current_p
 2026-06-04,MU,adjusted_drop,buy,"Market-adjusted drop -8.12% (stock -7.74%, market +0.38%)",996.0,944.4,win,pending,5.4,-9.54,5,
 2026-06-04,MU,sector_drop,buy,"Sector-adjusted drop -6.18% (stock -7.74%, XLK -1.56%)",996.0,944.4,win,pending,5.4,-9.54,5,
 2026-06-04,MU,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",996.0,944.4,win,pending,5.4,-9.54,5,
+2026-06-08,CLF,adjusted_drop,buy,"Market-adjusted drop -6.51% (stock -6.28%, market +0.23%)",12.68,13.02,win,pending,5.3,-6.91,3,
+2026-06-01,PINS,macd,buy,MACD bullish crossover (above SMA20),21.35,21.13,win,pending,1.75,-4.87,4,
+2026-05-26,WFC,macd,buy,MACD bullish crossover (above SMA20),77.52,77.13,win,pending,6.83,-2.53,7,

@@ -10,15 +10,17 @@
     "CPNG_rel_strength_2026-06-11",
     "CSX_macd_2026-06-11",
     "LRCX_macd_2026-06-11",
+    "LRCX_gap_and_go_2026-06-11",
+    "LRCX_rel_strength_2026-06-11",
     "LUV_macd_2026-06-11",
     "CVS_rel_strength_2026-06-11",
     "GM_macd_2026-06-11",
-    "TMUS_macd_2026-06-11",
+    "AMAT_rel_strength_2026-06-11",
     "WDAY_macd_2026-06-11",
     "EOG_macd_2026-06-11",
-    "EL_macd_2026-06-11",
+    "GSK_rel_strength_2026-06-11",
     "BROS_rel_strength_2026-06-11"
   ],
-  "last_run": "2026-06-11T19:59:02.496662",
+  "last_run": "2026-06-11T21:11:36.050075",
   "last_brief_date": "2026-06-11"
 }
