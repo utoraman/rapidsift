@@ -10,8 +10,10 @@
     "ADBE_volume_spike_2026-06-12",
     "ADBE_gap_and_go_2026-06-12",
     "APO_macd_2026-06-12",
-    "EL_macd_2026-06-12"
+    "COF_macd_2026-06-12",
+    "EL_macd_2026-06-12",
+    "BROS_rel_strength_2026-06-12"
   ],
-  "last_run": "2026-06-12T19:29:14.954895",
+  "last_run": "2026-06-12T20:58:23.257982",
   "last_brief_date": "2026-06-12"
 }
