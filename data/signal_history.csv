@@ -2343,3 +2343,4 @@ date,ticker,type,direction,detail,price,entry_price,result_5,result_10,current_p
 2026-06-05,AMD,adjusted_drop,buy,"Market-adjusted drop -8.28% (stock -10.86%, market -2.58%)",466.38,485.0,win,pending,5.96,-9.85,5,
 2026-05-26,ZM,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",100.09,99.44,win,win,-5.74,-9.21,4,4
 2026-06-01,BBWI,adjusted_drop,buy,"Market-adjusted drop -7.22% (stock -6.94%, market +0.27%)",18.42,18.53,win,pending,4.96,-6.75,9,
+2026-06-05,GFS,adjusted_drop,buy,"Market-adjusted drop -8.25% (stock -10.83%, market -2.58%)",75.53,78.76,win,pending,4.31,-10.51,5,
