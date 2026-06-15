@@ -3,15 +3,18 @@
     "SOFI_macd_2026-06-15",
     "AAL_gap_and_go_2026-06-15",
     "AAL_rel_strength_2026-06-15",
+    "CCL_rel_strength_2026-06-15",
     "JOBY_gap_and_go_2026-06-15",
     "FCX_macd_2026-06-15",
     "UBER_macd_2026-06-15",
     "LYFT_macd_2026-06-15",
     "CVX_macd_2026-06-15",
     "DAL_macd_2026-06-15",
+    "LRCX_rel_strength_2026-06-15",
     "COP_macd_2026-06-15",
     "MRK_macd_2026-06-15",
     "UAL_rel_strength_2026-06-15",
+    "AMAT_rel_strength_2026-06-15",
     "BA_macd_2026-06-15",
     "FISV_gap_and_go_2026-06-15",
     "CL_macd_2026-06-15",
@@ -24,6 +27,6 @@
     "UPST_macd_2026-06-15",
     "DXCM_macd_2026-06-15"
   ],
-  "last_run": "2026-06-15T20:38:36.306622",
+  "last_run": "2026-06-15T21:38:30.610556",
   "last_brief_date": "2026-06-15"
 }
