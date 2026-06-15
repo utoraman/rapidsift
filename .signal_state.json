@@ -1,6 +1,7 @@
 {
   "last_signals": [
     "SOFI_macd_2026-06-15",
+    "AAL_rel_strength_2026-06-15",
     "GRAB_macd_2026-06-15",
     "WBD_macd_2026-06-15",
     "PINS_macd_2026-06-15",
@@ -19,6 +20,6 @@
     "UPST_macd_2026-06-15",
     "DXCM_macd_2026-06-15"
   ],
-  "last_run": "2026-06-15T18:18:00.191422",
+  "last_run": "2026-06-15T18:50:45.572677",
   "last_brief_date": "2026-06-15"
 }
