@@ -2369,3 +2369,6 @@ date,ticker,type,direction,detail,price,entry_price,result_5,result_10,current_p
 2026-05-29,GE,rel_strength,buy,"New 20-day high (+1.1% above prev, 1.8x vol)",323.76,321.48,win,pending,7.34,-3.26,11,
 2026-05-27,TGT,macd,buy,MACD bullish crossover (above SMA20),128.33,129.76,win,pending,3.59,-6.93,13,
 2026-05-27,COF,macd,buy,MACD bullish crossover (above SMA20),188.8,187.62,win,pending,3.95,-7.13,13,
+2026-06-05,NTLA,adjusted_drop,buy,"Market-adjusted drop -5.62% (stock -8.20%, market -2.58%)",13.54,13.83,win,pending,4.77,-14.61,6,
+2026-06-05,NTLA,sector_drop,buy,"Sector-adjusted drop -8.81% (stock -8.20%, XLV +0.61%)",13.54,13.83,win,pending,4.77,-14.61,6,
+2026-06-05,NTLA,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",13.54,13.83,win,pending,4.77,-14.61,6,
