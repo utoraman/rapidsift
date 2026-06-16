@@ -2381,3 +2381,7 @@ date,ticker,type,direction,detail,price,entry_price,result_5,result_10,current_p
 2026-06-02,BTBT,adjusted_drop,buy,"Market-adjusted drop -6.30% (stock -6.16%, market +0.14%)",1.98,1.96,win,win,8.93,-18.88,10,10
 2026-05-28,BBWI,earnings_drift,buy,"Post-catalyst drift: catalyst gap +10.0%, day-2 move +4.7%",20.13,20.09,win,pending,4.34,-14.0,13,
 2026-06-01,ARM,confluence,buy,"Confluence (2 strong signals): gap_and_go, rel_strength",408.85,401.13,win,pending,1.99,-25.62,1,
+2026-06-02,NU,adjusted_drop,buy,"Market-adjusted drop -8.30% (stock -8.16%, market +0.14%)",11.93,11.65,win,pending,9.18,-3.86,3,
+2026-06-02,NU,sector_drop,buy,"Sector-adjusted drop -8.22% (stock -8.16%, XLF +0.06%)",11.93,11.65,win,pending,9.18,-3.86,3,
+2026-06-02,NU,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",11.93,11.65,win,pending,9.18,-3.86,3,
+2026-06-01,LIDR,macd,buy,MACD bullish crossover (above SMA20),2.04,2.02,win,pending,-24.75,-24.75,1,
