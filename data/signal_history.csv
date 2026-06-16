@@ -2380,3 +2380,4 @@ date,ticker,type,direction,detail,price,entry_price,result_5,result_10,current_p
 2026-06-03,SOFI,adjusted_drop,buy,"Market-adjusted drop -5.27% (stock -5.98%, market -0.70%)",16.68,16.66,win,pending,7.95,-6.06,9,
 2026-06-02,BTBT,adjusted_drop,buy,"Market-adjusted drop -6.30% (stock -6.16%, market +0.14%)",1.98,1.96,win,win,8.93,-18.88,10,10
 2026-05-28,BBWI,earnings_drift,buy,"Post-catalyst drift: catalyst gap +10.0%, day-2 move +4.7%",20.13,20.09,win,pending,4.34,-14.0,13,
+2026-06-01,ARM,confluence,buy,"Confluence (2 strong signals): gap_and_go, rel_strength",408.85,401.13,win,pending,1.99,-25.62,1,
