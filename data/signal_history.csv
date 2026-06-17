@@ -2385,3 +2385,10 @@ date,ticker,type,direction,detail,price,entry_price,result_5,result_10,current_p
 2026-06-02,NU,sector_drop,buy,"Sector-adjusted drop -8.22% (stock -8.16%, XLF +0.06%)",11.93,11.65,win,pending,9.18,-3.86,3,
 2026-06-02,NU,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",11.93,11.65,win,pending,9.18,-3.86,3,
 2026-06-01,LIDR,macd,buy,MACD bullish crossover (above SMA20),2.04,2.02,win,pending,-24.75,-24.75,1,
+2026-06-16,WOLF,adjusted_drop,buy,"Market-adjusted drop -7.74% (stock -8.33%, market -0.60%)",45.0,47.5,win,win,8.42,-2.55,1,1
+2026-06-16,WOLF,sector_drop,buy,"Sector-adjusted drop -9.05% (stock -8.33%, XLU +0.72%)",45.0,47.5,win,win,8.42,-2.55,1,1
+2026-06-16,WOLF,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",45.0,47.5,win,win,8.42,-2.55,1,1
+2026-06-16,MRNA,rel_strength,buy,"New 20-day high (+10.6% above prev, 2.5x vol)",55.4,56.21,win,pending,5.23,-3.02,1,
+2026-06-16,BTBT,rel_strength,buy,"New 20-day high (+2.8% above prev, 2.0x vol)",2.04,2.03,win,pending,5.67,-0.25,1,
+2026-06-15,NTLA,gap_and_go,buy,Gap up +5.5% on 2.7x volume,14.92,14.78,win,win,9.54,-8.42,2,2
+2026-06-15,COF,rel_strength,buy,"New 20-day high (+2.8% above prev, 1.5x vol)",194.62,196.97,win,pending,4.69,-0.49,2,
