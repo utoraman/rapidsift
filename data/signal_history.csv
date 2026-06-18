@@ -2397,3 +2397,13 @@ date,ticker,type,direction,detail,price,entry_price,result_5,result_10,current_p
 2026-06-03,COIN,adjusted_drop,buy,"Market-adjusted drop -5.49% (stock -6.19%, market -0.70%)",163.22,164.19,win,pending,0.44,-9.93,8,
 2026-06-03,COIN,sector_drop,buy,"Sector-adjusted drop -5.04% (stock -6.19%, XLF -1.15%)",163.22,164.19,win,pending,0.44,-9.93,8,
 2026-06-03,COIN,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",163.22,164.19,win,pending,0.44,-9.93,8,
+2026-06-17,CIFR,macd,buy,MACD bullish crossover (above SMA20),26.35,27.8,win,pending,5.47,-4.46,1,
+2026-06-17,BTBT,macd,buy,MACD bullish crossover (above SMA20),2.03,2.1,win,pending,2.39,-5.01,1,
+2026-06-16,RBLX,rel_strength,buy,"New 20-day high (+2.3% above prev, 1.3x vol)",49.34,48.89,win,pending,6.24,-2.62,2,
+2026-06-16,MU,adjusted_drop,buy,"Market-adjusted drop -5.58% (stock -6.18%, market -0.60%)",1020.76,1061.3,win,pending,7.06,-4.44,2,
+2026-06-16,MRVL,adjusted_drop,buy,"Market-adjusted drop -9.18% (stock -9.78%, market -0.60%)",278.67,292.89,win,win,12.37,-3.27,2,2
+2026-06-16,MRVL,sector_drop,buy,"Sector-adjusted drop -6.99% (stock -9.78%, XLK -2.79%)",278.67,292.89,win,win,12.37,-3.27,2,2
+2026-06-16,MRVL,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",278.67,292.89,win,win,12.37,-3.27,2,2
+2026-06-16,INTC,adjusted_drop,buy,"Market-adjusted drop -7.86% (stock -8.45%, market -0.60%)",117.05,121.85,win,win,9.7,-3.11,2,2
+2026-06-16,INTC,sector_drop,buy,"Sector-adjusted drop -5.67% (stock -8.45%, XLK -2.79%)",117.05,121.85,win,win,9.7,-3.11,2,2
+2026-06-16,INTC,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",117.05,121.85,win,win,9.7,-3.11,2,2
