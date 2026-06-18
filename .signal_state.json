@@ -3,15 +3,20 @@
     "INTC_macd_2026-06-18",
     "MU_macd_2026-06-18",
     "PFE_macd_2026-06-18",
+    "HIMS_rel_strength_2026-06-18",
     "CMCSA_macd_2026-06-18",
+    "CIFR_rel_strength_2026-06-18",
     "MRVL_macd_2026-06-18",
+    "QS_volume_spike_2026-06-18",
     "QS_gap_and_go_2026-06-18",
     "TSM_macd_2026-06-18",
     "DKNG_macd_2026-06-18",
+    "RBLX_rel_strength_2026-06-18",
     "SHOP_macd_2026-06-18",
     "BE_macd_2026-06-18",
     "UUUU_gap_and_go_2026-06-18",
     "CVS_macd_2026-06-18",
+    "MRNA_volume_spike_2026-06-18",
     "MRNA_gap_and_go_2026-06-18",
     "MRNA_rel_strength_2026-06-18",
     "ACN_volume_spike_2026-06-18",
@@ -21,6 +26,6 @@
     "UPST_macd_2026-06-18",
     "DHR_macd_2026-06-18"
   ],
-  "last_run": "2026-06-18T18:23:10.448191",
+  "last_run": "2026-06-18T19:40:20.861784",
   "last_brief_date": "2026-06-18"
 }
