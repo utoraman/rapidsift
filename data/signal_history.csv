@@ -2409,3 +2409,19 @@ date,ticker,type,direction,detail,price,entry_price,result_5,result_10,current_p
 2026-06-16,INTC,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",117.05,121.85,win,win,9.7,-3.11,2,2
 2026-06-01,TSM,rel_strength,buy,"New 20-day high (+4.4% above prev, 1.4x vol)",434.61,439.55,win,pending,5.16,-7.96,13,
 2026-06-04,CELH,sector_drop,buy,"Sector-adjusted drop -7.98% (stock -7.53%, XLY +0.45%)",27.75,28.54,win,win,7.92,-3.47,8,9
+2026-06-18,TSM,macd,buy,MACD bullish crossover (above SMA20),462.12,438.88,win,pending,5.32,-0.11,1,
+2026-06-18,TSM,rel_strength,buy,"New 20-day high (+3.6% above prev, 2.1x vol)",462.12,438.88,win,pending,5.32,-0.11,1,
+2026-06-18,QS,gap_and_go,buy,Gap up +12.3% on 4.0x volume,8.04,7.68,win,pending,4.75,-7.03,1,
+2026-06-18,MRVL,gap_and_go,buy,Gap up +5.5% on 4.2x volume,310.58,305.5,win,pending,1.75,-1.03,1,
+2026-06-18,MRVL,rel_strength,buy,"New 20-day high (+1.8% above prev, 4.2x vol)",310.58,305.5,win,pending,1.75,-1.03,1,
+2026-06-18,MRNA,gap_and_go,buy,Gap up +3.5% on 4.0x volume,63.96,64.01,win,pending,0.19,-5.12,1,
+2026-06-18,HIMS,rel_strength,buy,"New 20-day high (+6.4% above prev, 1.7x vol)",35.47,32.6,win,pending,8.77,-0.03,1,
+2026-06-18,CIFR,gap_and_go,buy,Gap up +5.5% on 1.6x volume,29.18,27.8,win,pending,5.0,-4.46,1,
+2026-06-18,CIFR,rel_strength,buy,"New 20-day high (+4.9% above prev, 1.6x vol)",29.18,27.8,win,pending,5.0,-4.46,1,
+2026-06-18,CIFR,confluence,buy,"Confluence (2 strong signals): gap_and_go, rel_strength",29.18,27.8,win,pending,5.0,-4.46,1,
+2026-06-18,BTBT,gap_and_go,buy,Gap up +3.2% on 1.6x volume,2.17,2.1,win,pending,4.53,-5.01,1,
+2026-06-18,BROS,rel_strength,buy,"New 20-day high (+4.7% above prev, 1.6x vol)",70.72,67.04,win,pending,5.46,-0.25,1,
+2026-06-18,BE,macd,buy,MACD bullish crossover (above SMA20),328.91,297.6,win,win,10.51,-0.94,1,1
+2026-06-18,BE,gap_and_go,buy,Gap up +4.4% on 1.5x volume,328.91,297.6,win,win,10.51,-0.94,1,1
+2026-06-18,BE,rel_strength,buy,"New 20-day high (+2.1% above prev, 1.5x vol)",328.91,297.6,win,win,10.51,-0.94,1,1
+2026-06-18,BE,confluence,buy,"Confluence (2 strong signals): gap_and_go, rel_strength",328.91,297.6,win,win,10.51,-0.94,1,1
