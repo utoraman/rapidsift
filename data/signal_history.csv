@@ -2425,3 +2425,26 @@ date,ticker,type,direction,detail,price,entry_price,result_5,result_10,current_p
 2026-06-18,BE,gap_and_go,buy,Gap up +4.4% on 1.5x volume,328.91,297.6,win,win,10.51,-0.94,1,1
 2026-06-18,BE,rel_strength,buy,"New 20-day high (+2.1% above prev, 1.5x vol)",328.91,297.6,win,win,10.51,-0.94,1,1
 2026-06-18,BE,confluence,buy,"Confluence (2 strong signals): gap_and_go, rel_strength",328.91,297.6,win,win,10.51,-0.94,1,1
+2026-06-18,ON,gap_and_go,buy,Gap up +4.4% on 1.7x volume,121.62,125.4,win,pending,4.2,-0.05,1,
+2026-06-18,ENPH,gap_and_go,buy,Gap up +5.5% on 1.6x volume,52.28,52.29,win,pending,2.49,-1.32,1,
+2026-06-16,RGTI,adjusted_drop,buy,"Market-adjusted drop -8.48% (stock -9.07%, market -0.60%)",20.64,20.95,win,pending,5.61,-6.78,3,
+2026-06-16,ON,adjusted_drop,buy,"Market-adjusted drop -5.48% (stock -6.08%, market -0.60%)",118.25,120.24,win,win,8.67,-6.19,3,3
+2026-06-16,IONQ,adjusted_drop,buy,"Market-adjusted drop -7.77% (stock -8.37%, market -0.60%)",56.06,56.9,win,pending,6.63,-6.99,3,
+2026-06-16,AMD,adjusted_drop,buy,"Market-adjusted drop -6.71% (stock -7.30%, market -0.60%)",507.29,529.66,win,pending,3.06,-4.22,3,
+2026-06-15,JOBY,gap_and_go,buy,Gap up +5.2% on 1.8x volume,9.67,9.65,win,pending,5.18,-5.03,4,
+2026-06-15,DASH,macd,buy,MACD bullish crossover (above SMA20),168.09,167.69,win,pending,4.85,-1.95,4,
+2026-06-15,DASH,rel_strength,buy,"New 20-day high (+1.5% above prev, 1.4x vol)",168.09,167.69,win,pending,4.85,-1.95,4,
+2026-06-15,AAL,gap_and_go,buy,Gap up +3.7% on 1.9x volume,15.46,15.59,win,pending,5.45,-1.22,4,
+2026-06-15,AAL,rel_strength,buy,"New 20-day high (+3.2% above prev, 1.9x vol)",15.46,15.59,win,pending,5.45,-1.22,4,
+2026-06-15,AAL,confluence,buy,"Confluence (2 strong signals): gap_and_go, rel_strength",15.46,15.59,win,pending,5.45,-1.22,4,
+2026-06-12,AAL,macd,buy,MACD bullish crossover (above SMA20),14.98,15.54,win,pending,5.79,-2.19,5,
+2026-06-05,QS,adjusted_drop,buy,"Market-adjusted drop -12.95% (stock -15.53%, market -2.58%)",7.67,7.87,win,pending,-1.46,-12.96,10,
+2026-06-05,QCOM,adjusted_drop,buy,"Market-adjusted drop -8.40% (stock -10.98%, market -2.58%)",215.94,221.03,win,pending,3.01,-13.99,10,
+2026-06-05,ON,adjusted_drop,buy,"Market-adjusted drop -8.46% (stock -11.05%, market -2.58%)",117.26,122.57,win,pending,6.6,-11.64,10,
+2026-06-05,NEM,adjusted_drop,buy,"Market-adjusted drop -5.38% (stock -7.96%, market -2.58%)",99.71,100.13,win,win,1.31,-8.1,6,8
+2026-06-05,NEM,sector_drop,buy,"Sector-adjusted drop -6.04% (stock -7.96%, XLB -1.92%)",99.71,100.13,win,win,1.31,-8.1,6,8
+2026-06-05,NEM,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",99.71,100.13,win,win,1.31,-8.1,6,8
+2026-06-05,CPNG,adjusted_drop,buy,"Market-adjusted drop -5.77% (stock -8.35%, market -2.58%)",15.15,15.34,win,win,13.86,-2.71,4,4
+2026-06-02,CLSK,adjusted_drop,buy,"Market-adjusted drop -6.67% (stock -6.54%, market +0.14%)",17.58,17.68,win,pending,-1.47,-20.49,13,
+2026-06-02,CLSK,sector_drop,buy,"Sector-adjusted drop -8.40% (stock -6.54%, XLU +1.86%)",17.58,17.68,win,pending,-1.47,-20.49,13,
+2026-06-02,CLSK,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",17.58,17.68,win,pending,-1.47,-20.49,13,
