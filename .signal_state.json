@@ -1,18 +1,20 @@
 {
   "last_signals": [
+    "AAL_rel_strength_2026-06-22",
     "MARA_macd_2026-06-22",
+    "MARA_rel_strength_2026-06-22",
     "SMR_macd_2026-06-22",
     "NKE_macd_2026-06-22",
+    "APLD_macd_2026-06-22",
     "NVO_macd_2026-06-22",
     "KMI_macd_2026-06-22",
     "CVS_macd_2026-06-22",
     "JNJ_macd_2026-06-22",
     "TXN_macd_2026-06-22",
     "ACN_earnings_drift_2026-06-22",
-    "UPST_macd_2026-06-22",
     "FCEL_macd_2026-06-22",
     "GFS_macd_2026-06-22"
   ],
-  "last_run": "2026-06-22T18:08:01.033966",
+  "last_run": "2026-06-22T18:33:15.761773",
   "last_brief_date": "2026-06-22"
 }

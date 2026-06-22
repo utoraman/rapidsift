@@ -2448,3 +2448,7 @@ date,ticker,type,direction,detail,price,entry_price,result_5,result_10,current_p
 2026-06-02,CLSK,adjusted_drop,buy,"Market-adjusted drop -6.67% (stock -6.54%, market +0.14%)",17.58,17.68,win,pending,-1.47,-20.49,13,
 2026-06-02,CLSK,sector_drop,buy,"Sector-adjusted drop -8.40% (stock -6.54%, XLU +1.86%)",17.58,17.68,win,pending,-1.47,-20.49,13,
 2026-06-02,CLSK,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",17.58,17.68,win,pending,-1.47,-20.49,13,
+2026-06-17,NTLA,rel_strength,buy,"New 20-day high (+8.0% above prev, 2.0x vol)",15.2,15.52,win,pending,4.32,-3.12,2,
+2026-06-05,JOBY,adjusted_drop,buy,"Market-adjusted drop -11.69% (stock -14.27%, market -2.58%)",9.55,9.8,win,pending,4.74,-11.02,10,
+2026-06-05,JOBY,sector_drop,buy,"Sector-adjusted drop -13.15% (stock -14.27%, XLI -1.12%)",9.55,9.8,win,pending,4.74,-11.02,10,
+2026-06-05,JOBY,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",9.55,9.8,win,pending,4.74,-11.02,10,
