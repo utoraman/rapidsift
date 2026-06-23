@@ -2476,3 +2476,7 @@ date,ticker,type,direction,detail,price,entry_price,result_5,result_10,current_p
 2026-06-22,APLD,sector_drop,buy,"Sector-adjusted drop -5.32% (stock -2.98%, BITO +2.34%)",45.2,42.35,win,win,9.72,-1.68,1,1
 2026-06-18,IBM,adjusted_drop,buy,"Market-adjusted drop -6.09% (stock -5.05%, market +1.04%)",249.1,248.43,win,pending,6.57,-1.86,2,
 2026-06-16,LUV,rel_strength,buy,"New 20-day high (+1.7% above prev, 1.8x vol)",47.43,47.42,win,pending,5.34,-1.64,4,
+2026-06-09,MSTR,adjusted_drop,buy,"Market-adjusted drop -7.71% (stock -8.00%, market -0.29%)",117.02,116.3,win,win,-10.71,-10.99,3,3
+2026-06-09,MSTR,sector_drop,buy,"Sector-adjusted drop -5.91% (stock -8.00%, BITO -2.09%)",117.02,116.3,win,win,-10.71,-10.99,3,3
+2026-06-09,MSTR,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",117.02,116.3,win,win,-10.71,-10.99,3,3
+2026-06-08,PG,macd,buy,MACD bullish crossover (above SMA20),145.1,144.67,win,pending,4.28,-0.1,6,
