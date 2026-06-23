@@ -1,16 +1,17 @@
 {
   "last_signals": [
+    "VALE_macd_2026-06-23",
     "MRVL_macd_2026-06-23",
     "WBD_macd_2026-06-23",
-    "RIOT_macd_2026-06-23",
     "FCX_macd_2026-06-23",
     "ARM_macd_2026-06-23",
     "JNJ_macd_2026-06-23",
     "ABBV_macd_2026-06-23",
     "O_macd_2026-06-23",
     "CL_macd_2026-06-23",
+    "UPST_macd_2026-06-23",
     "GFS_macd_2026-06-23"
   ],
-  "last_run": "2026-06-23T17:47:34.977020",
+  "last_run": "2026-06-23T19:25:35.127411",
   "last_brief_date": "2026-06-23"
 }
