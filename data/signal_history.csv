@@ -2491,3 +2491,4 @@ date,ticker,type,direction,detail,price,entry_price,result_5,result_10,current_p
 2026-06-15,DAL,rel_strength,buy,"New 20-day high (+4.2% above prev, 1.3x vol)",84.07,85.1,win,pending,5.82,-3.76,6,
 2026-06-05,RUN,sector_drop,buy,"Sector-adjusted drop -10.82% (stock -9.89%, XLU +0.93%)",13.35,13.76,win,win,16.54,-14.94,12,12
 2026-06-05,MRVL,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",263.47,288.69,win,win,-5.74,-15.48,1,9
+2026-06-18,SE,macd,buy,MACD bullish crossover (above SMA20),91.28,90.01,win,pending,4.62,-3.34,3,
