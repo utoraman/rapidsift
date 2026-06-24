@@ -2492,3 +2492,6 @@ date,ticker,type,direction,detail,price,entry_price,result_5,result_10,current_p
 2026-06-05,RUN,sector_drop,buy,"Sector-adjusted drop -10.82% (stock -9.89%, XLU +0.93%)",13.35,13.76,win,win,16.54,-14.94,12,12
 2026-06-05,MRVL,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",263.47,288.69,win,win,-5.74,-15.48,1,9
 2026-06-18,SE,macd,buy,MACD bullish crossover (above SMA20),91.28,90.01,win,pending,4.62,-3.34,3,
+2026-06-16,CIFR,macd,buy,MACD bullish crossover (above SMA20),26.21,26.23,win,win,-0.04,-4.88,1,2
+2026-06-10,LCID,adjusted_drop,buy,"Market-adjusted drop -7.16% (stock -8.74%, market -1.58%)",4.7,4.68,win,win,10.04,-4.49,1,1
+2026-06-05,PG,macd,buy,MACD bullish crossover (above SMA20),146.54,145.79,win,pending,4.29,-0.86,12,
