@@ -2480,3 +2480,14 @@ date,ticker,type,direction,detail,price,entry_price,result_5,result_10,current_p
 2026-06-09,MSTR,sector_drop,buy,"Sector-adjusted drop -5.91% (stock -8.00%, BITO -2.09%)",117.02,116.3,win,win,-10.71,-10.99,3,3
 2026-06-09,MSTR,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",117.02,116.3,win,win,-10.71,-10.99,3,3
 2026-06-08,PG,macd,buy,MACD bullish crossover (above SMA20),145.1,144.67,win,pending,4.28,-0.1,6,
+2026-06-23,RUN,sector_drop,buy,"Sector-adjusted drop -6.73% (stock -5.95%, XLU +0.78%)",12.81,15.49,win,pending,3.49,-1.29,1,
+2026-06-23,BE,adjusted_drop,buy,"Market-adjusted drop -5.45% (stock -6.90%, market -1.45%)",321.98,327.55,win,pending,2.81,-3.11,1,
+2026-06-23,BE,sector_drop,buy,"Sector-adjusted drop -7.68% (stock -6.90%, XLU +0.78%)",321.98,327.55,win,pending,2.81,-3.11,1,
+2026-06-18,UPST,macd,buy,MACD bullish crossover (above SMA20),32.43,32.05,win,pending,4.52,-4.84,3,
+2026-06-18,ABT,volume_spike,buy,Volume spike 3.5x (dip in uptrend),88.41,88.15,win,pending,3.07,-1.07,3,
+2026-06-16,AFRM,macd,buy,MACD bullish crossover (above SMA20),74.69,74.12,win,pending,6.1,-6.08,5,
+2026-06-15,UPST,gap_and_go,buy,Gap up +5.0% on 1.5x volume,32.36,32.36,win,pending,3.52,-7.17,6,
+2026-06-15,UAL,rel_strength,buy,"New 20-day high (+5.8% above prev, 1.3x vol)",119.97,120.87,win,pending,6.52,-4.53,6,
+2026-06-15,DAL,rel_strength,buy,"New 20-day high (+4.2% above prev, 1.3x vol)",84.07,85.1,win,pending,5.82,-3.76,6,
+2026-06-05,RUN,sector_drop,buy,"Sector-adjusted drop -10.82% (stock -9.89%, XLU +0.93%)",13.35,13.76,win,win,16.54,-14.94,12,12
+2026-06-05,MRVL,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",263.47,288.69,win,win,-5.74,-15.48,1,9
