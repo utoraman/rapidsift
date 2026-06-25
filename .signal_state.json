@@ -2,16 +2,23 @@
   "last_signals": [
     "AAL_rel_strength_2026-06-25",
     "MU_macd_2026-06-25",
+    "MU_rel_strength_2026-06-25",
     "SMR_macd_2026-06-25",
     "CCL_macd_2026-06-25",
     "CIFR_macd_2026-06-25",
+    "QCOM_gap_and_go_2026-06-25",
+    "ET_macd_2026-06-25",
     "TSM_macd_2026-06-25",
+    "IQ_macd_2026-06-25",
+    "DIS_macd_2026-06-25",
     "CVS_macd_2026-06-25",
+    "AMAT_gap_and_go_2026-06-25",
+    "AMAT_rel_strength_2026-06-25",
     "BA_macd_2026-06-25",
     "MS_macd_2026-06-25",
     "MNST_macd_2026-06-25",
     "FCEL_macd_2026-06-25"
   ],
-  "last_run": "2026-06-25T19:24:19.607992",
+  "last_run": "2026-06-25T20:52:26.759992",
   "last_brief_date": "2026-06-25"
 }
