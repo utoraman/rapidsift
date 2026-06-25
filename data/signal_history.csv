@@ -2508,3 +2508,6 @@ date,ticker,type,direction,detail,price,entry_price,result_5,result_10,current_p
 2026-06-18,CVS,volume_spike,buy,Volume spike 2.8x (dip in uptrend),98.32,99.79,win,pending,4.81,-0.79,4,
 2026-06-10,CVS,macd,buy,MACD bullish crossover (above SMA20),98.02,98.24,win,pending,6.46,-1.16,10,
 2026-06-09,CARR,rel_strength,buy,"New 20-day high (+2.1% above prev, 1.6x vol)",71.24,71.4,win,pending,6.69,-5.46,11,
+2026-06-18,AMAT,gap_and_go,buy,Gap up +5.0% on 1.9x volume,617.11,626.22,win,pending,4.53,-9.06,4,
+2026-06-18,AMAT,rel_strength,buy,"New 20-day high (+2.5% above prev, 1.9x vol)",617.11,626.22,win,pending,4.53,-9.06,4,
+2026-06-18,AMAT,confluence,buy,"Confluence (2 strong signals): gap_and_go, rel_strength",617.11,626.22,win,pending,4.53,-9.06,4,
