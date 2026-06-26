@@ -2511,3 +2511,11 @@ date,ticker,type,direction,detail,price,entry_price,result_5,result_10,current_p
 2026-06-18,AMAT,gap_and_go,buy,Gap up +5.0% on 1.9x volume,617.11,626.22,win,pending,4.53,-9.06,4,
 2026-06-18,AMAT,rel_strength,buy,"New 20-day high (+2.5% above prev, 1.9x vol)",617.11,626.22,win,pending,4.53,-9.06,4,
 2026-06-18,AMAT,confluence,buy,"Confluence (2 strong signals): gap_and_go, rel_strength",617.11,626.22,win,pending,4.53,-9.06,4,
+2026-06-25,RGTI,adjusted_drop,buy,"Market-adjusted drop -5.88% (stock -5.73%, market +0.14%)",18.41,17.93,win,pending,4.82,-1.23,1,
+2026-06-25,MU,rel_strength,buy,"New 20-day high (+3.4% above prev, 1.5x vol)",1213.56,1139.07,win,pending,2.5,-1.07,1,
+2026-06-25,IONQ,adjusted_drop,buy,"Market-adjusted drop -5.82% (stock -5.67%, market +0.14%)",50.56,49.65,win,pending,4.7,-1.83,1,
+2026-06-24,MRK,macd,buy,MACD bullish crossover (above SMA20),120.6,121.63,win,pending,5.25,-0.52,2,
+2026-06-24,FCEL,volume_spike,buy,Volume spike 2.4x (dip in uptrend),21.56,22.0,win,win,12.41,-16.36,2,2
+2026-06-24,FCEL,gap_and_go,buy,Gap up +15.1% on 2.4x volume,21.56,22.0,win,win,12.41,-16.36,2,2
+2026-06-18,MNST,volume_spike,buy,Volume spike 2.3x (dip in uptrend),91.34,91.75,win,pending,6.58,-0.27,5,
+2026-06-11,CVS,rel_strength,buy,"New 20-day high (+2.0% above prev, 1.8x vol)",100.48,100.89,win,pending,3.88,-3.02,10,
