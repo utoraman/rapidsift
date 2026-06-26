@@ -2520,3 +2520,8 @@ date,ticker,type,direction,detail,price,entry_price,result_5,result_10,current_p
 2026-06-18,MNST,volume_spike,buy,Volume spike 2.3x (dip in uptrend),91.34,91.75,win,pending,6.58,-0.27,5,
 2026-06-11,CVS,rel_strength,buy,"New 20-day high (+2.0% above prev, 1.8x vol)",100.48,100.89,win,pending,3.88,-3.02,10,
 2026-06-24,DASH,rel_strength,buy,"New 20-day high (+2.6% above prev, 1.4x vol)",177.93,176.51,win,pending,5.23,-2.35,2,
+2026-06-22,RIVN,adjusted_drop,buy,"Market-adjusted drop -8.28% (stock -8.60%, market -0.31%)",15.1,14.97,win,pending,4.41,-4.14,4,
+2026-06-22,RIVN,sector_drop,buy,"Sector-adjusted drop -6.90% (stock -8.60%, XLY -1.70%)",15.1,14.97,win,pending,4.41,-4.14,4,
+2026-06-22,RIVN,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",15.1,14.97,win,pending,4.41,-4.14,4,
+2026-06-16,CELH,macd,buy,MACD bullish crossover (above SMA20),30.01,30.01,win,pending,-0.53,-7.06,1,
+2026-06-15,COF,macd,buy,MACD bullish crossover (above SMA20),194.62,196.97,win,pending,3.57,-0.49,2,
