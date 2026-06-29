@@ -2525,3 +2525,16 @@ date,ticker,type,direction,detail,price,entry_price,result_5,result_10,current_p
 2026-06-22,RIVN,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",15.1,14.97,win,pending,4.41,-4.14,4,
 2026-06-16,CELH,macd,buy,MACD bullish crossover (above SMA20),30.01,30.01,win,pending,-0.53,-7.06,1,
 2026-06-15,COF,macd,buy,MACD bullish crossover (above SMA20),194.62,196.97,win,pending,3.57,-0.49,2,
+2026-06-26,AMAT,volume_spike,buy,Volume spike 2.6x (dip in uptrend),626.84,634.1,win,win,10.19,-0.3,1,1
+2026-06-25,NVAX,sector_drop,buy,"Sector-adjusted drop -5.31% (stock -3.82%, XLV +1.49%)",8.56,8.53,win,pending,6.15,0,2,
+2026-06-24,SHOP,macd,buy,MACD bullish crossover (above SMA20),114.17,113.4,win,pending,1.37,-1.83,3,
+2026-06-24,RKLB,adjusted_drop,buy,"Market-adjusted drop -10.16% (stock -10.21%, market -0.05%)",85.41,86.11,win,win,10.58,-7.1,3,3
+2026-06-23,FCEL,adjusted_drop,buy,"Market-adjusted drop -9.08% (stock -10.54%, market -1.45%)",21.82,25.11,win,win,17.06,-26.72,4,4
+2026-06-23,FCEL,sector_drop,buy,"Sector-adjusted drop -11.32% (stock -10.54%, XLU +0.78%)",21.82,25.11,win,win,17.06,-26.72,4,4
+2026-06-23,FCEL,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",21.82,25.11,win,win,17.06,-26.72,4,4
+2026-06-17,APP,adjusted_drop,buy,"Market-adjusted drop -5.68% (stock -6.93%, market -1.25%)",479.49,481.31,win,pending,2.54,-13.06,7,
+2026-06-17,APP,sector_drop,buy,"Sector-adjusted drop -6.59% (stock -6.93%, XLK -0.34%)",479.49,481.31,win,pending,2.54,-13.06,7,
+2026-06-17,APP,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",479.49,481.31,win,pending,2.54,-13.06,7,
+2026-06-16,UBER,macd,buy,MACD bullish crossover (above SMA20),73.25,72.88,win,pending,2.9,-4.55,8,
+2026-06-16,GRAB,macd,buy,MACD bullish crossover (above SMA20),3.49,3.5,win,pending,4.28,-4.57,8,
+2026-06-15,FISV,adjusted_drop,buy,"Market-adjusted drop -12.68% (stock -10.91%, market +1.76%)",47.91,48.54,win,pending,0.37,-3.09,2,
