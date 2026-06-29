@@ -1,20 +1,19 @@
 {
   "last_signals": [
     "MU_macd_2026-06-29",
-    "DNN_macd_2026-06-29",
     "CMCSA_volume_spike_2026-06-29",
     "CMCSA_gap_and_go_2026-06-29",
     "CMCSA_rel_strength_2026-06-29",
     "VZ_macd_2026-06-29",
     "BTBT_macd_2026-06-29",
-    "C_macd_2026-06-29",
     "CSX_macd_2026-06-29",
+    "IQ_macd_2026-06-29",
     "PG_macd_2026-06-29",
     "ON_earnings_drift_2026-06-29",
     "PANW_macd_2026-06-29",
     "PEP_macd_2026-06-29",
     "TMUS_macd_2026-06-29"
   ],
-  "last_run": "2026-06-29T16:47:58.333003",
+  "last_run": "2026-06-29T17:17:09.914188",
   "last_brief_date": "2026-06-29"
 }
