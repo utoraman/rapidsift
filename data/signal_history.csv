@@ -2539,3 +2539,17 @@ date,ticker,type,direction,detail,price,entry_price,result_5,result_10,current_p
 2026-06-16,GRAB,macd,buy,MACD bullish crossover (above SMA20),3.49,3.5,win,pending,4.28,-4.57,8,
 2026-06-15,FISV,adjusted_drop,buy,"Market-adjusted drop -12.68% (stock -10.91%, market +1.76%)",47.91,48.54,win,pending,0.37,-3.09,2,
 2026-06-23,TSM,adjusted_drop,buy,"Market-adjusted drop -5.24% (stock -6.69%, market -1.45%)",436.39,433.98,win,pending,4.87,-3.41,4,
+2026-06-29,WOLF,adjusted_drop,buy,"Market-adjusted drop -5.41% (stock -3.76%, market +1.65%)",44.24,44.99,win,win,10.96,0,1,1
+2026-06-29,FCEL,rel_strength,buy,"New 20-day high (+17.4% above prev, 1.7x vol)",29.8,28.92,win,win,26.83,-0.1,1,1
+2026-06-26,TXN,sector_drop,buy,"Sector-adjusted drop -6.59% (stock -8.46%, XLK -1.87%)",285.43,280.33,win,pending,5.41,-1.62,2,
+2026-06-26,MRNA,rel_strength,buy,"New 20-day high (+2.3% above prev, 1.8x vol)",67.27,67.94,win,pending,5.12,-2.42,2,
+2026-06-25,RUN,adjusted_drop,buy,"Market-adjusted drop -5.83% (stock -5.69%, market +0.14%)",13.6,13.41,win,pending,2.38,-5.97,3,
+2026-06-25,AAPL,adjusted_drop,buy,"Market-adjusted drop -6.26% (stock -6.12%, market +0.14%)",275.15,275.0,win,pending,4.87,-0.29,3,
+2026-06-25,AAPL,sector_drop,buy,"Sector-adjusted drop -6.95% (stock -6.12%, XLK +0.83%)",275.15,275.0,win,pending,4.87,-0.29,3,
+2026-06-25,AAPL,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",275.15,275.0,win,pending,4.87,-0.29,3,
+2026-06-23,SEDG,adjusted_drop,buy,"Market-adjusted drop -7.57% (stock -9.02%, market -1.45%)",52.36,53.94,win,win,7.84,-10.83,5,5
+2026-06-23,ENPH,adjusted_drop,buy,"Market-adjusted drop -8.45% (stock -9.90%, market -1.45%)",47.22,48.38,win,win,0.45,-8.12,5,5
+2026-06-23,ENPH,sector_drop,buy,"Sector-adjusted drop -10.69% (stock -9.90%, XLU +0.78%)",47.22,48.38,win,win,0.45,-8.12,5,5
+2026-06-23,ENPH,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",47.22,48.38,win,win,0.45,-8.12,5,5
+2026-06-18,LRCX,volume_spike,buy,Volume spike 2.2x (dip in uptrend),389.04,398.39,win,pending,7.24,-9.28,7,
+2026-06-18,LRCX,gap_and_go,buy,Gap up +6.2% on 2.2x volume,389.04,398.39,win,pending,7.24,-9.28,7,
