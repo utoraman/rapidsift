@@ -2553,3 +2553,7 @@ date,ticker,type,direction,detail,price,entry_price,result_5,result_10,current_p
 2026-06-23,ENPH,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",47.22,48.38,win,win,0.45,-8.12,5,5
 2026-06-18,LRCX,volume_spike,buy,Volume spike 2.2x (dip in uptrend),389.04,398.39,win,pending,7.24,-9.28,7,
 2026-06-18,LRCX,gap_and_go,buy,Gap up +6.2% on 2.2x volume,389.04,398.39,win,pending,7.24,-9.28,7,
+2026-06-29,SMCI,adjusted_drop,buy,"Market-adjusted drop -9.74% (stock -8.10%, market +1.65%)",28.15,28.41,win,pending,3.57,-0.84,1,
+2026-06-29,SMCI,sector_drop,buy,"Sector-adjusted drop -10.47% (stock -8.10%, XLK +2.37%)",28.15,28.41,win,pending,3.57,-0.84,1,
+2026-06-29,SMCI,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",28.15,28.41,win,pending,3.57,-0.84,1,
+2026-06-26,ON,adjusted_drop,buy,"Market-adjusted drop -22.93% (stock -23.66%, market -0.72%)",90.65,90.2,win,pending,5.38,-4.14,2,
