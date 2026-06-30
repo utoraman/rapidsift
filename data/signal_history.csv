@@ -2557,3 +2557,7 @@ date,ticker,type,direction,detail,price,entry_price,result_5,result_10,current_p
 2026-06-29,SMCI,sector_drop,buy,"Sector-adjusted drop -10.47% (stock -8.10%, XLK +2.37%)",28.15,28.41,win,pending,3.57,-0.84,1,
 2026-06-29,SMCI,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",28.15,28.41,win,pending,3.57,-0.84,1,
 2026-06-26,ON,adjusted_drop,buy,"Market-adjusted drop -22.93% (stock -23.66%, market -0.72%)",90.65,90.2,win,pending,5.38,-4.14,2,
+2026-06-17,OPEN,adjusted_drop,buy,"Market-adjusted drop -5.07% (stock -6.32%, market -1.25%)",4.45,4.51,win,pending,2.44,-7.32,8,
+2026-06-16,SMR,adjusted_drop,buy,"Market-adjusted drop -6.45% (stock -7.05%, market -0.60%)",9.89,9.85,win,win,1.83,-1.32,1,1
+2026-06-16,SMR,sector_drop,buy,"Sector-adjusted drop -7.76% (stock -7.05%, XLU +0.72%)",9.89,9.85,win,win,1.83,-1.32,1,1
+2026-06-16,SMR,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",9.89,9.85,win,win,1.83,-1.32,1,1
