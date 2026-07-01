@@ -2588,3 +2588,5 @@ date,ticker,type,direction,detail,price,entry_price,result_5,result_10,current_p
 2026-06-11,ADBE,adjusted_drop,buy,"Market-adjusted drop -7.95% (stock -6.25%, market +1.70%)",218.8,202.4,win,pending,4.84,-6.07,13,
 2026-06-11,ADBE,sector_drop,buy,"Sector-adjusted drop -9.97% (stock -6.25%, XLK +3.73%)",218.8,202.4,win,pending,4.84,-6.07,13,
 2026-06-11,ADBE,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",218.8,202.4,win,pending,4.84,-6.07,13,
+2026-06-18,LIDR,adjusted_drop,buy,"Market-adjusted drop -7.79% (stock -6.75%, market +1.04%)",1.45,1.46,win,pending,-2.05,-13.36,8,
+2026-06-18,ACN,adjusted_drop,buy,"Market-adjusted drop -19.01% (stock -17.97%, market +1.04%)",127.98,125.0,win,pending,4.9,-5.48,3,
