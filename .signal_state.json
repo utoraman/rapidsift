@@ -2,20 +2,23 @@
   "last_signals": [
     "INTC_macd_2026-07-01",
     "AMZN_macd_2026-07-01",
+    "DNN_macd_2026-07-01",
     "HOOD_macd_2026-07-01",
     "NKE_volume_spike_2026-07-01",
     "QS_macd_2026-07-01",
     "ASTS_macd_2026-07-01",
     "META_macd_2026-07-01",
+    "META_volume_spike_2026-07-01",
     "META_gap_and_go_2026-07-01",
     "U_macd_2026-07-01",
     "COIN_macd_2026-07-01",
+    "CVS_macd_2026-07-01",
     "IBM_macd_2026-07-01",
     "AA_gap_and_go_2026-07-01",
     "TGT_macd_2026-07-01",
     "APP_macd_2026-07-01",
     "NVAX_macd_2026-07-01"
   ],
-  "last_run": "2026-07-01T17:48:34.809086",
+  "last_run": "2026-07-01T19:17:35.104080",
   "last_brief_date": "2026-07-01"
 }
