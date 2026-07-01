@@ -1,23 +1,19 @@
 {
   "last_signals": [
-    "TSLA_macd_2026-06-30",
-    "T_macd_2026-06-30",
-    "CMCSA_earnings_drift_2026-06-30",
-    "PATH_macd_2026-06-30",
-    "RIVN_macd_2026-06-30",
-    "PINS_macd_2026-06-30",
-    "WFC_macd_2026-06-30",
-    "BSX_macd_2026-06-30",
-    "TSM_macd_2026-06-30",
-    "KMI_volume_spike_2026-06-30",
-    "TEVA_macd_2026-06-30",
-    "ENPH_gap_and_go_2026-06-30",
-    "DDOG_macd_2026-06-30",
-    "FCEL_volume_spike_2026-06-30",
-    "FCEL_rel_strength_2026-06-30",
-    "NET_macd_2026-06-30",
-    "SEDG_gap_and_go_2026-06-30"
+    "AMZN_macd_2026-07-01",
+    "HOOD_macd_2026-07-01",
+    "QS_macd_2026-07-01",
+    "ASTS_macd_2026-07-01",
+    "META_macd_2026-07-01",
+    "META_gap_and_go_2026-07-01",
+    "U_macd_2026-07-01",
+    "COIN_macd_2026-07-01",
+    "IBM_macd_2026-07-01",
+    "AA_gap_and_go_2026-07-01",
+    "TGT_macd_2026-07-01",
+    "APP_macd_2026-07-01",
+    "NVAX_macd_2026-07-01"
   ],
-  "last_run": "2026-06-30T21:52:49.804238",
-  "last_brief_date": "2026-06-30"
+  "last_run": "2026-07-01T16:45:13.577809",
+  "last_brief_date": "2026-07-01"
 }
