@@ -2597,3 +2597,9 @@ date,ticker,type,direction,detail,price,entry_price,result_5,result_10,current_p
 2026-06-18,SCHW,volume_spike,buy,Volume spike 2.3x (dip in uptrend),91.7,92.5,win,pending,4.32,-5.26,9,
 2026-06-18,CL,volume_spike,buy,Volume spike 2.1x (dip in uptrend),89.48,89.89,win,pending,5.27,-1.37,9,
 2026-06-17,HOOD,rel_strength,buy,"New 20-day high (+8.7% above prev, 2.3x vol)",105.2,107.82,win,win,5.22,-13.93,10,10
+2026-06-22,PLTR,adjusted_drop,buy,"Market-adjusted drop -6.67% (stock -6.98%, market -0.31%)",119.5,120.15,win,win,7.62,-11.47,7,8
+2026-06-22,OPEN,sector_drop,buy,"Sector-adjusted drop -5.49% (stock -4.25%, XLRE +1.24%)",4.28,4.2,win,win,16.67,-0.48,2,5
+2026-06-22,NFLX,adjusted_drop,buy,"Market-adjusted drop -5.50% (stock -5.82%, market -0.31%)",72.88,73.26,win,pending,5.99,-3.28,8,
+2026-06-22,CMG,adjusted_drop,buy,"Market-adjusted drop -5.69% (stock -6.00%, market -0.31%)",30.54,30.89,win,win,14.57,-0.55,4,6
+2026-06-22,CELH,adjusted_drop,buy,"Market-adjusted drop -5.14% (stock -5.45%, market -0.31%)",29.12,28.69,win,win,15.58,-2.79,4,7
+2026-06-15,UBER,macd,buy,MACD bullish crossover (above SMA20),72.85,73.28,win,pending,1.57,-5.07,9,
