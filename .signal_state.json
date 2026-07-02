@@ -4,6 +4,7 @@
     "NFLX_macd_2026-07-02",
     "AAPL_macd_2026-07-02",
     "MSFT_macd_2026-07-02",
+    "RIVN_volume_spike_2026-07-02",
     "RIVN_gap_and_go_2026-07-02",
     "RIVN_rel_strength_2026-07-02",
     "NCLH_macd_2026-07-02",
@@ -14,12 +15,12 @@
     "RUN_macd_2026-07-02",
     "LRCX_macd_2026-07-02",
     "CVS_macd_2026-07-02",
-    "AMAT_macd_2026-07-02",
     "BA_macd_2026-07-02",
     "WMB_macd_2026-07-02",
     "PEP_macd_2026-07-02",
-    "WDAY_macd_2026-07-02"
+    "WDAY_macd_2026-07-02",
+    "SE_rel_strength_2026-07-02"
   ],
-  "last_run": "2026-07-02T17:33:28.682488",
+  "last_run": "2026-07-02T18:57:21.489118",
   "last_brief_date": "2026-07-02"
 }
