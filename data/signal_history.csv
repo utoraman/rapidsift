@@ -2590,3 +2590,10 @@ date,ticker,type,direction,detail,price,entry_price,result_5,result_10,current_p
 2026-06-11,ADBE,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",218.8,202.4,win,pending,4.84,-6.07,13,
 2026-06-18,LIDR,adjusted_drop,buy,"Market-adjusted drop -7.79% (stock -6.75%, market +1.04%)",1.45,1.46,win,pending,-2.05,-13.36,8,
 2026-06-18,ACN,adjusted_drop,buy,"Market-adjusted drop -19.01% (stock -17.97%, market +1.04%)",127.98,125.0,win,pending,4.9,-5.48,3,
+2026-07-01,NVAX,macd,buy,MACD bullish crossover (above SMA20),9.46,9.56,win,pending,1.22,-0.24,1,
+2026-06-30,RIVN,macd,buy,MACD bullish crossover (above SMA20),17.35,17.28,win,win,9.69,-1.22,2,2
+2026-06-25,ABBV,rel_strength,buy,"New 20-day high (+3.1% above prev, 1.7x vol)",243.14,245.26,win,pending,5.3,-0.24,5,
+2026-06-24,KMB,rel_strength,buy,"New 20-day high (+2.6% above prev, 1.8x vol)",106.73,106.58,win,pending,6.83,0,6,
+2026-06-18,SCHW,volume_spike,buy,Volume spike 2.3x (dip in uptrend),91.7,92.5,win,pending,4.32,-5.26,9,
+2026-06-18,CL,volume_spike,buy,Volume spike 2.1x (dip in uptrend),89.48,89.89,win,pending,5.27,-1.37,9,
+2026-06-17,HOOD,rel_strength,buy,"New 20-day high (+8.7% above prev, 2.3x vol)",105.2,107.82,win,win,5.22,-13.93,10,10
