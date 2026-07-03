@@ -2603,3 +2603,8 @@ date,ticker,type,direction,detail,price,entry_price,result_5,result_10,current_p
 2026-06-22,CMG,adjusted_drop,buy,"Market-adjusted drop -5.69% (stock -6.00%, market -0.31%)",30.54,30.89,win,win,14.57,-0.55,4,6
 2026-06-22,CELH,adjusted_drop,buy,"Market-adjusted drop -5.14% (stock -5.45%, market -0.31%)",29.12,28.69,win,win,15.58,-2.79,4,7
 2026-06-15,UBER,macd,buy,MACD bullish crossover (above SMA20),72.85,73.28,win,pending,1.57,-5.07,9,
+2026-07-02,RIVN,gap_and_go,buy,Gap up +4.6% on 2.5x volume,18.63,18.0,win,pending,3.48,-1.04,1,
+2026-07-02,RIVN,rel_strength,buy,"New 20-day high (+6.7% above prev, 2.5x vol)",18.63,18.0,win,pending,3.48,-1.04,1,
+2026-07-02,RIVN,confluence,buy,"Confluence (2 strong signals): gap_and_go, rel_strength",18.63,18.0,win,pending,3.48,-1.04,1,
+2026-07-02,ARM,adjusted_drop,buy,"Market-adjusted drop -6.44% (stock -6.58%, market -0.13%)",315.28,337.24,win,pending,-6.45,-8.15,1,
+2026-07-02,AAPL,macd,buy,MACD bullish crossover (above SMA20),308.63,294.08,win,pending,4.81,-0.14,1,
