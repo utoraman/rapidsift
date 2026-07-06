@@ -1,5 +1,6 @@
 {
   "last_signals": [
+    "OPEN_rel_strength_2026-07-06",
     "ACHR_macd_2026-07-06",
     "WBD_macd_2026-07-06",
     "KMI_macd_2026-07-06",
@@ -9,9 +10,8 @@
     "SNOW_macd_2026-07-06",
     "AMAT_macd_2026-07-06",
     "WMB_macd_2026-07-06",
-    "FTNT_macd_2026-07-06",
     "EVGO_macd_2026-07-06"
   ],
-  "last_run": "2026-07-06T18:06:36.778484",
+  "last_run": "2026-07-06T19:14:28.637116",
   "last_brief_date": "2026-07-06"
 }
