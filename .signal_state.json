@@ -6,12 +6,15 @@
     "KMI_macd_2026-07-06",
     "TME_macd_2026-07-06",
     "UNH_macd_2026-07-06",
+    "CVS_macd_2026-07-06",
+    "MRNA_rel_strength_2026-07-06",
     "KKR_macd_2026-07-06",
     "SNOW_macd_2026-07-06",
     "AMAT_macd_2026-07-06",
     "WMB_macd_2026-07-06",
+    "FTNT_macd_2026-07-06",
     "EVGO_macd_2026-07-06"
   ],
-  "last_run": "2026-07-06T19:14:28.637116",
+  "last_run": "2026-07-06T20:47:11.236624",
   "last_brief_date": "2026-07-06"
 }
