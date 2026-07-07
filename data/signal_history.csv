@@ -2642,3 +2642,13 @@ date,ticker,type,direction,detail,price,entry_price,result_5,result_10,current_p
 2026-06-22,DXCM,sector_drop,buy,"Sector-adjusted drop -5.58% (stock -4.69%, XLV +0.88%)",69.07,70.24,win,pending,4.26,-4.19,10,
 2026-06-17,RTX,rel_strength,buy,"New 20-day high (+3.5% above prev, 1.4x vol)",192.58,194.0,win,pending,4.03,-6.72,12,
 2026-06-16,PYPL,macd,buy,MACD bullish crossover (above SMA20),43.65,43.59,win,pending,4.48,-4.45,13,
+2026-06-24,MSTR,adjusted_drop,buy,"Market-adjusted drop -9.30% (stock -9.35%, market -0.05%)",94.13,94.69,win,win,2.82,-13.6,6,7
+2026-06-24,LUNR,adjusted_drop,buy,"Market-adjusted drop -8.64% (stock -8.69%, market -0.05%)",19.13,19.25,win,win,-7.27,-9.19,2,3
+2026-06-24,LUNR,sector_drop,buy,"Sector-adjusted drop -9.84% (stock -8.69%, XLI +1.16%)",19.13,19.25,win,win,-7.27,-9.19,2,3
+2026-06-24,LUNR,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",19.13,19.25,win,win,-7.27,-9.19,2,3
+2026-06-24,EVGO,adjusted_drop,buy,"Market-adjusted drop -5.71% (stock -5.76%, market -0.05%)",1.8,1.8,win,win,1.11,-5.0,3,5
+2026-06-24,EVGO,sector_drop,buy,"Sector-adjusted drop -6.80% (stock -5.76%, XLU +1.04%)",1.8,1.8,win,win,1.11,-5.0,3,5
+2026-06-24,EVGO,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",1.8,1.8,win,win,1.11,-5.0,3,5
+2026-06-24,COIN,adjusted_drop,buy,"Market-adjusted drop -5.06% (stock -5.10%, market -0.05%)",150.11,151.17,win,win,8.16,-7.93,5,6
+2026-06-24,BBAI,adjusted_drop,buy,"Market-adjusted drop -6.58% (stock -6.63%, market -0.05%)",3.52,3.54,win,pending,-3.11,-5.93,4,
+2026-06-24,ASTS,adjusted_drop,buy,"Market-adjusted drop -6.62% (stock -6.67%, market -0.05%)",68.01,68.76,win,win,7.93,-7.33,2,3
