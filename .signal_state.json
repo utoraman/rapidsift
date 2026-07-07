@@ -1,20 +1,17 @@
 {
   "last_signals": [
     "PLUG_macd_2026-07-07",
-    "KMI_macd_2026-07-07",
     "DAL_macd_2026-07-07",
     "UEC_macd_2026-07-07",
     "LUV_macd_2026-07-07",
     "UNH_macd_2026-07-07",
-    "UAL_macd_2026-07-07",
     "TEAM_macd_2026-07-07",
     "GE_macd_2026-07-07",
     "BBWI_macd_2026-07-07",
     "TMUS_macd_2026-07-07",
     "MNST_macd_2026-07-07",
-    "BROS_macd_2026-07-07",
-    "EVGO_macd_2026-07-07"
+    "BROS_macd_2026-07-07"
   ],
-  "last_run": "2026-07-07T16:12:38.728822",
+  "last_run": "2026-07-07T16:45:45.651532",
   "last_brief_date": "2026-07-07"
 }
