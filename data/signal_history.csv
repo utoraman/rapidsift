@@ -2655,3 +2655,12 @@ date,ticker,type,direction,detail,price,entry_price,result_5,result_10,current_p
 2026-06-25,ET,macd,buy,MACD bullish crossover (above SMA20),19.18,19.07,win,pending,4.82,-0.68,8,
 2026-07-07,RIVN,adjusted_drop,buy,"Market-adjusted drop -17.65% (stock -18.12%, market -0.48%)",16.49,15.66,win,pending,4.69,-1.5,1,
 2026-07-07,RIVN,sector_drop,buy,"Sector-adjusted drop -17.60% (stock -18.12%, XLY -0.53%)",16.49,15.66,win,pending,4.69,-1.5,1,
+2026-07-01,PATH,macd,buy,MACD bullish crossover (above SMA20),11.55,11.36,win,pending,0.53,-0.97,2,
+2026-06-25,TEAM,adjusted_drop,buy,"Market-adjusted drop -8.57% (stock -8.42%, market +0.14%)",74.68,75.3,win,win,13.51,0,1,4
+2026-06-25,TEAM,sector_drop,buy,"Sector-adjusted drop -9.25% (stock -8.42%, XLK +0.83%)",74.68,75.3,win,win,13.51,0,1,4
+2026-06-25,TEAM,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",74.68,75.3,win,win,13.51,0,1,4
+2026-06-25,NOW,sector_drop,buy,"Sector-adjusted drop -5.39% (stock -4.56%, XLK +0.83%)",89.52,90.44,win,win,19.17,-0.49,1,2
+2026-06-25,LIDR,sector_drop,buy,"Sector-adjusted drop -5.18% (stock -3.01%, XLI +2.17%)",1.29,1.28,win,win,4.69,-1.17,2,3
+2026-06-25,ACHR,adjusted_drop,buy,"Market-adjusted drop -5.29% (stock -5.15%, market +0.14%)",4.79,4.71,win,win,2.76,-2.12,1,5
+2026-06-25,ACHR,sector_drop,buy,"Sector-adjusted drop -7.32% (stock -5.15%, XLI +2.17%)",4.79,4.71,win,win,2.76,-2.12,1,5
+2026-06-25,ACHR,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",4.79,4.71,win,win,2.76,-2.12,1,5
