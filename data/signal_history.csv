@@ -2678,3 +2678,13 @@ date,ticker,type,direction,detail,price,entry_price,result_5,result_10,current_p
 2026-07-07,TEAM,macd,buy,MACD bullish crossover (above SMA20),88.39,86.0,win,pending,5.48,-6.21,2,
 2026-07-01,SE,rel_strength,buy,"New 20-day high (+7.0% above prev, 1.8x vol)",102.33,103.99,win,pending,4.92,-2.86,5,
 2026-06-25,EW,macd,buy,MACD bullish crossover (above SMA20),89.72,90.31,win,pending,1.13,-1.09,6,
+2026-07-08,FIS,sector_drop,buy,"Sector-adjusted drop -5.37% (stock -4.13%, XLK +1.24%)",40.84,40.26,win,pending,4.05,-0.55,2,
+2026-07-08,COF,adjusted_drop,buy,"Market-adjusted drop -5.08% (stock -5.39%, market -0.31%)",191.95,193.03,win,pending,3.77,0,2,
+2026-07-08,BABA,gap_and_go,buy,Gap up +9.6% on 3.0x volume,108.98,109.12,win,pending,3.32,-0.25,2,
+2026-07-07,NU,rel_strength,buy,"New 20-day high (+2.3% above prev, 1.4x vol)",13.61,13.38,win,pending,3.64,-2.2,3,
+2026-07-01,U,macd,buy,MACD bullish crossover (above SMA20),30.19,29.9,win,win,4.63,-5.35,6,6
+2026-07-01,META,macd,buy,MACD bullish crossover (above SMA20),612.91,607.9,win,win,10.03,-5.07,6,6
+2026-07-01,META,gap_and_go,buy,Gap up +7.9% on 2.5x volume,612.91,607.9,win,win,10.03,-5.07,6,6
+2026-06-30,UBER,adjusted_drop,buy,"Market-adjusted drop -5.20% (stock -4.42%, market +0.78%)",72.16,72.23,win,pending,3.99,-0.79,7,
+2026-06-23,BE,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",321.98,327.55,win,pending,-27.58,-29.92,1,
+2026-06-22,ARM,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",407.72,370.0,win,pending,-11.86,-21.5,1,
