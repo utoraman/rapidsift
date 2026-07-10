@@ -2,16 +2,14 @@
   "last_signals": [
     "HIMS_macd_2026-07-10",
     "META_rel_strength_2026-07-10",
-    "KMI_macd_2026-07-10",
     "MRK_macd_2026-07-10",
     "PANW_macd_2026-07-10",
     "UNH_macd_2026-07-10",
     "TXN_macd_2026-07-10",
     "SNOW_macd_2026-07-10",
     "TEVA_macd_2026-07-10",
-    "ABBV_macd_2026-07-10",
-    "EW_macd_2026-07-10"
+    "ABBV_macd_2026-07-10"
   ],
-  "last_run": "2026-07-10T16:37:40.525154",
+  "last_run": "2026-07-10T17:42:31.481040",
   "last_brief_date": "2026-07-10"
 }
