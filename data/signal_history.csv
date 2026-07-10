@@ -2688,3 +2688,7 @@ date,ticker,type,direction,detail,price,entry_price,result_5,result_10,current_p
 2026-06-30,UBER,adjusted_drop,buy,"Market-adjusted drop -5.20% (stock -4.42%, market +0.78%)",72.16,72.23,win,pending,3.99,-0.79,7,
 2026-06-23,BE,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",321.98,327.55,win,pending,-27.58,-29.92,1,
 2026-06-22,ARM,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",407.72,370.0,win,pending,-11.86,-21.5,1,
+2026-06-29,TMUS,adjusted_drop,buy,"Market-adjusted drop -6.42% (stock -4.77%, market +1.65%)",173.97,171.35,win,win,9.49,-3.32,4,5
+2026-06-29,TMUS,sector_drop,buy,"Sector-adjusted drop -6.37% (stock -4.77%, XLC +1.60%)",173.97,171.35,win,win,9.49,-3.32,4,5
+2026-06-29,TMUS,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",173.97,171.35,win,win,9.49,-3.32,4,5
+2026-06-29,ACN,sector_drop,buy,"Sector-adjusted drop -5.66% (stock -3.29%, XLK +2.37%)",123.26,121.8,win,win,11.02,-1.2,2,3

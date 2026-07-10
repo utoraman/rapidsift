@@ -1,8 +1,11 @@
 {
   "last_signals": [
+    "NU_volume_spike_2026-07-10",
     "HIMS_macd_2026-07-10",
+    "META_volume_spike_2026-07-10",
     "META_gap_and_go_2026-07-10",
     "META_rel_strength_2026-07-10",
+    "U_gap_and_go_2026-07-10",
     "U_rel_strength_2026-07-10",
     "MRK_macd_2026-07-10",
     "PANW_macd_2026-07-10",
@@ -10,8 +13,11 @@
     "TXN_macd_2026-07-10",
     "SNOW_macd_2026-07-10",
     "TEVA_macd_2026-07-10",
-    "ABBV_macd_2026-07-10"
+    "ABBV_macd_2026-07-10",
+    "PEP_macd_2026-07-10",
+    "SE_gap_and_go_2026-07-10",
+    "SE_rel_strength_2026-07-10"
   ],
-  "last_run": "2026-07-10T18:57:54.884579",
+  "last_run": "2026-07-10T20:10:45.598916",
   "last_brief_date": "2026-07-10"
 }
