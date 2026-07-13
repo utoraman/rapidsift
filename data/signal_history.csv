@@ -2695,3 +2695,4 @@ date,ticker,type,direction,detail,price,entry_price,result_5,result_10,current_p
 2026-07-07,BBWI,adjusted_drop,buy,"Market-adjusted drop -5.46% (stock -5.93%, market -0.48%)",20.62,19.65,win,pending,4.94,-3.41,4,
 2026-07-07,BBWI,sector_drop,buy,"Sector-adjusted drop -5.41% (stock -5.93%, XLY -0.53%)",20.62,19.65,win,pending,4.94,-3.41,4,
 2026-07-07,BBWI,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",20.62,19.65,win,pending,4.94,-3.41,4,
+2026-06-30,U,macd,buy,MACD bullish crossover (above SMA20),28.58,29.18,win,win,5.17,-3.02,1,7
