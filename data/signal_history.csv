@@ -2692,3 +2692,6 @@ date,ticker,type,direction,detail,price,entry_price,result_5,result_10,current_p
 2026-06-29,TMUS,sector_drop,buy,"Sector-adjusted drop -6.37% (stock -4.77%, XLC +1.60%)",173.97,171.35,win,win,9.49,-3.32,4,5
 2026-06-29,TMUS,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",173.97,171.35,win,win,9.49,-3.32,4,5
 2026-06-29,ACN,sector_drop,buy,"Sector-adjusted drop -5.66% (stock -3.29%, XLK +2.37%)",123.26,121.8,win,win,11.02,-1.2,2,3
+2026-07-07,BBWI,adjusted_drop,buy,"Market-adjusted drop -5.46% (stock -5.93%, market -0.48%)",20.62,19.65,win,pending,4.94,-3.41,4,
+2026-07-07,BBWI,sector_drop,buy,"Sector-adjusted drop -5.41% (stock -5.93%, XLY -0.53%)",20.62,19.65,win,pending,4.94,-3.41,4,
+2026-07-07,BBWI,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",20.62,19.65,win,pending,4.94,-3.41,4,
