@@ -2696,3 +2696,12 @@ date,ticker,type,direction,detail,price,entry_price,result_5,result_10,current_p
 2026-07-07,BBWI,sector_drop,buy,"Sector-adjusted drop -5.41% (stock -5.93%, XLY -0.53%)",20.62,19.65,win,pending,4.94,-3.41,4,
 2026-07-07,BBWI,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",20.62,19.65,win,pending,4.94,-3.41,4,
 2026-06-30,U,macd,buy,MACD bullish crossover (above SMA20),28.58,29.18,win,win,5.17,-3.02,1,7
+2026-07-13,APP,adjusted_drop,buy,"Market-adjusted drop -11.88% (stock -12.65%, market -0.77%)",442.85,433.5,win,pending,5.12,-0.55,1,
+2026-07-13,APP,sector_drop,buy,"Sector-adjusted drop -10.23% (stock -12.65%, XLK -2.42%)",442.85,433.5,win,pending,5.12,-0.55,1,
+2026-07-13,APP,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",442.85,433.5,win,pending,5.12,-0.55,1,
+2026-07-10,FCEL,adjusted_drop,buy,"Market-adjusted drop -9.00% (stock -8.57%, market +0.43%)",21.03,20.69,win,win,4.42,-8.51,2,2
+2026-07-10,FCEL,sector_drop,buy,"Sector-adjusted drop -9.19% (stock -8.57%, XLU +0.62%)",21.03,20.69,win,win,4.42,-8.51,2,2
+2026-07-10,FCEL,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",21.03,20.69,win,win,4.42,-8.51,2,2
+2026-07-07,NET,gap_and_go,buy,Gap up +4.7% on 1.8x volume,268.83,267.89,win,pending,4.85,-3.84,5,
+2026-07-07,NET,rel_strength,buy,"New 20-day high (+1.9% above prev, 1.8x vol)",268.83,267.89,win,pending,4.85,-3.84,5,
+2026-07-07,NET,confluence,buy,"Confluence (2 strong signals): gap_and_go, rel_strength",268.83,267.89,win,pending,4.85,-3.84,5,
