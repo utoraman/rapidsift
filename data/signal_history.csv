@@ -2705,3 +2705,4 @@ date,ticker,type,direction,detail,price,entry_price,result_5,result_10,current_p
 2026-07-07,NET,gap_and_go,buy,Gap up +4.7% on 1.8x volume,268.83,267.89,win,pending,4.85,-3.84,5,
 2026-07-07,NET,rel_strength,buy,"New 20-day high (+1.9% above prev, 1.8x vol)",268.83,267.89,win,pending,4.85,-3.84,5,
 2026-07-07,NET,confluence,buy,"Confluence (2 strong signals): gap_and_go, rel_strength",268.83,267.89,win,pending,4.85,-3.84,5,
+2026-07-07,PANW,adjusted_drop,buy,"Market-adjusted drop -5.26% (stock -5.73%, market -0.48%)",337.04,336.8,win,pending,4.45,-6.49,5,
