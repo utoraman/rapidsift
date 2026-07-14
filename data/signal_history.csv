@@ -2706,3 +2706,6 @@ date,ticker,type,direction,detail,price,entry_price,result_5,result_10,current_p
 2026-07-07,NET,rel_strength,buy,"New 20-day high (+1.9% above prev, 1.8x vol)",268.83,267.89,win,pending,4.85,-3.84,5,
 2026-07-07,NET,confluence,buy,"Confluence (2 strong signals): gap_and_go, rel_strength",268.83,267.89,win,pending,4.85,-3.84,5,
 2026-07-07,PANW,adjusted_drop,buy,"Market-adjusted drop -5.26% (stock -5.73%, market -0.48%)",337.04,336.8,win,pending,4.45,-6.49,5,
+2026-07-01,IREN,sector_drop,buy,"Sector-adjusted drop -7.28% (stock -5.27%, BITO +2.01%)",43.32,42.53,win,pending,-9.25,-12.9,2,
+2026-06-30,NVAX,macd,buy,MACD bullish crossover (above SMA20),9.42,9.37,win,pending,-10.14,-10.14,2,
+2026-06-29,PINS,macd,buy,MACD bullish crossover (above SMA20),21.88,21.56,win,pending,4.85,-3.32,5,
