@@ -2709,3 +2709,8 @@ date,ticker,type,direction,detail,price,entry_price,result_5,result_10,current_p
 2026-07-01,IREN,sector_drop,buy,"Sector-adjusted drop -7.28% (stock -5.27%, BITO +2.01%)",43.32,42.53,win,pending,-9.25,-12.9,2,
 2026-06-30,NVAX,macd,buy,MACD bullish crossover (above SMA20),9.42,9.37,win,pending,-10.14,-10.14,2,
 2026-06-29,PINS,macd,buy,MACD bullish crossover (above SMA20),21.88,21.56,win,pending,4.85,-3.32,5,
+2026-07-07,HIMS,adjusted_drop,buy,"Market-adjusted drop -5.04% (stock -5.51%, market -0.48%)",36.17,35.33,win,pending,4.33,-6.09,6,
+2026-07-07,HIMS,sector_drop,buy,"Sector-adjusted drop -7.04% (stock -5.51%, XLV +1.53%)",36.17,35.33,win,pending,4.33,-6.09,6,
+2026-07-07,HIMS,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",36.17,35.33,win,pending,4.33,-6.09,6,
+2026-07-06,KKR,macd,buy,MACD bullish crossover (above SMA20),95.97,96.42,win,pending,6.07,-5.24,6,
+2026-07-02,BX,macd,buy,MACD bullish crossover (above SMA20),122.78,123.43,win,pending,5.04,-5.37,7,
