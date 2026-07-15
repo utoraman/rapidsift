@@ -2717,3 +2717,6 @@ date,ticker,type,direction,detail,price,entry_price,result_5,result_10,current_p
 2026-07-14,TEAM,adjusted_drop,buy,"Market-adjusted drop -7.72% (stock -7.36%, market +0.36%)",89.08,91.21,win,pending,2.09,-0.2,1,
 2026-07-14,TEAM,sector_drop,buy,"Sector-adjusted drop -8.65% (stock -7.36%, XLK +1.29%)",89.08,91.21,win,pending,2.09,-0.2,1,
 2026-07-14,TEAM,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",89.08,91.21,win,pending,2.09,-0.2,1,
+2026-07-14,CLSK,gap_and_go,buy,Gap up +18.8% on 4.2x volume,13.45,13.84,win,pending,2.1,-5.13,1,
+2026-07-02,RUN,sector_drop,buy,"Sector-adjusted drop -5.03% (stock -2.82%, XLU +2.21%)",12.74,12.7,win,pending,0.55,-11.38,1,
+2026-07-02,IREN,adjusted_drop,buy,"Market-adjusted drop -10.26% (stock -10.39%, market -0.13%)",38.82,41.97,win,pending,-8.79,-11.75,1,
