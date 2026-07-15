@@ -2714,3 +2714,6 @@ date,ticker,type,direction,detail,price,entry_price,result_5,result_10,current_p
 2026-07-07,HIMS,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",36.17,35.33,win,pending,4.33,-6.09,6,
 2026-07-06,KKR,macd,buy,MACD bullish crossover (above SMA20),95.97,96.42,win,pending,6.07,-5.24,6,
 2026-07-02,BX,macd,buy,MACD bullish crossover (above SMA20),122.78,123.43,win,pending,5.04,-5.37,7,
+2026-07-14,TEAM,adjusted_drop,buy,"Market-adjusted drop -7.72% (stock -7.36%, market +0.36%)",89.08,91.21,win,pending,2.09,-0.2,1,
+2026-07-14,TEAM,sector_drop,buy,"Sector-adjusted drop -8.65% (stock -7.36%, XLK +1.29%)",89.08,91.21,win,pending,2.09,-0.2,1,
+2026-07-14,TEAM,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",89.08,91.21,win,pending,2.09,-0.2,1,
