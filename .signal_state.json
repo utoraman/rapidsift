@@ -1,5 +1,6 @@
 {
   "last_signals": [
+    "SOFI_macd_2026-07-15",
     "TSLA_macd_2026-07-15",
     "F_macd_2026-07-15",
     "NU_volume_spike_2026-07-15",
@@ -8,14 +9,20 @@
     "PYPL_volume_spike_2026-07-15",
     "PYPL_gap_and_go_2026-07-15",
     "PYPL_rel_strength_2026-07-15",
+    "UBER_macd_2026-07-15",
     "KO_macd_2026-07-15",
+    "LCID_volume_spike_2026-07-15",
+    "BABA_rel_strength_2026-07-15",
     "MDT_macd_2026-07-15",
+    "CELH_macd_2026-07-15",
     "IBM_earnings_drift_2026-07-15",
     "RTX_macd_2026-07-15",
     "AFRM_macd_2026-07-15",
     "TGT_macd_2026-07-15",
-    "COF_macd_2026-07-15"
+    "DASH_macd_2026-07-15",
+    "COF_macd_2026-07-15",
+    "SEDG_macd_2026-07-15"
   ],
-  "last_run": "2026-07-15T18:37:28.537538",
+  "last_run": "2026-07-15T19:59:45.106901",
   "last_brief_date": "2026-07-15"
 }
