@@ -1,7 +1,6 @@
 {
   "last_signals": [
     "NU_volume_spike_2026-07-16",
-    "GRAB_macd_2026-07-16",
     "OPEN_macd_2026-07-16",
     "DNN_macd_2026-07-16",
     "HOOD_macd_2026-07-16",
@@ -13,22 +12,28 @@
     "UBER_macd_2026-07-16",
     "ASTS_gap_and_go_2026-07-16",
     "KO_macd_2026-07-16",
+    "TSM_gap_and_go_2026-07-16",
     "LCID_macd_2026-07-16",
+    "CSX_rel_strength_2026-07-16",
     "ABT_macd_2026-07-16",
+    "ABT_volume_spike_2026-07-16",
     "ABT_gap_and_go_2026-07-16",
     "ABT_rel_strength_2026-07-16",
     "RBLX_macd_2026-07-16",
     "UUUU_macd_2026-07-16",
     "IQ_rel_strength_2026-07-16",
     "DIS_macd_2026-07-16",
+    "UNH_volume_spike_2026-07-16",
     "UNH_gap_and_go_2026-07-16",
     "UNH_rel_strength_2026-07-16",
     "SNOW_macd_2026-07-16",
     "MS_macd_2026-07-16",
     "WMB_macd_2026-07-16",
     "DDOG_macd_2026-07-16",
-    "SEDG_macd_2026-07-16"
+    "DXCM_rel_strength_2026-07-16",
+    "SEDG_macd_2026-07-16",
+    "GFS_gap_and_go_2026-07-16"
   ],
-  "last_run": "2026-07-16T19:54:50.441553",
+  "last_run": "2026-07-16T21:30:20.202677",
   "last_brief_date": "2026-07-16"
 }
