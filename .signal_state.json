@@ -1,10 +1,10 @@
 {
   "last_signals": [
     "GRAB_macd_2026-07-16",
+    "OPEN_macd_2026-07-16",
     "DNN_macd_2026-07-16",
     "HOOD_macd_2026-07-16",
     "RIVN_macd_2026-07-16",
-    "NOW_macd_2026-07-16",
     "PYPL_earnings_drift_2026-07-16",
     "WFC_macd_2026-07-16",
     "KO_macd_2026-07-16",
@@ -13,10 +13,12 @@
     "UUUU_macd_2026-07-16",
     "DIS_macd_2026-07-16",
     "MDT_macd_2026-07-16",
+    "UNH_rel_strength_2026-07-16",
     "SNOW_macd_2026-07-16",
+    "WMB_macd_2026-07-16",
     "DDOG_macd_2026-07-16",
     "SEDG_macd_2026-07-16"
   ],
-  "last_run": "2026-07-16T15:22:39.099227",
+  "last_run": "2026-07-16T15:55:29.627128",
   "last_brief_date": "2026-07-16"
 }
