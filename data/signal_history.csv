@@ -2739,3 +2739,12 @@ date,ticker,type,direction,detail,price,entry_price,result_5,result_10,current_p
 2026-06-29,T,adjusted_drop,buy,"Market-adjusted drop -5.61% (stock -3.96%, market +1.65%)",21.53,21.44,win,pending,3.83,-8.47,13,
 2026-06-29,T,sector_drop,buy,"Sector-adjusted drop -5.56% (stock -3.96%, XLC +1.60%)",21.53,21.44,win,pending,3.83,-8.47,13,
 2026-06-29,T,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",21.53,21.44,win,pending,3.83,-8.47,13,
+2026-07-07,UUUU,adjusted_drop,buy,"Market-adjusted drop -6.13% (stock -6.61%, market -0.48%)",12.86,12.69,win,win,-9.46,-11.74,2,3
+2026-07-07,UEC,adjusted_drop,buy,"Market-adjusted drop -6.04% (stock -6.52%, market -0.48%)",9.9,9.75,win,pending,-4.82,-8.62,2,
+2026-07-07,SMR,adjusted_drop,buy,"Market-adjusted drop -6.29% (stock -6.76%, market -0.48%)",8.96,8.76,win,pending,-11.82,-17.65,3,
+2026-07-07,RUN,adjusted_drop,buy,"Market-adjusted drop -5.46% (stock -5.94%, market -0.48%)",12.2,12.21,win,pending,-2.95,-7.82,5,
+2026-07-07,RGTI,adjusted_drop,buy,"Market-adjusted drop -7.38% (stock -7.85%, market -0.48%)",16.55,16.25,win,pending,-13.2,-17.5,2,
+2026-07-07,IQ,adjusted_drop,buy,"Market-adjusted drop -6.53% (stock -7.01%, market -0.48%)",1.0,1.01,win,win,17.82,0,1,2
+2026-07-07,IQ,sector_drop,buy,"Sector-adjusted drop -7.74% (stock -7.01%, XLC +0.73%)",1.0,1.01,win,win,17.82,0,1,2
+2026-07-07,IQ,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",1.0,1.01,win,win,17.82,0,1,2
+2026-07-02,SNOW,macd,buy,MACD bullish crossover (above SMA20),260.15,254.2,win,pending,5.78,-0.47,2,

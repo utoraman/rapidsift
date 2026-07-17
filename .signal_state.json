@@ -7,16 +7,16 @@
     "SOUN_gap_and_go_2026-07-17",
     "NOW_macd_2026-07-17",
     "WFC_macd_2026-07-17",
+    "WFC_rel_strength_2026-07-17",
     "UBER_macd_2026-07-17",
     "KO_macd_2026-07-17",
     "LCID_rel_strength_2026-07-17",
     "NEM_macd_2026-07-17",
-    "PANW_macd_2026-07-17",
     "UEC_macd_2026-07-17",
     "MDT_macd_2026-07-17",
     "GSK_volume_spike_2026-07-17",
     "GSK_gap_and_go_2026-07-17"
   ],
-  "last_run": "2026-07-17T19:55:47.829666",
+  "last_run": "2026-07-17T21:13:49.703851",
   "last_brief_date": "2026-07-17"
 }
