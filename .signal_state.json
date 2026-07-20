@@ -1,11 +1,14 @@
 {
   "last_signals": [
     "NFLX_macd_2026-07-20",
+    "IREN_volume_spike_2026-07-20",
     "IREN_gap_and_go_2026-07-20",
+    "PATH_volume_spike_2026-07-20",
     "ACHR_macd_2026-07-20",
     "ACHR_volume_spike_2026-07-20",
     "ACHR_gap_and_go_2026-07-20",
     "GOOGL_macd_2026-07-20",
+    "CIFR_gap_and_go_2026-07-20",
     "WBD_macd_2026-07-20",
     "NVO_macd_2026-07-20",
     "CLSK_macd_2026-07-20",
@@ -13,11 +16,13 @@
     "CMG_macd_2026-07-20",
     "U_macd_2026-07-20",
     "JPM_macd_2026-07-20",
+    "PANW_macd_2026-07-20",
     "GM_macd_2026-07-20",
     "AA_macd_2026-07-20",
     "SE_macd_2026-07-20",
+    "HUT_gap_and_go_2026-07-20",
     "EL_macd_2026-07-20"
   ],
-  "last_run": "2026-07-20T19:13:16.859204",
+  "last_run": "2026-07-20T20:16:03.495091",
   "last_brief_date": "2026-07-20"
 }

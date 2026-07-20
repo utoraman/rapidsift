@@ -2754,3 +2754,4 @@ date,ticker,type,direction,detail,price,entry_price,result_5,result_10,current_p
 2026-07-07,ACHR,sector_drop,buy,"Sector-adjusted drop -6.48% (stock -8.19%, XLI -1.71%)",4.93,4.85,win,pending,8.87,-11.34,9,
 2026-07-07,ACHR,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",4.93,4.85,win,pending,8.87,-11.34,9,
 2026-07-08,OXY,macd,buy,MACD bullish crossover (above SMA20),53.59,52.87,win,pending,5.16,-1.89,8,
+2026-07-17,LCID,rel_strength,buy,"New 20-day high (+8.6% above prev, 1.9x vol)",7.36,7.07,win,pending,0.57,-0.71,1,
