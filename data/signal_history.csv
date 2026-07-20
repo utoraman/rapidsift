@@ -2748,3 +2748,5 @@ date,ticker,type,direction,detail,price,entry_price,result_5,result_10,current_p
 2026-07-07,IQ,sector_drop,buy,"Sector-adjusted drop -7.74% (stock -7.01%, XLC +0.73%)",1.0,1.01,win,win,17.82,0,1,2
 2026-07-07,IQ,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",1.0,1.01,win,win,17.82,0,1,2
 2026-07-02,SNOW,macd,buy,MACD bullish crossover (above SMA20),260.15,254.2,win,pending,5.78,-0.47,2,
+2026-07-16,IQ,rel_strength,buy,"New 20-day high (+1.2% above prev, 1.6x vol)",1.24,1.18,win,pending,4.66,-2.54,2,
+2026-07-15,CLSK,earnings_drift,buy,"Post-catalyst drift: catalyst gap +18.8%, day-2 move +5.1%",14.13,13.83,win,pending,4.48,-12.15,3,
