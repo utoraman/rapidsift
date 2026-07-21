@@ -2755,3 +2755,17 @@ date,ticker,type,direction,detail,price,entry_price,result_5,result_10,current_p
 2026-07-07,ACHR,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",4.93,4.85,win,pending,8.87,-11.34,9,
 2026-07-08,OXY,macd,buy,MACD bullish crossover (above SMA20),53.59,52.87,win,pending,5.16,-1.89,8,
 2026-07-17,LCID,rel_strength,buy,"New 20-day high (+8.6% above prev, 1.9x vol)",7.36,7.07,win,pending,0.57,-0.71,1,
+2026-07-20,CLSK,macd,buy,MACD bullish crossover (above SMA20),14.42,14.82,win,pending,4.89,-0.92,1,
+2026-07-20,CIFR,gap_and_go,buy,Gap up +6.9% on 1.7x volume,20.54,21.02,win,win,12.65,-0.19,1,1
+2026-07-20,ACHR,gap_and_go,buy,Gap up +4.3% on 3.1x volume,5.31,5.32,win,pending,1.92,-1.13,1,
+2026-07-16,HOOD,adjusted_drop,buy,"Market-adjusted drop -7.70% (stock -8.24%, market -0.54%)",106.02,100.37,win,pending,7.53,-3.77,3,
+2026-07-16,HOOD,sector_drop,buy,"Sector-adjusted drop -8.58% (stock -8.24%, XLF +0.34%)",106.02,100.37,win,pending,7.53,-3.77,3,
+2026-07-16,HOOD,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",106.02,100.37,win,pending,7.53,-3.77,3,
+2026-07-15,MU,adjusted_drop,buy,"Market-adjusted drop -8.42% (stock -8.02%, market +0.40%)",904.28,866.77,win,win,10.49,-7.24,4,4
+2026-07-15,MU,sector_drop,buy,"Sector-adjusted drop -6.91% (stock -8.02%, XLK -1.11%)",904.28,866.77,win,win,10.49,-7.24,4,4
+2026-07-15,MU,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",904.28,866.77,win,win,10.49,-7.24,4,4
+2026-07-13,CIFR,adjusted_drop,buy,"Market-adjusted drop -8.39% (stock -9.16%, market -0.77%)",20.08,20.88,win,win,13.41,-22.75,6,6
+2026-07-10,CIFR,sector_drop,buy,"Sector-adjusted drop -6.11% (stock -4.94%, BITO +1.17%)",22.11,21.5,win,win,10.14,-24.98,7,7
+2026-07-08,EOG,macd,buy,MACD bullish crossover (above SMA20),136.58,135.04,win,pending,5.81,-2.57,9,
+2026-07-07,XOM,macd,buy,MACD bullish crossover (above SMA20),141.69,143.44,win,pending,5.36,-4.41,10,
+2026-07-06,ACHR,macd,buy,MACD bullish crossover (above SMA20),5.37,5.3,win,pending,2.3,-18.87,11,
