@@ -1,5 +1,7 @@
 {
   "last_signals": [
+    "T_gap_and_go_2026-07-22",
+    "T_rel_strength_2026-07-22",
     "SMCI_macd_2026-07-22",
     "SMCI_volume_spike_2026-07-22",
     "SMCI_gap_and_go_2026-07-22",
@@ -7,10 +9,8 @@
     "CIFR_macd_2026-07-22",
     "NKE_macd_2026-07-22",
     "PINS_macd_2026-07-22",
-    "WMT_macd_2026-07-22",
     "RIOT_macd_2026-07-22",
     "HAL_earnings_drift_2026-07-22",
-    "CORZ_macd_2026-07-22",
     "SHOP_macd_2026-07-22",
     "JPM_macd_2026-07-22",
     "NEM_macd_2026-07-22",
@@ -21,6 +21,6 @@
     "NET_macd_2026-07-22",
     "DHR_earnings_drift_2026-07-22"
   ],
-  "last_run": "2026-07-22T17:09:13.021018",
+  "last_run": "2026-07-22T18:41:14.603886",
   "last_brief_date": "2026-07-22"
 }
