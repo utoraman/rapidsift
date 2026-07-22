@@ -2771,3 +2771,7 @@ date,ticker,type,direction,detail,price,entry_price,result_5,result_10,current_p
 2026-07-06,ACHR,macd,buy,MACD bullish crossover (above SMA20),5.37,5.3,win,pending,2.3,-18.87,11,
 2026-07-20,HUT,gap_and_go,buy,Gap up +11.0% on 1.7x volume,100.93,104.99,win,pending,4.77,-1.13,1,
 2026-07-01,NOW,macd,buy,MACD bullish crossover (above SMA20),105.8,106.22,win,pending,-3.93,-7.33,3,
+2026-07-20,IREN,gap_and_go,buy,Gap up +8.2% on 2.4x volume,40.2,40.91,win,pending,5.46,-1.54,2,
+2026-07-16,GM,macd,buy,MACD bullish crossover (above SMA20),77.72,77.14,win,pending,6.97,-3.03,4,
+2026-07-10,NU,volume_spike,buy,Volume spike 2.2x (dip in uptrend),13.76,13.75,win,pending,2.22,-3.05,8,
+2026-07-08,DVN,macd,buy,MACD bullish crossover (above SMA20),43.31,42.55,win,pending,5.55,-1.74,10,
