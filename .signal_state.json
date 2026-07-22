@@ -6,6 +6,7 @@
     "PATH_macd_2026-07-22",
     "CIFR_macd_2026-07-22",
     "NKE_macd_2026-07-22",
+    "PINS_macd_2026-07-22",
     "RIOT_macd_2026-07-22",
     "HAL_earnings_drift_2026-07-22",
     "CORZ_macd_2026-07-22",
@@ -19,6 +20,6 @@
     "NET_macd_2026-07-22",
     "DHR_earnings_drift_2026-07-22"
   ],
-  "last_run": "2026-07-22T15:24:14.263737",
+  "last_run": "2026-07-22T15:58:50.427450",
   "last_brief_date": "2026-07-22"
 }
