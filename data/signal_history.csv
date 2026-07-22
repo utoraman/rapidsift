@@ -2775,3 +2775,7 @@ date,ticker,type,direction,detail,price,entry_price,result_5,result_10,current_p
 2026-07-16,GM,macd,buy,MACD bullish crossover (above SMA20),77.72,77.14,win,pending,6.97,-3.03,4,
 2026-07-10,NU,volume_spike,buy,Volume spike 2.2x (dip in uptrend),13.76,13.75,win,pending,2.22,-3.05,8,
 2026-07-08,DVN,macd,buy,MACD bullish crossover (above SMA20),43.31,42.55,win,pending,5.55,-1.74,10,
+2026-07-10,WOLF,adjusted_drop,buy,"Market-adjusted drop -5.69% (stock -5.26%, market +0.43%)",35.29,34.0,win,pending,-14.06,-16.71,1,
+2026-07-10,WOLF,sector_drop,buy,"Sector-adjusted drop -5.88% (stock -5.26%, XLU +0.62%)",35.29,34.0,win,pending,-14.06,-16.71,1,
+2026-07-10,WOLF,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",35.29,34.0,win,pending,-14.06,-16.71,1,
+2026-07-06,TME,macd,buy,MACD bullish crossover (above SMA20),8.77,8.7,win,pending,1.03,-1.32,8,
