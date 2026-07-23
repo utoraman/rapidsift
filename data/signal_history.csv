@@ -2788,3 +2788,6 @@ date,ticker,type,direction,detail,price,entry_price,result_5,result_10,current_p
 2026-07-21,DHR,sector_drop,buy,"Sector-adjusted drop -11.62% (stock -10.99%, XLV +0.63%)",179.01,178.47,win,pending,6.54,-3.06,2,
 2026-07-21,DHR,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",179.01,178.47,win,pending,6.54,-3.06,2,
 2026-07-07,RIVN,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",16.49,15.67,win,win,5.58,-1.53,1,2
+2026-07-10,MARA,adjusted_drop,buy,"Market-adjusted drop -5.12% (stock -4.69%, market +0.43%)",12.6,12.42,win,pending,4.47,-15.14,9,
+2026-07-10,MARA,sector_drop,buy,"Sector-adjusted drop -5.86% (stock -4.69%, BITO +1.17%)",12.6,12.42,win,pending,4.47,-15.14,9,
+2026-07-10,MARA,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",12.6,12.42,win,pending,4.47,-15.14,9,
