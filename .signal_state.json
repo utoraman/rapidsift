@@ -30,6 +30,7 @@
     "TMUS_macd_2026-07-23",
     "TMUS_gap_and_go_2026-07-23",
     "RTX_macd_2026-07-23",
+    "RTX_volume_spike_2026-07-23",
     "RTX_gap_and_go_2026-07-23",
     "RTX_rel_strength_2026-07-23",
     "WDAY_macd_2026-07-23",
@@ -37,8 +38,9 @@
     "DOCU_macd_2026-07-23",
     "TLRY_macd_2026-07-23",
     "EL_macd_2026-07-23",
-    "DHR_gap_and_go_2026-07-23"
+    "DHR_gap_and_go_2026-07-23",
+    "LVS_volume_spike_2026-07-23"
   ],
-  "last_run": "2026-07-23T20:05:56.673236",
+  "last_run": "2026-07-23T21:32:59.731572",
   "last_brief_date": "2026-07-23"
 }
