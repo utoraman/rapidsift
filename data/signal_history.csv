@@ -2779,3 +2779,12 @@ date,ticker,type,direction,detail,price,entry_price,result_5,result_10,current_p
 2026-07-10,WOLF,sector_drop,buy,"Sector-adjusted drop -5.88% (stock -5.26%, XLU +0.62%)",35.29,34.0,win,pending,-14.06,-16.71,1,
 2026-07-10,WOLF,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",35.29,34.0,win,pending,-14.06,-16.71,1,
 2026-07-06,TME,macd,buy,MACD bullish crossover (above SMA20),8.77,8.7,win,pending,1.03,-1.32,8,
+2026-07-22,SMCI,macd,buy,MACD bullish crossover (above SMA20),30.56,30.35,win,pending,3.23,-0.58,1,
+2026-07-22,SMCI,gap_and_go,buy,Gap up +13.3% on 3.9x volume,30.56,30.35,win,pending,3.23,-0.58,1,
+2026-07-22,RIOT,macd,buy,MACD bullish crossover (above SMA20),23.38,23.36,win,pending,4.0,-0.28,1,
+2026-07-22,HUT,macd,buy,MACD bullish crossover (above SMA20),109.86,111.03,win,pending,2.97,-0.72,1,
+2026-07-22,CIFR,macd,buy,MACD bullish crossover (above SMA20),24.46,24.17,win,win,5.03,-0.64,1,1
+2026-07-21,DHR,adjusted_drop,buy,"Market-adjusted drop -11.82% (stock -10.99%, market +0.83%)",179.01,178.47,win,pending,6.54,-3.06,2,
+2026-07-21,DHR,sector_drop,buy,"Sector-adjusted drop -11.62% (stock -10.99%, XLV +0.63%)",179.01,178.47,win,pending,6.54,-3.06,2,
+2026-07-21,DHR,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",179.01,178.47,win,pending,6.54,-3.06,2,
+2026-07-07,RIVN,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",16.49,15.67,win,win,5.58,-1.53,1,2
