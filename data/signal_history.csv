@@ -2793,3 +2793,7 @@ date,ticker,type,direction,detail,price,entry_price,result_5,result_10,current_p
 2026-07-10,MARA,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",12.6,12.42,win,pending,4.47,-15.14,9,
 2026-07-13,SEDG,sector_drop,buy,"Sector-adjusted drop -6.21% (stock -5.53%, XLU +0.68%)",52.13,54.08,win,pending,-16.53,-18.23,1,
 2026-07-13,APLD,adjusted_drop,buy,"Market-adjusted drop -6.65% (stock -7.42%, market -0.77%)",28.84,29.66,win,pending,0.79,-18.97,7,
+2026-07-23,CMCSA,adjusted_drop,buy,"Market-adjusted drop -5.57% (stock -6.80%, market -1.23%)",21.92,21.3,win,pending,4.56,-0.07,1,
+2026-07-23,CLF,gap_and_go,buy,Gap up +12.9% on 3.4x volume,10.96,11.33,win,pending,-1.06,-2.12,1,
+2026-07-23,CLF,rel_strength,buy,"New 20-day high (+4.2% above prev, 3.4x vol)",10.96,11.33,win,pending,-1.06,-2.12,1,
+2026-07-23,CLF,confluence,buy,"Confluence (2 strong signals): gap_and_go, rel_strength",10.96,11.33,win,pending,-1.06,-2.12,1,
