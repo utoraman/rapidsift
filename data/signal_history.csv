@@ -2797,3 +2797,4 @@ date,ticker,type,direction,detail,price,entry_price,result_5,result_10,current_p
 2026-07-23,CLF,gap_and_go,buy,Gap up +12.9% on 3.4x volume,10.96,11.33,win,pending,-1.06,-2.12,1,
 2026-07-23,CLF,rel_strength,buy,"New 20-day high (+4.2% above prev, 3.4x vol)",10.96,11.33,win,pending,-1.06,-2.12,1,
 2026-07-23,CLF,confluence,buy,"Confluence (2 strong signals): gap_and_go, rel_strength",10.96,11.33,win,pending,-1.06,-2.12,1,
+2026-07-23,AAL,adjusted_drop,buy,"Market-adjusted drop -7.08% (stock -8.32%, market -1.23%)",13.56,13.86,win,pending,4.04,-1.33,1,
