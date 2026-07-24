@@ -2801,3 +2801,6 @@ date,ticker,type,direction,detail,price,entry_price,result_5,result_10,current_p
 2026-07-23,TMUS,adjusted_drop,buy,"Market-adjusted drop -9.51% (stock -10.75%, market -1.23%)",170.42,171.85,win,pending,5.34,-0.19,1,
 2026-07-23,TMUS,sector_drop,buy,"Sector-adjusted drop -7.25% (stock -10.75%, XLC -3.50%)",170.42,171.85,win,pending,5.34,-0.19,1,
 2026-07-23,TMUS,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",170.42,171.85,win,pending,5.34,-0.19,1,
+2026-07-14,LCID,adjusted_drop,buy,"Market-adjusted drop -16.51% (stock -16.15%, market +0.36%)",4.62,4.64,win,win,35.92,0,1,1
+2026-07-14,CORZ,sector_drop,buy,"Sector-adjusted drop -6.40% (stock -2.73%, BITO +3.67%)",22.09,22.17,win,win,2.62,-10.28,5,5
+2026-07-14,ADBE,sector_drop,buy,"Sector-adjusted drop -5.55% (stock -4.26%, XLK +1.29%)",220.78,223.16,win,pending,0.87,-5.5,2,

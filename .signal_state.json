@@ -1,14 +1,19 @@
 {
   "last_signals": [
     "NIO_macd_2026-07-24",
+    "DNN_macd_2026-07-24",
+    "JOBY_macd_2026-07-24",
     "CLF_volume_spike_2026-07-24",
     "CLF_gap_and_go_2026-07-24",
     "CLF_rel_strength_2026-07-24",
     "CLF_earnings_drift_2026-07-24",
+    "SLB_volume_spike_2026-07-24",
     "SLB_gap_and_go_2026-07-24",
     "SLB_rel_strength_2026-07-24",
-    "TGT_macd_2026-07-24"
+    "TGT_macd_2026-07-24",
+    "EW_gap_and_go_2026-07-24",
+    "TLRY_macd_2026-07-24"
   ],
-  "last_run": "2026-07-24T18:55:50.038164",
+  "last_run": "2026-07-24T20:07:52.545308",
   "last_brief_date": "2026-07-24"
 }
