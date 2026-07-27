@@ -2829,3 +2829,4 @@ date,ticker,type,direction,detail,price,entry_price,result_5,result_10,current_p
 2026-07-24,HIMS,adjusted_drop,buy,"Market-adjusted drop -14.30% (stock -14.20%, market +0.10%)",28.09,28.73,win,pending,5.12,-2.02,1,
 2026-07-24,HIMS,sector_drop,buy,"Sector-adjusted drop -14.90% (stock -14.20%, XLV +0.70%)",28.09,28.73,win,pending,5.12,-2.02,1,
 2026-07-24,HIMS,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",28.09,28.73,win,pending,5.12,-2.02,1,
+2026-07-15,RGTI,adjusted_drop,buy,"Market-adjusted drop -5.73% (stock -5.34%, market +0.40%)",15.25,14.83,win,pending,5.46,-9.58,6,
