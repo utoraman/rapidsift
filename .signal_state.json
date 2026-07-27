@@ -2,10 +2,12 @@
   "last_signals": [
     "NVDA_macd_2026-07-27",
     "CLF_rel_strength_2026-07-27",
+    "SLB_rel_strength_2026-07-27",
     "HAL_macd_2026-07-27",
     "CORZ_macd_2026-07-27",
     "CRM_macd_2026-07-27",
     "KMI_macd_2026-07-27",
+    "TME_volume_spike_2026-07-27",
     "TME_gap_and_go_2026-07-27",
     "BKR_rel_strength_2026-07-27",
     "MDT_macd_2026-07-27",
@@ -16,10 +18,10 @@
     "PEP_macd_2026-07-27",
     "RTX_rel_strength_2026-07-27",
     "TGT_macd_2026-07-27",
+    "WDAY_gap_and_go_2026-07-27",
     "ZM_macd_2026-07-27",
-    "DOCU_macd_2026-07-27",
-    "EVGO_gap_and_go_2026-07-27"
+    "DOCU_macd_2026-07-27"
   ],
-  "last_run": "2026-07-27T20:13:25.858464",
+  "last_run": "2026-07-27T21:34:10.484079",
   "last_brief_date": "2026-07-27"
 }
