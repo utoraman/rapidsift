@@ -1,18 +1,21 @@
 {
   "last_signals": [
+    "PLTR_macd_2026-07-27",
     "MARA_macd_2026-07-27",
+    "NIO_macd_2026-07-27",
+    "CLF_earnings_drift_2026-07-27",
     "HAL_macd_2026-07-27",
     "CRM_macd_2026-07-27",
     "KMI_macd_2026-07-27",
     "MDT_macd_2026-07-27",
-    "JNJ_macd_2026-07-27",
+    "TEAM_macd_2026-07-27",
     "FIS_macd_2026-07-27",
     "UPS_macd_2026-07-27",
     "PEP_macd_2026-07-27",
-    "TGT_macd_2026-07-27",
     "ZM_macd_2026-07-27",
-    "DOCU_macd_2026-07-27"
+    "DOCU_macd_2026-07-27",
+    "TLRY_macd_2026-07-27"
   ],
-  "last_run": "2026-07-27T16:03:43.630946",
+  "last_run": "2026-07-27T16:38:31.690228",
   "last_brief_date": "2026-07-27"
 }
