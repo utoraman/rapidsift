@@ -2826,3 +2826,6 @@ date,ticker,type,direction,detail,price,entry_price,result_5,result_10,current_p
 2026-07-08,FISV,sector_drop,buy,"Sector-adjusted drop -5.24% (stock -4.00%, XLK +1.24%)",50.6,50.0,win,pending,4.4,-1.04,13,
 2026-07-22,PLTR,adjusted_drop,buy,"Market-adjusted drop -5.98% (stock -6.10%, market -0.12%)",124.57,125.93,win,pending,5.01,-4.13,3,
 2026-07-21,WDAY,sector_drop,buy,"Sector-adjusted drop -6.99% (stock -4.11%, XLK +2.89%)",141.17,142.18,win,pending,5.1,-10.6,4,
+2026-07-24,HIMS,adjusted_drop,buy,"Market-adjusted drop -14.30% (stock -14.20%, market +0.10%)",28.09,28.73,win,pending,5.12,-2.02,1,
+2026-07-24,HIMS,sector_drop,buy,"Sector-adjusted drop -14.90% (stock -14.20%, XLV +0.70%)",28.09,28.73,win,pending,5.12,-2.02,1,
+2026-07-24,HIMS,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",28.09,28.73,win,pending,5.12,-2.02,1,
