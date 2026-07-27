@@ -1,19 +1,18 @@
 {
   "last_signals": [
-    "NIO_macd_2026-07-24",
-    "DNN_macd_2026-07-24",
-    "JOBY_macd_2026-07-24",
-    "CLF_volume_spike_2026-07-24",
-    "CLF_gap_and_go_2026-07-24",
-    "CLF_rel_strength_2026-07-24",
-    "CLF_earnings_drift_2026-07-24",
-    "SLB_volume_spike_2026-07-24",
-    "SLB_gap_and_go_2026-07-24",
-    "SLB_rel_strength_2026-07-24",
-    "TGT_macd_2026-07-24",
-    "EW_gap_and_go_2026-07-24",
-    "TLRY_macd_2026-07-24"
+    "MARA_macd_2026-07-27",
+    "HAL_macd_2026-07-27",
+    "CRM_macd_2026-07-27",
+    "KMI_macd_2026-07-27",
+    "MDT_macd_2026-07-27",
+    "JNJ_macd_2026-07-27",
+    "FIS_macd_2026-07-27",
+    "UPS_macd_2026-07-27",
+    "PEP_macd_2026-07-27",
+    "TGT_macd_2026-07-27",
+    "ZM_macd_2026-07-27",
+    "DOCU_macd_2026-07-27"
   ],
-  "last_run": "2026-07-24T21:34:15.030581",
-  "last_brief_date": "2026-07-24"
+  "last_run": "2026-07-27T16:03:43.630946",
+  "last_brief_date": "2026-07-27"
 }
