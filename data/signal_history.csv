@@ -2843,3 +2843,4 @@ date,ticker,type,direction,detail,price,entry_price,result_5,result_10,current_p
 2026-07-14,NOW,adjusted_drop,buy,"Market-adjusted drop -6.12% (stock -5.76%, market +0.36%)",104.85,106.5,win,pending,3.18,-14.06,10,
 2026-07-14,NOW,sector_drop,buy,"Sector-adjusted drop -7.05% (stock -5.76%, XLK +1.29%)",104.85,106.5,win,pending,3.18,-14.06,10,
 2026-07-14,NOW,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",104.85,106.5,win,pending,3.18,-14.06,10,
+2026-07-22,LCID,adjusted_drop,buy,"Market-adjusted drop -7.26% (stock -7.38%, market -0.12%)",6.78,6.66,win,win,17.1,-8.2,4,4
