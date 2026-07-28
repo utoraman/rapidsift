@@ -1,5 +1,6 @@
 {
   "last_signals": [
+    "F_rel_strength_2026-07-28",
     "MARA_macd_2026-07-28",
     "CMCSA_macd_2026-07-28",
     "CCL_macd_2026-07-28",
@@ -12,6 +13,7 @@
     "KO_macd_2026-07-28",
     "KO_gap_and_go_2026-07-28",
     "KO_rel_strength_2026-07-28",
+    "CRM_rel_strength_2026-07-28",
     "LCID_rel_strength_2026-07-28",
     "JD_rel_strength_2026-07-28",
     "SHOP_macd_2026-07-28",
@@ -22,6 +24,7 @@
     "MDT_rel_strength_2026-07-28",
     "TEAM_rel_strength_2026-07-28",
     "GM_rel_strength_2026-07-28",
+    "V_rel_strength_2026-07-28",
     "BA_macd_2026-07-28",
     "ENPH_gap_and_go_2026-07-28",
     "UPS_gap_and_go_2026-07-28",
@@ -36,6 +39,6 @@
     "DHR_rel_strength_2026-07-28",
     "SEDG_gap_and_go_2026-07-28"
   ],
-  "last_run": "2026-07-28T20:10:35.526978",
+  "last_run": "2026-07-28T21:36:17.905556",
   "last_brief_date": "2026-07-28"
 }
