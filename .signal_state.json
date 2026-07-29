@@ -21,6 +21,7 @@
     "TME_rel_strength_2026-07-29",
     "PG_gap_and_go_2026-07-29",
     "ON_macd_2026-07-29",
+    "BKR_gap_and_go_2026-07-29",
     "TEAM_rel_strength_2026-07-29",
     "V_macd_2026-07-29",
     "PDD_rel_strength_2026-07-29",
@@ -37,6 +38,6 @@
     "KMB_macd_2026-07-29",
     "DOCU_rel_strength_2026-07-29"
   ],
-  "last_run": "2026-07-29T20:08:47.928992",
+  "last_run": "2026-07-29T21:24:34.351120",
   "last_brief_date": "2026-07-29"
 }
