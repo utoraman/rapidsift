@@ -2893,3 +2893,7 @@ date,ticker,type,direction,detail,price,entry_price,result_5,result_10,current_p
 2026-07-10,U,gap_and_go,buy,Gap up +4.9% on 1.9x volume,30.89,31.0,win,pending,1.29,-10.23,13,
 2026-07-10,U,rel_strength,buy,"New 20-day high (+5.9% above prev, 1.9x vol)",30.89,31.0,win,pending,1.29,-10.23,13,
 2026-07-10,U,confluence,buy,"Confluence (2 strong signals): gap_and_go, rel_strength",30.89,31.0,win,pending,1.29,-10.23,13,
+2026-07-28,WDAY,rel_strength,buy,"New 20-day high (+6.9% above prev, 1.8x vol)",159.69,159.99,win,pending,5.87,-0.63,1,
+2026-07-28,TEAM,rel_strength,buy,"New 20-day high (+5.0% above prev, 1.7x vol)",99.98,100.0,win,pending,5.15,-1.1,1,
+2026-07-28,NOW,macd,buy,MACD bullish crossover (above SMA20),110.62,110.42,win,pending,4.91,-0.83,1,
+2026-07-15,TGT,macd,buy,MACD bullish crossover (above SMA20),138.29,140.0,win,pending,4.94,-5.32,10,
