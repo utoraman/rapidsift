@@ -1,6 +1,7 @@
 {
   "last_signals": [
     "PLUG_macd_2026-07-29",
+    "SOFI_gap_and_go_2026-07-29",
     "IREN_macd_2026-07-29",
     "PATH_macd_2026-07-29",
     "SOUN_macd_2026-07-29",
@@ -8,8 +9,10 @@
     "CIFR_macd_2026-07-29",
     "APLD_macd_2026-07-29",
     "CLSK_macd_2026-07-29",
+    "BSX_gap_and_go_2026-07-29",
     "U_macd_2026-07-29",
     "CSX_macd_2026-07-29",
+    "BE_gap_and_go_2026-07-29",
     "UUUU_macd_2026-07-29",
     "ON_macd_2026-07-29",
     "V_macd_2026-07-29",
@@ -19,8 +22,9 @@
     "ABBV_macd_2026-07-29",
     "GILD_macd_2026-07-29",
     "COF_macd_2026-07-29",
-    "HUT_macd_2026-07-29"
+    "HUT_macd_2026-07-29",
+    "KMB_macd_2026-07-29"
   ],
-  "last_run": "2026-07-29T16:01:48.489450",
+  "last_run": "2026-07-29T17:07:26.251781",
   "last_brief_date": "2026-07-29"
 }

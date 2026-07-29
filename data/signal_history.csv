@@ -2897,3 +2897,4 @@ date,ticker,type,direction,detail,price,entry_price,result_5,result_10,current_p
 2026-07-28,TEAM,rel_strength,buy,"New 20-day high (+5.0% above prev, 1.7x vol)",99.98,100.0,win,pending,5.15,-1.1,1,
 2026-07-28,NOW,macd,buy,MACD bullish crossover (above SMA20),110.62,110.42,win,pending,4.91,-0.83,1,
 2026-07-15,TGT,macd,buy,MACD bullish crossover (above SMA20),138.29,140.0,win,pending,4.94,-5.32,10,
+2026-07-21,DDOG,sector_drop,buy,"Sector-adjusted drop -6.08% (stock -3.20%, XLK +2.89%)",254.79,251.77,win,pending,5.08,-5.6,6,
