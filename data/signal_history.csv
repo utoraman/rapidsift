@@ -2885,3 +2885,11 @@ date,ticker,type,direction,detail,price,entry_price,result_5,result_10,current_p
 2026-07-16,ACHR,adjusted_drop,buy,"Market-adjusted drop -5.53% (stock -6.07%, market -0.54%)",4.49,4.34,win,win,11.29,-0.92,1,2
 2026-07-16,ACHR,sector_drop,buy,"Sector-adjusted drop -6.12% (stock -6.07%, XLI +0.05%)",4.49,4.34,win,win,11.29,-0.92,1,2
 2026-07-16,ACHR,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",4.49,4.34,win,win,11.29,-0.92,1,2
+2026-07-28,LCID,rel_strength,buy,"New 20-day high (+9.2% above prev, 1.5x vol)",7.9,7.72,win,pending,0.45,-2.33,1,
+2026-07-28,BSX,rel_strength,buy,"New 20-day high (+1.7% above prev, 1.4x vol)",46.06,42.67,win,pending,9.3,-0.28,1,
+2026-07-28,ADBE,rel_strength,buy,"New 20-day high (+5.0% above prev, 1.5x vol)",249.18,249.99,win,pending,5.1,-0.58,1,
+2026-07-27,TME,gap_and_go,buy,Gap up +3.3% on 2.0x volume,9.33,9.28,win,pending,5.12,0,2,
+2026-07-27,TEAM,gap_and_go,buy,Gap up +3.7% on 1.7x volume,95.87,98.63,win,pending,5.15,-2.04,2,
+2026-07-10,U,gap_and_go,buy,Gap up +4.9% on 1.9x volume,30.89,31.0,win,pending,1.29,-10.23,13,
+2026-07-10,U,rel_strength,buy,"New 20-day high (+5.9% above prev, 1.9x vol)",30.89,31.0,win,pending,1.29,-10.23,13,
+2026-07-10,U,confluence,buy,"Confluence (2 strong signals): gap_and_go, rel_strength",30.89,31.0,win,pending,1.29,-10.23,13,
