@@ -1,7 +1,10 @@
 {
   "last_signals": [
+    "MSFT_volume_spike_2026-07-30",
     "MSFT_gap_and_go_2026-07-30",
     "MSFT_rel_strength_2026-07-30",
+    "CIFR_macd_2026-07-30",
+    "NVO_macd_2026-07-30",
     "CLSK_macd_2026-07-30",
     "CMG_macd_2026-07-30",
     "CSX_macd_2026-07-30",
@@ -9,12 +12,12 @@
     "SCHW_macd_2026-07-30",
     "JPM_macd_2026-07-30",
     "JNJ_macd_2026-07-30",
-    "V_macd_2026-07-30",
     "TEVA_earnings_drift_2026-07-30",
     "ABBV_macd_2026-07-30",
     "O_macd_2026-07-30",
+    "HUT_macd_2026-07-30",
     "KMB_macd_2026-07-30"
   ],
-  "last_run": "2026-07-30T15:36:23.531197",
+  "last_run": "2026-07-30T16:05:42.997720",
   "last_brief_date": "2026-07-30"
 }
