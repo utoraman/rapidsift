@@ -2906,3 +2906,14 @@ date,ticker,type,direction,detail,price,entry_price,result_5,result_10,current_p
 2026-07-17,AA,sector_drop,buy,"Sector-adjusted drop -5.42% (stock -6.13%, XLB -0.71%)",43.98,44.37,win,pending,-3.35,-4.26,3,
 2026-07-17,AA,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",43.98,44.37,win,pending,-3.35,-4.26,3,
 2026-07-14,SNOW,macd,buy,MACD bullish crossover (above SMA20),275.94,277.9,win,pending,1.84,-8.75,11,
+2026-07-28,AMD,sector_drop,buy,"Sector-adjusted drop -6.31% (stock -8.15%, XLK -1.84%)",454.62,452.68,win,win,7.01,-6.33,2,2
+2026-07-28,AMAT,adjusted_drop,buy,"Market-adjusted drop -8.06% (stock -7.82%, market +0.24%)",476.46,463.42,win,pending,7.74,-5.85,2,
+2026-07-28,AMAT,sector_drop,buy,"Sector-adjusted drop -5.98% (stock -7.82%, XLK -1.84%)",476.46,463.42,win,pending,7.74,-5.85,2,
+2026-07-28,AMAT,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",476.46,463.42,win,pending,7.74,-5.85,2,
+2026-07-27,AMD,adjusted_drop,buy,"Market-adjusted drop -5.19% (stock -5.17%, market +0.02%)",494.95,467.0,win,pending,3.73,-9.2,3,
+2026-07-24,FCEL,adjusted_drop,buy,"Market-adjusted drop -8.86% (stock -8.76%, market +0.10%)",21.26,21.45,win,pending,4.1,-16.13,4,
+2026-07-24,FCEL,sector_drop,buy,"Sector-adjusted drop -8.97% (stock -8.76%, XLU +0.22%)",21.26,21.45,win,pending,4.1,-16.13,4,
+2026-07-24,FCEL,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",21.26,21.45,win,pending,4.1,-16.13,4,
+2026-07-15,CMG,adjusted_drop,buy,"Market-adjusted drop -5.34% (stock -4.94%, market +0.40%)",34.63,34.61,win,win,11.75,-9.07,11,11
+2026-07-15,CMG,sector_drop,buy,"Sector-adjusted drop -5.89% (stock -4.94%, XLY +0.95%)",34.63,34.61,win,win,11.75,-9.07,11,11
+2026-07-15,CMG,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",34.63,34.61,win,win,11.75,-9.07,11,11
