@@ -2926,3 +2926,4 @@ date,ticker,type,direction,detail,price,entry_price,result_5,result_10,current_p
 2026-07-29,SNOW,rel_strength,buy,"New 20-day high (+5.0% above prev, 2.0x vol)",282.9,285.0,win,pending,4.18,-0.7,2,
 2026-07-28,AI,macd,buy,MACD bullish crossover (above SMA20),8.9,8.9,win,pending,2.7,-3.26,3,
 2026-07-16,DXCM,rel_strength,buy,"New 20-day high (+3.6% above prev, 1.4x vol)",77.98,77.86,win,pending,6.13,-10.36,11,
+2026-07-30,FTNT,gap_and_go,buy,Gap up +7.0% on 2.2x volume,154.25,154.01,win,pending,5.16,-0.26,1,
