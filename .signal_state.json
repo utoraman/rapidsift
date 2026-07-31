@@ -1,6 +1,7 @@
 {
   "last_signals": [
     "AMZN_macd_2026-07-31",
+    "AMZN_volume_spike_2026-07-31",
     "AMZN_gap_and_go_2026-07-31",
     "AMZN_rel_strength_2026-07-31",
     "AAPL_macd_2026-07-31",
@@ -17,9 +18,10 @@
     "COF_macd_2026-07-31",
     "FCEL_macd_2026-07-31",
     "DXCM_macd_2026-07-31",
+    "DXCM_gap_and_go_2026-07-31",
     "DXCM_rel_strength_2026-07-31",
     "EPD_macd_2026-07-31"
   ],
-  "last_run": "2026-07-31T16:16:39.235370",
+  "last_run": "2026-07-31T17:22:05.499762",
   "last_brief_date": "2026-07-31"
 }
