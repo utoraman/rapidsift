@@ -2973,3 +2973,5 @@ date,ticker,type,direction,detail,price,entry_price,result_5,result_10,current_p
 2026-07-31,COIN,sector_drop,buy,"Sector-adjusted drop -10.48% (stock -10.59%, XLF -0.11%)",146.26,144.02,win,pending,5.24,-2.07,1,
 2026-07-31,COIN,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",146.26,144.02,win,pending,5.24,-2.07,1,
 2026-07-28,BA,macd,buy,MACD bullish crossover (above SMA20),221.56,218.5,win,pending,5.78,-3.64,4,
+2026-07-16,COF,rel_strength,buy,"New 20-day high (+1.5% above prev, 1.4x vol)",211.93,207.5,win,pending,5.18,-5.6,12,
+2026-07-15,KKR,rel_strength,buy,"New 20-day high (+1.6% above prev, 1.3x vol)",100.95,100.95,win,pending,5.72,-6.76,13,
