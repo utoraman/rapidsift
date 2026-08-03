@@ -2975,3 +2975,6 @@ date,ticker,type,direction,detail,price,entry_price,result_5,result_10,current_p
 2026-07-28,BA,macd,buy,MACD bullish crossover (above SMA20),221.56,218.5,win,pending,5.78,-3.64,4,
 2026-07-16,COF,rel_strength,buy,"New 20-day high (+1.5% above prev, 1.4x vol)",211.93,207.5,win,pending,5.18,-5.6,12,
 2026-07-15,KKR,rel_strength,buy,"New 20-day high (+1.6% above prev, 1.3x vol)",100.95,100.95,win,pending,5.72,-6.76,13,
+2026-07-30,NCLH,adjusted_drop,buy,"Market-adjusted drop -11.46% (stock -9.78%, market +1.68%)",18.72,18.81,win,pending,5.05,-2.66,2,
+2026-07-30,NCLH,sector_drop,buy,"Sector-adjusted drop -10.48% (stock -9.78%, XLY +0.70%)",18.72,18.81,win,pending,5.05,-2.66,2,
+2026-07-30,NCLH,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",18.72,18.81,win,pending,5.05,-2.66,2,
