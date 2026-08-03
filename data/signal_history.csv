@@ -2966,3 +2966,6 @@ date,ticker,type,direction,detail,price,entry_price,result_5,result_10,current_p
 2026-07-21,EVGO,adjusted_drop,buy,"Market-adjusted drop -5.03% (stock -4.19%, market +0.83%)",1.6,1.6,win,pending,0.07,-11.88,8,
 2026-07-21,ACN,sector_drop,buy,"Sector-adjusted drop -5.56% (stock -2.67%, XLK +2.89%)",140.86,140.82,win,win,17.85,-3.45,4,4
 2026-07-15,BABA,rel_strength,buy,"New 20-day high (+4.9% above prev, 1.4x vol)",117.69,118.47,win,pending,8.53,-5.75,13,
+2026-07-24,CIFR,adjusted_drop,buy,"Market-adjusted drop -10.44% (stock -10.34%, market +0.10%)",23.15,23.82,win,pending,3.61,-26.76,6,
+2026-07-24,CIFR,sector_drop,buy,"Sector-adjusted drop -9.54% (stock -10.34%, BITO -0.80%)",23.15,23.82,win,pending,3.61,-26.76,6,
+2026-07-24,CIFR,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",23.15,23.82,win,pending,3.61,-26.76,6,
