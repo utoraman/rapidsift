@@ -2991,3 +2991,4 @@ date,ticker,type,direction,detail,price,entry_price,result_5,result_10,current_p
 2026-07-28,CARR,sector_drop,buy,"Sector-adjusted drop -8.51% (stock -8.90%, XLI -0.39%)",63.16,62.29,win,pending,5.25,-5.17,5,
 2026-07-28,CARR,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",63.16,62.29,win,pending,5.25,-5.17,5,
 2026-07-21,FCX,macd,buy,MACD bullish crossover (above SMA20),62.56,62.94,win,pending,6.18,-7.55,10,
+2026-07-27,BX,rel_strength,buy,"New 20-day high (+3.4% above prev, 1.4x vol)",131.26,130.93,win,pending,5.05,-4.95,6,
