@@ -2996,3 +2996,16 @@ date,ticker,type,direction,detail,price,entry_price,result_5,result_10,current_p
 2026-07-31,DAL,macd,buy,MACD bullish crossover (above SMA20),87.44,89.2,win,pending,4.0,0,2,
 2026-07-22,SEDG,sector_drop,buy,"Sector-adjusted drop -7.00% (stock -4.75%, XLU +2.25%)",47.88,47.24,win,pending,3.22,-19.56,9,
 2026-07-22,BE,sector_drop,buy,"Sector-adjusted drop -5.80% (stock -3.55%, XLU +2.25%)",218.22,215.02,win,win,6.09,-26.83,1,9
+2026-08-04,GFS,gap_and_go,buy,Gap up +6.3% on 1.8x volume,52.02,48.14,win,pending,4.09,-0.08,1,
+2026-08-04,FCEL,macd,buy,MACD bullish crossover (above SMA20),22.5,21.95,win,pending,0.36,-1.57,1,
+2026-08-03,FISV,volume_spike,buy,Volume spike 2.2x (dip in uptrend),54.35,53.3,win,pending,0.84,-0.53,2,
+2026-07-31,ZM,rel_strength,buy,"New 20-day high (+2.0% above prev, 1.5x vol)",96.07,97.53,win,pending,1.81,-0.89,3,
+2026-07-31,GOOGL,macd,buy,MACD bullish crossover (above SMA20),356.13,365.45,win,pending,3.17,-0.57,3,
+2026-07-30,SHOP,adjusted_drop,buy,"Market-adjusted drop -6.92% (stock -5.24%, market +1.68%)",122.4,120.93,win,win,18.87,-4.68,4,4
+2026-07-30,SHOP,sector_drop,buy,"Sector-adjusted drop -5.94% (stock -5.24%, XLY +0.70%)",122.4,120.93,win,win,18.87,-4.68,4,4
+2026-07-30,SHOP,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",122.4,120.93,win,win,18.87,-4.68,4,4
+2026-07-30,FISV,sector_drop,buy,"Sector-adjusted drop -8.30% (stock -2.80%, XLK +5.50%)",54.07,53.37,win,pending,0.71,-1.18,4,
+2026-07-30,DASH,macd,buy,MACD bullish crossover (above SMA20),197.53,197.57,win,pending,4.04,-2.04,4,
+2026-07-28,SHOP,rel_strength,buy,"New 20-day high (+2.5% above prev, 1.3x vol)",130.28,129.04,win,win,11.4,-10.67,6,6
+2026-07-28,CSCO,macd,buy,MACD bullish crossover (above SMA20),115.58,117.02,win,pending,3.88,-4.58,6,
+2026-07-21,CELH,adjusted_drop,buy,"Market-adjusted drop -5.59% (stock -4.76%, market +0.83%)",28.02,28.39,win,pending,4.21,-6.52,11,
