@@ -3013,3 +3013,8 @@ date,ticker,type,direction,detail,price,entry_price,result_5,result_10,current_p
 2026-07-23,RTX,gap_and_go,buy,Gap up +5.2% on 2.3x volume,209.16,210.83,win,pending,5.24,-0.74,9,
 2026-07-23,RTX,rel_strength,buy,"New 20-day high (+4.7% above prev, 2.3x vol)",209.16,210.83,win,pending,5.24,-0.74,9,
 2026-07-23,RTX,confluence,buy,"Confluence (2 strong signals): gap_and_go, rel_strength",209.16,210.83,win,pending,5.24,-0.74,9,
+2026-07-23,OPEN,adjusted_drop,buy,"Market-adjusted drop -10.98% (stock -12.21%, market -1.23%)",3.85,3.93,win,pending,-4.33,-7.89,8,
+2026-07-23,MSTR,adjusted_drop,buy,"Market-adjusted drop -5.14% (stock -6.38%, market -1.23%)",93.63,93.37,win,pending,5.36,-4.46,2,
+2026-07-23,LIDR,sector_drop,buy,"Sector-adjusted drop -6.57% (stock -4.84%, XLI +1.73%)",1.18,1.17,win,win,7.69,-13.68,8,9
+2026-07-23,GOOGL,adjusted_drop,buy,"Market-adjusted drop -5.90% (stock -7.13%, market -1.23%)",317.69,318.42,win,win,13.82,-0.35,3,6
+2026-07-23,GOOG,adjusted_drop,buy,"Market-adjusted drop -5.66% (stock -6.89%, market -1.23%)",318.34,318.3,win,win,13.14,-0.25,3,6
