@@ -3009,3 +3009,7 @@ date,ticker,type,direction,detail,price,entry_price,result_5,result_10,current_p
 2026-07-28,SHOP,rel_strength,buy,"New 20-day high (+2.5% above prev, 1.3x vol)",130.28,129.04,win,win,11.4,-10.67,6,6
 2026-07-28,CSCO,macd,buy,MACD bullish crossover (above SMA20),115.58,117.02,win,pending,3.88,-4.58,6,
 2026-07-21,CELH,adjusted_drop,buy,"Market-adjusted drop -5.59% (stock -4.76%, market +0.83%)",28.02,28.39,win,pending,4.21,-6.52,11,
+2026-07-23,RTX,macd,buy,MACD bullish crossover (above SMA20),209.16,210.83,win,pending,5.24,-0.74,9,
+2026-07-23,RTX,gap_and_go,buy,Gap up +5.2% on 2.3x volume,209.16,210.83,win,pending,5.24,-0.74,9,
+2026-07-23,RTX,rel_strength,buy,"New 20-day high (+4.7% above prev, 2.3x vol)",209.16,210.83,win,pending,5.24,-0.74,9,
+2026-07-23,RTX,confluence,buy,"Confluence (2 strong signals): gap_and_go, rel_strength",209.16,210.83,win,pending,5.24,-0.74,9,
