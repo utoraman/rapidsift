@@ -3018,3 +3018,63 @@ date,ticker,type,direction,detail,price,entry_price,result_5,result_10,current_p
 2026-07-23,LIDR,sector_drop,buy,"Sector-adjusted drop -6.57% (stock -4.84%, XLI +1.73%)",1.18,1.17,win,win,7.69,-13.68,8,9
 2026-07-23,GOOGL,adjusted_drop,buy,"Market-adjusted drop -5.90% (stock -7.13%, market -1.23%)",317.69,318.42,win,win,13.82,-0.35,3,6
 2026-07-23,GOOG,adjusted_drop,buy,"Market-adjusted drop -5.66% (stock -6.89%, market -1.23%)",318.34,318.3,win,win,13.14,-0.25,3,6
+2026-08-05,UPST,gap_and_go,buy,Gap up +14.1% on 3.3x volume,30.2,29.27,win,pending,1.51,-0.3,1,
+2026-08-05,RIOT,gap_and_go,buy,Gap up +4.9% on 1.6x volume,21.5,21.03,win,pending,0.86,-2.18,1,
+2026-08-05,FISV,rel_strength,buy,"New 20-day high (+1.1% above prev, 1.7x vol)",54.11,49.6,win,pending,9.09,0,1,
+2026-08-05,FCEL,adjusted_drop,buy,"Market-adjusted drop -5.84% (stock -6.04%, market -0.20%)",21.14,20.5,win,pending,-0.88,-2.68,1,
+2026-08-05,FCEL,sector_drop,buy,"Sector-adjusted drop -5.02% (stock -6.04%, XLU -1.02%)",21.14,20.5,win,pending,-0.88,-2.68,1,
+2026-08-05,FCEL,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",21.14,20.5,win,pending,-0.88,-2.68,1,
+2026-08-05,AMD,adjusted_drop,buy,"Market-adjusted drop -6.84% (stock -7.04%, market -0.20%)",482.05,471.14,win,pending,3.85,-0.35,1,
+2026-08-05,AMD,sector_drop,buy,"Sector-adjusted drop -6.51% (stock -7.04%, XLK -0.53%)",482.05,471.14,win,pending,3.85,-0.35,1,
+2026-08-05,AMD,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",482.05,471.14,win,pending,3.85,-0.35,1,
+2026-08-04,LUNR,gap_and_go,buy,Gap up +4.7% on 1.8x volume,13.96,13.82,win,win,7.99,-3.11,2,2
+2026-08-04,DNN,macd,buy,MACD bullish crossover (above SMA20),2.98,3.04,win,pending,2.96,-0.99,2,
+2026-08-04,ARM,macd,buy,MACD bullish crossover (above SMA20),280.56,274.56,win,pending,4.41,-2.8,2,
+2026-07-31,MSFT,earnings_drift,buy,"Post-catalyst drift: catalyst gap +12.1%, day-2 move +3.0%",464.72,476.13,win,pending,4.98,-0.24,4,
+2026-07-30,BE,earnings_drift,buy,"Post-catalyst drift: catalyst gap +10.0%, day-2 move +26.5%",207.12,230.77,win,pending,-0.79,-17.24,5,
+2026-07-27,BKR,gap_and_go,buy,Gap up +5.9% on 1.6x volume,60.59,60.1,win,pending,4.41,-3.71,8,
+2026-07-27,BKR,rel_strength,buy,"New 20-day high (+6.0% above prev, 1.6x vol)",60.59,60.1,win,pending,4.41,-3.71,8,
+2026-07-27,BKR,confluence,buy,"Confluence (2 strong signals): gap_and_go, rel_strength",60.59,60.1,win,pending,4.41,-3.71,8,
+2026-07-24,UUUU,adjusted_drop,buy,"Market-adjusted drop -6.01% (stock -5.91%, market +0.10%)",11.3,11.56,win,win,11.59,-7.53,5,7
+2026-07-24,SMR,adjusted_drop,buy,"Market-adjusted drop -8.27% (stock -8.17%, market +0.10%)",8.09,8.32,win,win,13.75,-9.43,5,7
+2026-07-24,SMR,sector_drop,buy,"Sector-adjusted drop -8.39% (stock -8.17%, XLU +0.22%)",8.09,8.32,win,win,13.75,-9.43,5,7
+2026-07-24,SMR,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",8.09,8.32,win,win,13.75,-9.43,5,7
+2026-07-24,RKLB,adjusted_drop,buy,"Market-adjusted drop -8.79% (stock -8.69%, market +0.10%)",63.91,64.8,win,win,16.77,-10.19,1,7
+2026-07-24,RKLB,sector_drop,buy,"Sector-adjusted drop -9.08% (stock -8.69%, XLI +0.40%)",63.91,64.8,win,win,16.77,-10.19,1,7
+2026-07-24,RKLB,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",63.91,64.8,win,win,16.77,-10.19,1,7
+2026-07-24,RIOT,adjusted_drop,buy,"Market-adjusted drop -5.68% (stock -5.57%, market +0.10%)",22.53,22.6,win,pending,-6.15,-19.77,8,
+2026-07-24,RDW,adjusted_drop,buy,"Market-adjusted drop -6.46% (stock -6.36%, market +0.10%)",8.69,8.8,win,win,34.43,-11.82,6,6
+2026-07-24,RDW,sector_drop,buy,"Sector-adjusted drop -6.75% (stock -6.36%, XLI +0.40%)",8.69,8.8,win,win,34.43,-11.82,6,6
+2026-07-24,RDW,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",8.69,8.8,win,win,34.43,-11.82,6,6
+2026-07-24,MRVL,adjusted_drop,buy,"Market-adjusted drop -7.31% (stock -7.21%, market +0.10%)",194.23,198.72,win,win,5.95,-18.03,7,7
+2026-07-24,MRVL,sector_drop,buy,"Sector-adjusted drop -5.77% (stock -7.21%, XLK -1.44%)",194.23,198.72,win,win,5.95,-18.03,7,7
+2026-07-24,MRVL,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",194.23,198.72,win,win,5.95,-18.03,7,7
+2026-07-24,LUNR,adjusted_drop,buy,"Market-adjusted drop -5.86% (stock -5.76%, market +0.10%)",12.92,13.03,win,win,14.58,-13.35,7,9
+2026-07-24,LUNR,sector_drop,buy,"Sector-adjusted drop -6.16% (stock -5.76%, XLI +0.40%)",12.92,13.03,win,win,14.58,-13.35,7,9
+2026-07-24,LUNR,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",12.92,13.03,win,win,14.58,-13.35,7,9
+2026-07-24,JOBY,adjusted_drop,buy,"Market-adjusted drop -8.19% (stock -8.09%, market +0.10%)",6.93,7.11,win,win,15.67,-6.82,6,7
+2026-07-24,JOBY,sector_drop,buy,"Sector-adjusted drop -8.49% (stock -8.09%, XLI +0.40%)",6.93,7.11,win,win,15.67,-6.82,6,7
+2026-07-24,JOBY,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",6.93,7.11,win,win,15.67,-6.82,6,7
+2026-07-24,IREN,adjusted_drop,buy,"Market-adjusted drop -8.75% (stock -8.65%, market +0.10%)",37.07,37.59,win,win,0.9,-23.04,5,7
+2026-07-24,IREN,sector_drop,buy,"Sector-adjusted drop -7.85% (stock -8.65%, BITO -0.80%)",37.07,37.59,win,win,0.9,-23.04,5,7
+2026-07-24,IREN,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",37.07,37.59,win,win,0.9,-23.04,5,7
+2026-07-24,INTC,adjusted_drop,buy,"Market-adjusted drop -7.99% (stock -7.89%, market +0.10%)",92.32,92.46,win,win,7.95,-11.54,5,8
+2026-07-24,INTC,sector_drop,buy,"Sector-adjusted drop -6.45% (stock -7.89%, XLK -1.44%)",92.32,92.46,win,win,7.95,-11.54,5,8
+2026-07-24,INTC,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",92.32,92.46,win,win,7.95,-11.54,5,8
+2026-07-24,EVGO,sector_drop,buy,"Sector-adjusted drop -6.18% (stock -5.96%, XLU +0.22%)",1.42,1.45,win,win,4.83,-0.69,1,2
+2026-07-24,ENPH,adjusted_drop,buy,"Market-adjusted drop -5.73% (stock -5.63%, market +0.10%)",36.7,37.65,win,win,5.37,-7.14,3,7
+2026-07-24,ENPH,sector_drop,buy,"Sector-adjusted drop -5.85% (stock -5.63%, XLU +0.22%)",36.7,37.65,win,win,5.37,-7.14,3,7
+2026-07-24,ENPH,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",36.7,37.65,win,win,5.37,-7.14,3,7
+2026-07-24,DNN,adjusted_drop,buy,"Market-adjusted drop -5.93% (stock -5.83%, market +0.10%)",2.91,2.96,win,pending,5.74,-11.82,8,
+2026-07-24,CORZ,adjusted_drop,buy,"Market-adjusted drop -5.15% (stock -5.05%, market +0.10%)",22.75,22.35,win,pending,-5.82,-19.85,7,
+2026-07-24,BE,adjusted_drop,buy,"Market-adjusted drop -15.02% (stock -14.91%, market +0.10%)",184.89,190.51,win,win,20.18,-17.41,4,4
+2026-07-24,ASTS,adjusted_drop,buy,"Market-adjusted drop -5.14% (stock -5.04%, market +0.10%)",56.2,56.43,win,win,19.37,-6.43,1,6
+2026-07-24,ARM,adjusted_drop,buy,"Market-adjusted drop -8.24% (stock -8.14%, market +0.10%)",260.01,263.48,win,win,8.81,-16.73,7,9
+2026-07-24,ARM,sector_drop,buy,"Sector-adjusted drop -6.70% (stock -8.14%, XLK -1.44%)",260.01,263.48,win,win,8.81,-16.73,7,9
+2026-07-24,ARM,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",260.01,263.48,win,win,8.81,-16.73,7,9
+2026-07-24,APLD,adjusted_drop,buy,"Market-adjusted drop -9.13% (stock -9.03%, market +0.10%)",27.19,28.06,win,win,2.85,-18.28,5,7
+2026-07-24,APLD,sector_drop,buy,"Sector-adjusted drop -8.23% (stock -9.03%, BITO -0.80%)",27.19,28.06,win,win,2.85,-18.28,5,7
+2026-07-24,APLD,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",27.19,28.06,win,win,2.85,-18.28,5,7
+2026-07-24,ACHR,adjusted_drop,buy,"Market-adjusted drop -6.76% (stock -6.65%, market +0.10%)",4.77,4.8,win,win,8.96,-6.88,7,7
+2026-07-24,ACHR,sector_drop,buy,"Sector-adjusted drop -7.05% (stock -6.65%, XLI +0.40%)",4.77,4.8,win,win,8.96,-6.88,7,7
+2026-07-24,ACHR,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",4.77,4.8,win,win,8.96,-6.88,7,7
