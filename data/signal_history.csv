@@ -3107,3 +3107,9 @@ date,ticker,type,direction,detail,price,entry_price,result_5,result_10,current_p
 2026-07-22,WOLF,sector_drop,buy,"Sector-adjusted drop -10.00% (stock -7.75%, XLU +2.25%)",29.27,28.4,win,win,8.42,-29.65,12,12
 2026-07-22,WOLF,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",29.27,28.4,win,win,8.42,-29.65,12,12
 2026-07-27,EL,macd,buy,MACD bullish crossover (above SMA20),83.2,84.24,win,pending,4.68,-1.93,9,
+2026-08-06,HIMS,adjusted_drop,buy,"Market-adjusted drop -6.13% (stock -6.29%, market -0.16%)",29.66,30.19,win,pending,4.64,-1.29,1,
+2026-08-06,HIMS,sector_drop,buy,"Sector-adjusted drop -6.46% (stock -6.29%, XLV +0.18%)",29.66,30.19,win,pending,4.64,-1.29,1,
+2026-08-06,HIMS,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",29.66,30.19,win,pending,4.64,-1.29,1,
+2026-08-04,NET,macd,buy,MACD bullish crossover (above SMA20),301.33,300.08,win,pending,0.06,-6.65,3,
+2026-07-31,DDOG,macd,buy,MACD bullish crossover (above SMA20),267.97,272.19,win,pending,-14.06,-17.24,2,
+2026-07-27,CORZ,sector_drop,buy,"Sector-adjusted drop -9.75% (stock -8.84%, BITO +0.92%)",20.74,20.95,win,win,0.29,-14.49,3,6
