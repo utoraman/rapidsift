@@ -3106,3 +3106,4 @@ date,ticker,type,direction,detail,price,entry_price,result_5,result_10,current_p
 2026-07-22,WOLF,adjusted_drop,buy,"Market-adjusted drop -7.64% (stock -7.75%, market -0.12%)",29.27,28.4,win,win,8.42,-29.65,12,12
 2026-07-22,WOLF,sector_drop,buy,"Sector-adjusted drop -10.00% (stock -7.75%, XLU +2.25%)",29.27,28.4,win,win,8.42,-29.65,12,12
 2026-07-22,WOLF,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",29.27,28.4,win,win,8.42,-29.65,12,12
+2026-07-27,EL,macd,buy,MACD bullish crossover (above SMA20),83.2,84.24,win,pending,4.68,-1.93,9,

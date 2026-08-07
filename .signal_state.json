@@ -1,5 +1,6 @@
 {
   "last_signals": [
+    "RDW_rel_strength_2026-08-07",
     "ET_macd_2026-08-07",
     "CELH_volume_spike_2026-08-07",
     "TEAM_volume_spike_2026-08-07",
@@ -8,13 +9,13 @@
     "SBUX_macd_2026-08-07",
     "V_macd_2026-08-07",
     "TXN_macd_2026-08-07",
-    "BBWI_macd_2026-08-07",
+    "FTNT_macd_2026-08-07",
+    "LIDR_volume_spike_2026-08-07",
     "GSK_macd_2026-08-07",
     "NET_gap_and_go_2026-08-07",
     "NET_rel_strength_2026-08-07",
-    "LVS_macd_2026-08-07",
     "SEDG_gap_and_go_2026-08-07"
   ],
-  "last_run": "2026-08-07T16:43:44.307450",
+  "last_run": "2026-08-07T18:09:50.303965",
   "last_brief_date": "2026-08-07"
 }
