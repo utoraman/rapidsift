@@ -3133,3 +3133,5 @@ date,ticker,type,direction,detail,price,entry_price,result_5,result_10,current_p
 2026-08-03,IQ,rel_strength,buy,"New 20-day high (+5.4% above prev, 1.7x vol)",1.31,1.31,win,pending,4.2,-3.82,5,
 2026-08-06,OXY,gap_and_go,buy,Gap up +4.9% on 1.9x volume,56.04,55.75,win,pending,5.12,-1.11,2,
 2026-08-07,NET,volume_spike,buy,Volume spike 2.7x (dip in uptrend),300.27,295.5,win,pending,5.24,-1.7,1,
+2026-07-29,TEVA,macd,buy,MACD bullish crossover (above SMA20),34.71,34.35,win,pending,5.21,-1.66,8,
+2026-07-29,TEVA,gap_and_go,buy,Gap up +6.3% on 3.7x volume,34.71,34.35,win,pending,5.21,-1.66,8,
