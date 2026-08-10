@@ -3113,3 +3113,19 @@ date,ticker,type,direction,detail,price,entry_price,result_5,result_10,current_p
 2026-08-04,NET,macd,buy,MACD bullish crossover (above SMA20),301.33,300.08,win,pending,0.06,-6.65,3,
 2026-07-31,DDOG,macd,buy,MACD bullish crossover (above SMA20),267.97,272.19,win,pending,-14.06,-17.24,2,
 2026-07-27,CORZ,sector_drop,buy,"Sector-adjusted drop -9.75% (stock -8.84%, BITO +0.92%)",20.74,20.95,win,win,0.29,-14.49,3,6
+2026-08-04,MRVL,macd,buy,MACD bullish crossover (above SMA20),218.59,215.98,win,pending,0.92,-6.59,4,
+2026-08-03,FCEL,macd,buy,MACD bullish crossover (above SMA20),21.34,21.85,win,pending,-7.69,-14.46,1,
+2026-07-31,RIVN,adjusted_drop,buy,"Market-adjusted drop -10.29% (stock -9.57%, market +0.72%)",15.22,15.4,win,pending,3.86,-1.95,6,
+2026-07-31,RIVN,sector_drop,buy,"Sector-adjusted drop -12.86% (stock -9.57%, XLY +3.29%)",15.22,15.4,win,pending,3.86,-1.95,6,
+2026-07-31,RIVN,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",15.22,15.4,win,pending,3.86,-1.95,6,
+2026-07-29,SHOP,macd,buy,MACD bullish crossover (above SMA20),129.17,126.32,win,win,21.93,-8.74,5,5
+2026-07-28,SEDG,adjusted_drop,buy,"Market-adjusted drop -7.25% (stock -7.01%, market +0.24%)",40.07,40.81,win,win,-21.24,-23.18,3,4
+2026-07-28,RGTI,adjusted_drop,buy,"Market-adjusted drop -7.40% (stock -7.16%, market +0.24%)",14.52,14.32,win,win,25.59,-8.31,3,4
+2026-07-28,PLUG,adjusted_drop,buy,"Market-adjusted drop -5.09% (stock -4.85%, market +0.24%)",1.96,1.96,win,win,10.46,-5.1,2,3
+2026-07-28,LRCX,adjusted_drop,buy,"Market-adjusted drop -7.78% (stock -7.54%, market +0.24%)",269.61,264.51,win,win,16.48,-5.3,2,2
+2026-07-28,LRCX,sector_drop,buy,"Sector-adjusted drop -5.70% (stock -7.54%, XLK -1.84%)",269.61,264.51,win,win,16.48,-5.3,2,2
+2026-07-28,LRCX,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",269.61,264.51,win,win,16.48,-5.3,2,2
+2026-07-28,IONQ,adjusted_drop,buy,"Market-adjusted drop -5.92% (stock -5.68%, market +0.24%)",33.88,33.72,win,win,29.51,-5.66,2,3
+2026-07-28,GFS,sector_drop,buy,"Sector-adjusted drop -5.98% (stock -7.82%, XLK -1.84%)",49.02,48.98,win,win,6.94,-5.29,3,8
+2026-07-28,DIS,macd,buy,MACD bullish crossover (above SMA20),98.89,98.34,win,pending,4.91,-3.95,7,
+2026-07-23,SMCI,earnings_drift,buy,"Post-catalyst drift: catalyst gap +13.3%, day-2 move +2.1%",31.2,30.62,win,pending,6.77,-16.13,12,
