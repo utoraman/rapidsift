@@ -3131,3 +3131,4 @@ date,ticker,type,direction,detail,price,entry_price,result_5,result_10,current_p
 2026-07-23,SMCI,earnings_drift,buy,"Post-catalyst drift: catalyst gap +13.3%, day-2 move +2.1%",31.2,30.62,win,pending,6.77,-16.13,12,
 2026-08-05,DXCM,sector_drop,buy,"Sector-adjusted drop -6.19% (stock -4.92%, XLV +1.27%)",82.66,82.91,win,pending,5.64,-0.99,3,
 2026-08-03,IQ,rel_strength,buy,"New 20-day high (+5.4% above prev, 1.7x vol)",1.31,1.31,win,pending,4.2,-3.82,5,
+2026-08-06,OXY,gap_and_go,buy,Gap up +4.9% on 1.9x volume,56.04,55.75,win,pending,5.12,-1.11,2,
