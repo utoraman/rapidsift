@@ -3150,3 +3150,4 @@ date,ticker,type,direction,detail,price,entry_price,result_5,result_10,current_p
 2026-07-31,DXCM,rel_strength,buy,"New 20-day high (+7.0% above prev, 2.7x vol)",83.45,85.25,win,pending,4.52,-3.71,7,
 2026-07-31,DXCM,confluence,buy,"Confluence (2 strong signals): gap_and_go, rel_strength",83.45,85.25,win,pending,4.52,-3.71,7,
 2026-08-03,KKR,rel_strength,buy,"New 20-day high (+3.0% above prev, 1.5x vol)",106.36,105.2,win,pending,5.14,-3.85,6,
+2026-08-04,APO,rel_strength,buy,"New 20-day high (+2.7% above prev, 1.4x vol)",133.2,134.0,win,pending,4.51,-5.42,5,
