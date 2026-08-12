@@ -3183,3 +3183,4 @@ date,ticker,type,direction,detail,price,entry_price,result_5,result_10,current_p
 2026-08-10,MRNA,macd,buy,MACD bullish crossover (above SMA20),59.81,60.58,win,pending,5.32,-2.12,1,
 2026-07-28,MDT,macd,buy,MACD bullish crossover (above SMA20),86.88,86.54,win,pending,4.91,-3.12,11,
 2026-07-28,MDT,rel_strength,buy,"New 20-day high (+3.5% above prev, 2.0x vol)",86.88,86.54,win,pending,4.91,-3.12,11,
+2026-08-03,SBUX,sector_drop,buy,"Sector-adjusted drop -6.96% (stock -1.79%, XLY +5.18%)",103.37,103.06,win,pending,5.24,-1.22,7,
