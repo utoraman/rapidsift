@@ -3165,3 +3165,17 @@ date,ticker,type,direction,detail,price,entry_price,result_5,result_10,current_p
 2026-07-29,RIOT,sector_drop,buy,"Sector-adjusted drop -13.78% (stock -14.12%, BITO -0.35%)",18.24,20.03,win,win,1.05,-4.54,1,1
 2026-07-29,OPEN,sector_drop,buy,"Sector-adjusted drop -6.74% (stock -6.85%, XLRE -0.11%)",3.67,3.71,win,win,-3.5,-8.89,3,4
 2026-07-29,MARA,sector_drop,buy,"Sector-adjusted drop -11.34% (stock -11.69%, BITO -0.35%)",10.05,10.66,win,win,-9.19,-11.82,1,1
+2026-08-11,SMCI,volume_spike,buy,Volume spike 2.0x (dip in uptrend),31.6,34.99,win,pending,2.72,-3.0,1,
+2026-08-07,UUUU,gap_and_go,buy,Gap up +7.5% on 1.7x volume,14.14,14.14,win,pending,2.93,-0.78,3,
+2026-08-07,UUUU,rel_strength,buy,"New 20-day high (+2.2% above prev, 1.7x vol)",14.14,14.14,win,pending,2.93,-0.78,3,
+2026-08-07,UUUU,confluence,buy,"Confluence (2 strong signals): gap_and_go, rel_strength",14.14,14.14,win,pending,2.93,-0.78,3,
+2026-08-07,SEDG,gap_and_go,buy,Gap up +4.4% on 2.8x volume,31.76,31.82,win,pending,2.91,-0.58,2,
+2026-08-04,ON,gap_and_go,buy,Gap up +5.0% on 2.6x volume,80.78,79.01,win,pending,5.63,-4.2,6,
+2026-07-30,TEVA,earnings_drift,buy,"Post-catalyst drift: catalyst gap +6.3%, day-2 move +2.0%",35.41,35.0,win,pending,5.54,-3.49,7,
+2026-07-30,IREN,gap_and_go,buy,Gap up +10.9% on 1.6x volume,38.26,40.81,win,pending,4.05,-13.86,9,
+2026-07-24,BTBT,adjusted_drop,buy,"Market-adjusted drop -8.77% (stock -8.67%, market +0.10%)",1.37,1.41,win,pending,2.13,-16.31,13,
+2026-07-24,BTBT,sector_drop,buy,"Sector-adjusted drop -7.87% (stock -8.67%, BITO -0.80%)",1.37,1.41,win,pending,2.13,-16.31,13,
+2026-07-24,BTBT,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",1.37,1.41,win,pending,2.13,-16.31,13,
+2026-07-23,DOCU,adjusted_drop,buy,"Market-adjusted drop -8.82% (stock -10.06%, market -1.23%)",47.04,48.04,win,win,20.27,0,1,2
+2026-07-23,DOCU,sector_drop,buy,"Sector-adjusted drop -9.05% (stock -10.06%, XLK -1.01%)",47.04,48.04,win,win,20.27,0,1,2
+2026-07-23,DOCU,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",47.04,48.04,win,win,20.27,0,1,2
