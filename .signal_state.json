@@ -2,19 +2,15 @@
   "last_signals": [
     "AAL_macd_2026-08-12",
     "BAC_macd_2026-08-12",
+    "SMCI_gap_and_go_2026-08-12",
     "SMCI_rel_strength_2026-08-12",
     "RIOT_earnings_drift_2026-08-12",
     "WFC_macd_2026-08-12",
     "CVX_macd_2026-08-12",
-    "DAL_macd_2026-08-12",
     "JD_macd_2026-08-12",
     "TME_earnings_drift_2026-08-12",
-    "JPM_macd_2026-08-12",
-    "UAL_macd_2026-08-12",
-    "GM_macd_2026-08-12",
-    "PEP_macd_2026-08-12",
-    "CL_macd_2026-08-12"
+    "JPM_macd_2026-08-12"
   ],
-  "last_run": "2026-08-12T14:44:43.843475",
+  "last_run": "2026-08-12T15:28:36.585954",
   "last_brief_date": "2026-08-12"
 }

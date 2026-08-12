@@ -3179,3 +3179,4 @@ date,ticker,type,direction,detail,price,entry_price,result_5,result_10,current_p
 2026-07-23,DOCU,adjusted_drop,buy,"Market-adjusted drop -8.82% (stock -10.06%, market -1.23%)",47.04,48.04,win,win,20.27,0,1,2
 2026-07-23,DOCU,sector_drop,buy,"Sector-adjusted drop -9.05% (stock -10.06%, XLK -1.01%)",47.04,48.04,win,win,20.27,0,1,2
 2026-07-23,DOCU,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",47.04,48.04,win,win,20.27,0,1,2
+2026-08-10,DKNG,macd,buy,MACD bullish crossover (above SMA20),24.27,24.4,win,pending,4.98,-1.11,2,
