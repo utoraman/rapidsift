@@ -64,7 +64,7 @@ WATCHLIST = [
 from signals import (
     compute_rsi, compute_sma, compute_ema,
     detect_signals_at, detect_earnings_drift,
-    load_sector_map,
+    load_sector_map, should_suppress,
 )
 from signal_scorer import get_scorer
 
@@ -93,13 +93,17 @@ def detect_signals(ticker, df):
     if drift_sig:
         signals.append(drift_sig)
 
-    # Attach ticker metadata
+    # Filter suppressed signals and attach ticker metadata
+    filtered = []
     for s in signals:
+        if s["direction"] == "buy" and should_suppress(ticker, s["type"]):
+            continue
         s["ticker"] = ticker
         s["price"] = closes[idx]
         s["date"] = latest_date
+        filtered.append(s)
 
-    return signals
+    return filtered
 
 
 # ── Chart SVG Builder ─────────────────────────────────────────────────────────

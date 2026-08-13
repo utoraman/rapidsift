@@ -57,6 +57,7 @@ from signals import (
     compute_rsi, compute_sma, compute_ema,
     detect_signals_at, detect_catalyst_days,
     load_sector_map, SECTOR_ETFS, STRONG_TYPES,
+    should_suppress,
 )
 from signal_scorer import get_scorer
 
@@ -419,6 +420,7 @@ def scan_signals(all_data, spy_data=None, sector_data=None):
     print(f"Scanning for signals (last {SIGNAL_SCAN_DAYS} days)...")
 
     all_signals = []
+    suppressed_count = [0]  # mutable for closure access
     # Track signal history per (ticker, type) for cooldown dedup
     cooldown_tracker = defaultdict(list)  # (ticker, type) -> list of signal_idx
 
@@ -567,6 +569,13 @@ def scan_signals(all_data, spy_data=None, sector_data=None):
 
                 cooldown_tracker[key].append(idx)
 
+                # Suppress signals on tickers/combos with poor historical performance
+                if s["direction"] == "buy":
+                    suppress_reason = should_suppress(ticker, s["type"], sector_map)
+                    if suppress_reason:
+                        suppressed_count[0] += 1
+                        continue
+
                 # Only emit signals from the recent window
                 if idx >= emit_start:
                     eval_result = evaluate_signal(closes, opens, highs, lows, idx, LOOKAHEAD_DAYS)
@@ -632,7 +641,7 @@ def scan_signals(all_data, spy_data=None, sector_data=None):
 
     # Sort by date descending, then ticker
     all_signals.sort(key=lambda s: (s["date"], s["ticker"]), reverse=True)
-    print(f"  Found {len(all_signals)} signals")
+    print(f"  Found {len(all_signals)} signals ({suppressed_count[0]} suppressed by performance filter)")
     return all_signals
 
 
