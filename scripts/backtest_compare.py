@@ -270,7 +270,7 @@ def main():
         rng.shuffle(pool)
         return pool[:5]
 
-    result_old = run_strategy("Old (Random)", daily_signals, pick_old)
+    result_old = run_strategy("Baseline (No Filter)", daily_signals, pick_old)
 
     # ── Strategy B: New (suppression + confidence ranking) ──
     print("Running Strategy B (New - suppression + confidence ranking)...")
@@ -282,7 +282,7 @@ def main():
         pool.sort(key=lambda s: s.get("_confidence", 0), reverse=True)
         return pool[:5]
 
-    result_new = run_strategy("New (Filtered + Ranked)", daily_signals, pick_new)
+    result_new = run_strategy("Current (Filtered+Ranked)", daily_signals, pick_new)
 
     # ── Build output ──
     results = {
@@ -321,7 +321,7 @@ def main():
     print(f"Test window: {test_dates[0]} to {test_dates[-1]} ({len(test_dates)} trading days)")
     print()
 
-    for label, strat in [("OLD (Random)", result_old), ("NEW (Filtered+Ranked)", result_new)]:
+    for label, strat in [("BASELINE (No Filter)", result_old), ("CURRENT (Filtered+Ranked)", result_new)]:
         print(f"  {label}:")
         print(f"    Trades:     {strat['total_trades']}")
         print(f"    Win Rate:   {strat['win_rate']}%")
@@ -741,12 +741,12 @@ html += `<div class="kpi-row">`;
 // P&L
 html += `<div class="kpi-card"><h3>Total P&amp;L</h3><div class="kpi-pair">
     <div class="kpi-item">
-        <div class="kpi-label">Old</div>
+        <div class="kpi-label">Baseline</div>
         <div class="kpi-value ${{cls(old.pnl)}}">${{fmtMoney(old.pnl)}}</div>
         <div class="kpi-sub">${{fmtPct(old.pnl_pct)}} return</div>
     </div>
     <div class="kpi-item">
-        <div class="kpi-label">New</div>
+        <div class="kpi-label">Current</div>
         <div class="kpi-value ${{cls(nw.pnl)}}">${{fmtMoney(nw.pnl)}}</div>
         <div class="kpi-sub">${{fmtPct(nw.pnl_pct)}} return ${{deltaHtml(imp.pnl_delta)}}</div>
     </div>
@@ -755,12 +755,12 @@ html += `<div class="kpi-card"><h3>Total P&amp;L</h3><div class="kpi-pair">
 // Win Rate
 html += `<div class="kpi-card"><h3>Win Rate</h3><div class="kpi-pair">
     <div class="kpi-item">
-        <div class="kpi-label">Old</div>
+        <div class="kpi-label">Baseline</div>
         <div class="kpi-value ${{cls(old.win_rate - 50)}}">${{fmt(old.win_rate, 1)}}%</div>
         <div class="kpi-sub">${{old.wins}}W / ${{old.losses}}L</div>
     </div>
     <div class="kpi-item">
-        <div class="kpi-label">New</div>
+        <div class="kpi-label">Current</div>
         <div class="kpi-value ${{cls(nw.win_rate - 50)}}">${{fmt(nw.win_rate, 1)}}%</div>
         <div class="kpi-sub">${{nw.wins}}W / ${{nw.losses}}L ${{deltaHtml(imp.win_rate_delta, 'pp')}}</div>
     </div>
@@ -769,12 +769,12 @@ html += `<div class="kpi-card"><h3>Win Rate</h3><div class="kpi-pair">
 // Sharpe & Avg Return
 html += `<div class="kpi-card"><h3>Risk-Adjusted</h3><div class="kpi-pair">
     <div class="kpi-item">
-        <div class="kpi-label">Sharpe (Old / New)</div>
+        <div class="kpi-label">Sharpe (Baseline / Current)</div>
         <div class="kpi-value">${{fmt(old.sharpe, 3)}} <span style="color:var(--text-mute)">/</span> <span class="${{cls(nw.sharpe)}}">${{fmt(nw.sharpe, 3)}}</span></div>
         <div class="kpi-sub">${{deltaHtml(imp.sharpe_delta)}}</div>
     </div>
     <div class="kpi-item">
-        <div class="kpi-label">Avg Return (Old / New)</div>
+        <div class="kpi-label">Avg Return (Baseline / Current)</div>
         <div class="kpi-value">${{fmtPct(old.avg_return)}} <span style="color:var(--text-mute)">/</span> <span class="${{cls(nw.avg_return)}}">${{fmtPct(nw.avg_return)}}</span></div>
         <div class="kpi-sub">${{deltaHtml(imp.avg_return_delta, 'pp')}}</div>
     </div>
@@ -790,8 +790,8 @@ html += `<div class="chart-card">
     <h3>Cumulative P&amp;L ($)</h3>
     <div id="cum-chart"></div>
     <div class="chart-legend">
-        <span><span class="legend-dot" style="background:var(--gray)"></span> Old (Random)</span>
-        <span><span class="legend-dot" style="background:var(--green)"></span> New (Filtered)</span>
+        <span><span class="legend-dot" style="background:var(--gray)"></span> Baseline (No Filter)</span>
+        <span><span class="legend-dot" style="background:var(--green)"></span> Current (Filtered)</span>
     </div>
 </div>`;
 
@@ -800,8 +800,8 @@ html += `<div class="chart-card">
     <h3>Daily P&amp;L ($)</h3>
     <div id="daily-chart"></div>
     <div class="chart-legend">
-        <span><span class="legend-dot" style="background:var(--gray)"></span> Old</span>
-        <span><span class="legend-dot" style="background:var(--green)"></span> New</span>
+        <span><span class="legend-dot" style="background:var(--gray)"></span> Baseline</span>
+        <span><span class="legend-dot" style="background:var(--green)"></span> Current</span>
     </div>
 </div>`;
 
@@ -823,7 +823,7 @@ html += `</div>`;
 
 // Stats cards
 html += `<div class="stats-grid">`;
-for (const [strat, label, dotColor] of [[old, 'Old (Random)', 'var(--gray)'], [nw, 'New (Filtered+Ranked)', 'var(--green)']]) {{
+for (const [strat, label, dotColor] of [[old, 'Baseline (No Filter)', 'var(--gray)'], [nw, 'Current (Filtered+Ranked)', 'var(--green)']]) {{
     html += `<div class="stats-card">
         <h3><span class="dot" style="background:${{dotColor}}"></span> ${{label}}</h3>`;
     const rows = [
@@ -857,8 +857,8 @@ html += `<div class="table-section">
     <h3>All Trades</h3>
     <div class="table-controls">
         <button class="filter-btn active" data-filter="all">All (${{allTrades.length}})</button>
-        <button class="filter-btn" data-filter="old">Old (${{old.trades.length}})</button>
-        <button class="filter-btn" data-filter="new">New (${{nw.trades.length}})</button>
+        <button class="filter-btn" data-filter="old">Baseline (${{old.trades.length}})</button>
+        <button class="filter-btn" data-filter="new">Current (${{nw.trades.length}})</button>
         <button class="filter-btn" data-filter="win">Wins</button>
         <button class="filter-btn" data-filter="loss">Losses</button>
     </div>
@@ -926,11 +926,11 @@ function renderCumChart() {{
         svg += `<text x="${{x(i)}}" y="${{H-P+14}}" text-anchor="middle" font-size="7" fill="var(--text-mute)" font-family="var(--mono)">${{label}}</text>`;
     }}
 
-    // Old line
+    // Baseline line
     let path = oldData.map((d, i) => `${{i===0?'M':'L'}}${{x(i).toFixed(1)}},${{y(d.cumulative).toFixed(1)}}`).join(' ');
     svg += `<path d="${{path}}" fill="none" stroke="var(--gray)" stroke-width="1.5" opacity="0.7"/>`;
 
-    // New line
+    // Current line
     path = newData.map((d, i) => `${{i===0?'M':'L'}}${{x(i).toFixed(1)}},${{y(d.cumulative).toFixed(1)}}`).join(' ');
     svg += `<path d="${{path}}" fill="none" stroke="var(--green)" stroke-width="2"/>`;
 
@@ -984,13 +984,13 @@ function renderDailyChart() {{
     for (let i = 0; i < n; i++) {{
         const cx = P + groupW * i + groupW / 2;
 
-        // Old bar
+        // Baseline bar
         const oh = oldData[i].pnl;
         const oldY = y(oh);
         const oldColor = oh >= 0 ? 'var(--gray)' : 'var(--gray)';
         svg += `<rect x="${{cx - barW - 1}}" y="${{Math.min(y0, oldY)}}" width="${{barW}}" height="${{Math.abs(oldY - y0)}}" fill="${{oldColor}}" opacity="0.5" rx="1"/>`;
 
-        // New bar
+        // Current bar
         const nh = newData[i].pnl;
         const newY = y(nh);
         const newColor = nh >= 0 ? 'var(--green)' : 'var(--red)';
@@ -1016,12 +1016,12 @@ function renderWRChart() {{
         <div class="wr-bar-group">
             <div class="wr-bar-value neutral">${{fmt(old.win_rate, 1)}}%</div>
             <div class="wr-bar" style="height:${{oldH}}%;background:var(--gray);opacity:0.5"></div>
-            <div class="wr-bar-label">Old</div>
+            <div class="wr-bar-label">Baseline</div>
         </div>
         <div class="wr-bar-group">
             <div class="wr-bar-value ${{cls(nw.win_rate - old.win_rate)}}">${{fmt(nw.win_rate, 1)}}%</div>
             <div class="wr-bar" style="height:${{newH}}%;background:var(--green)"></div>
-            <div class="wr-bar-label">New</div>
+            <div class="wr-bar-label">Current</div>
         </div>
         <div class="wr-bar-group" style="flex:0.5">
             <div class="wr-bar-value" style="font-size:11px;color:var(--text-mute)">${{fmtPct(imp.win_rate_delta)}}pp</div>

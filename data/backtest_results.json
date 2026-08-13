@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-13 18:15",
+  "generated_at": "2026-08-13 18:31",
   "test_window": {
     "start": "2026-07-16",
     "end": "2026-08-12",
@@ -12,7 +12,7 @@
   },
   "strategies": {
     "old": {
-      "name": "Old (Random)",
+      "name": "Baseline (No Filter)",
       "total_trades": 98,
       "wins": 98,
       "losses": 0,
@@ -1777,7 +1777,7 @@
       ]
     },
     "new": {
-      "name": "New (Filtered + Ranked)",
+      "name": "Current (Filtered+Ranked)",
       "total_trades": 98,
       "wins": 98,
       "losses": 0,

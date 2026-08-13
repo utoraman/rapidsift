@@ -37,13 +37,22 @@ jobs:
           print('Scorer trained:', s.trained)
           "
 
-      - name: Commit updated suppressions and data
+      - name: Regenerate backtest dashboard
+        run: python3 scripts/backtest_compare.py
+
+      - name: Commit updated suppressions, data, and backtest
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -f scripts/signals.py data/signal_history.csv data/suppression_report.json
+          git add -f scripts/signals.py data/signal_history.csv data/suppression_report.json \
+                    data/backtest_results.json data/param_versions.json _site/backtest.html
           git diff --cached --quiet && echo "No changes to commit" || \
-            (git commit -m "Weekly auto-tune: update suppressions [skip ci]" && git push)
+            (git commit -m "Weekly auto-tune: update suppressions + backtest [skip ci]" && git push)
+
+      - name: Trigger Vercel deploy
+        if: always()
+        run: |
+          curl -s -X POST "${{ secrets.VERCEL_DEPLOY_HOOK }}" || echo "Deploy hook failed (non-fatal)"
 
       - name: Send tune summary to Telegram
         env:
@@ -53,6 +62,23 @@ jobs:
           python3 -c "
           import json, os, requests
           report = json.load(open('data/suppression_report.json'))
+          bt = {}
+          try:
+              raw = json.load(open('data/backtest_results.json'))
+              bt = raw.get('strategies', {})
+          except Exception:
+              pass
+          old_pnl = bt.get('old', {}).get('pnl', 0)
+          new_pnl = bt.get('new', {}).get('pnl', 0)
+          old_ret = bt.get('old', {}).get('pnl_pct', 0)
+          new_ret = bt.get('new', {}).get('pnl_pct', 0)
+          bt_line = ''
+          if bt:
+              bt_line = (
+                  f'\n<b>Backtest (4 weeks):</b>\n'
+                  f'  Baseline: +${old_pnl:,.0f} ({old_ret:+.1f}%)\n'
+                  f'  Current:  +${new_pnl:,.0f} ({new_ret:+.1f}%)\n'
+              )
           msg = (
               '<b>🔧 Weekly Auto-Tune Complete</b>\n\n'
               f'Signals analyzed: {report[\"total_signals\"]}\n'
@@ -66,6 +92,7 @@ jobs:
               f'  WR: {report[\"wr_test_before\"]}% → {report[\"wr_test_after\"]}%\n'
               f'  Signals removed: {report[\"signals_removed_pct\"]}%\n\n'
               f'<b>Overall:</b> {report[\"wr_before\"]}% → {report[\"wr_after\"]}% WR'
+              f'{bt_line}'
           )
           token = os.environ.get('TELEGRAM_BOT_TOKEN', '')
           chat_id = os.environ.get('TELEGRAM_CHAT_ID', '')
