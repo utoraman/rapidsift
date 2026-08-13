@@ -1,0 +1,15 @@
+{
+  "date": "2026-08-13",
+  "total_signals": 3207,
+  "train_size": 2244,
+  "test_size": 963,
+  "validated_tickers": 0,
+  "train_only_tickers": 58,
+  "validated_combos": 0,
+  "train_only_combos": 11,
+  "wr_before": 82.6,
+  "wr_after": 82.6,
+  "wr_test_before": 100.0,
+  "wr_test_after": 100.0,
+  "signals_removed_pct": 0.0
+}

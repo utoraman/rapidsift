@@ -265,28 +265,12 @@ STRONG_TYPES = {"adjusted_drop", "sector_drop", "rel_strength",
 # Tickers with WR below random baseline (62.5%) over 2+ months of data (min 5 signals).
 # These tickers consistently produce losing signals across all types.
 SUPPRESSED_TICKERS = {
-    "ACN", "AI", "AMZN", "BBWI", "BKR", "BMY", "CCL", "CELH", "CMCSA", "CPNG", 
-    "DAL", "DIS", "DNN", "DXCM", "EPD", "ET", "FISV", "GM", "HIMS", "IBM", "LYFT", 
-    "META", "MNST", "MRNA", "MSFT", "NCLH", "NEM", "NET", "NFLX", "NOW", "NU", 
-    "NVDA", "O", "PATH", "PINS", "PLTR", "PYPL", "RIVN", "RTX", "SBUX", "SCHW", 
-    "SHOP", "SNAP", "SOFI", "T", "TEAM", "TEVA", "TLRY", "TME", "UBER", "WDAY", "WFC"
+    
 }
 
 # Signal type × sector ETF combos with WR below 55% (min 10 signals).
 # These specific strategy+sector pairings don't work.
 SUPPRESSED_COMBOS = {
-    ("adjusted_drop", "XLC"),
-    ("confluence", "XLC"),
-    ("confluence", "XLV"),
-    ("gap_and_go", "XLV"),
-    ("gap_and_go", "XLY"),
-    ("macd", "XLC"),
-    ("macd", "XLF"),
-    ("macd", "XLP"),
-    ("macd", "XLV"),
-    ("rel_strength", "XLF"),
-    ("sector_drop", "XLC"),
-    ("volume_spike", "XLY"),
 }
 
 

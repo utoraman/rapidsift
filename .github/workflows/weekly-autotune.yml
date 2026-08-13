@@ -1,0 +1,80 @@
+name: Weekly Auto-Tune
+
+on:
+  schedule:
+    - cron: '0 6 * * 1'    # Every Monday 06:00 UTC (08:00 CET), before weekly report
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  autotune:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: pip install yfinance pandas pyyaml requests
+
+      - name: Backfill recent signal outcomes
+        run: python3 scripts/backfill_history.py --months 1
+
+      - name: Update suppressions (validated)
+        run: python3 scripts/update_suppressions.py
+
+      - name: Retrain confidence scorer (dry run to verify)
+        run: |
+          python3 -c "
+          from scripts.signal_scorer import get_scorer
+          s = get_scorer()
+          print('Scorer trained:', s.trained)
+          "
+
+      - name: Commit updated suppressions and data
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -f scripts/signals.py data/signal_history.csv data/suppression_report.json
+          git diff --cached --quiet && echo "No changes to commit" || \
+            (git commit -m "Weekly auto-tune: update suppressions [skip ci]" && git push)
+
+      - name: Send tune summary to Telegram
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: |
+          python3 -c "
+          import json, os, requests
+          report = json.load(open('data/suppression_report.json'))
+          msg = (
+              '<b>🔧 Weekly Auto-Tune Complete</b>\n\n'
+              f'Signals analyzed: {report[\"total_signals\"]}\n'
+              f'Train/test split: {report[\"train_size\"]}/{report[\"test_size\"]}\n\n'
+              f'<b>Validated suppressions:</b>\n'
+              f'  Tickers: {report[\"validated_tickers\"]} '
+              f'(+{report[\"train_only_tickers\"]} dropped, not validated)\n'
+              f'  Combos: {report[\"validated_combos\"]} '
+              f'(+{report[\"train_only_combos\"]} dropped)\n\n'
+              f'<b>Impact (out-of-sample):</b>\n'
+              f'  WR: {report[\"wr_test_before\"]}% → {report[\"wr_test_after\"]}%\n'
+              f'  Signals removed: {report[\"signals_removed_pct\"]}%\n\n'
+              f'<b>Overall:</b> {report[\"wr_before\"]}% → {report[\"wr_after\"]}% WR'
+          )
+          token = os.environ.get('TELEGRAM_BOT_TOKEN', '')
+          chat_id = os.environ.get('TELEGRAM_CHAT_ID', '')
+          if token and chat_id:
+              requests.post(
+                  f'https://api.telegram.org/bot{token}/sendMessage',
+                  json={'chat_id': chat_id, 'text': msg, 'parse_mode': 'HTML'},
+              )
+              print('Telegram summary sent')
+          else:
+              print(msg)
+          "
