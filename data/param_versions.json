@@ -1,0 +1,58 @@
+{
+  "versions": [
+    {
+      "id": "v1",
+      "timestamp": "2026-08-13T16:15:43Z",
+      "trigger": "manual",
+      "reason": "Initial: empty suppressions after validation cleared old lists",
+      "params": {
+        "suppressed_tickers": [],
+        "suppressed_combos": [],
+        "thresholds": {
+          "TICKER_WR_THRESHOLD": 0.625,
+          "TICKER_MIN_SIGNALS_TRAIN": 4.0,
+          "TICKER_MIN_SIGNALS_TEST": 2.0,
+          "COMBO_WR_THRESHOLD": 0.55,
+          "COMBO_MIN_SIGNALS_TRAIN": 7.0,
+          "COMBO_MIN_SIGNALS_TEST": 3.0,
+          "TRAIN_RATIO": 0.7
+        }
+      }
+    },
+    {
+      "id": "v2",
+      "timestamp": "2026-08-13T16:15:52Z",
+      "trigger": "auto-tune",
+      "reason": "0 tickers, 0 combos (dropped 58+11 unvalidated)",
+      "params": {
+        "suppressed_tickers": [],
+        "suppressed_combos": [],
+        "thresholds": {
+          "TICKER_WR_THRESHOLD": 0.625,
+          "TICKER_MIN_SIGNALS_TRAIN": 4.0,
+          "TICKER_MIN_SIGNALS_TEST": 2.0,
+          "COMBO_WR_THRESHOLD": 0.55,
+          "COMBO_MIN_SIGNALS_TRAIN": 7.0,
+          "COMBO_MIN_SIGNALS_TEST": 3.0,
+          "TRAIN_RATIO": 0.7
+        }
+      },
+      "metrics": {
+        "date": "2026-08-13",
+        "total_signals": 3207,
+        "train_size": 2244,
+        "test_size": 963,
+        "validated_tickers": 0,
+        "train_only_tickers": 58,
+        "validated_combos": 0,
+        "train_only_combos": 11,
+        "wr_before": 82.6,
+        "wr_after": 82.6,
+        "wr_test_before": 100.0,
+        "wr_test_after": 100.0,
+        "signals_removed_pct": 0.0
+      },
+      "diff": {}
+    }
+  ]
+}

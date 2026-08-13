@@ -23,6 +23,8 @@ from pathlib import Path
 
 import yaml
 
+from param_manager import save_version
+
 HISTORY_CSV = Path(__file__).parent.parent / "data" / "signal_history.csv"
 SIGNALS_PY = Path(__file__).parent / "signals.py"
 SECTORS_YAML = Path(__file__).parent.parent / "data" / "sectors.yaml"
@@ -321,6 +323,15 @@ def main():
     print(f"Updated {SIGNALS_PY}")
     print(f"\n  {len(val_tickers)} tickers + {len(val_combos)} combos suppressed (validated)")
     print(f"  {len(train_only_tickers)} tickers + {len(train_only_combos)} combos dropped (train-only, not validated)")
+
+    # Record version
+    version = save_version(
+        trigger="auto-tune",
+        metrics=report,
+        reason=f"{len(val_tickers)} tickers, {len(val_combos)} combos "
+               f"(dropped {len(train_only_tickers)}+{len(train_only_combos)} unvalidated)",
+    )
+    print(f"Recorded as {version['id']}")
 
 
 if __name__ == "__main__":

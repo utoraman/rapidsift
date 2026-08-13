@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RapidSift — Backtest Comparison</title>
+<style>
+:root {
+    --bg: #0a0a0f;
+    --bg-card: #12121a;
+    --bg-card-hover: #1a1a25;
+    --border: #1e1e2e;
+    --border-accent: #2a2a3a;
+    --text: #e0e0e8;
+    --text-dim: #8888a0;
+    --text-mute: #555570;
+    --green: #00ff88;
+    --green-dim: #00cc6a;
+    --green-bg: rgba(0, 255, 136, 0.08);
+    --red: #ff4444;
+    --red-dim: #cc3333;
+    --red-bg: rgba(255, 68, 68, 0.08);
+    --gray: #666680;
+    --gray-line: #444460;
+    --blue: #4488ff;
+    --yellow: #ffaa00;
+    --mono: 'SF Mono', 'Fira Code', 'JetBrains Mono', ui-monospace, monospace;
+    --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+    font-family: var(--mono);
+    font-size: 12px;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.5;
+    padding: 0;
+}
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Header */
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+.header h1 {
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+}
+.header h1 span { color: var(--green); }
+.header-meta {
+    font-size: 11px;
+    color: var(--text-mute);
+}
+
+/* KPI Row */
+.kpi-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 16px;
+    margin-bottom: 24px;
+}
+.kpi-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 16px;
+}
+.kpi-card h3 {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-mute);
+    margin-bottom: 12px;
+}
+.kpi-pair {
+    display: flex;
+    gap: 20px;
+}
+.kpi-item {
+    flex: 1;
+}
+.kpi-label {
+    font-size: 9px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text-mute);
+    margin-bottom: 2px;
+}
+.kpi-value {
+    font-size: 22px;
+    font-weight: 600;
+}
+.kpi-sub {
+    font-size: 10px;
+    color: var(--text-dim);
+    margin-top: 2px;
+}
+.positive { color: var(--green); }
+.negative { color: var(--red); }
+.neutral { color: var(--gray); }
+
+/* Delta badge */
+.delta {
+    display: inline-block;
+    font-size: 10px;
+    padding: 2px 6px;
+    border-radius: 3px;
+    margin-left: 6px;
+    font-weight: 500;
+}
+.delta.up { background: var(--green-bg); color: var(--green); }
+.delta.down { background: var(--red-bg); color: var(--red); }
+
+/* Charts section */
+.chart-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 24px;
+}
+@media (max-width: 900px) {
+    .chart-row { grid-template-columns: 1fr; }
+}
+.chart-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 16px;
+}
+.chart-card h3 {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-mute);
+    margin-bottom: 12px;
+}
+.chart-card svg {
+    width: 100%;
+    display: block;
+}
+.chart-legend {
+    display: flex;
+    gap: 16px;
+    margin-top: 8px;
+    font-size: 10px;
+    color: var(--text-dim);
+}
+.legend-dot {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    margin-right: 4px;
+    vertical-align: middle;
+}
+
+/* Win rate bars */
+.wr-compare {
+    display: flex;
+    gap: 20px;
+    align-items: flex-end;
+    height: 120px;
+    padding-top: 10px;
+}
+.wr-bar-group {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+    justify-content: flex-end;
+}
+.wr-bar {
+    width: 60px;
+    border-radius: 3px 3px 0 0;
+    transition: height 0.3s;
+}
+.wr-bar-label {
+    font-size: 10px;
+    color: var(--text-dim);
+    margin-top: 6px;
+}
+.wr-bar-value {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+/* Summary stats */
+.stats-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 24px;
+}
+@media (max-width: 900px) {
+    .stats-grid { grid-template-columns: 1fr; }
+}
+.stats-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 16px;
+}
+.stats-card h3 {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-mute);
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+.stats-card h3 .dot {
+    width: 6px; height: 6px; border-radius: 50%;
+}
+.stats-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 6px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 11px;
+}
+.stats-row:last-child { border-bottom: none; }
+.stats-row .label { color: var(--text-dim); }
+
+/* Trade table */
+.table-section {
+    margin-bottom: 24px;
+}
+.table-section h3 {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-mute);
+    margin-bottom: 12px;
+}
+.table-controls {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 12px;
+    flex-wrap: wrap;
+}
+.filter-btn {
+    appearance: none;
+    border: 1px solid var(--border);
+    background: var(--bg-card);
+    color: var(--text-dim);
+    padding: 4px 12px;
+    font-size: 10px;
+    border-radius: 3px;
+    cursor: pointer;
+    font-family: var(--mono);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+.filter-btn.active {
+    border-color: var(--green);
+    color: var(--green);
+    background: var(--green-bg);
+}
+.table-wrap {
+    overflow-x: auto;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 11px;
+    white-space: nowrap;
+}
+th {
+    text-align: left;
+    padding: 8px 12px;
+    font-size: 9px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text-mute);
+    border-bottom: 1px solid var(--border);
+    cursor: pointer;
+    user-select: none;
+    position: sticky;
+    top: 0;
+    background: var(--bg-card);
+}
+th:hover { color: var(--text-dim); }
+th .sort-arrow { margin-left: 4px; opacity: 0.3; }
+th.sorted .sort-arrow { opacity: 1; color: var(--green); }
+td {
+    padding: 6px 12px;
+    border-bottom: 1px solid var(--border);
+    color: var(--text-dim);
+}
+tr:hover td { background: var(--bg-card-hover); }
+.tag {
+    display: inline-block;
+    padding: 1px 6px;
+    border-radius: 3px;
+    font-size: 9px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+.tag-win { background: var(--green-bg); color: var(--green); }
+.tag-loss { background: var(--red-bg); color: var(--red); }
+.tag-old { background: rgba(102, 102, 128, 0.15); color: var(--gray); }
+.tag-new { background: var(--green-bg); color: var(--green); }
+.conf-bar {
+    display: inline-block;
+    height: 4px;
+    border-radius: 2px;
+    background: var(--green-dim);
+    vertical-align: middle;
+    margin-right: 4px;
+}
+
+/* Footer */
+.footer {
+    text-align: center;
+    padding: 20px 0;
+    font-size: 10px;
+    color: var(--text-mute);
+    border-top: 1px solid var(--border);
+}
+</style>
+</head>
+<body>
+<div class="container" id="app"></div>
+
+<script>
+const DATA = {"generated_at": "2026-08-13 18:15", "test_window": {"start": "2026-07-16", "end": "2026-08-12", "trading_days": 20}, "training_window": {"start": "2026-01-26", "end": "2026-07-15", "trading_days": 116}, "strategies": {"old": {"name": "Old (Random)", "total_trades": 98, "wins": 98, "losses": 0, "win_rate": 100.0, "total_invested": 9800.0, "total_value": 10362.79, "pnl": 562.79, "pnl_pct": 5.74, "avg_return": 5.74, "max_return": 17.84, "min_return": -7.69, "sharpe": 2.368, "daily_pnl": [{"date": "2026-07-16", "pnl": 53.69, "n_trades": 5}, {"date": "2026-07-17", "pnl": 20.53, "n_trades": 5}, {"date": "2026-07-20", "pnl": 29.69, "n_trades": 5}, {"date": "2026-07-21", "pnl": 23.13, "n_trades": 5}, {"date": "2026-07-22", "pnl": 30.62, "n_trades": 5}, {"date": "2026-07-23", "pnl": 19.42, "n_trades": 5}, {"date": "2026-07-24", "pnl": 30.7, "n_trades": 5}, {"date": "2026-07-27", "pnl": 24.3, "n_trades": 5}, {"date": "2026-07-28", "pnl": 33.03, "n_trades": 5}, {"date": "2026-07-29", "pnl": 54.53, "n_trades": 5}, {"date": "2026-07-30", "pnl": 27.92, "n_trades": 5}, {"date": "2026-07-31", "pnl": 16.84, "n_trades": 5}, {"date": "2026-08-03", "pnl": 10.98, "n_trades": 5}, {"date": "2026-08-04", "pnl": 29.39, "n_trades": 5}, {"date": "2026-08-05", "pnl": 31.37, "n_trades": 5}, {"date": "2026-08-06", "pnl": 23.95, "n_trades": 5}, {"date": "2026-08-07", "pnl": 20.9, "n_trades": 5}, {"date": "2026-08-10", "pnl": 34.05, "n_trades": 5}, {"date": "2026-08-11", "pnl": 4.92, "n_trades": 3}, {"date": "2026-08-12", "pnl": 42.83, "n_trades": 5}], "cumulative": [{"date": "2026-07-16", "cumulative": 53.69}, {"date": "2026-07-17", "cumulative": 74.22}, {"date": "2026-07-20", "cumulative": 103.91}, {"date": "2026-07-21", "cumulative": 127.04}, {"date": "2026-07-22", "cumulative": 157.66}, {"date": "2026-07-23", "cumulative": 177.08}, {"date": "2026-07-24", "cumulative": 207.78}, {"date": "2026-07-27", "cumulative": 232.08}, {"date": "2026-07-28", "cumulative": 265.11}, {"date": "2026-07-29", "cumulative": 319.64}, {"date": "2026-07-30", "cumulative": 347.56}, {"date": "2026-07-31", "cumulative": 364.4}, {"date": "2026-08-03", "cumulative": 375.38}, {"date": "2026-08-04", "cumulative": 404.77}, {"date": "2026-08-05", "cumulative": 436.14}, {"date": "2026-08-06", "cumulative": 460.09}, {"date": "2026-08-07", "cumulative": 480.99}, {"date": "2026-08-10", "cumulative": 515.04}, {"date": "2026-08-11", "cumulative": 519.96}, {"date": "2026-08-12", "cumulative": 562.79}], "trades": [{"date": "2026-07-16", "ticker": "IREN", "type": "sector_drop", "detail": "Sector-adjusted drop -8.10% (stock -9.01%, BITO -0.91%)", "entry_price": 33.79, "current_pct": 0.41, "result_5": "win", "max_drawdown_pct": -4.65, "days_to_5": 2, "confidence": 86, "invested": 100.0, "return_dollar": 0.41, "final_value": 100.41}, {"date": "2026-07-16", "ticker": "RIOT", "type": "confluence", "detail": "Confluence (2 strong signals): adjusted_drop, sector_drop", "entry_price": 18.02, "current_pct": 17.84, "result_5": "win", "max_drawdown_pct": -3.25, "days_to_5": 1, "confidence": 88, "invested": 100.0, "return_dollar": 17.84, "final_value": 117.84}, {"date": "2026-07-16", "ticker": "ACHR", "type": "adjusted_drop", "detail": "Market-adjusted drop -5.53% (stock -6.07%, market -0.54%)", "entry_price": 4.34, "current_pct": 11.29, "result_5": "win", "max_drawdown_pct": -0.92, "days_to_5": 1, "confidence": 85, "invested": 100.0, "return_dollar": 11.29, "final_value": 111.29}, {"date": "2026-07-16", "ticker": "ABT", "type": "confluence", "detail": "Confluence (2 strong signals): gap_and_go, rel_strength", "entry_price": 101.0, "current_pct": 7.22, "result_5": "win", "max_drawdown_pct": -1.64, "days_to_5": 8, "confidence": 83, "invested": 100.0, "return_dollar": 7.22, "final_value": 107.22}, {"date": "2026-07-16", "ticker": "SMCI", "type": "sector_drop", "detail": "Sector-adjusted drop -5.98% (stock -8.22%, XLK -2.24%)", "entry_price": 24.33, "current_pct": 16.93, "result_5": "win", "max_drawdown_pct": -3.9, "days_to_5": 4, "confidence": 90, "invested": 100.0, "return_dollar": 16.93, "final_value": 116.93}, {"date": "2026-07-17", "ticker": "NFLX", "type": "adjusted_drop", "detail": "Market-adjusted drop -6.27% (stock -7.26%, market -0.99%)", "entry_price": 68.32, "current_pct": 7.77, "result_5": "win", "max_drawdown_pct": -2.39, "days_to_5": 7, "confidence": 82, "invested": 100.0, "return_dollar": 7.77, "final_value": 107.77}, {"date": "2026-07-17", "ticker": "LCID", "type": "rel_strength", "detail": "New 20-day high (+8.6% above prev, 1.9x vol)", "entry_price": 7.07, "current_pct": 0.57, "result_5": "win", "max_drawdown_pct": -0.71, "days_to_5": 1, "confidence": 78, "invested": 100.0, "return_dollar": 0.57, "final_value": 100.57}, {"date": "2026-07-17", "ticker": "NFLX", "type": "confluence", "detail": "Confluence (2 strong signals): adjusted_drop, sector_drop", "entry_price": 68.32, "current_pct": 7.77, "result_5": "win", "max_drawdown_pct": -2.39, "days_to_5": 7, "confidence": 81, "invested": 100.0, "return_dollar": 7.77, "final_value": 107.77}, {"date": "2026-07-17", "ticker": "NFLX", "type": "sector_drop", "detail": "Sector-adjusted drop -5.49% (stock -7.26%, XLC -1.78%)", "entry_price": 68.32, "current_pct": 7.77, "result_5": "win", "max_drawdown_pct": -2.39, "days_to_5": 7, "confidence": 80, "invested": 100.0, "return_dollar": 7.77, "final_value": 107.77}, {"date": "2026-07-17", "ticker": "AA", "type": "adjusted_drop", "detail": "Market-adjusted drop -5.14% (stock -6.13%, market -0.99%)", "entry_price": 44.37, "current_pct": -3.35, "result_5": "win", "max_drawdown_pct": -4.26, "days_to_5": 3, "confidence": 79, "invested": 100.0, "return_dollar": -3.35, "final_value": 96.65}, {"date": "2026-07-20", "ticker": "CIFR", "type": "gap_and_go", "detail": "Gap up +6.9% on 1.7x volume", "entry_price": 21.02, "current_pct": 12.65, "result_5": "win", "max_drawdown_pct": -0.19, "days_to_5": 1, "confidence": 84, "invested": 100.0, "return_dollar": 12.65, "final_value": 112.65}, {"date": "2026-07-20", "ticker": "HUT", "type": "gap_and_go", "detail": "Gap up +11.0% on 1.7x volume", "entry_price": 104.99, "current_pct": 4.77, "result_5": "win", "max_drawdown_pct": -1.13, "days_to_5": 1, "confidence": 82, "invested": 100.0, "return_dollar": 4.77, "final_value": 104.77}, {"date": "2026-07-20", "ticker": "ACHR", "type": "gap_and_go", "detail": "Gap up +4.3% on 3.1x volume", "entry_price": 5.32, "current_pct": 1.92, "result_5": "win", "max_drawdown_pct": -1.13, "days_to_5": 1, "confidence": 77, "invested": 100.0, "return_dollar": 1.92, "final_value": 101.92}, {"date": "2026-07-20", "ticker": "IREN", "type": "gap_and_go", "detail": "Gap up +8.2% on 2.4x volume", "entry_price": 40.91, "current_pct": 5.46, "result_5": "win", "max_drawdown_pct": -1.54, "days_to_5": 2, "confidence": 82, "invested": 100.0, "return_dollar": 5.46, "final_value": 105.46}, {"date": "2026-07-20", "ticker": "CLSK", "type": "macd", "detail": "MACD bullish crossover (above SMA20)", "entry_price": 14.82, "current_pct": 4.89, "result_5": "win", "max_drawdown_pct": -0.92, "days_to_5": 1, "confidence": 81, "invested": 100.0, "return_dollar": 4.89, "final_value": 104.89}, {"date": "2026-07-21", "ticker": "CELH", "type": "adjusted_drop", "detail": "Market-adjusted drop -5.59% (stock -4.76%, market +0.83%)", "entry_price": 28.39, "current_pct": 4.21, "result_5": "win", "max_drawdown_pct": -6.52, "days_to_5": 11, "confidence": 82, "invested": 100.0, "return_dollar": 4.21, "final_value": 104.21}, {"date": "2026-07-21", "ticker": "EVGO", "type": "adjusted_drop", "detail": "Market-adjusted drop -5.03% (stock -4.19%, market +0.83%)", "entry_price": 1.6, "current_pct": 0.07, "result_5": "win", "max_drawdown_pct": -11.88, "days_to_5": 8, "confidence": 85, "invested": 100.0, "return_dollar": 0.07, "final_value": 100.07}, {"date": "2026-07-21", "ticker": "DHR", "type": "adjusted_drop", "detail": "Market-adjusted drop -11.82% (stock -10.99%, market +0.83%)", "entry_price": 178.47, "current_pct": 6.54, "result_5": "win", "max_drawdown_pct": -3.06, "days_to_5": 2, "confidence": 83, "invested": 100.0, "return_dollar": 6.54, "final_value": 106.54}, {"date": "2026-07-21", "ticker": "CRM", "type": "sector_drop", "detail": "Sector-adjusted drop -5.03% (stock -2.15%, XLK +2.89%)", "entry_price": 169.47, "current_pct": 7.23, "result_5": "win", "max_drawdown_pct": -8.45, "days_to_5": 5, "confidence": 83, "invested": 100.0, "return_dollar": 7.23, "final_value": 107.23}, {"date": "2026-07-21", "ticker": "DDOG", "type": "sector_drop", "detail": "Sector-adjusted drop -6.08% (stock -3.20%, XLK +2.89%)", "entry_price": 251.77, "current_pct": 5.08, "result_5": "win", "max_drawdown_pct": -5.6, "days_to_5": 6, "confidence": 82, "invested": 100.0, "return_dollar": 5.08, "final_value": 105.08}, {"date": "2026-07-22", "ticker": "T", "type": "confluence", "detail": "Confluence (2 strong signals): gap_and_go, rel_strength", "entry_price": 23.25, "current_pct": 5.03, "result_5": "win", "max_drawdown_pct": -2.58, "days_to_5": 3, "confidence": 84, "invested": 100.0, "return_dollar": 5.03, "final_value": 105.03}, {"date": "2026-07-22", "ticker": "WOLF", "type": "confluence", "detail": "Confluence (2 strong signals): adjusted_drop, sector_drop", "entry_price": 28.4, "current_pct": 8.42, "result_5": "win", "max_drawdown_pct": -29.65, "days_to_5": 12, "confidence": 86, "invested": 100.0, "return_dollar": 8.42, "final_value": 108.42}, {"date": "2026-07-22", "ticker": "PATH", "type": "adjusted_drop", "detail": "Market-adjusted drop -11.01% (stock -11.13%, market -0.12%)", "entry_price": 10.77, "current_pct": 6.73, "result_5": "win", "max_drawdown_pct": -5.66, "days_to_5": 3, "confidence": 78, "invested": 100.0, "return_dollar": 6.73, "final_value": 106.73}, {"date": "2026-07-22", "ticker": "T", "type": "volume_spike", "detail": "Volume spike 2.2x (dip in uptrend)", "entry_price": 23.25, "current_pct": 5.03, "result_5": "win", "max_drawdown_pct": -2.58, "days_to_5": 3, "confidence": 75, "invested": 100.0, "return_dollar": 5.03, "final_value": 105.03}, {"date": "2026-07-22", "ticker": "DASH", "type": "adjusted_drop", "detail": "Market-adjusted drop -5.37% (stock -5.48%, market -0.12%)", "entry_price": 174.43, "current_pct": 5.41, "result_5": "win", "max_drawdown_pct": -4.5, "days_to_5": 3, "confidence": 81, "invested": 100.0, "return_dollar": 5.41, "final_value": 105.41}, {"date": "2026-07-23", "ticker": "TMUS", "type": "confluence", "detail": "Confluence (2 strong signals): adjusted_drop, sector_drop", "entry_price": 171.85, "current_pct": 5.34, "result_5": "win", "max_drawdown_pct": -0.19, "days_to_5": 1, "confidence": 84, "invested": 100.0, "return_dollar": 5.34, "final_value": 105.34}, {"date": "2026-07-23", "ticker": "TMUS", "type": "adjusted_drop", "detail": "Market-adjusted drop -9.51% (stock -10.75%, market -1.23%)", "entry_price": 171.85, "current_pct": 5.34, "result_5": "win", "max_drawdown_pct": -0.19, "days_to_5": 1, "confidence": 85, "invested": 100.0, "return_dollar": 5.34, "final_value": 105.34}, {"date": "2026-07-23", "ticker": "CMCSA", "type": "adjusted_drop", "detail": "Market-adjusted drop -5.57% (stock -6.80%, market -1.23%)", "entry_price": 21.3, "current_pct": 4.56, "result_5": "win", "max_drawdown_pct": -0.07, "days_to_5": 1, "confidence": 78, "invested": 100.0, "return_dollar": 4.56, "final_value": 104.56}, {"date": "2026-07-23", "ticker": "CLF", "type": "gap_and_go", "detail": "Gap up +12.9% on 3.4x volume", "entry_price": 11.33, "current_pct": -1.06, "result_5": "win", "max_drawdown_pct": -2.12, "days_to_5": 1, "confidence": 78, "invested": 100.0, "return_dollar": -1.06, "final_value": 98.94}, {"date": "2026-07-23", "ticker": "RTX", "type": "confluence", "detail": "Confluence (2 strong signals): gap_and_go, rel_strength", "entry_price": 210.83, "current_pct": 5.24, "result_5": "win", "max_drawdown_pct": -0.74, "days_to_5": 9, "confidence": 78, "invested": 100.0, "return_dollar": 5.24, "final_value": 105.24}, {"date": "2026-07-24", "ticker": "HIMS", "type": "sector_drop", "detail": "Sector-adjusted drop -14.90% (stock -14.20%, XLV +0.70%)", "entry_price": 28.73, "current_pct": 5.12, "result_5": "win", "max_drawdown_pct": -2.02, "days_to_5": 1, "confidence": 79, "invested": 100.0, "return_dollar": 5.12, "final_value": 105.12}, {"date": "2026-07-24", "ticker": "APLD", "type": "confluence", "detail": "Confluence (2 strong signals): adjusted_drop, sector_drop", "entry_price": 28.06, "current_pct": 2.85, "result_5": "win", "max_drawdown_pct": -18.28, "days_to_5": 5, "confidence": 85, "invested": 100.0, "return_dollar": 2.85, "final_value": 102.85}, {"date": "2026-07-24", "ticker": "SMR", "type": "adjusted_drop", "detail": "Market-adjusted drop -8.27% (stock -8.17%, market +0.10%)", "entry_price": 8.32, "current_pct": 13.75, "result_5": "win", "max_drawdown_pct": -9.43, "days_to_5": 5, "confidence": 88, "invested": 100.0, "return_dollar": 13.75, "final_value": 113.75}, {"date": "2026-07-24", "ticker": "ENPH", "type": "sector_drop", "detail": "Sector-adjusted drop -5.85% (stock -5.63%, XLU +0.22%)", "entry_price": 37.65, "current_pct": 5.37, "result_5": "win", "max_drawdown_pct": -7.14, "days_to_5": 3, "confidence": 86, "invested": 100.0, "return_dollar": 5.37, "final_value": 105.37}, {"date": "2026-07-24", "ticker": "CIFR", "type": "confluence", "detail": "Confluence (2 strong signals): adjusted_drop, sector_drop", "entry_price": 23.82, "current_pct": 3.61, "result_5": "win", "max_drawdown_pct": -26.76, "days_to_5": 6, "confidence": 85, "invested": 100.0, "return_dollar": 3.61, "final_value": 103.61}, {"date": "2026-07-27", "ticker": "TEAM", "type": "gap_and_go", "detail": "Gap up +3.7% on 1.7x volume", "entry_price": 98.63, "current_pct": 5.15, "result_5": "win", "max_drawdown_pct": -2.04, "days_to_5": 2, "confidence": 82, "invested": 100.0, "return_dollar": 5.15, "final_value": 105.15}, {"date": "2026-07-27", "ticker": "BKR", "type": "gap_and_go", "detail": "Gap up +5.9% on 1.6x volume", "entry_price": 60.1, "current_pct": 4.41, "result_5": "win", "max_drawdown_pct": -3.71, "days_to_5": 8, "confidence": 77, "invested": 100.0, "return_dollar": 4.41, "final_value": 104.41}, {"date": "2026-07-27", "ticker": "NVDA", "type": "adjusted_drop", "detail": "Market-adjusted drop -5.02% (stock -4.99%, market +0.02%)", "entry_price": 195.0, "current_pct": 6.06, "result_5": "win", "max_drawdown_pct": -2.56, "days_to_5": 5, "confidence": 86, "invested": 100.0, "return_dollar": 6.06, "final_value": 106.06}, {"date": "2026-07-27", "ticker": "BKR", "type": "rel_strength", "detail": "New 20-day high (+6.0% above prev, 1.6x vol)", "entry_price": 60.1, "current_pct": 4.41, "result_5": "win", "max_drawdown_pct": -3.71, "days_to_5": 8, "confidence": 78, "invested": 100.0, "return_dollar": 4.41, "final_value": 104.41}, {"date": "2026-07-27", "ticker": "WDAY", "type": "gap_and_go", "detail": "Gap up +4.6% on 1.6x volume", "entry_price": 151.06, "current_pct": 4.27, "result_5": "win", "max_drawdown_pct": 0.0, "days_to_5": 1, "confidence": 78, "invested": 100.0, "return_dollar": 4.27, "final_value": 104.27}, {"date": "2026-07-28", "ticker": "MDT", "type": "rel_strength", "detail": "New 20-day high (+3.5% above prev, 2.0x vol)", "entry_price": 86.54, "current_pct": 4.91, "result_5": "win", "max_drawdown_pct": -3.12, "days_to_5": 11, "confidence": 75, "invested": 100.0, "return_dollar": 4.91, "final_value": 104.91}, {"date": "2026-07-28", "ticker": "AMAT", "type": "adjusted_drop", "detail": "Market-adjusted drop -8.06% (stock -7.82%, market +0.24%)", "entry_price": 463.42, "current_pct": 7.74, "result_5": "win", "max_drawdown_pct": -5.85, "days_to_5": 2, "confidence": 88, "invested": 100.0, "return_dollar": 7.74, "final_value": 107.74}, {"date": "2026-07-28", "ticker": "ADBE", "type": "rel_strength", "detail": "New 20-day high (+5.0% above prev, 1.5x vol)", "entry_price": 249.99, "current_pct": 5.1, "result_5": "win", "max_drawdown_pct": -0.58, "days_to_5": 1, "confidence": 82, "invested": 100.0, "return_dollar": 5.1, "final_value": 105.1}, {"date": "2026-07-28", "ticker": "CSCO", "type": "macd", "detail": "MACD bullish crossover (above SMA20)", "entry_price": 117.02, "current_pct": 3.88, "result_5": "win", "max_drawdown_pct": -4.58, "days_to_5": 6, "confidence": 81, "invested": 100.0, "return_dollar": 3.88, "final_value": 103.88}, {"date": "2026-07-28", "ticker": "SHOP", "type": "rel_strength", "detail": "New 20-day high (+2.5% above prev, 1.3x vol)", "entry_price": 129.04, "current_pct": 11.4, "result_5": "win", "max_drawdown_pct": -10.67, "days_to_5": 6, "confidence": 82, "invested": 100.0, "return_dollar": 11.4, "final_value": 111.4}, {"date": "2026-07-29", "ticker": "OPEN", "type": "sector_drop", "detail": "Sector-adjusted drop -6.74% (stock -6.85%, XLRE -0.11%)", "entry_price": 3.71, "current_pct": -3.5, "result_5": "win", "max_drawdown_pct": -8.89, "days_to_5": 3, "confidence": 84, "invested": 100.0, "return_dollar": -3.5, "final_value": 96.5}, {"date": "2026-07-29", "ticker": "SMCI", "type": "sector_drop", "detail": "Sector-adjusted drop -7.02% (stock -9.67%, XLK -2.64%)", "entry_price": 26.84, "current_pct": 17.73, "result_5": "win", "max_drawdown_pct": -0.71, "days_to_5": 2, "confidence": 90, "invested": 100.0, "return_dollar": 17.73, "final_value": 117.73}, {"date": "2026-07-29", "ticker": "SMCI", "type": "confluence", "detail": "Confluence (2 strong signals): adjusted_drop, sector_drop", "entry_price": 26.84, "current_pct": 17.73, "result_5": "win", "max_drawdown_pct": -0.71, "days_to_5": 2, "confidence": 89, "invested": 100.0, "return_dollar": 17.73, "final_value": 117.73}, {"date": "2026-07-29", "ticker": "SOFI", "type": "sector_drop", "detail": "Sector-adjusted drop -7.30% (stock -8.90%, XLF -1.60%)", "entry_price": 15.32, "current_pct": 17.36, "result_5": "win", "max_drawdown_pct": -0.39, "days_to_5": 1, "confidence": 87, "invested": 100.0, "return_dollar": 17.36, "final_value": 117.36}, {"date": "2026-07-29", "ticker": "TEVA", "type": "gap_and_go", "detail": "Gap up +6.3% on 3.7x volume", "entry_price": 34.35, "current_pct": 5.21, "result_5": "win", "max_drawdown_pct": -1.66, "days_to_5": 8, "confidence": 74, "invested": 100.0, "return_dollar": 5.21, "final_value": 105.21}, {"date": "2026-07-30", "ticker": "MSFT", "type": "gap_and_go", "detail": "Gap up +12.1% on 3.4x volume", "entry_price": 450.0, "current_pct": 8.2, "result_5": "win", "max_drawdown_pct": -0.15, "days_to_5": 2, "confidence": 80, "invested": 100.0, "return_dollar": 8.2, "final_value": 108.2}, {"date": "2026-07-30", "ticker": "IREN", "type": "gap_and_go", "detail": "Gap up +10.9% on 1.6x volume", "entry_price": 40.81, "current_pct": 4.05, "result_5": "win", "max_drawdown_pct": -13.86, "days_to_5": 9, "confidence": 82, "invested": 100.0, "return_dollar": 4.05, "final_value": 104.05}, {"date": "2026-07-30", "ticker": "ACN", "type": "sector_drop", "detail": "Sector-adjusted drop -11.20% (stock -5.71%, XLK +5.50%)", "entry_price": 160.82, "current_pct": 3.2, "result_5": "win", "max_drawdown_pct": -1.01, "days_to_5": 2, "confidence": 81, "invested": 100.0, "return_dollar": 3.2, "final_value": 103.2}, {"date": "2026-07-30", "ticker": "CRM", "type": "confluence", "detail": "Confluence (2 strong signals): adjusted_drop, sector_drop", "entry_price": 177.7, "current_pct": 6.32, "result_5": "win", "max_drawdown_pct": -0.38, "days_to_5": 2, "confidence": 85, "invested": 100.0, "return_dollar": 6.32, "final_value": 106.32}, {"date": "2026-07-30", "ticker": "ARM", "type": "gap_and_go", "detail": "Gap up +14.7% on 2.2x volume", "entry_price": 258.95, "current_pct": 6.15, "result_5": "win", "max_drawdown_pct": -15.28, "days_to_5": 3, "confidence": 83, "invested": 100.0, "return_dollar": 6.15, "final_value": 106.15}, {"date": "2026-07-31", "ticker": "DAL", "type": "macd", "detail": "MACD bullish crossover (above SMA20)", "entry_price": 89.2, "current_pct": 4.0, "result_5": "win", "max_drawdown_pct": 0.0, "days_to_5": 2, "confidence": 82, "invested": 100.0, "return_dollar": 4.0, "final_value": 104.0}, {"date": "2026-07-31", "ticker": "U", "type": "confluence", "detail": "Confluence (2 strong signals): adjusted_drop, sector_drop", "entry_price": 32.58, "current_pct": 2.23, "result_5": "win", "max_drawdown_pct": -0.51, "days_to_5": 1, "confidence": 81, "invested": 100.0, "return_dollar": 2.23, "final_value": 102.23}, {"date": "2026-07-31", "ticker": "RIVN", "type": "confluence", "detail": "Confluence (2 strong signals): adjusted_drop, sector_drop", "entry_price": 15.4, "current_pct": 3.86, "result_5": "win", "max_drawdown_pct": -1.95, "days_to_5": 6, "confidence": 81, "invested": 100.0, "return_dollar": 3.86, "final_value": 103.86}, {"date": "2026-07-31", "ticker": "U", "type": "sector_drop", "detail": "Sector-adjusted drop -6.45% (stock -4.89%, XLC +1.56%)", "entry_price": 32.58, "current_pct": 2.23, "result_5": "win", "max_drawdown_pct": -0.51, "days_to_5": 1, "confidence": 79, "invested": 100.0, "return_dollar": 2.23, "final_value": 102.23}, {"date": "2026-07-31", "ticker": "DXCM", "type": "macd", "detail": "MACD bullish crossover (above SMA20)", "entry_price": 85.25, "current_pct": 4.52, "result_5": "win", "max_drawdown_pct": -3.71, "days_to_5": 7, "confidence": 72, "invested": 100.0, "return_dollar": 4.52, "final_value": 104.52}, {"date": "2026-08-03", "ticker": "FCEL", "type": "macd", "detail": "MACD bullish crossover (above SMA20)", "entry_price": 21.85, "current_pct": -7.69, "result_5": "win", "max_drawdown_pct": -14.46, "days_to_5": 1, "confidence": 75, "invested": 100.0, "return_dollar": -7.69, "final_value": 92.31}, {"date": "2026-08-03", "ticker": "FISV", "type": "volume_spike", "detail": "Volume spike 2.2x (dip in uptrend)", "entry_price": 53.3, "current_pct": 0.84, "result_5": "win", "max_drawdown_pct": -0.53, "days_to_5": 2, "confidence": 74, "invested": 100.0, "return_dollar": 0.84, "final_value": 100.84}, {"date": "2026-08-03", "ticker": "SBUX", "type": "sector_drop", "detail": "Sector-adjusted drop -6.96% (stock -1.79%, XLY +5.18%)", "entry_price": 103.06, "current_pct": 5.24, "result_5": "win", "max_drawdown_pct": -1.22, "days_to_5": 7, "confidence": 83, "invested": 100.0, "return_dollar": 5.24, "final_value": 105.24}, {"date": "2026-08-03", "ticker": "EW", "type": "macd", "detail": "MACD bullish crossover (above SMA20)", "entry_price": 88.5, "current_pct": 5.01, "result_5": "win", "max_drawdown_pct": -0.62, "days_to_5": 6, "confidence": 79, "invested": 100.0, "return_dollar": 5.01, "final_value": 105.01}, {"date": "2026-08-03", "ticker": "NET", "type": "macd", "detail": "MACD bullish crossover (above SMA20)", "entry_price": 280.0, "current_pct": 7.58, "result_5": "win", "max_drawdown_pct": -0.53, "days_to_5": 1, "confidence": 80, "invested": 100.0, "return_dollar": 7.58, "final_value": 107.58}, {"date": "2026-08-04", "ticker": "GFS", "type": "gap_and_go", "detail": "Gap up +6.3% on 1.8x volume", "entry_price": 48.14, "current_pct": 4.09, "result_5": "win", "max_drawdown_pct": -0.08, "days_to_5": 1, "confidence": 80, "invested": 100.0, "return_dollar": 4.09, "final_value": 104.09}, {"date": "2026-08-04", "ticker": "SE", "type": "macd", "detail": "MACD bullish crossover (above SMA20)", "entry_price": 112.01, "current_pct": 15.14, "result_5": "win", "max_drawdown_pct": -1.25, "days_to_5": 5, "confidence": 83, "invested": 100.0, "return_dollar": 15.14, "final_value": 115.14}, {"date": "2026-08-04", "ticker": "PLTR", "type": "rel_strength", "detail": "New 20-day high (+18.4% above prev, 4.9x vol)", "entry_price": 162.0, "current_pct": 4.62, "result_5": "win", "max_drawdown_pct": -5.74, "days_to_5": 3, "confidence": 80, "invested": 100.0, "return_dollar": 4.62, "final_value": 104.62}, {"date": "2026-08-04", "ticker": "PLTR", "type": "gap_and_go", "detail": "Gap up +15.5% on 4.9x volume", "entry_price": 162.0, "current_pct": 4.62, "result_5": "win", "max_drawdown_pct": -5.74, "days_to_5": 3, "confidence": 77, "invested": 100.0, "return_dollar": 4.62, "final_value": 104.62}, {"date": "2026-08-04", "ticker": "MRVL", "type": "macd", "detail": "MACD bullish crossover (above SMA20)", "entry_price": 215.98, "current_pct": 0.92, "result_5": "win", "max_drawdown_pct": -6.59, "days_to_5": 4, "confidence": 77, "invested": 100.0, "return_dollar": 0.92, "final_value": 100.92}, {"date": "2026-08-05", "ticker": "SNAP", "type": "adjusted_drop", "detail": "Market-adjusted drop -7.75% (stock -7.94%, market -0.20%)", "entry_price": 5.2, "current_pct": 5.87, "result_5": "win", "max_drawdown_pct": -0.38, "days_to_5": 4, "confidence": 83, "invested": 100.0, "return_dollar": 5.87, "final_value": 105.87}, {"date": "2026-08-05", "ticker": "SNAP", "type": "confluence", "detail": "Confluence (2 strong signals): adjusted_drop, sector_drop", "entry_price": 5.2, "current_pct": 5.87, "result_5": "win", "max_drawdown_pct": -0.38, "days_to_5": 4, "confidence": 78, "invested": 100.0, "return_dollar": 5.87, "final_value": 105.87}, {"date": "2026-08-05", "ticker": "SHOP", "type": "gap_and_go", "detail": "Gap up +21.7% on 4.7x volume", "entry_price": 143.7, "current_pct": 5.94, "result_5": "win", "max_drawdown_pct": -1.11, "days_to_5": 2, "confidence": 74, "invested": 100.0, "return_dollar": 5.94, "final_value": 105.94}, {"date": "2026-08-05", "ticker": "AMD", "type": "adjusted_drop", "detail": "Market-adjusted drop -6.84% (stock -7.04%, market -0.20%)", "entry_price": 471.14, "current_pct": 3.85, "result_5": "win", "max_drawdown_pct": -0.35, "days_to_5": 1, "confidence": 86, "invested": 100.0, "return_dollar": 3.85, "final_value": 103.85}, {"date": "2026-08-05", "ticker": "UBER", "type": "confluence", "detail": "Confluence (2 strong signals): adjusted_drop, sector_drop", "entry_price": 68.63, "current_pct": 9.84, "result_5": "win", "max_drawdown_pct": -0.67, "days_to_5": 2, "confidence": 78, "invested": 100.0, "return_dollar": 9.84, "final_value": 109.84}, {"date": "2026-08-06", "ticker": "RDW", "type": "rel_strength", "detail": "New 20-day high (+18.2% above prev, 2.1x vol)", "entry_price": 12.42, "current_pct": 4.37, "result_5": "win", "max_drawdown_pct": 0.0, "days_to_5": 1, "confidence": 80, "invested": 100.0, "return_dollar": 4.37, "final_value": 104.37}, {"date": "2026-08-06", "ticker": "SOUN", "type": "confluence", "detail": "Confluence (2 strong signals): gap_and_go, rel_strength", "entry_price": 7.25, "current_pct": 5.45, "result_5": "win", "max_drawdown_pct": -2.28, "days_to_5": 1, "confidence": 82, "invested": 100.0, "return_dollar": 5.45, "final_value": 105.45}, {"date": "2026-08-06", "ticker": "RDW", "type": "gap_and_go", "detail": "Gap up +14.2% on 2.1x volume", "entry_price": 12.42, "current_pct": 4.37, "result_5": "win", "max_drawdown_pct": 0.0, "days_to_5": 1, "confidence": 80, "invested": 100.0, "return_dollar": 4.37, "final_value": 104.37}, {"date": "2026-08-06", "ticker": "OXY", "type": "gap_and_go", "detail": "Gap up +4.9% on 1.9x volume", "entry_price": 55.75, "current_pct": 5.12, "result_5": "win", "max_drawdown_pct": -1.11, "days_to_5": 2, "confidence": 82, "invested": 100.0, "return_dollar": 5.12, "final_value": 105.12}, {"date": "2026-08-06", "ticker": "HIMS", "type": "confluence", "detail": "Confluence (2 strong signals): adjusted_drop, sector_drop", "entry_price": 30.19, "current_pct": 4.64, "result_5": "win", "max_drawdown_pct": -1.29, "days_to_5": 1, "confidence": 78, "invested": 100.0, "return_dollar": 4.64, "final_value": 104.64}, {"date": "2026-08-07", "ticker": "UUUU", "type": "confluence", "detail": "Confluence (2 strong signals): gap_and_go, rel_strength", "entry_price": 14.14, "current_pct": 2.93, "result_5": "win", "max_drawdown_pct": -0.78, "days_to_5": 3, "confidence": 84, "invested": 100.0, "return_dollar": 2.93, "final_value": 102.93}, {"date": "2026-08-07", "ticker": "U", "type": "gap_and_go", "detail": "Gap up +4.2% on 1.8x volume", "entry_price": 42.74, "current_pct": 4.45, "result_5": "win", "max_drawdown_pct": -1.57, "days_to_5": 4, "confidence": 80, "invested": 100.0, "return_dollar": 4.45, "final_value": 104.45}, {"date": "2026-08-07", "ticker": "NET", "type": "volume_spike", "detail": "Volume spike 2.7x (dip in uptrend)", "entry_price": 295.5, "current_pct": 5.24, "result_5": "win", "max_drawdown_pct": -1.7, "days_to_5": 1, "confidence": 75, "invested": 100.0, "return_dollar": 5.24, "final_value": 105.24}, {"date": "2026-08-07", "ticker": "TEAM", "type": "rel_strength", "detail": "New 20-day high (+34.9% above prev, 4.8x vol)", "entry_price": 149.32, "current_pct": 5.35, "result_5": "win", "max_drawdown_pct": -2.9, "days_to_5": 4, "confidence": 82, "invested": 100.0, "return_dollar": 5.35, "final_value": 105.35}, {"date": "2026-08-07", "ticker": "UUUU", "type": "gap_and_go", "detail": "Gap up +7.5% on 1.7x volume", "entry_price": 14.14, "current_pct": 2.93, "result_5": "win", "max_drawdown_pct": -0.78, "days_to_5": 3, "confidence": 80, "invested": 100.0, "return_dollar": 2.93, "final_value": 102.93}, {"date": "2026-08-10", "ticker": "ACHR", "type": "gap_and_go", "detail": "Gap up +14.7% on 3.8x volume", "entry_price": 6.23, "current_pct": 7.92, "result_5": "win", "max_drawdown_pct": -1.61, "days_to_5": 1, "confidence": 80, "invested": 100.0, "return_dollar": 7.92, "final_value": 107.92}, {"date": "2026-08-10", "ticker": "MRNA", "type": "macd", "detail": "MACD bullish crossover (above SMA20)", "entry_price": 60.58, "current_pct": 5.32, "result_5": "win", "max_drawdown_pct": -2.12, "days_to_5": 1, "confidence": 76, "invested": 100.0, "return_dollar": 5.32, "final_value": 105.32}, {"date": "2026-08-10", "ticker": "ACHR", "type": "volume_spike", "detail": "Volume spike 3.8x (dip in uptrend)", "entry_price": 6.23, "current_pct": 7.92, "result_5": "win", "max_drawdown_pct": -1.61, "days_to_5": 1, "confidence": 79, "invested": 100.0, "return_dollar": 7.92, "final_value": 107.92}, {"date": "2026-08-10", "ticker": "ACHR", "type": "rel_strength", "detail": "New 20-day high (+22.7% above prev, 3.8x vol)", "entry_price": 6.23, "current_pct": 7.92, "result_5": "win", "max_drawdown_pct": -1.61, "days_to_5": 1, "confidence": 83, "invested": 100.0, "return_dollar": 7.92, "final_value": 107.92}, {"date": "2026-08-10", "ticker": "SMR", "type": "adjusted_drop", "detail": "Market-adjusted drop -6.49% (stock -6.52%, market -0.03%)", "entry_price": 9.36, "current_pct": 4.97, "result_5": "win", "max_drawdown_pct": -2.03, "days_to_5": 1, "confidence": 85, "invested": 100.0, "return_dollar": 4.97, "final_value": 104.97}, {"date": "2026-08-11", "ticker": "PLUG", "type": "rel_strength", "detail": "New 20-day high (+7.6% above prev, 2.8x vol)", "entry_price": 2.28, "current_pct": 1.1, "result_5": "win", "max_drawdown_pct": -3.95, "days_to_5": 2, "confidence": 83, "invested": 100.0, "return_dollar": 1.1, "final_value": 101.1}, {"date": "2026-08-11", "ticker": "PLUG", "type": "volume_spike", "detail": "Volume spike 2.8x (dip in uptrend)", "entry_price": 2.28, "current_pct": 1.1, "result_5": "win", "max_drawdown_pct": -3.95, "days_to_5": 2, "confidence": 74, "invested": 100.0, "return_dollar": 1.1, "final_value": 101.1}, {"date": "2026-08-11", "ticker": "SMCI", "type": "volume_spike", "detail": "Volume spike 2.0x (dip in uptrend)", "entry_price": 34.99, "current_pct": 2.72, "result_5": "win", "max_drawdown_pct": -3.0, "days_to_5": 1, "confidence": 75, "invested": 100.0, "return_dollar": 2.72, "final_value": 102.72}, {"date": "2026-08-12", "ticker": "SMCI", "type": "gap_and_go", "detail": "Gap up +10.7% on 3.4x volume", "entry_price": 38.29, "current_pct": 8.83, "result_5": "win", "max_drawdown_pct": -0.24, "days_to_5": 1, "confidence": 83, "invested": 100.0, "return_dollar": 8.83, "final_value": 108.83}, {"date": "2026-08-12", "ticker": "LUNR", "type": "rel_strength", "detail": "New 20-day high (+2.8% above prev, 1.4x vol)", "entry_price": 14.29, "current_pct": 16.31, "result_5": "win", "max_drawdown_pct": -0.77, "days_to_5": 1, "confidence": 85, "invested": 100.0, "return_dollar": 16.31, "final_value": 116.31}, {"date": "2026-08-12", "ticker": "ACHR", "type": "adjusted_drop", "detail": "Market-adjusted drop -7.61% (stock -7.36%, market +0.25%)", "entry_price": 6.21, "current_pct": 4.43, "result_5": "win", "max_drawdown_pct": -0.32, "days_to_5": 1, "confidence": 83, "invested": 100.0, "return_dollar": 4.43, "final_value": 104.43}, {"date": "2026-08-12", "ticker": "ACHR", "type": "sector_drop", "detail": "Sector-adjusted drop -7.46% (stock -7.36%, XLI +0.10%)", "entry_price": 6.21, "current_pct": 4.43, "result_5": "win", "max_drawdown_pct": -0.32, "days_to_5": 1, "confidence": 84, "invested": 100.0, "return_dollar": 4.43, "final_value": 104.43}, {"date": "2026-08-12", "ticker": "SMCI", "type": "confluence", "detail": "Confluence (2 strong signals): gap_and_go, rel_strength", "entry_price": 38.29, "current_pct": 8.83, "result_5": "win", "max_drawdown_pct": -0.24, "days_to_5": 1, "confidence": 87, "invested": 100.0, "return_dollar": 8.83, "final_value": 108.83}], "best_trades": [{"date": "2026-07-16", "ticker": "RIOT", "type": "confluence", "detail": "Confluence (2 strong signals): adjusted_drop, sector_drop", "entry_price": 18.02, "current_pct": 17.84, "result_5": "win", "max_drawdown_pct": -3.25, "days_to_5": 1, "confidence": 88, "invested": 100.0, "return_dollar": 17.84, "final_value": 117.84}, {"date": "2026-07-29", "ticker": "SMCI", "type": "confluence", "detail": "Confluence (2 strong signals): adjusted_drop, sector_drop", "entry_price": 26.84, "current_pct": 17.73, "result_5": "win", "max_drawdown_pct": -0.71, "days_to_5": 2, "confidence": 89, "invested": 100.0, "return_dollar": 17.73, "final_value": 117.73}, {"date": "2026-07-29", "ticker": "SMCI", "type": "sector_drop", "detail": "Sector-adjusted drop -7.02% (stock -9.67%, XLK -2.64%)", "entry_price": 26.84, "current_pct": 17.73, "result_5": "win", "max_drawdown_pct": -0.71, "days_to_5": 2, "confidence": 90, "invested": 100.0, "return_dollar": 17.73, "final_value": 117.73}], "worst_trades": [{"date": "2026-08-03", "ticker": "FCEL", "type": "macd", "detail": "MACD bullish crossover (above SMA20)", "entry_price": 21.85, "current_pct": -7.69, "result_5": "win", "max_drawdown_pct": -14.46, "days_to_5": 1, "confidence": 75, "invested": 100.0, "return_dollar": -7.69, "final_value": 92.31}, {"date": "2026-07-29", "ticker": "OPEN", "type": "sector_drop", "detail": "Sector-adjusted drop -6.74% (stock -6.85%, XLRE -0.11%)", "entry_price": 3.71, "current_pct": -3.5, "result_5": "win", "max_drawdown_pct": -8.89, "days_to_5": 3, "confidence": 84, "invested": 100.0, "return_dollar": -3.5, "final_value": 96.5}, {"date": "2026-07-17", "ticker": "AA", "type": "adjusted_drop", "detail": "Market-adjusted drop -5.14% (stock -6.13%, market -0.99%)", "entry_price": 44.37, "current_pct": -3.35, "result_5": "win", "max_drawdown_pct": -4.26, "days_to_5": 3, "confidence": 79, "invested": 100.0, "return_dollar": -3.35, "final_value": 96.65}]}, "new": {"name": "New (Filtered + Ranked)", "total_trades": 98, "wins": 98, "losses": 0, "win_rate": 100.0, "total_invested": 9800.0, "total_value": 10714.53, "pnl": 914.53, "pnl_pct": 9.33, "avg_return": 9.33, "max_return": 34.43, "min_return": -3.35, "sharpe": 1.408, "daily_pnl": [{"date": "2026-07-16", "pnl": 86.47, "n_trades": 5}, {"date": "2026-07-17", "pnl": 16.61, "n_trades": 5}, {"date": "2026-07-20", "pnl": 29.69, "n_trades": 5}, {"date": "2026-07-21", "pnl": 37.26, "n_trades": 5}, {"date": "2026-07-22", "pnl": 50.92, "n_trades": 5}, {"date": "2026-07-23", "pnl": 71.51, "n_trades": 5}, {"date": "2026-07-24", "pnl": 122.58, "n_trades": 5}, {"date": "2026-07-27", "pnl": 20.28, "n_trades": 5}, {"date": "2026-07-28", "pnl": 98.52, "n_trades": 5}, {"date": "2026-07-29", "pnl": 99.2, "n_trades": 5}, {"date": "2026-07-30", "pnl": 48.07, "n_trades": 5}, {"date": "2026-07-31", "pnl": 27.43, "n_trades": 5}, {"date": "2026-08-03", "pnl": 27.65, "n_trades": 5}, {"date": "2026-08-04", "pnl": 37.79, "n_trades": 5}, {"date": "2026-08-05", "pnl": 15.78, "n_trades": 5}, {"date": "2026-08-06", "pnl": 25.84, "n_trades": 5}, {"date": "2026-08-07", "pnl": 19.82, "n_trades": 5}, {"date": "2026-08-10", "pnl": 26.96, "n_trades": 5}, {"date": "2026-08-11", "pnl": 4.92, "n_trades": 3}, {"date": "2026-08-12", "pnl": 47.23, "n_trades": 5}], "cumulative": [{"date": "2026-07-16", "cumulative": 86.47}, {"date": "2026-07-17", "cumulative": 103.08}, {"date": "2026-07-20", "cumulative": 132.77}, {"date": "2026-07-21", "cumulative": 170.03}, {"date": "2026-07-22", "cumulative": 220.95}, {"date": "2026-07-23", "cumulative": 292.46}, {"date": "2026-07-24", "cumulative": 415.04}, {"date": "2026-07-27", "cumulative": 435.32}, {"date": "2026-07-28", "cumulative": 533.84}, {"date": "2026-07-29", "cumulative": 633.04}, {"date": "2026-07-30", "cumulative": 681.11}, {"date": "2026-07-31", "cumulative": 708.54}, {"date": "2026-08-03", "cumulative": 736.19}, {"date": "2026-08-04", "cumulative": 773.98}, {"date": "2026-08-05", "cumulative": 789.76}, {"date": "2026-08-06", "cumulative": 815.6}, {"date": "2026-08-07", "cumulative": 835.42}, {"date": "2026-08-10", "cumulative": 862.38}, {"date": "2026-08-11", "cumulative": 867.3}, {"date": "2026-08-12", "cumulative": 914.53}], "trades": [{"date": "2026-07-16", "ticker": "SMCI", "type": "sector_drop", "detail": "Sector-adjusted drop -5.98% (stock -8.22%, XLK -2.24%)", "entry_price": 24.33, "current_pct": 16.93, "result_5": "win", "max_drawdown_pct": -3.9, "days_to_5": 4, "confidence": 90, "invested": 100.0, "return_dollar": 16.93, "final_value": 116.93}, {"date": "2026-07-16", "ticker": "RIOT", "type": "sector_drop", "detail": "Sector-adjusted drop -5.46% (stock -6.37%, BITO -0.91%)", "entry_price": 18.02, "current_pct": 17.84, "result_5": "win", "max_drawdown_pct": -3.25, "days_to_5": 1, "confidence": 90, "invested": 100.0, "return_dollar": 17.84, "final_value": 117.84}, {"date": "2026-07-16", "ticker": "SMCI", "type": "adjusted_drop", "detail": "Market-adjusted drop -7.68% (stock -8.22%, market -0.54%)", "entry_price": 24.33, "current_pct": 16.93, "result_5": "win", "max_drawdown_pct": -3.9, "days_to_5": 4, "confidence": 89, "invested": 100.0, "return_dollar": 16.93, "final_value": 116.93}, {"date": "2026-07-16", "ticker": "SMCI", "type": "confluence", "detail": "Confluence (2 strong signals): adjusted_drop, sector_drop", "entry_price": 24.33, "current_pct": 16.93, "result_5": "win", "max_drawdown_pct": -3.9, "days_to_5": 4, "confidence": 89, "invested": 100.0, "return_dollar": 16.93, "final_value": 116.93}, {"date": "2026-07-16", "ticker": "RIOT", "type": "adjusted_drop", "detail": "Market-adjusted drop -5.83% (stock -6.37%, market -0.54%)", "entry_price": 18.02, "current_pct": 17.84, "result_5": "win", "max_drawdown_pct": -3.25, "days_to_5": 1, "confidence": 89, "invested": 100.0, "return_dollar": 17.84, "final_value": 117.84}, {"date": "2026-07-17", "ticker": "NFLX", "type": "adjusted_drop", "detail": "Market-adjusted drop -6.27% (stock -7.26%, market -0.99%)", "entry_price": 68.32, "current_pct": 7.77, "result_5": "win", "max_drawdown_pct": -2.39, "days_to_5": 7, "confidence": 82, "invested": 100.0, "return_dollar": 7.77, "final_value": 107.77}, {"date": "2026-07-17", "ticker": "NFLX", "type": "confluence", "detail": "Confluence (2 strong signals): adjusted_drop, sector_drop", "entry_price": 68.32, "current_pct": 7.77, "result_5": "win", "max_drawdown_pct": -2.39, "days_to_5": 7, "confidence": 81, "invested": 100.0, "return_dollar": 7.77, "final_value": 107.77}, {"date": "2026-07-17", "ticker": "NFLX", "type": "sector_drop", "detail": "Sector-adjusted drop -5.49% (stock -7.26%, XLC -1.78%)", "entry_price": 68.32, "current_pct": 7.77, "result_5": "win", "max_drawdown_pct": -2.39, "days_to_5": 7, "confidence": 80, "invested": 100.0, "return_dollar": 7.77, "final_value": 107.77}, {"date": "2026-07-17", "ticker": "AA", "type": "sector_drop", "detail": "Sector-adjusted drop -5.42% (stock -6.13%, XLB -0.71%)", "entry_price": 44.37, "current_pct": -3.35, "result_5": "win", "max_drawdown_pct": -4.26, "days_to_5": 3, "confidence": 80, "invested": 100.0, "return_dollar": -3.35, "final_value": 96.65}, {"date": "2026-07-17", "ticker": "AA", "type": "adjusted_drop", "detail": "Market-adjusted drop -5.14% (stock -6.13%, market -0.99%)", "entry_price": 44.37, "current_pct": -3.35, "result_5": "win", "max_drawdown_pct": -4.26, "days_to_5": 3, "confidence": 79, "invested": 100.0, "return_dollar": -3.35, "final_value": 96.65}, {"date": "2026-07-20", "ticker": "CIFR", "type": "gap_and_go", "detail": "Gap up +6.9% on 1.7x volume", "entry_price": 21.02, "current_pct": 12.65, "result_5": "win", "max_drawdown_pct": -0.19, "days_to_5": 1, "confidence": 84, "invested": 100.0, "return_dollar": 12.65, "final_value": 112.65}, {"date": "2026-07-20", "ticker": "HUT", "type": "gap_and_go", "detail": "Gap up +11.0% on 1.7x volume", "entry_price": 104.99, "current_pct": 4.77, "result_5": "win", "max_drawdown_pct": -1.13, "days_to_5": 1, "confidence": 82, "invested": 100.0, "return_dollar": 4.77, "final_value": 104.77}, {"date": "2026-07-20", "ticker": "IREN", "type": "gap_and_go", "detail": "Gap up +8.2% on 2.4x volume", "entry_price": 40.91, "current_pct": 5.46, "result_5": "win", "max_drawdown_pct": -1.54, "days_to_5": 2, "confidence": 82, "invested": 100.0, "return_dollar": 5.46, "final_value": 105.46}, {"date": "2026-07-20", "ticker": "CLSK", "type": "macd", "detail": "MACD bullish crossover (above SMA20)", "entry_price": 14.82, "current_pct": 4.89, "result_5": "win", "max_drawdown_pct": -0.92, "days_to_5": 1, "confidence": 81, "invested": 100.0, "return_dollar": 4.89, "final_value": 104.89}, {"date": "2026-07-20", "ticker": "ACHR", "type": "gap_and_go", "detail": "Gap up +4.3% on 3.1x volume", "entry_price": 5.32, "current_pct": 1.92, "result_5": "win", "max_drawdown_pct": -1.13, "days_to_5": 1, "confidence": 77, "invested": 100.0, "return_dollar": 1.92, "final_value": 101.92}, {"date": "2026-07-21", "ticker": "ACN", "type": "sector_drop", "detail": "Sector-adjusted drop -5.56% (stock -2.67%, XLK +2.89%)", "entry_price": 140.82, "current_pct": 17.85, "result_5": "win", "max_drawdown_pct": -3.45, "days_to_5": 4, "confidence": 86, "invested": 100.0, "return_dollar": 17.85, "final_value": 117.85}, {"date": "2026-07-21", "ticker": "EVGO", "type": "adjusted_drop", "detail": "Market-adjusted drop -5.03% (stock -4.19%, market +0.83%)", "entry_price": 1.6, "current_pct": 0.07, "result_5": "win", "max_drawdown_pct": -11.88, "days_to_5": 8, "confidence": 85, "invested": 100.0, "return_dollar": 0.07, "final_value": 100.07}, {"date": "2026-07-21", "ticker": "DHR", "type": "sector_drop", "detail": "Sector-adjusted drop -11.62% (stock -10.99%, XLV +0.63%)", "entry_price": 178.47, "current_pct": 6.54, "result_5": "win", "max_drawdown_pct": -3.06, "days_to_5": 2, "confidence": 84, "invested": 100.0, "return_dollar": 6.54, "final_value": 106.54}, {"date": "2026-07-21", "ticker": "DOCU", "type": "sector_drop", "detail": "Sector-adjusted drop -5.87% (stock -2.98%, XLK +2.89%)", "entry_price": 50.51, "current_pct": 6.26, "result_5": "win", "max_drawdown_pct": -7.8, "days_to_5": 4, "confidence": 84, "invested": 100.0, "return_dollar": 6.26, "final_value": 106.26}, {"date": "2026-07-21", "ticker": "DHR", "type": "adjusted_drop", "detail": "Market-adjusted drop -11.82% (stock -10.99%, market +0.83%)", "entry_price": 178.47, "current_pct": 6.54, "result_5": "win", "max_drawdown_pct": -3.06, "days_to_5": 2, "confidence": 83, "invested": 100.0, "return_dollar": 6.54, "final_value": 106.54}, {"date": "2026-07-22", "ticker": "DOCU", "type": "adjusted_drop", "detail": "Market-adjusted drop -5.50% (stock -5.62%, market -0.12%)", "entry_price": 48.4, "current_pct": 10.89, "result_5": "win", "max_drawdown_pct": -3.78, "days_to_5": 3, "confidence": 88, "invested": 100.0, "return_dollar": 10.89, "final_value": 110.89}, {"date": "2026-07-22", "ticker": "LCID", "type": "adjusted_drop", "detail": "Market-adjusted drop -7.26% (stock -7.38%, market -0.12%)", "entry_price": 6.66, "current_pct": 17.1, "result_5": "win", "max_drawdown_pct": -8.2, "days_to_5": 4, "confidence": 88, "invested": 100.0, "return_dollar": 17.1, "final_value": 117.1}, {"date": "2026-07-22", "ticker": "BE", "type": "sector_drop", "detail": "Sector-adjusted drop -5.80% (stock -3.55%, XLU +2.25%)", "entry_price": 215.02, "current_pct": 6.09, "result_5": "win", "max_drawdown_pct": -26.83, "days_to_5": 1, "confidence": 88, "invested": 100.0, "return_dollar": 6.09, "final_value": 106.09}, {"date": "2026-07-22", "ticker": "WOLF", "type": "adjusted_drop", "detail": "Market-adjusted drop -7.64% (stock -7.75%, market -0.12%)", "entry_price": 28.4, "current_pct": 8.42, "result_5": "win", "max_drawdown_pct": -29.65, "days_to_5": 12, "confidence": 87, "invested": 100.0, "return_dollar": 8.42, "final_value": 108.42}, {"date": "2026-07-22", "ticker": "WOLF", "type": "sector_drop", "detail": "Sector-adjusted drop -10.00% (stock -7.75%, XLU +2.25%)", "entry_price": 28.4, "current_pct": 8.42, "result_5": "win", "max_drawdown_pct": -29.65, "days_to_5": 12, "confidence": 87, "invested": 100.0, "return_dollar": 8.42, "final_value": 108.42}, {"date": "2026-07-23", "ticker": "DOCU", "type": "adjusted_drop", "detail": "Market-adjusted drop -8.82% (stock -10.06%, market -1.23%)", "entry_price": 48.04, "current_pct": 20.27, "result_5": "win", "max_drawdown_pct": 0.0, "days_to_5": 1, "confidence": 89, "invested": 100.0, "return_dollar": 20.27, "final_value": 120.27}, {"date": "2026-07-23", "ticker": "DOCU", "type": "sector_drop", "detail": "Sector-adjusted drop -9.05% (stock -10.06%, XLK -1.01%)", "entry_price": 48.04, "current_pct": 20.27, "result_5": "win", "max_drawdown_pct": 0.0, "days_to_5": 1, "confidence": 88, "invested": 100.0, "return_dollar": 20.27, "final_value": 120.27}, {"date": "2026-07-23", "ticker": "DOCU", "type": "confluence", "detail": "Confluence (2 strong signals): adjusted_drop, sector_drop", "entry_price": 48.04, "current_pct": 20.27, "result_5": "win", "max_drawdown_pct": 0.0, "days_to_5": 1, "confidence": 88, "invested": 100.0, "return_dollar": 20.27, "final_value": 120.27}, {"date": "2026-07-23", "ticker": "MSTR", "type": "adjusted_drop", "detail": "Market-adjusted drop -5.14% (stock -6.38%, market -1.23%)", "entry_price": 93.37, "current_pct": 5.36, "result_5": "win", "max_drawdown_pct": -4.46, "days_to_5": 2, "confidence": 87, "invested": 100.0, "return_dollar": 5.36, "final_value": 105.36}, {"date": "2026-07-23", "ticker": "TMUS", "type": "sector_drop", "detail": "Sector-adjusted drop -7.25% (stock -10.75%, XLC -3.50%)", "entry_price": 171.85, "current_pct": 5.34, "result_5": "win", "max_drawdown_pct": -0.19, "days_to_5": 1, "confidence": 86, "invested": 100.0, "return_dollar": 5.34, "final_value": 105.34}, {"date": "2026-07-24", "ticker": "RDW", "type": "sector_drop", "detail": "Sector-adjusted drop -6.75% (stock -6.36%, XLI +0.40%)", "entry_price": 8.8, "current_pct": 34.43, "result_5": "win", "max_drawdown_pct": -11.82, "days_to_5": 6, "confidence": 92, "invested": 100.0, "return_dollar": 34.43, "final_value": 134.43}, {"date": "2026-07-24", "ticker": "RDW", "type": "adjusted_drop", "detail": "Market-adjusted drop -6.46% (stock -6.36%, market +0.10%)", "entry_price": 8.8, "current_pct": 34.43, "result_5": "win", "max_drawdown_pct": -11.82, "days_to_5": 6, "confidence": 91, "invested": 100.0, "return_dollar": 34.43, "final_value": 134.43}, {"date": "2026-07-24", "ticker": "BE", "type": "adjusted_drop", "detail": "Market-adjusted drop -15.02% (stock -14.91%, market +0.10%)", "entry_price": 190.51, "current_pct": 20.18, "result_5": "win", "max_drawdown_pct": -17.41, "days_to_5": 4, "confidence": 91, "invested": 100.0, "return_dollar": 20.18, "final_value": 120.18}, {"date": "2026-07-24", "ticker": "RKLB", "type": "adjusted_drop", "detail": "Market-adjusted drop -8.79% (stock -8.69%, market +0.10%)", "entry_price": 64.8, "current_pct": 16.77, "result_5": "win", "max_drawdown_pct": -10.19, "days_to_5": 1, "confidence": 90, "invested": 100.0, "return_dollar": 16.77, "final_value": 116.77}, {"date": "2026-07-24", "ticker": "RKLB", "type": "sector_drop", "detail": "Sector-adjusted drop -9.08% (stock -8.69%, XLI +0.40%)", "entry_price": 64.8, "current_pct": 16.77, "result_5": "win", "max_drawdown_pct": -10.19, "days_to_5": 1, "confidence": 90, "invested": 100.0, "return_dollar": 16.77, "final_value": 116.77}, {"date": "2026-07-27", "ticker": "AMD", "type": "adjusted_drop", "detail": "Market-adjusted drop -5.19% (stock -5.17%, market +0.02%)", "entry_price": 467.0, "current_pct": 3.73, "result_5": "win", "max_drawdown_pct": -9.2, "days_to_5": 3, "confidence": 86, "invested": 100.0, "return_dollar": 3.73, "final_value": 103.73}, {"date": "2026-07-27", "ticker": "NVDA", "type": "adjusted_drop", "detail": "Market-adjusted drop -5.02% (stock -4.99%, market +0.02%)", "entry_price": 195.0, "current_pct": 6.06, "result_5": "win", "max_drawdown_pct": -2.56, "days_to_5": 5, "confidence": 86, "invested": 100.0, "return_dollar": 6.06, "final_value": 106.06}, {"date": "2026-07-27", "ticker": "TEAM", "type": "gap_and_go", "detail": "Gap up +3.7% on 1.7x volume", "entry_price": 98.63, "current_pct": 5.15, "result_5": "win", "max_drawdown_pct": -2.04, "days_to_5": 2, "confidence": 82, "invested": 100.0, "return_dollar": 5.15, "final_value": 105.15}, {"date": "2026-07-27", "ticker": "CORZ", "type": "sector_drop", "detail": "Sector-adjusted drop -9.75% (stock -8.84%, BITO +0.92%)", "entry_price": 20.95, "current_pct": 0.29, "result_5": "win", "max_drawdown_pct": -14.49, "days_to_5": 3, "confidence": 81, "invested": 100.0, "return_dollar": 0.29, "final_value": 100.29}, {"date": "2026-07-27", "ticker": "BX", "type": "rel_strength", "detail": "New 20-day high (+3.4% above prev, 1.4x vol)", "entry_price": 130.93, "current_pct": 5.05, "result_5": "win", "max_drawdown_pct": -4.95, "days_to_5": 6, "confidence": 80, "invested": 100.0, "return_dollar": 5.05, "final_value": 105.05}, {"date": "2026-07-28", "ticker": "IONQ", "type": "adjusted_drop", "detail": "Market-adjusted drop -5.92% (stock -5.68%, market +0.24%)", "entry_price": 33.72, "current_pct": 29.51, "result_5": "win", "max_drawdown_pct": -5.66, "days_to_5": 2, "confidence": 91, "invested": 100.0, "return_dollar": 29.51, "final_value": 129.51}, {"date": "2026-07-28", "ticker": "RGTI", "type": "adjusted_drop", "detail": "Market-adjusted drop -7.40% (stock -7.16%, market +0.24%)", "entry_price": 14.32, "current_pct": 25.59, "result_5": "win", "max_drawdown_pct": -8.31, "days_to_5": 3, "confidence": 90, "invested": 100.0, "return_dollar": 25.59, "final_value": 125.59}, {"date": "2026-07-28", "ticker": "PLUG", "type": "adjusted_drop", "detail": "Market-adjusted drop -5.09% (stock -4.85%, market +0.24%)", "entry_price": 1.96, "current_pct": 10.46, "result_5": "win", "max_drawdown_pct": -5.1, "days_to_5": 2, "confidence": 89, "invested": 100.0, "return_dollar": 10.46, "final_value": 110.46}, {"date": "2026-07-28", "ticker": "LRCX", "type": "adjusted_drop", "detail": "Market-adjusted drop -7.78% (stock -7.54%, market +0.24%)", "entry_price": 264.51, "current_pct": 16.48, "result_5": "win", "max_drawdown_pct": -5.3, "days_to_5": 2, "confidence": 89, "invested": 100.0, "return_dollar": 16.48, "final_value": 116.48}, {"date": "2026-07-28", "ticker": "LRCX", "type": "sector_drop", "detail": "Sector-adjusted drop -5.70% (stock -7.54%, XLK -1.84%)", "entry_price": 264.51, "current_pct": 16.48, "result_5": "win", "max_drawdown_pct": -5.3, "days_to_5": 2, "confidence": 89, "invested": 100.0, "return_dollar": 16.48, "final_value": 116.48}, {"date": "2026-07-29", "ticker": "SMCI", "type": "sector_drop", "detail": "Sector-adjusted drop -7.02% (stock -9.67%, XLK -2.64%)", "entry_price": 26.84, "current_pct": 17.73, "result_5": "win", "max_drawdown_pct": -0.71, "days_to_5": 2, "confidence": 90, "invested": 100.0, "return_dollar": 17.73, "final_value": 117.73}, {"date": "2026-07-29", "ticker": "SMCI", "type": "adjusted_drop", "detail": "Market-adjusted drop -8.13% (stock -9.67%, market -1.54%)", "entry_price": 26.84, "current_pct": 17.73, "result_5": "win", "max_drawdown_pct": -0.71, "days_to_5": 2, "confidence": 89, "invested": 100.0, "return_dollar": 17.73, "final_value": 117.73}, {"date": "2026-07-29", "ticker": "SMCI", "type": "confluence", "detail": "Confluence (2 strong signals): adjusted_drop, sector_drop", "entry_price": 26.84, "current_pct": 17.73, "result_5": "win", "max_drawdown_pct": -0.71, "days_to_5": 2, "confidence": 89, "invested": 100.0, "return_dollar": 17.73, "final_value": 117.73}, {"date": "2026-07-29", "ticker": "SOUN", "type": "adjusted_drop", "detail": "Market-adjusted drop -7.12% (stock -8.65%, market -1.54%)", "entry_price": 5.76, "current_pct": 28.65, "result_5": "win", "max_drawdown_pct": -1.04, "days_to_5": 1, "confidence": 87, "invested": 100.0, "return_dollar": 28.65, "final_value": 128.65}, {"date": "2026-07-29", "ticker": "SOFI", "type": "sector_drop", "detail": "Sector-adjusted drop -7.30% (stock -8.90%, XLF -1.60%)", "entry_price": 15.32, "current_pct": 17.36, "result_5": "win", "max_drawdown_pct": -0.39, "days_to_5": 1, "confidence": 87, "invested": 100.0, "return_dollar": 17.36, "final_value": 117.36}, {"date": "2026-07-30", "ticker": "ZM", "type": "sector_drop", "detail": "Sector-adjusted drop -5.60% (stock -0.10%, XLK +5.50%)", "entry_price": 92.19, "current_pct": 14.04, "result_5": "win", "max_drawdown_pct": -1.14, "days_to_5": 2, "confidence": 89, "invested": 100.0, "return_dollar": 14.04, "final_value": 114.04}, {"date": "2026-07-30", "ticker": "SHOP", "type": "sector_drop", "detail": "Sector-adjusted drop -5.94% (stock -5.24%, XLY +0.70%)", "entry_price": 120.93, "current_pct": 18.87, "result_5": "win", "max_drawdown_pct": -4.68, "days_to_5": 4, "confidence": 87, "invested": 100.0, "return_dollar": 18.87, "final_value": 118.87}, {"date": "2026-07-30", "ticker": "QCOM", "type": "sector_drop", "detail": "Sector-adjusted drop -8.12% (stock -2.62%, XLK +5.50%)", "entry_price": 152.96, "current_pct": 6.61, "result_5": "win", "max_drawdown_pct": -6.58, "days_to_5": 3, "confidence": 87, "invested": 100.0, "return_dollar": 6.61, "final_value": 106.61}, {"date": "2026-07-30", "ticker": "DOCU", "type": "adjusted_drop", "detail": "Market-adjusted drop -8.35% (stock -6.67%, market +1.68%)", "entry_price": 53.06, "current_pct": 4.86, "result_5": "win", "max_drawdown_pct": -0.7, "days_to_5": 2, "confidence": 86, "invested": 100.0, "return_dollar": 4.86, "final_value": 104.86}, {"date": "2026-07-30", "ticker": "ADBE", "type": "adjusted_drop", "detail": "Market-adjusted drop -7.57% (stock -5.90%, market +1.68%)", "entry_price": 244.73, "current_pct": 3.69, "result_5": "win", "max_drawdown_pct": -1.43, "days_to_5": 2, "confidence": 86, "invested": 100.0, "return_dollar": 3.69, "final_value": 103.69}, {"date": "2026-07-31", "ticker": "RBLX", "type": "sector_drop", "detail": "Sector-adjusted drop -28.41% (stock -26.85%, XLC +1.56%)", "entry_price": 35.58, "current_pct": 5.65, "result_5": "win", "max_drawdown_pct": -1.55, "days_to_5": 1, "confidence": 87, "invested": 100.0, "return_dollar": 5.65, "final_value": 105.65}, {"date": "2026-07-31", "ticker": "COIN", "type": "adjusted_drop", "detail": "Market-adjusted drop -11.31% (stock -10.59%, market +0.72%)", "entry_price": 144.02, "current_pct": 5.24, "result_5": "win", "max_drawdown_pct": -2.07, "days_to_5": 1, "confidence": 87, "invested": 100.0, "return_dollar": 5.24, "final_value": 105.24}, {"date": "2026-07-31", "ticker": "RBLX", "type": "adjusted_drop", "detail": "Market-adjusted drop -27.57% (stock -26.85%, market +0.72%)", "entry_price": 35.58, "current_pct": 5.65, "result_5": "win", "max_drawdown_pct": -1.55, "days_to_5": 1, "confidence": 86, "invested": 100.0, "return_dollar": 5.65, "final_value": 105.65}, {"date": "2026-07-31", "ticker": "COIN", "type": "confluence", "detail": "Confluence (2 strong signals): adjusted_drop, sector_drop", "entry_price": 144.02, "current_pct": 5.24, "result_5": "win", "max_drawdown_pct": -2.07, "days_to_5": 1, "confidence": 86, "invested": 100.0, "return_dollar": 5.24, "final_value": 105.24}, {"date": "2026-07-31", "ticker": "RBLX", "type": "confluence", "detail": "Confluence (2 strong signals): adjusted_drop, sector_drop", "entry_price": 35.58, "current_pct": 5.65, "result_5": "win", "max_drawdown_pct": -1.55, "days_to_5": 1, "confidence": 85, "invested": 100.0, "return_dollar": 5.65, "final_value": 105.65}, {"date": "2026-08-03", "ticker": "U", "type": "rel_strength", "detail": "New 20-day high (+2.4% above prev, 1.8x vol)", "entry_price": 33.89, "current_pct": 5.19, "result_5": "win", "max_drawdown_pct": -1.18, "days_to_5": 1, "confidence": 83, "invested": 100.0, "return_dollar": 5.19, "final_value": 105.19}, {"date": "2026-08-03", "ticker": "SNAP", "type": "rel_strength", "detail": "New 20-day high (+3.8% above prev, 2.8x vol)", "entry_price": 5.33, "current_pct": 7.88, "result_5": "win", "max_drawdown_pct": -1.13, "days_to_5": 1, "confidence": 83, "invested": 100.0, "return_dollar": 7.88, "final_value": 107.88}, {"date": "2026-08-03", "ticker": "KKR", "type": "rel_strength", "detail": "New 20-day high (+3.0% above prev, 1.5x vol)", "entry_price": 105.2, "current_pct": 5.14, "result_5": "win", "max_drawdown_pct": -3.85, "days_to_5": 6, "confidence": 83, "invested": 100.0, "return_dollar": 5.14, "final_value": 105.14}, {"date": "2026-08-03", "ticker": "SBUX", "type": "sector_drop", "detail": "Sector-adjusted drop -6.96% (stock -1.79%, XLY +5.18%)", "entry_price": 103.06, "current_pct": 5.24, "result_5": "win", "max_drawdown_pct": -1.22, "days_to_5": 7, "confidence": 83, "invested": 100.0, "return_dollar": 5.24, "final_value": 105.24}, {"date": "2026-08-03", "ticker": "IQ", "type": "rel_strength", "detail": "New 20-day high (+5.4% above prev, 1.7x vol)", "entry_price": 1.31, "current_pct": 4.2, "result_5": "win", "max_drawdown_pct": -3.82, "days_to_5": 5, "confidence": 82, "invested": 100.0, "return_dollar": 4.2, "final_value": 104.2}, {"date": "2026-08-04", "ticker": "PLTR", "type": "confluence", "detail": "Confluence (2 strong signals): gap_and_go, rel_strength", "entry_price": 162.0, "current_pct": 4.62, "result_5": "win", "max_drawdown_pct": -5.74, "days_to_5": 3, "confidence": 84, "invested": 100.0, "return_dollar": 4.62, "final_value": 104.62}, {"date": "2026-08-04", "ticker": "LUNR", "type": "gap_and_go", "detail": "Gap up +4.7% on 1.8x volume", "entry_price": 13.82, "current_pct": 7.99, "result_5": "win", "max_drawdown_pct": -3.11, "days_to_5": 2, "confidence": 83, "invested": 100.0, "return_dollar": 7.99, "final_value": 107.99}, {"date": "2026-08-04", "ticker": "SE", "type": "macd", "detail": "MACD bullish crossover (above SMA20)", "entry_price": 112.01, "current_pct": 15.14, "result_5": "win", "max_drawdown_pct": -1.25, "days_to_5": 5, "confidence": 83, "invested": 100.0, "return_dollar": 15.14, "final_value": 115.14}, {"date": "2026-08-04", "ticker": "ON", "type": "gap_and_go", "detail": "Gap up +5.0% on 2.6x volume", "entry_price": 79.01, "current_pct": 5.63, "result_5": "win", "max_drawdown_pct": -4.2, "days_to_5": 6, "confidence": 83, "invested": 100.0, "return_dollar": 5.63, "final_value": 105.63}, {"date": "2026-08-04", "ticker": "ARM", "type": "macd", "detail": "MACD bullish crossover (above SMA20)", "entry_price": 274.56, "current_pct": 4.41, "result_5": "win", "max_drawdown_pct": -2.8, "days_to_5": 2, "confidence": 82, "invested": 100.0, "return_dollar": 4.41, "final_value": 104.41}, {"date": "2026-08-05", "ticker": "FCEL", "type": "adjusted_drop", "detail": "Market-adjusted drop -5.84% (stock -6.04%, market -0.20%)", "entry_price": 20.5, "current_pct": -0.88, "result_5": "win", "max_drawdown_pct": -2.68, "days_to_5": 1, "confidence": 86, "invested": 100.0, "return_dollar": -0.88, "final_value": 99.12}, {"date": "2026-08-05", "ticker": "FCEL", "type": "sector_drop", "detail": "Sector-adjusted drop -5.02% (stock -6.04%, XLU -1.02%)", "entry_price": 20.5, "current_pct": -0.88, "result_5": "win", "max_drawdown_pct": -2.68, "days_to_5": 1, "confidence": 86, "invested": 100.0, "return_dollar": -0.88, "final_value": 99.12}, {"date": "2026-08-05", "ticker": "AMD", "type": "adjusted_drop", "detail": "Market-adjusted drop -6.84% (stock -7.04%, market -0.20%)", "entry_price": 471.14, "current_pct": 3.85, "result_5": "win", "max_drawdown_pct": -0.35, "days_to_5": 1, "confidence": 86, "invested": 100.0, "return_dollar": 3.85, "final_value": 103.85}, {"date": "2026-08-05", "ticker": "AMD", "type": "sector_drop", "detail": "Sector-adjusted drop -6.51% (stock -7.04%, XLK -0.53%)", "entry_price": 471.14, "current_pct": 3.85, "result_5": "win", "max_drawdown_pct": -0.35, "days_to_5": 1, "confidence": 86, "invested": 100.0, "return_dollar": 3.85, "final_value": 103.85}, {"date": "2026-08-05", "ticker": "UBER", "type": "adjusted_drop", "detail": "Market-adjusted drop -5.09% (stock -5.29%, market -0.20%)", "entry_price": 68.63, "current_pct": 9.84, "result_5": "win", "max_drawdown_pct": -0.67, "days_to_5": 2, "confidence": 86, "invested": 100.0, "return_dollar": 9.84, "final_value": 109.84}, {"date": "2026-08-06", "ticker": "RDW", "type": "confluence", "detail": "Confluence (2 strong signals): gap_and_go, rel_strength", "entry_price": 12.42, "current_pct": 4.37, "result_5": "win", "max_drawdown_pct": 0.0, "days_to_5": 1, "confidence": 86, "invested": 100.0, "return_dollar": 4.37, "final_value": 104.37}, {"date": "2026-08-06", "ticker": "SOUN", "type": "rel_strength", "detail": "New 20-day high (+19.0% above prev, 2.5x vol)", "entry_price": 7.25, "current_pct": 5.45, "result_5": "win", "max_drawdown_pct": -2.28, "days_to_5": 1, "confidence": 83, "invested": 100.0, "return_dollar": 5.45, "final_value": 105.45}, {"date": "2026-08-06", "ticker": "SOUN", "type": "gap_and_go", "detail": "Gap up +25.1% on 2.5x volume", "entry_price": 7.25, "current_pct": 5.45, "result_5": "win", "max_drawdown_pct": -2.28, "days_to_5": 1, "confidence": 82, "invested": 100.0, "return_dollar": 5.45, "final_value": 105.45}, {"date": "2026-08-06", "ticker": "SOUN", "type": "confluence", "detail": "Confluence (2 strong signals): gap_and_go, rel_strength", "entry_price": 7.25, "current_pct": 5.45, "result_5": "win", "max_drawdown_pct": -2.28, "days_to_5": 1, "confidence": 82, "invested": 100.0, "return_dollar": 5.45, "final_value": 105.45}, {"date": "2026-08-06", "ticker": "OXY", "type": "gap_and_go", "detail": "Gap up +4.9% on 1.9x volume", "entry_price": 55.75, "current_pct": 5.12, "result_5": "win", "max_drawdown_pct": -1.11, "days_to_5": 2, "confidence": 82, "invested": 100.0, "return_dollar": 5.12, "final_value": 105.12}, {"date": "2026-08-07", "ticker": "UUUU", "type": "confluence", "detail": "Confluence (2 strong signals): gap_and_go, rel_strength", "entry_price": 14.14, "current_pct": 2.93, "result_5": "win", "max_drawdown_pct": -0.78, "days_to_5": 3, "confidence": 84, "invested": 100.0, "return_dollar": 2.93, "final_value": 102.93}, {"date": "2026-08-07", "ticker": "RGTI", "type": "rel_strength", "detail": "New 20-day high (+1.3% above prev, 1.4x vol)", "entry_price": 17.91, "current_pct": 5.7, "result_5": "win", "max_drawdown_pct": -2.37, "days_to_5": 4, "confidence": 83, "invested": 100.0, "return_dollar": 5.7, "final_value": 105.7}, {"date": "2026-08-07", "ticker": "UUUU", "type": "rel_strength", "detail": "New 20-day high (+2.2% above prev, 1.7x vol)", "entry_price": 14.14, "current_pct": 2.93, "result_5": "win", "max_drawdown_pct": -0.78, "days_to_5": 3, "confidence": 82, "invested": 100.0, "return_dollar": 2.93, "final_value": 102.93}, {"date": "2026-08-07", "ticker": "SEDG", "type": "gap_and_go", "detail": "Gap up +4.4% on 2.8x volume", "entry_price": 31.82, "current_pct": 2.91, "result_5": "win", "max_drawdown_pct": -0.58, "days_to_5": 2, "confidence": 82, "invested": 100.0, "return_dollar": 2.91, "final_value": 102.91}, {"date": "2026-08-07", "ticker": "TEAM", "type": "rel_strength", "detail": "New 20-day high (+34.9% above prev, 4.8x vol)", "entry_price": 149.32, "current_pct": 5.35, "result_5": "win", "max_drawdown_pct": -2.9, "days_to_5": 4, "confidence": 82, "invested": 100.0, "return_dollar": 5.35, "final_value": 105.35}, {"date": "2026-08-10", "ticker": "SMR", "type": "adjusted_drop", "detail": "Market-adjusted drop -6.49% (stock -6.52%, market -0.03%)", "entry_price": 9.36, "current_pct": 4.97, "result_5": "win", "max_drawdown_pct": -2.03, "days_to_5": 1, "confidence": 85, "invested": 100.0, "return_dollar": 4.97, "final_value": 104.97}, {"date": "2026-08-10", "ticker": "SMR", "type": "sector_drop", "detail": "Sector-adjusted drop -5.42% (stock -6.52%, XLU -1.10%)", "entry_price": 9.36, "current_pct": 4.97, "result_5": "win", "max_drawdown_pct": -2.03, "days_to_5": 1, "confidence": 85, "invested": 100.0, "return_dollar": 4.97, "final_value": 104.97}, {"date": "2026-08-10", "ticker": "ACHR", "type": "confluence", "detail": "Confluence (2 strong signals): gap_and_go, rel_strength", "entry_price": 6.23, "current_pct": 7.92, "result_5": "win", "max_drawdown_pct": -1.61, "days_to_5": 1, "confidence": 84, "invested": 100.0, "return_dollar": 7.92, "final_value": 107.92}, {"date": "2026-08-10", "ticker": "SMR", "type": "confluence", "detail": "Confluence (2 strong signals): adjusted_drop, sector_drop", "entry_price": 9.36, "current_pct": 4.97, "result_5": "win", "max_drawdown_pct": -2.03, "days_to_5": 1, "confidence": 84, "invested": 100.0, "return_dollar": 4.97, "final_value": 104.97}, {"date": "2026-08-10", "ticker": "RKLB", "type": "rel_strength", "detail": "New 20-day high (+4.3% above prev, 1.7x vol)", "entry_price": 76.27, "current_pct": 4.13, "result_5": "win", "max_drawdown_pct": -1.06, "days_to_5": 1, "confidence": 83, "invested": 100.0, "return_dollar": 4.13, "final_value": 104.13}, {"date": "2026-08-11", "ticker": "PLUG", "type": "rel_strength", "detail": "New 20-day high (+7.6% above prev, 2.8x vol)", "entry_price": 2.28, "current_pct": 1.1, "result_5": "win", "max_drawdown_pct": -3.95, "days_to_5": 2, "confidence": 83, "invested": 100.0, "return_dollar": 1.1, "final_value": 101.1}, {"date": "2026-08-11", "ticker": "SMCI", "type": "volume_spike", "detail": "Volume spike 2.0x (dip in uptrend)", "entry_price": 34.99, "current_pct": 2.72, "result_5": "win", "max_drawdown_pct": -3.0, "days_to_5": 1, "confidence": 75, "invested": 100.0, "return_dollar": 2.72, "final_value": 102.72}, {"date": "2026-08-11", "ticker": "PLUG", "type": "volume_spike", "detail": "Volume spike 2.8x (dip in uptrend)", "entry_price": 2.28, "current_pct": 1.1, "result_5": "win", "max_drawdown_pct": -3.95, "days_to_5": 2, "confidence": 74, "invested": 100.0, "return_dollar": 1.1, "final_value": 101.1}, {"date": "2026-08-12", "ticker": "SMCI", "type": "confluence", "detail": "Confluence (2 strong signals): gap_and_go, rel_strength", "entry_price": 38.29, "current_pct": 8.83, "result_5": "win", "max_drawdown_pct": -0.24, "days_to_5": 1, "confidence": 87, "invested": 100.0, "return_dollar": 8.83, "final_value": 108.83}, {"date": "2026-08-12", "ticker": "LUNR", "type": "rel_strength", "detail": "New 20-day high (+2.8% above prev, 1.4x vol)", "entry_price": 14.29, "current_pct": 16.31, "result_5": "win", "max_drawdown_pct": -0.77, "days_to_5": 1, "confidence": 85, "invested": 100.0, "return_dollar": 16.31, "final_value": 116.31}, {"date": "2026-08-12", "ticker": "SMCI", "type": "rel_strength", "detail": "New 20-day high (+14.3% above prev, 3.4x vol)", "entry_price": 38.29, "current_pct": 8.83, "result_5": "win", "max_drawdown_pct": -0.24, "days_to_5": 1, "confidence": 84, "invested": 100.0, "return_dollar": 8.83, "final_value": 108.83}, {"date": "2026-08-12", "ticker": "ACHR", "type": "sector_drop", "detail": "Sector-adjusted drop -7.46% (stock -7.36%, XLI +0.10%)", "entry_price": 6.21, "current_pct": 4.43, "result_5": "win", "max_drawdown_pct": -0.32, "days_to_5": 1, "confidence": 84, "invested": 100.0, "return_dollar": 4.43, "final_value": 104.43}, {"date": "2026-08-12", "ticker": "SMCI", "type": "gap_and_go", "detail": "Gap up +10.7% on 3.4x volume", "entry_price": 38.29, "current_pct": 8.83, "result_5": "win", "max_drawdown_pct": -0.24, "days_to_5": 1, "confidence": 83, "invested": 100.0, "return_dollar": 8.83, "final_value": 108.83}], "best_trades": [{"date": "2026-07-24", "ticker": "RDW", "type": "adjusted_drop", "detail": "Market-adjusted drop -6.46% (stock -6.36%, market +0.10%)", "entry_price": 8.8, "current_pct": 34.43, "result_5": "win", "max_drawdown_pct": -11.82, "days_to_5": 6, "confidence": 91, "invested": 100.0, "return_dollar": 34.43, "final_value": 134.43}, {"date": "2026-07-24", "ticker": "RDW", "type": "sector_drop", "detail": "Sector-adjusted drop -6.75% (stock -6.36%, XLI +0.40%)", "entry_price": 8.8, "current_pct": 34.43, "result_5": "win", "max_drawdown_pct": -11.82, "days_to_5": 6, "confidence": 92, "invested": 100.0, "return_dollar": 34.43, "final_value": 134.43}, {"date": "2026-07-28", "ticker": "IONQ", "type": "adjusted_drop", "detail": "Market-adjusted drop -5.92% (stock -5.68%, market +0.24%)", "entry_price": 33.72, "current_pct": 29.51, "result_5": "win", "max_drawdown_pct": -5.66, "days_to_5": 2, "confidence": 91, "invested": 100.0, "return_dollar": 29.51, "final_value": 129.51}], "worst_trades": [{"date": "2026-07-17", "ticker": "AA", "type": "sector_drop", "detail": "Sector-adjusted drop -5.42% (stock -6.13%, XLB -0.71%)", "entry_price": 44.37, "current_pct": -3.35, "result_5": "win", "max_drawdown_pct": -4.26, "days_to_5": 3, "confidence": 80, "invested": 100.0, "return_dollar": -3.35, "final_value": 96.65}, {"date": "2026-07-17", "ticker": "AA", "type": "adjusted_drop", "detail": "Market-adjusted drop -5.14% (stock -6.13%, market -0.99%)", "entry_price": 44.37, "current_pct": -3.35, "result_5": "win", "max_drawdown_pct": -4.26, "days_to_5": 3, "confidence": 79, "invested": 100.0, "return_dollar": -3.35, "final_value": 96.65}, {"date": "2026-08-05", "ticker": "FCEL", "type": "adjusted_drop", "detail": "Market-adjusted drop -5.84% (stock -6.04%, market -0.20%)", "entry_price": 20.5, "current_pct": -0.88, "result_5": "win", "max_drawdown_pct": -2.68, "days_to_5": 1, "confidence": 86, "invested": 100.0, "return_dollar": -0.88, "final_value": 99.12}]}}, "improvement": {"win_rate_delta": 0.0, "pnl_delta": 351.74, "avg_return_delta": 3.59, "sharpe_delta": -0.96}};
+
+function fmt(n, dec=2) { return n != null ? n.toFixed(dec) : '-'; }
+function fmtD(n) { return n >= 0 ? '+' + fmt(n) : fmt(n); }
+function fmtPct(n) { return n >= 0 ? '+' + fmt(n) + '%' : fmt(n) + '%'; }
+function fmtMoney(n) { return (n >= 0 ? '+$' : '-$') + Math.abs(n).toFixed(2); }
+function cls(n) { return n > 0 ? 'positive' : n < 0 ? 'negative' : 'neutral'; }
+
+const old = DATA.strategies.old;
+const nw = DATA.strategies.new;
+const imp = DATA.improvement;
+const tw = DATA.test_window;
+
+function deltaHtml(val, suffix='', invert=false) {
+    const up = invert ? val < 0 : val > 0;
+    const c = up ? 'up' : 'down';
+    const sign = val >= 0 ? '+' : '';
+    return `<span class="delta ${c}">${sign}${fmt(val)}${suffix}</span>`;
+}
+
+// ── Build the page ──
+
+let html = '';
+
+// Header
+html += `
+<div class="header">
+    <h1>RapidSift <span>/</span> Backtest Comparison</h1>
+    <div class="header-meta">
+        ${tw.start} &mdash; ${tw.end} &middot; ${tw.trading_days} trading days &middot;
+        generated ${DATA.generated_at}
+    </div>
+</div>`;
+
+// KPI Row
+html += `<div class="kpi-row">`;
+
+// P&L
+html += `<div class="kpi-card"><h3>Total P&amp;L</h3><div class="kpi-pair">
+    <div class="kpi-item">
+        <div class="kpi-label">Old</div>
+        <div class="kpi-value ${cls(old.pnl)}">${fmtMoney(old.pnl)}</div>
+        <div class="kpi-sub">${fmtPct(old.pnl_pct)} return</div>
+    </div>
+    <div class="kpi-item">
+        <div class="kpi-label">New</div>
+        <div class="kpi-value ${cls(nw.pnl)}">${fmtMoney(nw.pnl)}</div>
+        <div class="kpi-sub">${fmtPct(nw.pnl_pct)} return ${deltaHtml(imp.pnl_delta)}</div>
+    </div>
+</div></div>`;
+
+// Win Rate
+html += `<div class="kpi-card"><h3>Win Rate</h3><div class="kpi-pair">
+    <div class="kpi-item">
+        <div class="kpi-label">Old</div>
+        <div class="kpi-value ${cls(old.win_rate - 50)}">${fmt(old.win_rate, 1)}%</div>
+        <div class="kpi-sub">${old.wins}W / ${old.losses}L</div>
+    </div>
+    <div class="kpi-item">
+        <div class="kpi-label">New</div>
+        <div class="kpi-value ${cls(nw.win_rate - 50)}">${fmt(nw.win_rate, 1)}%</div>
+        <div class="kpi-sub">${nw.wins}W / ${nw.losses}L ${deltaHtml(imp.win_rate_delta, 'pp')}</div>
+    </div>
+</div></div>`;
+
+// Sharpe & Avg Return
+html += `<div class="kpi-card"><h3>Risk-Adjusted</h3><div class="kpi-pair">
+    <div class="kpi-item">
+        <div class="kpi-label">Sharpe (Old / New)</div>
+        <div class="kpi-value">${fmt(old.sharpe, 3)} <span style="color:var(--text-mute)">/</span> <span class="${cls(nw.sharpe)}">${fmt(nw.sharpe, 3)}</span></div>
+        <div class="kpi-sub">${deltaHtml(imp.sharpe_delta)}</div>
+    </div>
+    <div class="kpi-item">
+        <div class="kpi-label">Avg Return (Old / New)</div>
+        <div class="kpi-value">${fmtPct(old.avg_return)} <span style="color:var(--text-mute)">/</span> <span class="${cls(nw.avg_return)}">${fmtPct(nw.avg_return)}</span></div>
+        <div class="kpi-sub">${deltaHtml(imp.avg_return_delta, 'pp')}</div>
+    </div>
+</div></div>`;
+
+html += `</div>`; // end kpi-row
+
+// ── Charts ──
+html += `<div class="chart-row">`;
+
+// Cumulative return chart
+html += `<div class="chart-card">
+    <h3>Cumulative P&amp;L ($)</h3>
+    <div id="cum-chart"></div>
+    <div class="chart-legend">
+        <span><span class="legend-dot" style="background:var(--gray)"></span> Old (Random)</span>
+        <span><span class="legend-dot" style="background:var(--green)"></span> New (Filtered)</span>
+    </div>
+</div>`;
+
+// Daily returns chart
+html += `<div class="chart-card">
+    <h3>Daily P&amp;L ($)</h3>
+    <div id="daily-chart"></div>
+    <div class="chart-legend">
+        <span><span class="legend-dot" style="background:var(--gray)"></span> Old</span>
+        <span><span class="legend-dot" style="background:var(--green)"></span> New</span>
+    </div>
+</div>`;
+
+html += `</div>`; // end chart-row
+
+// Win rate visual + stats
+html += `<div class="chart-row">`;
+html += `<div class="chart-card">
+    <h3>Win Rate Comparison</h3>
+    <div id="wr-chart"></div>
+</div>`;
+
+// Improvement summary
+html += `<div class="chart-card">
+    <h3>Improvement Summary</h3>
+    <div id="imp-summary"></div>
+</div>`;
+html += `</div>`;
+
+// Stats cards
+html += `<div class="stats-grid">`;
+for (const [strat, label, dotColor] of [[old, 'Old (Random)', 'var(--gray)'], [nw, 'New (Filtered+Ranked)', 'var(--green)']]) {
+    html += `<div class="stats-card">
+        <h3><span class="dot" style="background:${dotColor}"></span> ${label}</h3>`;
+    const rows = [
+        ['Total Trades', strat.total_trades],
+        ['Win / Loss', strat.wins + ' / ' + strat.losses],
+        ['Win Rate', fmt(strat.win_rate, 1) + '%'],
+        ['Total Invested', '$' + strat.total_invested.toLocaleString()],
+        ['Final Value', '$' + strat.total_value.toLocaleString()],
+        ['P&L', fmtMoney(strat.pnl)],
+        ['P&L %', fmtPct(strat.pnl_pct)],
+        ['Avg Return', fmtPct(strat.avg_return)],
+        ['Best Trade', strat.best_trades[0].ticker + ' ' + fmtPct(strat.best_trades[0].current_pct)],
+        ['Worst Trade', strat.worst_trades[0].ticker + ' ' + fmtPct(strat.worst_trades[0].current_pct)],
+        ['Max Drawdown', fmtPct(strat.min_return)],
+        ['Sharpe', fmt(strat.sharpe, 3)],
+    ];
+    for (const [k, v] of rows) {
+        const valCls = typeof v === 'string' && v.startsWith('+') ? 'positive' : typeof v === 'string' && v.startsWith('-') ? 'negative' : '';
+        html += `<div class="stats-row"><span class="label">${k}</span><span class="${valCls}">${v}</span></div>`;
+    }
+    html += `</div>`;
+}
+html += `</div>`;
+
+// Trade table
+const allTrades = [];
+old.trades.forEach(t => allTrades.push({...t, strategy: 'old'}));
+nw.trades.forEach(t => allTrades.push({...t, strategy: 'new'}));
+
+html += `<div class="table-section">
+    <h3>All Trades</h3>
+    <div class="table-controls">
+        <button class="filter-btn active" data-filter="all">All (${allTrades.length})</button>
+        <button class="filter-btn" data-filter="old">Old (${old.trades.length})</button>
+        <button class="filter-btn" data-filter="new">New (${nw.trades.length})</button>
+        <button class="filter-btn" data-filter="win">Wins</button>
+        <button class="filter-btn" data-filter="loss">Losses</button>
+    </div>
+    <div class="table-wrap">
+        <table id="trade-table">
+            <thead><tr>
+                <th data-col="date">Date <span class="sort-arrow">&#9650;</span></th>
+                <th data-col="ticker">Ticker <span class="sort-arrow">&#9650;</span></th>
+                <th data-col="type">Type <span class="sort-arrow">&#9650;</span></th>
+                <th data-col="strategy">Strategy <span class="sort-arrow">&#9650;</span></th>
+                <th data-col="confidence">Conf <span class="sort-arrow">&#9650;</span></th>
+                <th data-col="entry_price">Entry <span class="sort-arrow">&#9650;</span></th>
+                <th data-col="current_pct">Return% <span class="sort-arrow">&#9650;</span></th>
+                <th data-col="result_5">Result <span class="sort-arrow">&#9650;</span></th>
+                <th data-col="return_dollar">P&amp;L <span class="sort-arrow">&#9650;</span></th>
+            </tr></thead>
+            <tbody id="trade-body"></tbody>
+        </table>
+    </div>
+</div>`;
+
+// Footer
+html += `<div class="footer">
+    RapidSift Backtest &middot; ${tw.start} to ${tw.end} &middot;
+    Training: ${DATA.training_window.start} to ${DATA.training_window.end} (${DATA.training_window.trading_days} days)
+</div>`;
+
+document.getElementById('app').innerHTML = html;
+
+// ── Render cumulative chart (SVG) ──
+function renderCumChart() {
+    const W = 600, H = 250, P = 40;
+    const oldData = old.cumulative;
+    const newData = nw.cumulative;
+    const allVals = [...oldData.map(d=>d.cumulative), ...newData.map(d=>d.cumulative), 0];
+    const minV = Math.min(...allVals);
+    const maxV = Math.max(...allVals);
+    const range = maxV - minV || 1;
+
+    const n = oldData.length;
+    const xStep = (W - 2*P) / Math.max(n - 1, 1);
+
+    function y(v) { return H - P - ((v - minV) / range) * (H - 2*P); }
+    function x(i) { return P + i * xStep; }
+
+    let svg = `<svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg">`;
+
+    // Grid
+    const nGrid = 5;
+    for (let i = 0; i <= nGrid; i++) {
+        const val = minV + (range * i / nGrid);
+        const yy = y(val);
+        svg += `<line x1="${P}" y1="${yy}" x2="${W-P}" y2="${yy}" stroke="var(--border)" stroke-width="0.5"/>`;
+        svg += `<text x="${P-4}" y="${yy+3}" text-anchor="end" font-size="8" fill="var(--text-mute)" font-family="var(--mono)">$${Math.round(val)}</text>`;
+    }
+
+    // Zero line
+    if (minV < 0 && maxV > 0) {
+        svg += `<line x1="${P}" y1="${y(0)}" x2="${W-P}" y2="${y(0)}" stroke="var(--text-mute)" stroke-width="0.5" stroke-dasharray="4,4"/>`;
+    }
+
+    // X labels (every 4th date)
+    for (let i = 0; i < n; i += 4) {
+        const label = oldData[i].date.slice(5); // MM-DD
+        svg += `<text x="${x(i)}" y="${H-P+14}" text-anchor="middle" font-size="7" fill="var(--text-mute)" font-family="var(--mono)">${label}</text>`;
+    }
+
+    // Old line
+    let path = oldData.map((d, i) => `${i===0?'M':'L'}${x(i).toFixed(1)},${y(d.cumulative).toFixed(1)}`).join(' ');
+    svg += `<path d="${path}" fill="none" stroke="var(--gray)" stroke-width="1.5" opacity="0.7"/>`;
+
+    // New line
+    path = newData.map((d, i) => `${i===0?'M':'L'}${x(i).toFixed(1)},${y(d.cumulative).toFixed(1)}`).join(' ');
+    svg += `<path d="${path}" fill="none" stroke="var(--green)" stroke-width="2"/>`;
+
+    // Area under new line
+    let area = newData.map((d, i) => `${i===0?'M':'L'}${x(i).toFixed(1)},${y(d.cumulative).toFixed(1)}`).join(' ');
+    area += ` L${x(n-1).toFixed(1)},${y(0).toFixed(1)} L${x(0).toFixed(1)},${y(0).toFixed(1)} Z`;
+    svg += `<path d="${area}" fill="var(--green)" opacity="0.05"/>`;
+
+    // Dots on endpoints
+    svg += `<circle cx="${x(n-1)}" cy="${y(oldData[n-1].cumulative)}" r="3" fill="var(--gray)"/>`;
+    svg += `<circle cx="${x(n-1)}" cy="${y(newData[n-1].cumulative)}" r="3" fill="var(--green)"/>`;
+
+    // End labels
+    svg += `<text x="${x(n-1)+6}" y="${y(oldData[n-1].cumulative)+3}" font-size="9" fill="var(--gray)" font-family="var(--mono)">$${Math.round(oldData[n-1].cumulative)}</text>`;
+    svg += `<text x="${x(n-1)+6}" y="${y(newData[n-1].cumulative)+3}" font-size="9" fill="var(--green)" font-family="var(--mono)">$${Math.round(newData[n-1].cumulative)}</text>`;
+
+    svg += `</svg>`;
+    document.getElementById('cum-chart').innerHTML = svg;
+}
+
+// ── Render daily P&L chart ──
+function renderDailyChart() {
+    const W = 600, H = 250, P = 40;
+    const oldData = old.daily_pnl;
+    const newData = nw.daily_pnl;
+    const allVals = [...oldData.map(d=>d.pnl), ...newData.map(d=>d.pnl), 0];
+    const minV = Math.min(...allVals);
+    const maxV = Math.max(...allVals);
+    const range = maxV - minV || 1;
+
+    const n = oldData.length;
+    const groupW = (W - 2*P) / n;
+    const barW = groupW * 0.35;
+
+    function y(v) { return H - P - ((v - minV) / range) * (H - 2*P); }
+    const y0 = y(0);
+
+    let svg = `<svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg">`;
+
+    // Zero line
+    svg += `<line x1="${P}" y1="${y0}" x2="${W-P}" y2="${y0}" stroke="var(--text-mute)" stroke-width="0.5"/>`;
+
+    // Grid
+    for (let i = 0; i <= 4; i++) {
+        const val = minV + (range * i / 4);
+        const yy = y(val);
+        svg += `<line x1="${P}" y1="${yy}" x2="${W-P}" y2="${yy}" stroke="var(--border)" stroke-width="0.5"/>`;
+        svg += `<text x="${P-4}" y="${yy+3}" text-anchor="end" font-size="8" fill="var(--text-mute)" font-family="var(--mono)">$${Math.round(val)}</text>`;
+    }
+
+    for (let i = 0; i < n; i++) {
+        const cx = P + groupW * i + groupW / 2;
+
+        // Old bar
+        const oh = oldData[i].pnl;
+        const oldY = y(oh);
+        const oldColor = oh >= 0 ? 'var(--gray)' : 'var(--gray)';
+        svg += `<rect x="${cx - barW - 1}" y="${Math.min(y0, oldY)}" width="${barW}" height="${Math.abs(oldY - y0)}" fill="${oldColor}" opacity="0.5" rx="1"/>`;
+
+        // New bar
+        const nh = newData[i].pnl;
+        const newY = y(nh);
+        const newColor = nh >= 0 ? 'var(--green)' : 'var(--red)';
+        svg += `<rect x="${cx + 1}" y="${Math.min(y0, newY)}" width="${barW}" height="${Math.abs(newY - y0)}" fill="${newColor}" opacity="0.7" rx="1"/>`;
+
+        // X label
+        if (i % 4 === 0) {
+            svg += `<text x="${cx}" y="${H-P+14}" text-anchor="middle" font-size="7" fill="var(--text-mute)" font-family="var(--mono)">${oldData[i].date.slice(5)}</text>`;
+        }
+    }
+
+    svg += `</svg>`;
+    document.getElementById('daily-chart').innerHTML = svg;
+}
+
+// ── Win rate comparison ──
+function renderWRChart() {
+    const maxWR = 100;
+    const oldH = (old.win_rate / maxWR) * 100;
+    const newH = (nw.win_rate / maxWR) * 100;
+
+    let h = `<div class="wr-compare">
+        <div class="wr-bar-group">
+            <div class="wr-bar-value neutral">${fmt(old.win_rate, 1)}%</div>
+            <div class="wr-bar" style="height:${oldH}%;background:var(--gray);opacity:0.5"></div>
+            <div class="wr-bar-label">Old</div>
+        </div>
+        <div class="wr-bar-group">
+            <div class="wr-bar-value ${cls(nw.win_rate - old.win_rate)}">${fmt(nw.win_rate, 1)}%</div>
+            <div class="wr-bar" style="height:${newH}%;background:var(--green)"></div>
+            <div class="wr-bar-label">New</div>
+        </div>
+        <div class="wr-bar-group" style="flex:0.5">
+            <div class="wr-bar-value" style="font-size:11px;color:var(--text-mute)">${fmtPct(imp.win_rate_delta)}pp</div>
+            <div class="wr-bar-label">Delta</div>
+        </div>
+    </div>`;
+    document.getElementById('wr-chart').innerHTML = h;
+}
+
+// ── Improvement summary ──
+function renderImpSummary() {
+    const metrics = [
+        ['Win Rate', imp.win_rate_delta, 'pp', false],
+        ['P&L', imp.pnl_delta, '', false],
+        ['Avg Return', imp.avg_return_delta, 'pp', false],
+        ['Sharpe', imp.sharpe_delta, '', false],
+    ];
+    let h = '';
+    for (const [name, val, suffix, invert] of metrics) {
+        const up = invert ? val < 0 : val > 0;
+        const color = up ? 'var(--green)' : val === 0 ? 'var(--gray)' : 'var(--red)';
+        const sign = val >= 0 ? '+' : '';
+        const barW = Math.min(Math.abs(val) * 3, 100);
+        h += `<div style="margin-bottom:16px">
+            <div style="display:flex;justify-content:space-between;margin-bottom:4px">
+                <span style="color:var(--text-dim);font-size:10px;text-transform:uppercase">${name}</span>
+                <span style="color:${color};font-weight:600">${sign}${fmt(val)}${suffix}</span>
+            </div>
+            <div style="background:var(--border);height:6px;border-radius:3px;overflow:hidden">
+                <div style="width:${barW}%;height:100%;background:${color};border-radius:3px;transition:width 0.3s"></div>
+            </div>
+        </div>`;
+    }
+    document.getElementById('imp-summary').innerHTML = h;
+}
+
+// ── Trade table ──
+let currentFilter = 'all';
+let sortCol = 'date';
+let sortAsc = false;
+
+function renderTradeTable() {
+    let filtered = allTrades;
+    if (currentFilter === 'old') filtered = filtered.filter(t => t.strategy === 'old');
+    if (currentFilter === 'new') filtered = filtered.filter(t => t.strategy === 'new');
+    if (currentFilter === 'win') filtered = filtered.filter(t => t.result_5 === 'win');
+    if (currentFilter === 'loss') filtered = filtered.filter(t => t.result_5 === 'loss');
+
+    filtered.sort((a, b) => {
+        let va = a[sortCol], vb = b[sortCol];
+        if (typeof va === 'number' && typeof vb === 'number') return sortAsc ? va - vb : vb - va;
+        if (va == null) va = '';
+        if (vb == null) vb = '';
+        return sortAsc ? String(va).localeCompare(String(vb)) : String(vb).localeCompare(String(va));
+    });
+
+    let rows = '';
+    for (const t of filtered) {
+        const retCls = t.current_pct >= 0 ? 'positive' : 'negative';
+        const resCls = t.result_5 === 'win' ? 'tag-win' : 'tag-loss';
+        const stratCls = t.strategy === 'new' ? 'tag-new' : 'tag-old';
+        const confHtml = t.confidence != null
+            ? `<span class="conf-bar" style="width:${t.confidence * 0.4}px"></span>${t.confidence}`
+            : '<span style="color:var(--text-mute)">-</span>';
+        const pnlCls = t.return_dollar >= 0 ? 'positive' : 'negative';
+
+        rows += `<tr>
+            <td>${t.date}</td>
+            <td style="color:var(--text);font-weight:500">${t.ticker}</td>
+            <td>${t.type}</td>
+            <td><span class="tag ${stratCls}">${t.strategy}</span></td>
+            <td>${confHtml}</td>
+            <td>$${fmt(t.entry_price)}</td>
+            <td class="${retCls}">${fmtPct(t.current_pct)}</td>
+            <td><span class="tag ${resCls}">${t.result_5}</span></td>
+            <td class="${pnlCls}">${fmtMoney(t.return_dollar)}</td>
+        </tr>`;
+    }
+    document.getElementById('trade-body').innerHTML = rows;
+
+    // Update sort arrows
+    document.querySelectorAll('#trade-table th').forEach(th => {
+        th.classList.toggle('sorted', th.dataset.col === sortCol);
+        const arrow = th.querySelector('.sort-arrow');
+        if (arrow) arrow.innerHTML = (th.dataset.col === sortCol && sortAsc) ? '&#9650;' : '&#9660;';
+    });
+}
+
+// Event listeners
+document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        currentFilter = btn.dataset.filter;
+        renderTradeTable();
+    });
+});
+
+document.querySelectorAll('#trade-table th').forEach(th => {
+    th.addEventListener('click', () => {
+        if (sortCol === th.dataset.col) {
+            sortAsc = !sortAsc;
+        } else {
+            sortCol = th.dataset.col;
+            sortAsc = true;
+        }
+        renderTradeTable();
+    });
+});
+
+// Render all
+renderCumChart();
+renderDailyChart();
+renderWRChart();
+renderImpSummary();
+renderTradeTable();
+</script>
+</body>
+</html>
