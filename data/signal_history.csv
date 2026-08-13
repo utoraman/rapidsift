@@ -3209,3 +3209,8 @@ date,ticker,type,direction,detail,price,entry_price,result_5,result_10,current_p
 2026-08-12,JOBY,adjusted_drop,buy,"Market-adjusted drop -5.71% (stock -5.46%, market +0.25%)",7.96,7.85,win,pending,4.52,0,1,
 2026-08-10,TEAM,earnings_drift,buy,"Post-catalyst drift: catalyst gap +31.7%, day-2 move +1.9%",151.87,151.38,win,win,10.27,-1.66,3,3
 2026-08-06,SHOP,earnings_drift,buy,"Post-catalyst drift: catalyst gap +21.7%, day-2 move +2.2%",147.44,148.43,win,pending,6.75,-1.9,5,
+2026-08-03,LYFT,macd,buy,MACD bullish crossover (above SMA20),16.38,16.33,win,pending,4.87,-1.68,4,
+2026-07-31,MSTR,adjusted_drop,buy,"Market-adjusted drop -5.28% (stock -4.56%, market +0.72%)",93.28,92.01,win,win,5.53,-1.17,2,5
+2026-07-31,EVGO,adjusted_drop,buy,"Market-adjusted drop -6.11% (stock -5.39%, market +0.72%)",1.58,1.59,win,win,3.77,-9.43,2,2
+2026-07-28,EL,macd,buy,MACD bullish crossover (above SMA20),84.75,83.29,win,pending,4.84,-0.82,4,
+2026-07-27,CSCO,macd,buy,MACD bullish crossover (above SMA20),114.57,114.13,win,pending,-0.58,-2.32,6,
