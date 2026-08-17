@@ -3225,3 +3225,4 @@ date,ticker,type,direction,detail,price,entry_price,result_5,result_10,current_p
 2026-08-04,AMD,gap_and_go,buy,Gap up +4.0% on 1.8x volume,518.58,484.5,win,pending,5.06,-4.39,8,
 2026-08-03,CELH,sector_drop,buy,"Sector-adjusted drop -5.18% (stock -3.36%, XLY +1.83%)",28.23,28.06,win,pending,3.67,-16.04,1,
 2026-08-13,BTBT,rel_strength,buy,"New 20-day high (+1.9% above prev, 1.6x vol)",1.49,1.5,win,pending,6.0,-1.33,2,
+2026-08-13,CELH,macd,buy,MACD bullish crossover (above SMA20),28.78,28.86,win,pending,4.09,-4.09,2,
