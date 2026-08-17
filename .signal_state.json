@@ -6,12 +6,15 @@
     "CCL_macd_2026-08-17",
     "AVGO_macd_2026-08-17",
     "META_macd_2026-08-17",
+    "LUNR_gap_and_go_2026-08-17",
     "LUNR_rel_strength_2026-08-17",
+    "ABT_macd_2026-08-17",
     "IQ_macd_2026-08-17",
     "FISV_macd_2026-08-17",
     "ADBE_macd_2026-08-17",
+    "EOG_macd_2026-08-17",
     "EL_macd_2026-08-17"
   ],
-  "last_run": "2026-08-17T17:55:06.774271",
+  "last_run": "2026-08-17T19:19:29.484936",
   "last_brief_date": "2026-08-17"
 }
