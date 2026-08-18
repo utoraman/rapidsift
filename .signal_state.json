@@ -1,19 +1,17 @@
 {
   "last_signals": [
-    "AMZN_macd_2026-08-18",
-    "BAC_macd_2026-08-18",
-    "CCL_macd_2026-08-18",
-    "AVGO_macd_2026-08-18",
-    "WFC_macd_2026-08-18",
+    "GRAB_macd_2026-08-18",
+    "MSFT_macd_2026-08-18",
+    "FCX_macd_2026-08-18",
     "CLF_macd_2026-08-18",
-    "KO_macd_2026-08-18",
-    "META_macd_2026-08-18",
-    "IQ_macd_2026-08-18",
+    "CORZ_macd_2026-08-18",
+    "ABT_macd_2026-08-18",
     "JNJ_macd_2026-08-18",
-    "AMAT_macd_2026-08-18",
-    "FISV_macd_2026-08-18",
-    "EOG_macd_2026-08-18"
+    "SNOW_macd_2026-08-18",
+    "ACN_macd_2026-08-18",
+    "BA_macd_2026-08-18",
+    "DHR_macd_2026-08-18"
   ],
-  "last_run": "2026-08-18T15:01:44.961266",
+  "last_run": "2026-08-18T16:26:35.356003",
   "last_brief_date": "2026-08-18"
 }
