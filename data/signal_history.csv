@@ -3232,3 +3232,14 @@ date,ticker,type,direction,detail,price,entry_price,result_5,result_10,current_p
 2026-08-03,DKNG,sector_drop,buy,"Sector-adjusted drop -5.09% (stock +0.09%, XLY +5.18%)",23.5,23.29,win,win,7.88,-8.46,5,7
 2026-07-30,JNJ,adjusted_drop,buy,"Market-adjusted drop -5.33% (stock -3.66%, market +1.68%)",255.82,256.01,win,pending,5.35,-2.18,12,
 2026-08-10,BBWI,adjusted_drop,buy,"Market-adjusted drop -5.08% (stock -5.11%, market -0.03%)",19.32,19.2,win,pending,4.71,-6.61,5,
+2026-08-05,WOLF,adjusted_drop,buy,"Market-adjusted drop -6.71% (stock -6.91%, market -0.20%)",25.19,25.4,win,win,23.86,-1.57,1,1
+2026-08-05,WOLF,sector_drop,buy,"Sector-adjusted drop -5.89% (stock -6.91%, XLU -1.02%)",25.19,25.4,win,win,23.86,-1.57,1,1
+2026-08-05,WOLF,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",25.19,25.4,win,win,23.86,-1.57,1,1
+2026-08-05,IREN,sector_drop,buy,"Sector-adjusted drop -5.83% (stock -4.80%, BITO +1.04%)",38.89,37.26,win,win,12.74,-0.47,1,2
+2026-08-05,EVGO,sector_drop,buy,"Sector-adjusted drop -10.54% (stock -11.56%, XLU -1.02%)",1.53,1.54,win,pending,-2.6,-6.49,2,
+2026-08-05,ENPH,adjusted_drop,buy,"Market-adjusted drop -6.55% (stock -6.75%, market -0.20%)",38.95,38.4,win,win,-2.14,-2.76,2,2
+2026-08-05,ENPH,sector_drop,buy,"Sector-adjusted drop -5.73% (stock -6.75%, XLU -1.02%)",38.95,38.4,win,win,-2.14,-2.76,2,2
+2026-08-05,ENPH,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",38.95,38.4,win,win,-2.14,-2.76,2,2
+2026-08-05,DKNG,sector_drop,buy,"Sector-adjusted drop -8.13% (stock -7.84%, XLY +0.30%)",21.76,21.37,win,win,12.49,-0.23,2,2
+2026-08-05,APLD,sector_drop,buy,"Sector-adjusted drop -5.51% (stock -4.48%, BITO +1.04%)",29.87,28.3,win,win,0.74,-1.17,1,5
+2026-08-04,GILD,macd,buy,MACD bullish crossover (above SMA20),135.25,136.0,win,pending,5.47,-5.13,10,
