@@ -1,21 +1,20 @@
 {
   "last_signals": [
-    "NU_macd_2026-08-17",
-    "AMZN_macd_2026-08-17",
-    "BAC_macd_2026-08-17",
-    "CCL_macd_2026-08-17",
-    "AVGO_macd_2026-08-17",
-    "WFC_macd_2026-08-17",
-    "META_macd_2026-08-17",
-    "LUNR_gap_and_go_2026-08-17",
-    "LUNR_rel_strength_2026-08-17",
-    "ABT_macd_2026-08-17",
-    "IQ_macd_2026-08-17",
-    "FISV_macd_2026-08-17",
-    "ADBE_macd_2026-08-17",
-    "EOG_macd_2026-08-17",
-    "EL_macd_2026-08-17"
+    "NU_macd_2026-08-18",
+    "AMZN_macd_2026-08-18",
+    "BAC_macd_2026-08-18",
+    "CCL_macd_2026-08-18",
+    "AVGO_macd_2026-08-18",
+    "WFC_macd_2026-08-18",
+    "CLF_macd_2026-08-18",
+    "KO_macd_2026-08-18",
+    "META_macd_2026-08-18",
+    "IQ_macd_2026-08-18",
+    "JNJ_macd_2026-08-18",
+    "FISV_macd_2026-08-18",
+    "EOG_macd_2026-08-18",
+    "DHR_macd_2026-08-18"
   ],
-  "last_run": "2026-08-17T20:50:01.523281",
-  "last_brief_date": "2026-08-17"
+  "last_run": "2026-08-18T14:18:18.866160",
+  "last_brief_date": "2026-08-18"
 }

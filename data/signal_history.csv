@@ -3226,3 +3226,8 @@ date,ticker,type,direction,detail,price,entry_price,result_5,result_10,current_p
 2026-08-03,CELH,sector_drop,buy,"Sector-adjusted drop -5.18% (stock -3.36%, XLY +1.83%)",28.23,28.06,win,pending,3.67,-16.04,1,
 2026-08-13,BTBT,rel_strength,buy,"New 20-day high (+1.9% above prev, 1.6x vol)",1.49,1.5,win,pending,6.0,-1.33,2,
 2026-08-13,CELH,macd,buy,MACD bullish crossover (above SMA20),28.78,28.86,win,pending,4.09,-4.09,2,
+2026-08-14,FCEL,macd,buy,MACD bullish crossover (above SMA20),22.37,21.03,win,win,7.61,-1.52,1,1
+2026-08-11,GILD,macd,buy,MACD bullish crossover (above SMA20),135.77,133.99,win,pending,6.14,-0.51,4,
+2026-08-03,WBD,sector_drop,buy,"Sector-adjusted drop -5.26% (stock -0.80%, XLC +4.47%)",26.09,26.17,win,pending,6.94,-2.94,7,
+2026-08-03,DKNG,sector_drop,buy,"Sector-adjusted drop -5.09% (stock +0.09%, XLY +5.18%)",23.5,23.29,win,win,7.88,-8.46,5,7
+2026-07-30,JNJ,adjusted_drop,buy,"Market-adjusted drop -5.33% (stock -3.66%, market +1.68%)",255.82,256.01,win,pending,5.35,-2.18,12,
