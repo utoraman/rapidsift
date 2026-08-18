@@ -3231,3 +3231,4 @@ date,ticker,type,direction,detail,price,entry_price,result_5,result_10,current_p
 2026-08-03,WBD,sector_drop,buy,"Sector-adjusted drop -5.26% (stock -0.80%, XLC +4.47%)",26.09,26.17,win,pending,6.94,-2.94,7,
 2026-08-03,DKNG,sector_drop,buy,"Sector-adjusted drop -5.09% (stock +0.09%, XLY +5.18%)",23.5,23.29,win,win,7.88,-8.46,5,7
 2026-07-30,JNJ,adjusted_drop,buy,"Market-adjusted drop -5.33% (stock -3.66%, market +1.68%)",255.82,256.01,win,pending,5.35,-2.18,12,
+2026-08-10,BBWI,adjusted_drop,buy,"Market-adjusted drop -5.08% (stock -5.11%, market -0.03%)",19.32,19.2,win,pending,4.71,-6.61,5,
