@@ -3252,3 +3252,5 @@ date,ticker,type,direction,detail,price,entry_price,result_5,result_10,current_p
 2026-08-05,SHOP,confluence,buy,"Confluence (2 strong signals): gap_and_go, rel_strength",144.24,143.7,win,win,2.72,-1.11,2,6
 2026-08-05,SE,macd,buy,MACD bullish crossover (above SMA20),114.91,112.12,win,win,4.49,-1.35,4,4
 2026-08-03,BMY,volume_spike,buy,Volume spike 3.0x (dip in uptrend),65.47,64.89,win,pending,5.48,-2.91,12,
+2026-08-17,NOW,sector_drop,buy,"Sector-adjusted drop -5.24% (stock -5.08%, XLK +0.16%)",117.7,119.48,win,pending,7.44,-1.37,2,
+2026-08-04,CELH,macd,buy,MACD bullish crossover (above SMA20),29.54,30.12,win,pending,5.05,-21.78,11,
