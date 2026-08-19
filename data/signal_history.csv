@@ -3243,3 +3243,12 @@ date,ticker,type,direction,detail,price,entry_price,result_5,result_10,current_p
 2026-08-05,DKNG,sector_drop,buy,"Sector-adjusted drop -8.13% (stock -7.84%, XLY +0.30%)",21.76,21.37,win,win,12.49,-0.23,2,2
 2026-08-05,APLD,sector_drop,buy,"Sector-adjusted drop -5.51% (stock -4.48%, BITO +1.04%)",29.87,28.3,win,win,0.74,-1.17,1,5
 2026-08-04,GILD,macd,buy,MACD bullish crossover (above SMA20),135.25,136.0,win,pending,5.47,-5.13,10,
+2026-08-13,PDD,adjusted_drop,buy,"Market-adjusted drop -6.17% (stock -5.47%, market +0.70%)",84.17,84.27,win,pending,5.61,-0.74,4,
+2026-08-13,MRK,macd,buy,MACD bullish crossover (above SMA20),135.55,134.43,win,win,12.11,-0.77,4,4
+2026-08-11,MNST,adjusted_drop,buy,"Market-adjusted drop -49.29% (stock -49.61%, market -0.32%)",45.53,45.43,win,pending,4.95,-0.84,6,
+2026-08-11,MNST,sector_drop,buy,"Sector-adjusted drop -49.31% (stock -49.61%, XLP -0.31%)",45.53,45.43,win,pending,4.95,-0.84,6,
+2026-08-11,MNST,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",45.53,45.43,win,pending,4.95,-0.84,6,
+2026-08-10,TGT,rel_strength,buy,"New 20-day high (+2.2% above prev, 1.4x vol)",150.86,149.89,win,pending,6.26,-2.45,7,
+2026-08-05,SHOP,confluence,buy,"Confluence (2 strong signals): gap_and_go, rel_strength",144.24,143.7,win,win,2.72,-1.11,2,6
+2026-08-05,SE,macd,buy,MACD bullish crossover (above SMA20),114.91,112.12,win,win,4.49,-1.35,4,4
+2026-08-03,BMY,volume_spike,buy,Volume spike 3.0x (dip in uptrend),65.47,64.89,win,pending,5.48,-2.91,12,
