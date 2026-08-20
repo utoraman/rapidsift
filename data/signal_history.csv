@@ -3275,3 +3275,9 @@ date,ticker,type,direction,detail,price,entry_price,result_5,result_10,current_p
 2026-08-05,DIS,gap_and_go,buy,Gap up +3.9% on 1.9x volume,101.76,102.54,win,pending,4.97,-0.5,11,
 2026-08-05,DIS,rel_strength,buy,"New 20-day high (+3.4% above prev, 1.9x vol)",101.76,102.54,win,pending,4.97,-0.5,11,
 2026-08-05,DIS,confluence,buy,"Confluence (2 strong signals): gap_and_go, rel_strength",101.76,102.54,win,pending,4.97,-0.5,11,
+2026-08-19,MRVL,volume_spike,buy,Volume spike 2.0x (dip in uptrend),237.27,238.0,win,pending,5.47,-1.46,1,
+2026-08-19,MRVL,gap_and_go,buy,Gap up +11.2% on 2.0x volume,237.27,238.0,win,pending,5.47,-1.46,1,
+2026-08-19,MRVL,rel_strength,buy,"New 20-day high (+2.2% above prev, 2.0x vol)",237.27,238.0,win,pending,5.47,-1.46,1,
+2026-08-19,MRVL,confluence,buy,"Confluence (2 strong signals): gap_and_go, rel_strength",237.27,238.0,win,pending,5.47,-1.46,1,
+2026-08-12,RIOT,earnings_drift,buy,"Post-catalyst drift: catalyst gap +21.5%, day-2 move +0.4%",20.32,19.98,win,pending,5.01,-10.6,6,
+2026-08-07,MARA,sector_drop,buy,"Sector-adjusted drop -6.29% (stock -5.26%, BITO +1.03%)",10.09,9.99,win,win,11.61,-13.11,9,9
