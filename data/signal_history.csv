@@ -3268,3 +3268,10 @@ date,ticker,type,direction,detail,price,entry_price,result_5,result_10,current_p
 2026-08-06,ET,macd,buy,MACD bullish crossover (above SMA20),20.33,20.2,win,pending,4.85,-0.45,8,
 2026-08-06,DHR,macd,buy,MACD bullish crossover (above SMA20),199.98,199.4,win,pending,6.07,-0.48,2,
 2026-08-06,CELH,adjusted_drop,buy,"Market-adjusted drop -18.30% (stock -18.46%, market -0.16%)",23.77,23.97,win,win,34.58,-0.63,1,1
+2026-08-19,BTBT,volume_spike,buy,Volume spike 2.2x (dip in uptrend),1.4,1.46,win,pending,5.5,-0.34,1,
+2026-08-07,HIMS,macd,buy,MACD bullish crossover (above SMA20),31.59,31.07,win,pending,4.51,-11.88,9,
+2026-08-06,DASH,volume_spike,buy,Volume spike 2.4x (dip in uptrend),213.26,212.25,win,pending,3.61,-2.83,10,
+2026-08-06,DASH,gap_and_go,buy,Gap up +3.6% on 2.4x volume,213.26,212.25,win,pending,3.61,-2.83,10,
+2026-08-05,DIS,gap_and_go,buy,Gap up +3.9% on 1.9x volume,101.76,102.54,win,pending,4.97,-0.5,11,
+2026-08-05,DIS,rel_strength,buy,"New 20-day high (+3.4% above prev, 1.9x vol)",101.76,102.54,win,pending,4.97,-0.5,11,
+2026-08-05,DIS,confluence,buy,"Confluence (2 strong signals): gap_and_go, rel_strength",101.76,102.54,win,pending,4.97,-0.5,11,
