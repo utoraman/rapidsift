@@ -3299,3 +3299,8 @@ date,ticker,type,direction,detail,price,entry_price,result_5,result_10,current_p
 2026-08-19,CLF,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",11.17,10.98,win,pending,5.37,-5.1,2,
 2026-08-12,AI,adjusted_drop,buy,"Market-adjusted drop -5.42% (stock -5.17%, market +0.25%)",10.08,10.11,win,pending,2.57,-5.97,7,
 2026-08-06,MARA,adjusted_drop,buy,"Market-adjusted drop -5.09% (stock -5.25%, market -0.16%)",10.65,10.92,win,win,6.64,-20.51,11,11
+2026-08-20,HIMS,macd,buy,MACD bullish crossover (above SMA20),31.86,31.67,win,pending,5.59,-0.22,1,
+2026-08-19,MRNA,gap_and_go,buy,Gap up +84.3% on 37.1x volume,174.38,150.14,win,pending,0.91,-14.34,2,
+2026-08-19,MRNA,rel_strength,buy,"New 20-day high (+169.6% above prev, 37.1x vol)",174.38,150.14,win,pending,0.91,-14.34,2,
+2026-08-19,MRNA,confluence,buy,"Confluence (2 strong signals): gap_and_go, rel_strength",174.38,150.14,win,pending,0.91,-14.34,2,
+2026-08-05,DASH,rel_strength,buy,"New 20-day high (+1.8% above prev, 1.4x vol)",207.27,214.67,win,pending,5.01,-3.92,12,
