@@ -3281,3 +3281,21 @@ date,ticker,type,direction,detail,price,entry_price,result_5,result_10,current_p
 2026-08-19,MRVL,confluence,buy,"Confluence (2 strong signals): gap_and_go, rel_strength",237.27,238.0,win,pending,5.47,-1.46,1,
 2026-08-12,RIOT,earnings_drift,buy,"Post-catalyst drift: catalyst gap +21.5%, day-2 move +0.4%",20.32,19.98,win,pending,5.01,-10.6,6,
 2026-08-07,MARA,sector_drop,buy,"Sector-adjusted drop -6.29% (stock -5.26%, BITO +1.03%)",10.09,9.99,win,win,11.61,-13.11,9,9
+2026-08-20,UUUU,adjusted_drop,buy,"Market-adjusted drop -5.56% (stock -6.40%, market -0.84%)",13.9,14.63,win,pending,1.09,-0.34,1,
+2026-08-20,MRNA,adjusted_drop,buy,"Market-adjusted drop -22.71% (stock -23.55%, market -0.84%)",133.32,132.5,win,win,17.27,-0.05,1,1
+2026-08-20,MRNA,sector_drop,buy,"Sector-adjusted drop -21.67% (stock -23.55%, XLV -1.87%)",133.32,132.5,win,win,17.27,-0.05,1,1
+2026-08-20,MARA,macd,buy,MACD bullish crossover (above SMA20),11.15,11.72,win,pending,-0.59,-1.07,1,
+2026-08-20,MARA,gap_and_go,buy,Gap up +5.8% on 1.8x volume,11.15,11.72,win,pending,-0.59,-1.07,1,
+2026-08-20,COIN,gap_and_go,buy,Gap up +7.8% on 2.2x volume,172.35,180.06,win,pending,3.45,-0.48,1,
+2026-08-20,COIN,rel_strength,buy,"New 20-day high (+3.0% above prev, 2.2x vol)",172.35,180.06,win,pending,3.45,-0.48,1,
+2026-08-20,COIN,confluence,buy,"Confluence (2 strong signals): gap_and_go, rel_strength",172.35,180.06,win,pending,3.45,-0.48,1,
+2026-08-19,NVAX,gap_and_go,buy,Gap up +6.3% on 3.7x volume,8.79,8.5,win,pending,6.24,-5.65,2,
+2026-08-19,NVAX,rel_strength,buy,"New 20-day high (+7.3% above prev, 3.7x vol)",8.79,8.5,win,pending,6.24,-5.65,2,
+2026-08-19,NVAX,confluence,buy,"Confluence (2 strong signals): gap_and_go, rel_strength",8.79,8.5,win,pending,6.24,-5.65,2,
+2026-08-19,MSTR,rel_strength,buy,"New 20-day high (+1.3% above prev, 3.1x vol)",104.25,113.23,win,pending,3.89,-4.31,2,
+2026-08-19,COIN,macd,buy,MACD bullish crossover (above SMA20),160.2,172.75,win,win,7.83,-3.84,2,2
+2026-08-19,CLF,adjusted_drop,buy,"Market-adjusted drop -6.19% (stock -5.98%, market +0.21%)",11.17,10.98,win,pending,5.37,-5.1,2,
+2026-08-19,CLF,sector_drop,buy,"Sector-adjusted drop -7.41% (stock -5.98%, XLB +1.43%)",11.17,10.98,win,pending,5.37,-5.1,2,
+2026-08-19,CLF,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",11.17,10.98,win,pending,5.37,-5.1,2,
+2026-08-12,AI,adjusted_drop,buy,"Market-adjusted drop -5.42% (stock -5.17%, market +0.25%)",10.08,10.11,win,pending,2.57,-5.97,7,
+2026-08-06,MARA,adjusted_drop,buy,"Market-adjusted drop -5.09% (stock -5.25%, market -0.16%)",10.65,10.92,win,win,6.64,-20.51,11,11
