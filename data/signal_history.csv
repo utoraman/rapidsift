@@ -3304,3 +3304,4 @@ date,ticker,type,direction,detail,price,entry_price,result_5,result_10,current_p
 2026-08-19,MRNA,rel_strength,buy,"New 20-day high (+169.6% above prev, 37.1x vol)",174.38,150.14,win,pending,0.91,-14.34,2,
 2026-08-19,MRNA,confluence,buy,"Confluence (2 strong signals): gap_and_go, rel_strength",174.38,150.14,win,pending,0.91,-14.34,2,
 2026-08-05,DASH,rel_strength,buy,"New 20-day high (+1.8% above prev, 1.4x vol)",207.27,214.67,win,pending,5.01,-3.92,12,
+2026-08-04,CMG,adjusted_drop,buy,"Market-adjusted drop -11.52% (stock -9.72%, market +1.80%)",33.82,34.65,win,pending,5.27,-8.69,13,
