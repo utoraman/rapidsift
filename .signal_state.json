@@ -3,7 +3,10 @@
     "NU_macd_2026-08-24",
     "SNAP_macd_2026-08-24",
     "NIO_macd_2026-08-24",
+    "VALE_volume_spike_2026-08-24",
     "VALE_rel_strength_2026-08-24",
+    "SOUN_macd_2026-08-24",
+    "RDW_macd_2026-08-24",
     "MSTR_rel_strength_2026-08-24",
     "BSX_macd_2026-08-24",
     "TSM_macd_2026-08-24",
@@ -14,6 +17,6 @@
     "V_macd_2026-08-24",
     "ZM_macd_2026-08-24"
   ],
-  "last_run": "2026-08-24T19:20:55.521676",
+  "last_run": "2026-08-24T20:54:53.150364",
   "last_brief_date": "2026-08-24"
 }
