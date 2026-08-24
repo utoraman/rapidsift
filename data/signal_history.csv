@@ -3324,3 +3324,4 @@ date,ticker,type,direction,detail,price,entry_price,result_5,result_10,current_p
 2026-08-19,EL,rel_strength,buy,"New 20-day high (+12.3% above prev, 5.8x vol)",98.01,97.43,win,pending,5.95,-3.09,3,
 2026-08-19,EL,confluence,buy,"Confluence (2 strong signals): gap_and_go, rel_strength",98.01,97.43,win,pending,5.95,-3.09,3,
 2026-08-05,SCHW,rel_strength,buy,"New 20-day high (+1.6% above prev, 1.4x vol)",107.71,108.28,win,pending,5.66,-2.22,13,
+2026-08-21,BTBT,rel_strength,buy,"New 20-day high (+4.2% above prev, 2.2x vol)",1.53,1.55,win,pending,2.9,-3.23,1,
