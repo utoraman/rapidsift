@@ -1,22 +1,20 @@
 {
   "last_signals": [
-    "NU_macd_2026-08-24",
-    "SNAP_macd_2026-08-24",
-    "NIO_macd_2026-08-24",
-    "VALE_volume_spike_2026-08-24",
-    "VALE_rel_strength_2026-08-24",
-    "SOUN_macd_2026-08-24",
-    "RDW_macd_2026-08-24",
-    "MSTR_rel_strength_2026-08-24",
-    "BSX_macd_2026-08-24",
-    "TSM_macd_2026-08-24",
-    "CSX_macd_2026-08-24",
-    "BE_macd_2026-08-24",
-    "PG_macd_2026-08-24",
-    "ON_macd_2026-08-24",
-    "V_macd_2026-08-24",
-    "ZM_macd_2026-08-24"
+    "F_macd_2026-08-25",
+    "ACHR_macd_2026-08-25",
+    "RGTI_macd_2026-08-25",
+    "RKLB_macd_2026-08-25",
+    "ASTS_macd_2026-08-25",
+    "U_macd_2026-08-25",
+    "UPS_macd_2026-08-25",
+    "BBWI_macd_2026-08-25",
+    "AI_macd_2026-08-25",
+    "ADBE_macd_2026-08-25",
+    "WDAY_macd_2026-08-25",
+    "KMB_macd_2026-08-25",
+    "DXCM_macd_2026-08-25",
+    "DOCU_macd_2026-08-25"
   ],
-  "last_run": "2026-08-24T20:54:53.150364",
-  "last_brief_date": "2026-08-24"
+  "last_run": "2026-08-25T14:29:07.890445",
+  "last_brief_date": "2026-08-25"
 }
