@@ -3340,3 +3340,6 @@ date,ticker,type,direction,detail,price,entry_price,result_5,result_10,current_p
 2026-08-21,UEC,gap_and_go,buy,Gap up +3.5% on 2.3x volume,12.76,12.71,win,pending,4.48,-3.3,2,
 2026-08-21,UEC,rel_strength,buy,"New 20-day high (+8.4% above prev, 2.3x vol)",12.76,12.71,win,pending,4.48,-3.3,2,
 2026-08-21,UEC,confluence,buy,"Confluence (2 strong signals): gap_and_go, rel_strength",12.76,12.71,win,pending,4.48,-3.3,2,
+2026-08-21,HOOD,gap_and_go,buy,Gap up +6.3% on 2.7x volume,108.13,106.86,win,pending,4.51,-3.79,2,
+2026-08-21,HOOD,rel_strength,buy,"New 20-day high (+8.0% above prev, 2.7x vol)",108.13,106.86,win,pending,4.51,-3.79,2,
+2026-08-21,HOOD,confluence,buy,"Confluence (2 strong signals): gap_and_go, rel_strength",108.13,106.86,win,pending,4.51,-3.79,2,
