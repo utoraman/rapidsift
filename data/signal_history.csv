@@ -3343,3 +3343,6 @@ date,ticker,type,direction,detail,price,entry_price,result_5,result_10,current_p
 2026-08-21,HOOD,gap_and_go,buy,Gap up +6.3% on 2.7x volume,108.13,106.86,win,pending,4.51,-3.79,2,
 2026-08-21,HOOD,rel_strength,buy,"New 20-day high (+8.0% above prev, 2.7x vol)",108.13,106.86,win,pending,4.51,-3.79,2,
 2026-08-21,HOOD,confluence,buy,"Confluence (2 strong signals): gap_and_go, rel_strength",108.13,106.86,win,pending,4.51,-3.79,2,
+2026-08-21,VALE,macd,buy,MACD bullish crossover (above SMA20),14.59,14.63,win,pending,4.48,-0.07,3,
+2026-08-17,NU,macd,buy,MACD bullish crossover (above SMA20),14.74,14.53,win,pending,4.71,-2.68,7,
+2026-08-10,UBER,rel_strength,buy,"New 20-day high (+2.4% above prev, 1.3x vol)",78.03,78.0,win,pending,2.77,-5.17,12,
