@@ -3346,3 +3346,5 @@ date,ticker,type,direction,detail,price,entry_price,result_5,result_10,current_p
 2026-08-21,VALE,macd,buy,MACD bullish crossover (above SMA20),14.59,14.63,win,pending,4.48,-0.07,3,
 2026-08-17,NU,macd,buy,MACD bullish crossover (above SMA20),14.74,14.53,win,pending,4.71,-2.68,7,
 2026-08-10,UBER,rel_strength,buy,"New 20-day high (+2.4% above prev, 1.3x vol)",78.03,78.0,win,pending,2.77,-5.17,12,
+2026-08-12,AA,adjusted_drop,buy,"Market-adjusted drop -5.54% (stock -5.29%, market +0.25%)",51.22,50.2,win,pending,-0.96,-2.9,7,
+2026-08-10,ET,macd,buy,MACD bullish crossover (above SMA20),20.59,20.58,win,pending,4.13,0,7,
