@@ -10,6 +10,8 @@
     "HIMS_macd_2026-09-01",
     "BBAI_macd_2026-09-01",
     "CMCSA_macd_2026-09-01",
+    "SMR_macd_2026-09-01",
+    "CIFR_macd_2026-09-01",
     "BTBT_macd_2026-09-01",
     "NVO_macd_2026-09-01",
     "RIOT_macd_2026-09-01",
@@ -20,7 +22,7 @@
     "NEM_macd_2026-09-01",
     "MDT_gap_and_go_2026-09-01",
     "ARM_macd_2026-09-01",
-    "CELH_macd_2026-09-01",
+    "XPEV_macd_2026-09-01",
     "ENPH_macd_2026-09-01",
     "PEP_macd_2026-09-01",
     "AFRM_macd_2026-09-01",
@@ -30,8 +32,9 @@
     "LIDR_volume_spike_2026-09-01",
     "LIDR_gap_and_go_2026-09-01",
     "LIDR_rel_strength_2026-09-01",
+    "NVAX_rel_strength_2026-09-01",
     "DHR_macd_2026-09-01"
   ],
-  "last_run": "2026-09-01T17:55:24.059235",
+  "last_run": "2026-09-01T19:03:12.510245",
   "last_brief_date": "2026-09-01"
 }
