@@ -3384,3 +3384,19 @@ date,ticker,type,direction,detail,price,entry_price,result_5,result_10,current_p
 2026-08-20,RIVN,macd,buy,MACD bullish crossover (above SMA20),16.01,16.08,win,pending,-0.78,-2.95,1,
 2026-08-31,NVAX,rel_strength,buy,"New 20-day high (+4.3% above prev, 1.6x vol)",9.37,9.19,win,win,8.54,0,1,1
 2026-08-26,AAPL,macd,buy,MACD bullish crossover (above SMA20),313.45,310.55,win,pending,4.56,-0.37,4,
+2026-08-26,HIMS,sector_drop,buy,"Sector-adjusted drop -5.05% (stock -6.05%, XLV -1.00%)",29.83,30.4,win,pending,-6.41,-6.64,1,
+2026-08-18,NTLA,sector_drop,buy,"Sector-adjusted drop -5.66% (stock -4.05%, XLV +1.60%)",11.6,12.1,win,win,4.83,-0.74,1,1
+2026-08-18,MSTR,sector_drop,buy,"Sector-adjusted drop -5.74% (stock -5.28%, BITO +0.46%)",92.52,94.54,win,win,32.09,-0.25,1,1
+2026-08-18,MRVL,adjusted_drop,buy,"Market-adjusted drop -7.15% (stock -7.82%, market -0.68%)",216.0,240.13,win,pending,-12.38,-16.45,3,
+2026-08-18,MRVL,sector_drop,buy,"Sector-adjusted drop -5.35% (stock -7.82%, XLK -2.47%)",216.0,240.13,win,pending,-12.38,-16.45,3,
+2026-08-18,MRVL,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",216.0,240.13,win,pending,-12.38,-16.45,3,
+2026-08-18,MARA,adjusted_drop,buy,"Market-adjusted drop -7.14% (stock -7.82%, market -0.68%)",8.96,8.91,win,win,14.81,-2.58,1,1
+2026-08-18,MARA,sector_drop,buy,"Sector-adjusted drop -8.28% (stock -7.82%, BITO +0.46%)",8.96,8.91,win,win,14.81,-2.58,1,1
+2026-08-18,MARA,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",8.96,8.91,win,win,14.81,-2.58,1,1
+2026-08-18,HIMS,sector_drop,buy,"Sector-adjusted drop -5.87% (stock -4.26%, XLV +1.60%)",27.39,27.55,win,win,3.27,-0.51,1,1
+2026-08-18,BTBT,adjusted_drop,buy,"Market-adjusted drop -8.70% (stock -9.37%, market -0.68%)",1.45,1.42,win,win,-5.63,-14.79,2,2
+2026-08-18,BTBT,sector_drop,buy,"Sector-adjusted drop -9.84% (stock -9.37%, BITO +0.46%)",1.45,1.42,win,win,-5.63,-14.79,2,2
+2026-08-18,BTBT,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",1.45,1.42,win,win,-5.63,-14.79,2,2
+2026-08-18,BE,adjusted_drop,buy,"Market-adjusted drop -9.30% (stock -9.97%, market -0.68%)",209.01,212.55,win,pending,0.44,-12.52,6,
+2026-08-18,BE,sector_drop,buy,"Sector-adjusted drop -9.61% (stock -9.97%, XLU -0.36%)",209.01,212.55,win,pending,0.44,-12.52,6,
+2026-08-18,BE,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",209.01,212.55,win,pending,0.44,-12.52,6,
