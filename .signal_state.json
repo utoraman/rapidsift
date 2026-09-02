@@ -4,19 +4,21 @@
     "PLUG_macd_2026-09-02",
     "NU_macd_2026-09-02",
     "SNAP_macd_2026-09-02",
-    "DNN_macd_2026-09-02",
+    "NIO_gap_and_go_2026-09-02",
     "RIVN_macd_2026-09-02",
     "WBD_macd_2026-09-02",
     "CPNG_macd_2026-09-02",
-    "NVO_macd_2026-09-02",
     "CLSK_macd_2026-09-02",
     "WFC_macd_2026-09-02",
     "FCX_macd_2026-09-02",
     "CLF_macd_2026-09-02",
     "PANW_gap_and_go_2026-09-02",
     "UEC_macd_2026-09-02",
-    "JNJ_macd_2026-09-02"
+    "JNJ_macd_2026-09-02",
+    "V_macd_2026-09-02",
+    "XPEV_macd_2026-09-02",
+    "FCEL_gap_and_go_2026-09-02"
   ],
-  "last_run": "2026-09-02T18:00:00.655940",
+  "last_run": "2026-09-02T19:08:41.206366",
   "last_brief_date": "2026-09-02"
 }
