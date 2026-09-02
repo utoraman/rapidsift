@@ -3400,3 +3400,11 @@ date,ticker,type,direction,detail,price,entry_price,result_5,result_10,current_p
 2026-08-18,BE,adjusted_drop,buy,"Market-adjusted drop -9.30% (stock -9.97%, market -0.68%)",209.01,212.55,win,pending,0.44,-12.52,6,
 2026-08-18,BE,sector_drop,buy,"Sector-adjusted drop -9.61% (stock -9.97%, XLU -0.36%)",209.01,212.55,win,pending,0.44,-12.52,6,
 2026-08-18,BE,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",209.01,212.55,win,pending,0.44,-12.52,6,
+2026-09-01,LIDR,volume_spike,buy,Volume spike 150.1x (dip in uptrend),1.47,1.38,win,pending,2.22,-2.17,1,
+2026-09-01,LIDR,gap_and_go,buy,Gap up +37.0% on 150.1x volume,1.47,1.38,win,pending,2.22,-2.17,1,
+2026-09-01,LIDR,rel_strength,buy,"New 20-day high (+18.8% above prev, 150.1x vol)",1.47,1.38,win,pending,2.22,-2.17,1,
+2026-09-01,LIDR,confluence,buy,"Confluence (2 strong signals): gap_and_go, rel_strength",1.47,1.38,win,pending,2.22,-2.17,1,
+2026-09-01,AFRM,adjusted_drop,buy,"Market-adjusted drop -5.37% (stock -6.06%, market -0.69%)",69.94,69.39,win,pending,6.36,-0.21,1,
+2026-09-01,AFRM,sector_drop,buy,"Sector-adjusted drop -5.17% (stock -6.06%, XLF -0.88%)",69.94,69.39,win,pending,6.36,-0.21,1,
+2026-08-24,VALE,rel_strength,buy,"New 20-day high (+3.3% above prev, 2.1x vol)",15.04,15.01,win,pending,4.1,-0.8,7,
+2026-08-18,IREN,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",42.0,41.42,win,win,-8.68,-15.95,1,3
