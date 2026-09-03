@@ -1,7 +1,9 @@
 {
   "last_signals": [
+    "TSLA_rel_strength_2026-09-03",
     "F_macd_2026-09-03",
     "SNAP_macd_2026-09-03",
+    "HOOD_volume_spike_2026-09-03",
     "HOOD_gap_and_go_2026-09-03",
     "HOOD_rel_strength_2026-09-03",
     "AVGO_volume_spike_2026-09-03",
@@ -10,7 +12,6 @@
     "NVO_macd_2026-09-03",
     "CLSK_macd_2026-09-03",
     "RIOT_macd_2026-09-03",
-    "OXY_macd_2026-09-03",
     "C_macd_2026-09-03",
     "MRK_macd_2026-09-03",
     "SNOW_volume_spike_2026-09-03",
@@ -18,8 +19,9 @@
     "SNOW_rel_strength_2026-09-03",
     "FIS_macd_2026-09-03",
     "FTNT_macd_2026-09-03",
+    "AI_rel_strength_2026-09-03",
     "ADBE_macd_2026-09-03"
   ],
-  "last_run": "2026-09-03T17:17:24.249504",
+  "last_run": "2026-09-03T17:57:28.379307",
   "last_brief_date": "2026-09-03"
 }

@@ -3438,3 +3438,7 @@ date,ticker,type,direction,detail,price,entry_price,result_5,result_10,current_p
 2026-08-20,WMT,sector_drop,buy,"Sector-adjusted drop -7.74% (stock -9.15%, XLP -1.41%)",103.59,103.69,win,pending,5.1,-1.49,10,
 2026-08-20,WMT,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",103.59,103.69,win,pending,5.1,-1.49,10,
 2026-08-19,NU,macd,buy,MACD bullish crossover (above SMA20),14.61,14.74,win,pending,5.49,-4.1,11,
+2026-08-31,AI,rel_strength,buy,"New 20-day high (+1.1% above prev, 1.5x vol)",10.82,10.47,win,pending,5.73,-2.87,3,
+2026-08-28,PYPL,adjusted_drop,buy,"Market-adjusted drop -12.48% (stock -12.71%, market -0.23%)",53.66,53.39,win,pending,5.67,-2.75,4,
+2026-08-28,PYPL,sector_drop,buy,"Sector-adjusted drop -13.09% (stock -12.71%, XLF +0.38%)",53.66,53.39,win,pending,5.67,-2.75,4,
+2026-08-28,PYPL,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",53.66,53.39,win,pending,5.67,-2.75,4,
