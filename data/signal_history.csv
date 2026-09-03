@@ -3442,3 +3442,4 @@ date,ticker,type,direction,detail,price,entry_price,result_5,result_10,current_p
 2026-08-28,PYPL,adjusted_drop,buy,"Market-adjusted drop -12.48% (stock -12.71%, market -0.23%)",53.66,53.39,win,pending,5.67,-2.75,4,
 2026-08-28,PYPL,sector_drop,buy,"Sector-adjusted drop -13.09% (stock -12.71%, XLF +0.38%)",53.66,53.39,win,pending,5.67,-2.75,4,
 2026-08-28,PYPL,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",53.66,53.39,win,pending,5.67,-2.75,4,
+2026-08-20,NTLA,adjusted_drop,buy,"Market-adjusted drop -5.49% (stock -6.33%, market -0.84%)",12.44,12.65,win,pending,0.24,-3.24,3,
