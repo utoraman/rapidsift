@@ -1,21 +1,24 @@
 {
   "last_signals": [
+    "TSLA_gap_and_go_2026-09-04",
     "SNAP_macd_2026-09-04",
     "NFLX_macd_2026-09-04",
     "IREN_macd_2026-09-04",
     "T_macd_2026-09-04",
     "PFE_macd_2026-09-04",
     "PATH_macd_2026-09-04",
+    "DVN_macd_2026-09-04",
     "TSM_macd_2026-09-04",
     "KMI_macd_2026-09-04",
     "COP_macd_2026-09-04",
     "MRK_macd_2026-09-04",
     "TEAM_macd_2026-09-04",
     "MS_macd_2026-09-04",
+    "DOCU_volume_spike_2026-09-04",
     "DOCU_gap_and_go_2026-09-04",
     "DOCU_rel_strength_2026-09-04",
     "EVGO_macd_2026-09-04"
   ],
-  "last_run": "2026-09-04T18:44:16.491443",
+  "last_run": "2026-09-04T19:47:11.382229",
   "last_brief_date": "2026-09-04"
 }

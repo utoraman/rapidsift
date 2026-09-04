@@ -3444,3 +3444,4 @@ date,ticker,type,direction,detail,price,entry_price,result_5,result_10,current_p
 2026-08-28,PYPL,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",53.66,53.39,win,pending,5.67,-2.75,4,
 2026-08-20,NTLA,adjusted_drop,buy,"Market-adjusted drop -5.49% (stock -6.33%, market -0.84%)",12.44,12.65,win,pending,0.24,-3.24,3,
 2026-08-18,MU,adjusted_drop,buy,"Market-adjusted drop -6.34% (stock -7.02%, market -0.68%)",940.76,959.36,win,pending,4.32,-7.48,13,
+2026-09-03,MSTR,gap_and_go,buy,Gap up +3.9% on 1.7x volume,144.82,137.22,win,pending,4.12,-0.11,1,
