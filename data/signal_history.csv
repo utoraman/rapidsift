@@ -3445,3 +3445,15 @@ date,ticker,type,direction,detail,price,entry_price,result_5,result_10,current_p
 2026-08-20,NTLA,adjusted_drop,buy,"Market-adjusted drop -5.49% (stock -6.33%, market -0.84%)",12.44,12.65,win,pending,0.24,-3.24,3,
 2026-08-18,MU,adjusted_drop,buy,"Market-adjusted drop -6.34% (stock -7.02%, market -0.68%)",940.76,959.36,win,pending,4.32,-7.48,13,
 2026-09-03,MSTR,gap_and_go,buy,Gap up +3.9% on 1.7x volume,144.82,137.22,win,pending,4.12,-0.11,1,
+2026-08-21,RIOT,adjusted_drop,buy,"Market-adjusted drop -5.89% (stock -5.48%, market +0.41%)",19.83,20.02,win,pending,8.89,-13.13,2,
+2026-08-21,RIOT,sector_drop,buy,"Sector-adjusted drop -11.60% (stock -5.48%, BITO +6.12%)",19.83,20.02,win,pending,8.89,-13.13,2,
+2026-08-21,RIOT,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",19.83,20.02,win,pending,8.89,-13.13,2,
+2026-08-21,HUT,adjusted_drop,buy,"Market-adjusted drop -9.20% (stock -8.79%, market +0.41%)",80.86,79.5,win,win,17.66,-5.28,2,3
+2026-08-21,HUT,sector_drop,buy,"Sector-adjusted drop -14.90% (stock -8.79%, BITO +6.12%)",80.86,79.5,win,win,17.66,-5.28,2,3
+2026-08-21,HUT,confluence,buy,"Confluence (3 strong signals): gap_and_go, adjusted_drop, sector_drop",80.86,79.5,win,win,17.66,-5.28,2,3
+2026-08-21,CORZ,sector_drop,buy,"Sector-adjusted drop -9.27% (stock -3.15%, BITO +6.12%)",17.81,17.47,win,pending,2.4,-10.65,4,
+2026-08-21,CLSK,adjusted_drop,buy,"Market-adjusted drop -5.33% (stock -4.92%, market +0.41%)",11.98,11.85,win,win,7.09,-9.11,2,4
+2026-08-21,CIFR,adjusted_drop,buy,"Market-adjusted drop -8.81% (stock -8.40%, market +0.41%)",15.77,15.5,win,win,14.45,-8.52,2,4
+2026-08-21,CIFR,sector_drop,buy,"Sector-adjusted drop -14.51% (stock -8.40%, BITO +6.12%)",15.77,15.5,win,win,14.45,-8.52,2,4
+2026-08-21,CIFR,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",15.77,15.5,win,win,14.45,-8.52,2,4
+2026-08-21,AFRM,macd,buy,MACD bullish crossover (above SMA20),77.03,77.06,win,win,-6.11,-10.15,5,5
