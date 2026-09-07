@@ -3457,3 +3457,5 @@ date,ticker,type,direction,detail,price,entry_price,result_5,result_10,current_p
 2026-08-21,CIFR,sector_drop,buy,"Sector-adjusted drop -14.51% (stock -8.40%, BITO +6.12%)",15.77,15.5,win,win,14.45,-8.52,2,4
 2026-08-21,CIFR,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",15.77,15.5,win,win,14.45,-8.52,2,4
 2026-08-21,AFRM,macd,buy,MACD bullish crossover (above SMA20),77.03,77.06,win,win,-6.11,-10.15,5,5
+2026-09-04,IREN,macd,buy,MACD bullish crossover (above SMA20),44.68,41.02,win,pending,8.92,-0.05,1,
+2026-09-04,EVGO,macd,buy,MACD bullish crossover (above SMA20),1.51,1.42,win,pending,7.04,-0.14,1,
