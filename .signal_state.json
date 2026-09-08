@@ -5,6 +5,7 @@
     "RGTI_gap_and_go_2026-09-08",
     "SMR_rel_strength_2026-09-08",
     "IONQ_gap_and_go_2026-09-08",
+    "ORCL_gap_and_go_2026-09-08",
     "ORCL_rel_strength_2026-09-08",
     "RIVN_macd_2026-09-08",
     "NOW_macd_2026-09-08",
@@ -15,6 +16,7 @@
     "QCOM_gap_and_go_2026-09-08",
     "QCOM_rel_strength_2026-09-08",
     "ASTS_macd_2026-09-08",
+    "TSM_rel_strength_2026-09-08",
     "KMI_macd_2026-09-08",
     "BE_volume_spike_2026-09-08",
     "BE_gap_and_go_2026-09-08",
@@ -31,6 +33,6 @@
     "EL_macd_2026-09-08",
     "SEDG_rel_strength_2026-09-08"
   ],
-  "last_run": "2026-09-08T20:01:40.726370",
+  "last_run": "2026-09-08T21:30:48.790364",
   "last_brief_date": "2026-09-08"
 }
