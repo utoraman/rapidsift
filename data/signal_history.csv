@@ -3470,3 +3470,8 @@ date,ticker,type,direction,detail,price,entry_price,result_5,result_10,current_p
 2026-08-24,XPEV,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",11.15,11.19,win,pending,-1.93,-4.16,2,
 2026-08-24,PLUG,sector_drop,buy,"Sector-adjusted drop -5.46% (stock -4.41%, XLU +1.05%)",2.17,2.2,win,pending,4.09,-6.36,10,
 2026-08-20,BTBT,gap_and_go,buy,Gap up +3.9% on 2.0x volume,1.6,1.66,win,pending,4.78,-21.02,12,
+2026-08-31,DOCU,macd,buy,MACD bullish crossover (above SMA20),66.27,65.17,win,pending,-0.14,-1.55,3,
+2026-08-25,BBWI,adjusted_drop,buy,"Market-adjusted drop -8.61% (stock -8.29%, market +0.32%)",17.58,18.26,win,pending,3.56,-4.65,3,
+2026-08-25,BBWI,sector_drop,buy,"Sector-adjusted drop -8.00% (stock -8.29%, XLY -0.30%)",17.58,18.26,win,pending,3.56,-4.65,3,
+2026-08-25,BBWI,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",17.58,18.26,win,pending,3.56,-4.65,3,
+2026-08-19,HIMS,macd,buy,MACD bullish crossover (above SMA20),31.09,30.66,win,win,-8.12,-10.7,1,2
