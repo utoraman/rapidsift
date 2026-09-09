@@ -3479,3 +3479,12 @@ date,ticker,type,direction,detail,price,entry_price,result_5,result_10,current_p
 2026-09-01,NET,adjusted_drop,buy,"Market-adjusted drop -5.74% (stock -6.42%, market -0.69%)",285.51,284.08,win,win,10.45,-5.2,5,5
 2026-08-27,MRVL,gap_and_go,buy,Gap up +3.4% on 1.8x volume,241.45,225.26,win,pending,5.21,-10.94,8,
 2026-08-20,MRNA,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",133.32,133.11,win,win,3.18,-2.34,1,1
+2026-08-26,MARA,adjusted_drop,buy,"Market-adjusted drop -5.18% (stock -5.16%, market +0.02%)",11.22,11.53,win,pending,3.38,-13.36,1,
+2026-08-26,LIDR,sector_drop,buy,"Sector-adjusted drop -5.15% (stock -4.07%, XLI +1.09%)",1.18,1.2,win,win,10.83,-5.0,4,4
+2026-08-26,LCID,adjusted_drop,buy,"Market-adjusted drop -5.92% (stock -5.89%, market +0.02%)",4.95,5.0,win,win,-14.6,-15.8,1,1
+2026-08-26,IREN,adjusted_drop,buy,"Market-adjusted drop -6.25% (stock -6.23%, market +0.02%)",39.58,40.65,win,win,11.61,-14.37,7,7
+2026-08-26,IREN,sector_drop,buy,"Sector-adjusted drop -5.48% (stock -6.23%, BITO -0.75%)",39.58,40.65,win,win,11.61,-14.37,7,7
+2026-08-26,IREN,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",39.58,40.65,win,win,11.61,-14.37,7,7
+2026-08-26,APLD,adjusted_drop,buy,"Market-adjusted drop -6.89% (stock -6.86%, market +0.02%)",26.87,27.73,win,pending,-2.11,-14.05,8,
+2026-08-26,APLD,sector_drop,buy,"Sector-adjusted drop -6.11% (stock -6.86%, BITO -0.75%)",26.87,27.73,win,pending,-2.11,-14.05,8,
+2026-08-26,APLD,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",26.87,27.73,win,pending,-2.11,-14.05,8,
