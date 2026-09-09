@@ -3475,3 +3475,7 @@ date,ticker,type,direction,detail,price,entry_price,result_5,result_10,current_p
 2026-08-25,BBWI,sector_drop,buy,"Sector-adjusted drop -8.00% (stock -8.29%, XLY -0.30%)",17.58,18.26,win,pending,3.56,-4.65,3,
 2026-08-25,BBWI,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",17.58,18.26,win,pending,3.56,-4.65,3,
 2026-08-19,HIMS,macd,buy,MACD bullish crossover (above SMA20),31.09,30.66,win,win,-8.12,-10.7,1,2
+2026-09-04,TSLA,adjusted_drop,buy,"Market-adjusted drop -5.54% (stock -5.92%, market -0.39%)",354.08,357.1,win,pending,3.16,-0.38,2,
+2026-09-01,NET,adjusted_drop,buy,"Market-adjusted drop -5.74% (stock -6.42%, market -0.69%)",285.51,284.08,win,win,10.45,-5.2,5,5
+2026-08-27,MRVL,gap_and_go,buy,Gap up +3.4% on 1.8x volume,241.45,225.26,win,pending,5.21,-10.94,8,
+2026-08-20,MRNA,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",133.32,133.11,win,win,3.18,-2.34,1,1
