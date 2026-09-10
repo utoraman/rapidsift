@@ -1,7 +1,11 @@
 {
   "last_signals": [
     "NVDA_macd_2026-09-10",
-    "MRVL_macd_2026-09-10",
+    "PLUG_macd_2026-09-10",
+    "GRAB_volume_spike_2026-09-10",
+    "ORCL_volume_spike_2026-09-10",
+    "FCX_gap_and_go_2026-09-10",
+    "UBER_volume_spike_2026-09-10",
     "SLB_macd_2026-09-10",
     "DVN_macd_2026-09-10",
     "CRM_macd_2026-09-10",
@@ -11,6 +15,6 @@
     "BROS_macd_2026-09-10",
     "SEDG_volume_spike_2026-09-10"
   ],
-  "last_run": "2026-09-10T19:55:59.094104",
+  "last_run": "2026-09-10T21:15:29.448723",
   "last_brief_date": "2026-09-10"
 }

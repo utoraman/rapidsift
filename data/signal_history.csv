@@ -3489,3 +3489,4 @@ date,ticker,type,direction,detail,price,entry_price,result_5,result_10,current_p
 2026-08-26,APLD,sector_drop,buy,"Sector-adjusted drop -6.11% (stock -6.86%, BITO -0.75%)",26.87,27.73,win,pending,-2.11,-14.05,8,
 2026-08-26,APLD,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",26.87,27.73,win,pending,-2.11,-14.05,8,
 2026-09-09,ACHR,adjusted_drop,buy,"Market-adjusted drop -5.20% (stock -5.66%, market -0.46%)",5.5,5.41,win,pending,2.13,-1.02,1,
+2026-08-27,IQ,adjusted_drop,buy,"Market-adjusted drop -6.66% (stock -6.00%, market +0.66%)",0.92,0.94,win,pending,-0.35,-8.51,7,
