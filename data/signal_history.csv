@@ -3490,3 +3490,8 @@ date,ticker,type,direction,detail,price,entry_price,result_5,result_10,current_p
 2026-08-26,APLD,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",26.87,27.73,win,pending,-2.11,-14.05,8,
 2026-09-09,ACHR,adjusted_drop,buy,"Market-adjusted drop -5.20% (stock -5.66%, market -0.46%)",5.5,5.41,win,pending,2.13,-1.02,1,
 2026-08-27,IQ,adjusted_drop,buy,"Market-adjusted drop -6.66% (stock -6.00%, market +0.66%)",0.92,0.94,win,pending,-0.35,-8.51,7,
+2026-09-10,NVAX,sector_drop,buy,"Sector-adjusted drop -5.03% (stock -5.58%, XLV -0.55%)",9.3,9.25,win,pending,5.78,-0.22,1,
+2026-09-10,BTBT,adjusted_drop,buy,"Market-adjusted drop -5.42% (stock -6.02%, market -0.60%)",1.56,1.59,win,pending,2.39,-1.07,1,
+2026-09-08,QCOM,volume_spike,buy,Volume spike 2.9x (dip in uptrend),174.09,174.72,win,pending,5.56,-2.13,3,
+2026-09-08,QCOM,gap_and_go,buy,Gap up +6.9% on 2.9x volume,174.09,174.72,win,pending,5.56,-2.13,3,
+2026-08-28,RIVN,sector_drop,buy,"Sector-adjusted drop -5.49% (stock -4.35%, XLY +1.15%)",16.07,15.9,win,pending,2.8,-3.33,9,
