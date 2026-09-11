@@ -3495,3 +3495,4 @@ date,ticker,type,direction,detail,price,entry_price,result_5,result_10,current_p
 2026-09-08,QCOM,volume_spike,buy,Volume spike 2.9x (dip in uptrend),174.09,174.72,win,pending,5.56,-2.13,3,
 2026-09-08,QCOM,gap_and_go,buy,Gap up +6.9% on 2.9x volume,174.09,174.72,win,pending,5.56,-2.13,3,
 2026-08-28,RIVN,sector_drop,buy,"Sector-adjusted drop -5.49% (stock -4.35%, XLY +1.15%)",16.07,15.9,win,pending,2.8,-3.33,9,
+2026-09-09,MRVL,macd,buy,MACD bullish crossover (above SMA20),235.01,228.03,win,pending,5.15,-0.82,2,
