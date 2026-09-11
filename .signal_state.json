@@ -1,17 +1,19 @@
 {
   "last_signals": [
     "NU_macd_2026-09-11",
+    "SMR_macd_2026-09-11",
     "SMR_gap_and_go_2026-09-11",
     "ORCL_volume_spike_2026-09-11",
     "ORCL_gap_and_go_2026-09-11",
     "CSCO_macd_2026-09-11",
     "MSTR_macd_2026-09-11",
+    "OXY_macd_2026-09-11",
     "UNH_macd_2026-09-11",
     "WMB_macd_2026-09-11",
     "ADBE_volume_spike_2026-09-11",
     "NVAX_macd_2026-09-11",
     "EPD_macd_2026-09-11"
   ],
-  "last_run": "2026-09-11T19:55:21.825244",
+  "last_run": "2026-09-11T21:23:16.647853",
   "last_brief_date": "2026-09-11"
 }

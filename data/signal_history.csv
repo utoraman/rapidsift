@@ -3496,3 +3496,15 @@ date,ticker,type,direction,detail,price,entry_price,result_5,result_10,current_p
 2026-09-08,QCOM,gap_and_go,buy,Gap up +6.9% on 2.9x volume,174.09,174.72,win,pending,5.56,-2.13,3,
 2026-08-28,RIVN,sector_drop,buy,"Sector-adjusted drop -5.49% (stock -4.35%, XLY +1.15%)",16.07,15.9,win,pending,2.8,-3.33,9,
 2026-09-09,MRVL,macd,buy,MACD bullish crossover (above SMA20),235.01,228.03,win,pending,5.15,-0.82,2,
+2026-08-28,SEDG,adjusted_drop,buy,"Market-adjusted drop -6.04% (stock -6.27%, market -0.23%)",31.41,31.15,win,win,11.33,-3.98,2,3
+2026-08-28,SEDG,sector_drop,buy,"Sector-adjusted drop -5.22% (stock -6.27%, XLU -1.04%)",31.41,31.15,win,win,11.33,-3.98,2,3
+2026-08-28,SEDG,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",31.41,31.15,win,win,11.33,-3.98,2,3
+2026-08-28,LRCX,adjusted_drop,buy,"Market-adjusted drop -5.01% (stock -5.24%, market -0.23%)",301.9,303.19,win,pending,-1.64,-8.3,6,
+2026-08-28,IONQ,adjusted_drop,buy,"Market-adjusted drop -7.45% (stock -7.68%, market -0.23%)",39.2,38.8,win,win,-5.28,-6.36,6,6
+2026-08-28,CORZ,adjusted_drop,buy,"Market-adjusted drop -6.07% (stock -6.30%, market -0.23%)",16.51,16.61,win,win,8.01,-6.02,4,6
+2026-08-28,CLSK,sector_drop,buy,"Sector-adjusted drop -8.92% (stock -9.96%, XLU -1.04%)",11.66,11.61,win,win,17.74,-7.24,4,6
+2026-08-28,BTBT,adjusted_drop,buy,"Market-adjusted drop -9.84% (stock -10.06%, market -0.23%)",1.43,1.42,win,win,11.97,-7.68,4,4
+2026-08-28,BTBT,sector_drop,buy,"Sector-adjusted drop -7.00% (stock -10.06%, BITO -3.06%)",1.43,1.42,win,win,11.97,-7.68,4,4
+2026-08-28,BTBT,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",1.43,1.42,win,win,11.97,-7.68,4,4
+2026-08-28,ASTS,adjusted_drop,buy,"Market-adjusted drop -5.29% (stock -5.52%, market -0.23%)",58.05,57.44,win,win,4.21,-3.03,3,3
+2026-08-28,ARM,adjusted_drop,buy,"Market-adjusted drop -6.11% (stock -6.33%, market -0.23%)",239.05,238.8,win,win,10.88,-5.59,5,6
