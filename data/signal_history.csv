@@ -3508,3 +3508,19 @@ date,ticker,type,direction,detail,price,entry_price,result_5,result_10,current_p
 2026-08-28,BTBT,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",1.43,1.42,win,win,11.97,-7.68,4,4
 2026-08-28,ASTS,adjusted_drop,buy,"Market-adjusted drop -5.29% (stock -5.52%, market -0.23%)",58.05,57.44,win,win,4.21,-3.03,3,3
 2026-08-28,ARM,adjusted_drop,buy,"Market-adjusted drop -6.11% (stock -6.33%, market -0.23%)",239.05,238.8,win,win,10.88,-5.59,5,6
+2026-09-11,SMR,adjusted_drop,buy,"Market-adjusted drop -16.52% (stock -15.67%, market +0.85%)",8.61,8.31,win,pending,3.91,-0.9,1,
+2026-09-11,SMR,sector_drop,buy,"Sector-adjusted drop -15.37% (stock -15.67%, XLU -0.31%)",8.61,8.31,win,pending,3.91,-0.9,1,
+2026-09-11,SMR,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",8.61,8.31,win,pending,3.91,-0.9,1,
+2026-09-10,NET,macd,buy,MACD bullish crossover (above SMA20),311.17,312.81,win,pending,6.87,-3.17,2,
+2026-09-09,NET,gap_and_go,buy,Gap up +3.9% on 1.5x volume,314.18,313.35,win,pending,6.68,-3.34,3,
+2026-09-09,LYFT,adjusted_drop,buy,"Market-adjusted drop -7.79% (stock -8.25%, market -0.46%)",14.9,14.71,win,pending,6.53,-1.19,3,
+2026-09-09,LYFT,sector_drop,buy,"Sector-adjusted drop -6.91% (stock -8.25%, XLY -1.34%)",14.9,14.71,win,pending,6.53,-1.19,3,
+2026-09-09,LYFT,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",14.9,14.71,win,pending,6.53,-1.19,3,
+2026-09-08,TEAM,adjusted_drop,buy,"Market-adjusted drop -6.39% (stock -6.94%, market -0.55%)",176.42,176.3,win,pending,7.92,-1.19,4,
+2026-09-08,TEAM,sector_drop,buy,"Sector-adjusted drop -7.26% (stock -6.94%, XLK +0.32%)",176.42,176.3,win,pending,7.92,-1.19,4,
+2026-09-08,TEAM,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",176.42,176.3,win,pending,7.92,-1.19,4,
+2026-09-08,NOW,sector_drop,buy,"Sector-adjusted drop -5.31% (stock -4.99%, XLK +0.32%)",134.21,133.58,win,pending,6.43,-2.39,4,
+2026-09-08,DOCU,sector_drop,buy,"Sector-adjusted drop -5.18% (stock -4.87%, XLK +0.32%)",65.08,64.64,win,pending,6.53,-1.56,4,
+2026-09-02,PANW,adjusted_drop,buy,"Market-adjusted drop -9.73% (stock -9.28%, market +0.44%)",328.48,333.31,win,win,12.89,-3.57,7,7
+2026-09-02,PANW,sector_drop,buy,"Sector-adjusted drop -9.26% (stock -9.28%, XLK -0.02%)",328.48,333.31,win,win,12.89,-3.57,7,7
+2026-09-02,PANW,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",328.48,333.31,win,win,12.89,-3.57,7,7
