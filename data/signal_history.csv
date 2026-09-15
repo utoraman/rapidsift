@@ -3524,3 +3524,5 @@ date,ticker,type,direction,detail,price,entry_price,result_5,result_10,current_p
 2026-09-02,PANW,adjusted_drop,buy,"Market-adjusted drop -9.73% (stock -9.28%, market +0.44%)",328.48,333.31,win,win,12.89,-3.57,7,7
 2026-09-02,PANW,sector_drop,buy,"Sector-adjusted drop -9.26% (stock -9.28%, XLK -0.02%)",328.48,333.31,win,win,12.89,-3.57,7,7
 2026-09-02,PANW,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",328.48,333.31,win,win,12.89,-3.57,7,7
+2026-09-04,DOCU,volume_spike,buy,Volume spike 2.5x (dip in uptrend),68.41,67.05,win,win,9.05,-5.1,6,6
+2026-09-04,DOCU,gap_and_go,buy,Gap up +3.9% on 2.5x volume,68.41,67.05,win,win,9.05,-5.1,6,6
