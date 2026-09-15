@@ -2,6 +2,7 @@
   "last_signals": [
     "HOOD_macd_2026-09-15",
     "RIVN_macd_2026-09-15",
+    "MRVL_macd_2026-09-15",
     "XOM_macd_2026-09-15",
     "APLD_macd_2026-09-15",
     "ASTS_macd_2026-09-15",
@@ -9,10 +10,9 @@
     "PANW_macd_2026-09-15",
     "TEVA_macd_2026-09-15",
     "CARR_macd_2026-09-15",
-    "UPS_macd_2026-09-15",
     "EOG_macd_2026-09-15",
     "DOCU_macd_2026-09-15"
   ],
-  "last_run": "2026-09-15T18:20:58.444109",
+  "last_run": "2026-09-15T19:23:57.921920",
   "last_brief_date": "2026-09-15"
 }
