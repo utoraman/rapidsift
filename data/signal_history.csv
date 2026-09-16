@@ -3540,3 +3540,9 @@ date,ticker,type,direction,detail,price,entry_price,result_5,result_10,current_p
 2026-09-09,CELH,sector_drop,buy,"Sector-adjusted drop -5.15% (stock -6.50%, XLY -1.34%)",27.64,27.44,win,pending,3.68,-3.1,5,
 2026-09-09,CELH,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",27.64,27.44,win,pending,3.68,-3.1,5,
 2026-09-15,RIOT,adjusted_drop,buy,"Market-adjusted drop -5.51% (stock -5.97%, market -0.46%)",19.7,19.91,win,pending,3.57,0,1,
+2026-09-02,IQ,sector_drop,buy,"Sector-adjusted drop -6.26% (stock -4.87%, XLC +1.39%)",0.86,0.87,win,win,24.14,0,1,3
+2026-09-02,FCEL,sector_drop,buy,"Sector-adjusted drop -15.95% (stock -15.69%, XLU +0.26%)",14.4,14.29,win,win,8.47,-3.22,2,3
+2026-09-02,DDOG,adjusted_drop,buy,"Market-adjusted drop -6.97% (stock -6.53%, market +0.44%)",209.23,220.0,win,pending,4.9,-7.62,7,
+2026-09-02,DDOG,sector_drop,buy,"Sector-adjusted drop -6.51% (stock -6.53%, XLK -0.02%)",209.23,220.0,win,pending,4.9,-7.62,7,
+2026-09-02,DDOG,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",209.23,220.0,win,pending,4.9,-7.62,7,
+2026-08-27,NOW,macd,buy,MACD bullish crossover (above SMA20),138.43,138.48,win,pending,0.97,-5.84,1,
