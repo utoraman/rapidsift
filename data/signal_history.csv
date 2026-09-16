@@ -3539,3 +3539,4 @@ date,ticker,type,direction,detail,price,entry_price,result_5,result_10,current_p
 2026-09-09,CELH,adjusted_drop,buy,"Market-adjusted drop -6.03% (stock -6.50%, market -0.46%)",27.64,27.44,win,pending,3.68,-3.1,5,
 2026-09-09,CELH,sector_drop,buy,"Sector-adjusted drop -5.15% (stock -6.50%, XLY -1.34%)",27.64,27.44,win,pending,3.68,-3.1,5,
 2026-09-09,CELH,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",27.64,27.44,win,pending,3.68,-3.1,5,
+2026-09-15,RIOT,adjusted_drop,buy,"Market-adjusted drop -5.51% (stock -5.97%, market -0.46%)",19.7,19.91,win,pending,3.57,0,1,
