@@ -1,19 +1,31 @@
 {
   "last_signals": [
+    "INTC_gap_and_go_2026-09-17",
+    "INTC_rel_strength_2026-09-17",
     "TSLA_macd_2026-09-17",
+    "AMD_gap_and_go_2026-09-17",
     "AMD_rel_strength_2026-09-17",
+    "SMCI_gap_and_go_2026-09-17",
     "RGTI_macd_2026-09-17",
     "RDW_macd_2026-09-17",
     "APLD_macd_2026-09-17",
+    "APLD_gap_and_go_2026-09-17",
     "WFC_macd_2026-09-17",
     "CLF_macd_2026-09-17",
     "ASTS_macd_2026-09-17",
     "DVN_macd_2026-09-17",
     "C_macd_2026-09-17",
+    "TSM_macd_2026-09-17",
     "DKNG_macd_2026-09-17",
+    "LCID_gap_and_go_2026-09-17",
+    "IQ_volume_spike_2026-09-17",
     "CVS_macd_2026-09-17",
-    "FCEL_macd_2026-09-17"
+    "ARM_gap_and_go_2026-09-17",
+    "NTLA_gap_and_go_2026-09-17",
+    "FCEL_macd_2026-09-17",
+    "GSK_macd_2026-09-17",
+    "GFS_gap_and_go_2026-09-17"
   ],
-  "last_run": "2026-09-17T19:26:59.374280",
+  "last_run": "2026-09-17T20:28:07.692112",
   "last_brief_date": "2026-09-17"
 }
