@@ -3546,3 +3546,13 @@ date,ticker,type,direction,detail,price,entry_price,result_5,result_10,current_p
 2026-09-02,DDOG,sector_drop,buy,"Sector-adjusted drop -6.51% (stock -6.53%, XLK -0.02%)",209.23,220.0,win,pending,4.9,-7.62,7,
 2026-09-02,DDOG,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",209.23,220.0,win,pending,4.9,-7.62,7,
 2026-08-27,NOW,macd,buy,MACD bullish crossover (above SMA20),138.43,138.48,win,pending,0.97,-5.84,1,
+2026-09-14,SMCI,adjusted_drop,buy,"Market-adjusted drop -7.93% (stock -8.38%, market -0.45%)",36.74,36.74,win,win,10.56,-3.76,3,3
+2026-09-14,SMCI,sector_drop,buy,"Sector-adjusted drop -6.57% (stock -8.38%, XLK -1.81%)",36.74,36.74,win,win,10.56,-3.76,3,3
+2026-09-14,SMCI,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",36.74,36.74,win,win,10.56,-3.76,3,3
+2026-09-14,MARA,sector_drop,buy,"Sector-adjusted drop -6.32% (stock -4.01%, BITO +2.31%)",11.5,11.27,win,pending,3.9,-4.44,3,
+2026-09-14,HUT,adjusted_drop,buy,"Market-adjusted drop -7.13% (stock -7.58%, market -0.45%)",91.13,90.01,win,pending,2.34,-4.78,3,
+2026-09-14,HUT,sector_drop,buy,"Sector-adjusted drop -9.89% (stock -7.58%, BITO +2.31%)",91.13,90.01,win,pending,2.34,-4.78,3,
+2026-09-14,HUT,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",91.13,90.01,win,pending,2.34,-4.78,3,
+2026-09-08,BE,gap_and_go,buy,Gap up +5.9% on 2.3x volume,277.22,272.99,win,pending,2.58,-8.77,7,
+2026-09-08,BE,rel_strength,buy,"New 20-day high (+12.0% above prev, 2.3x vol)",277.22,272.99,win,pending,2.58,-8.77,7,
+2026-09-08,BE,confluence,buy,"Confluence (2 strong signals): gap_and_go, rel_strength",277.22,272.99,win,pending,2.58,-8.77,7,
