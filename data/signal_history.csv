@@ -3557,3 +3557,13 @@ date,ticker,type,direction,detail,price,entry_price,result_5,result_10,current_p
 2026-09-08,BE,rel_strength,buy,"New 20-day high (+12.0% above prev, 2.3x vol)",277.22,272.99,win,pending,2.58,-8.77,7,
 2026-09-08,BE,confluence,buy,"Confluence (2 strong signals): gap_and_go, rel_strength",277.22,272.99,win,pending,2.58,-8.77,7,
 2026-09-03,CLF,macd,buy,MACD bullish crossover (above SMA20),12.28,12.2,win,pending,4.59,-5.41,9,
+2026-09-16,HOOD,adjusted_drop,buy,"Market-adjusted drop -5.02% (stock -5.46%, market -0.44%)",104.42,110.1,win,pending,8.53,-3.65,2,
+2026-09-15,COIN,adjusted_drop,buy,"Market-adjusted drop -9.64% (stock -10.10%, market -0.46%)",172.11,172.5,win,win,12.8,-6.56,3,3
+2026-09-15,COIN,sector_drop,buy,"Sector-adjusted drop -9.79% (stock -10.10%, XLF -0.32%)",172.11,172.5,win,win,12.8,-6.56,3,3
+2026-09-15,COIN,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",172.11,172.5,win,win,12.8,-6.56,3,3
+2026-09-14,BTBT,sector_drop,buy,"Sector-adjusted drop -6.72% (stock -4.40%, BITO +2.31%)",1.52,1.52,win,pending,8.55,-7.24,4,
+2026-09-09,META,gap_and_go,buy,Gap up +5.7% on 2.2x volume,653.69,653.71,win,pending,2.7,-1.77,7,
+2026-09-09,META,rel_strength,buy,"New 20-day high (+5.3% above prev, 2.2x vol)",653.69,653.71,win,pending,2.7,-1.77,7,
+2026-09-09,META,confluence,buy,"Confluence (2 strong signals): gap_and_go, rel_strength",653.69,653.71,win,pending,2.7,-1.77,7,
+2026-09-03,COIN,rel_strength,buy,"New 20-day high (+1.1% above prev, 1.4x vol)",192.7,184.97,win,pending,5.2,-12.86,10,
+2026-09-01,AFRM,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",69.94,69.37,win,pending,2.06,-4.81,1,
