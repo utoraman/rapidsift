@@ -1,12 +1,13 @@
 {
   "last_signals": [
     "SNAP_macd_2026-09-18",
+    "MU_macd_2026-09-18",
     "NFLX_gap_and_go_2026-09-18",
     "BTBT_macd_2026-09-18",
     "KMI_macd_2026-09-18",
     "ENPH_macd_2026-09-18",
     "IBM_macd_2026-09-18"
   ],
-  "last_run": "2026-09-18T17:13:52.026803",
+  "last_run": "2026-09-18T17:46:55.529699",
   "last_brief_date": "2026-09-18"
 }
