@@ -3567,3 +3567,23 @@ date,ticker,type,direction,detail,price,entry_price,result_5,result_10,current_p
 2026-09-09,META,confluence,buy,"Confluence (2 strong signals): gap_and_go, rel_strength",653.69,653.71,win,pending,2.7,-1.77,7,
 2026-09-03,COIN,rel_strength,buy,"New 20-day high (+1.1% above prev, 1.4x vol)",192.7,184.97,win,pending,5.2,-12.86,10,
 2026-09-01,AFRM,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",69.94,69.37,win,pending,2.06,-4.81,1,
+2026-09-18,RDW,adjusted_drop,buy,"Market-adjusted drop -7.14% (stock -7.01%, market +0.13%)",10.74,11.04,win,pending,5.53,-0.36,1,
+2026-09-18,RDW,sector_drop,buy,"Sector-adjusted drop -7.45% (stock -7.01%, XLI +0.44%)",10.74,11.04,win,pending,5.53,-0.36,1,
+2026-09-18,RDW,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",10.74,11.04,win,pending,5.53,-0.36,1,
+2026-09-18,QCOM,volume_spike,buy,Volume spike 4.6x (dip in uptrend),177.72,180.61,win,pending,7.32,-0.75,1,
+2026-09-18,QCOM,adjusted_drop,buy,"Market-adjusted drop -5.95% (stock -5.82%, market +0.13%)",177.72,180.61,win,pending,7.32,-0.75,1,
+2026-09-18,QCOM,sector_drop,buy,"Sector-adjusted drop -6.64% (stock -5.82%, XLK +0.82%)",177.72,180.61,win,pending,7.32,-0.75,1,
+2026-09-18,QCOM,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",177.72,180.61,win,pending,7.32,-0.75,1,
+2026-09-17,INTC,gap_and_go,buy,Gap up +3.6% on 1.6x volume,108.8,109.8,win,win,10.59,-3.1,2,2
+2026-09-17,INTC,rel_strength,buy,"New 20-day high (+4.4% above prev, 1.6x vol)",108.8,109.8,win,win,10.59,-3.1,2,2
+2026-09-17,INTC,confluence,buy,"Confluence (2 strong signals): gap_and_go, rel_strength",108.8,109.8,win,win,10.59,-3.1,2,2
+2026-09-17,GFS,gap_and_go,buy,Gap up +4.3% on 1.7x volume,45.84,46.2,win,pending,4.31,-2.06,2,
+2026-09-17,APLD,macd,buy,MACD bullish crossover (above SMA20),26.38,26.97,win,pending,6.75,-3.04,2,
+2026-09-17,APLD,gap_and_go,buy,Gap up +5.6% on 1.6x volume,26.38,26.97,win,pending,6.75,-3.04,2,
+2026-09-17,AMD,gap_and_go,buy,Gap up +4.1% on 1.6x volume,545.09,547.37,win,win,11.35,-1.07,2,2
+2026-09-17,AMD,rel_strength,buy,"New 20-day high (+4.6% above prev, 1.6x vol)",545.09,547.37,win,win,11.35,-1.07,2,2
+2026-09-17,AMD,confluence,buy,"Confluence (2 strong signals): gap_and_go, rel_strength",545.09,547.37,win,win,11.35,-1.07,2,2
+2026-09-16,RBLX,adjusted_drop,buy,"Market-adjusted drop -5.15% (stock -5.59%, market -0.44%)",47.43,48.15,win,pending,5.63,-3.93,3,
+2026-09-16,CIFR,gap_and_go,buy,Gap up +5.5% on 1.8x volume,16.72,18.03,win,pending,5.77,-8.12,3,
+2026-09-08,RGTI,gap_and_go,buy,Gap up +7.8% on 2.7x volume,15.81,15.63,win,pending,5.18,-7.81,9,
+2026-09-08,BTBT,rel_strength,buy,"New 20-day high (+1.4% above prev, 1.4x vol)",1.7,1.73,win,pending,7.09,-18.5,9,
