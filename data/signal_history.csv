@@ -3596,3 +3596,6 @@ date,ticker,type,direction,detail,price,entry_price,result_5,result_10,current_p
 2026-09-08,SHOP,adjusted_drop,buy,"Market-adjusted drop -7.03% (stock -7.57%, market -0.55%)",134.1,138.0,win,pending,7.1,-10.12,10,
 2026-09-08,SHOP,sector_drop,buy,"Sector-adjusted drop -6.77% (stock -7.57%, XLY -0.80%)",134.1,138.0,win,pending,7.1,-10.12,10,
 2026-09-08,SHOP,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",134.1,138.0,win,pending,7.1,-10.12,10,
+2026-09-08,EVGO,adjusted_drop,buy,"Market-adjusted drop -6.07% (stock -6.62%, market -0.55%)",1.41,1.4,win,pending,5.0,-7.14,5,
+2026-09-03,TSLA,rel_strength,buy,"New 20-day high (+4.1% above prev, 1.8x vol)",376.37,362.07,win,pending,4.65,-2.97,12,
+2026-09-03,ORCL,macd,buy,MACD bullish crossover (above SMA20),154.04,159.46,win,pending,-6.43,-12.83,2,
