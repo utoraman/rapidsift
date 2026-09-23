@@ -3610,3 +3610,18 @@ date,ticker,type,direction,detail,price,entry_price,result_5,result_10,current_p
 2026-09-03,HOOD,gap_and_go,buy,Gap up +6.4% on 2.8x volume,124.72,120.47,win,pending,3.85,-15.58,12,
 2026-09-03,HOOD,rel_strength,buy,"New 20-day high (+11.1% above prev, 2.8x vol)",124.72,120.47,win,pending,3.85,-15.58,12,
 2026-09-03,HOOD,confluence,buy,"Confluence (2 strong signals): gap_and_go, rel_strength",124.72,120.47,win,pending,3.85,-15.58,12,
+2026-09-21,ARM,rel_strength,buy,"New 20-day high (+17.5% above prev, 3.2x vol)",322.9,319.41,win,pending,4.12,-0.23,2,
+2026-09-18,FTNT,volume_spike,buy,Volume spike 2.9x (dip in uptrend),169.84,170.19,win,pending,5.02,-1.63,2,
+2026-09-09,WOLF,adjusted_drop,buy,"Market-adjusted drop -5.08% (stock -5.54%, market -0.46%)",27.28,26.05,win,pending,4.18,-11.44,8,
+2026-09-09,PINS,adjusted_drop,buy,"Market-adjusted drop -8.77% (stock -9.24%, market -0.46%)",18.28,18.25,win,pending,1.1,-2.25,3,
+2026-09-09,PINS,sector_drop,buy,"Sector-adjusted drop -8.62% (stock -9.24%, XLC -0.62%)",18.28,18.25,win,pending,1.1,-2.25,3,
+2026-09-09,PINS,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",18.28,18.25,win,pending,1.1,-2.25,3,
+2026-09-09,LCID,adjusted_drop,buy,"Market-adjusted drop -7.31% (stock -7.78%, market -0.46%)",4.27,4.22,win,pending,-1.3,-6.52,6,
+2026-09-09,IONQ,adjusted_drop,buy,"Market-adjusted drop -5.29% (stock -5.76%, market -0.46%)",38.14,37.29,win,win,14.08,-6.14,6,10
+2026-09-09,GRAB,adjusted_drop,buy,"Market-adjusted drop -6.00% (stock -6.46%, market -0.46%)",3.04,3.01,win,pending,6.49,-8.82,9,
+2026-09-09,GRAB,sector_drop,buy,"Sector-adjusted drop -6.04% (stock -6.46%, XLF -0.42%)",3.04,3.01,win,pending,6.49,-8.82,9,
+2026-09-09,GRAB,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",3.04,3.01,win,pending,6.49,-8.82,9,
+2026-09-09,FCEL,adjusted_drop,buy,"Market-adjusted drop -6.24% (stock -6.70%, market -0.46%)",16.57,16.07,win,win,6.91,-8.46,6,6
+2026-09-09,CIFR,sector_drop,buy,"Sector-adjusted drop -8.41% (stock -8.70%, BITO -0.28%)",16.9,16.05,win,win,14.33,-7.48,2,6
+2026-09-09,BBWI,adjusted_drop,buy,"Market-adjusted drop -5.83% (stock -6.30%, market -0.46%)",17.71,17.6,win,pending,-3.3,-5.68,2,
+2026-09-09,ASTS,adjusted_drop,buy,"Market-adjusted drop -5.13% (stock -5.60%, market -0.46%)",62.42,60.7,win,pending,-1.19,-5.65,1,

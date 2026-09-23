@@ -1,22 +1,18 @@
 {
   "last_signals": [
-    "NVDA_macd_2026-09-23",
-    "GRAB_gap_and_go_2026-09-23",
     "PLTR_macd_2026-09-23",
-    "SMCI_macd_2026-09-23",
+    "RGTI_gap_and_go_2026-09-23",
+    "RGTI_rel_strength_2026-09-23",
     "IONQ_volume_spike_2026-09-23",
     "IONQ_gap_and_go_2026-09-23",
     "IONQ_rel_strength_2026-09-23",
     "WBD_volume_spike_2026-09-23",
-    "NVO_earnings_drift_2026-09-23",
+    "CSCO_macd_2026-09-23",
     "SHOP_volume_spike_2026-09-23",
-    "SHOP_gap_and_go_2026-09-23",
-    "LRCX_macd_2026-09-23",
-    "MRNA_macd_2026-09-23",
-    "ARM_earnings_drift_2026-09-23",
+    "BX_gap_and_go_2026-09-23",
     "EW_macd_2026-09-23",
     "PENN_macd_2026-09-23"
   ],
-  "last_run": "2026-09-23T19:22:05.020332",
+  "last_run": "2026-09-23T20:35:46.882073",
   "last_brief_date": "2026-09-23"
 }
