@@ -2,8 +2,11 @@
   "last_signals": [
     "ACHR_macd_2026-09-24",
     "IONQ_earnings_drift_2026-09-24",
+    "ORCL_gap_and_go_2026-09-24",
+    "META_rel_strength_2026-09-24",
+    "ARM_gap_and_go_2026-09-24",
     "MGM_gap_and_go_2026-09-24"
   ],
-  "last_run": "2026-09-24T18:31:37.224949",
+  "last_run": "2026-09-24T19:39:29.119875",
   "last_brief_date": "2026-09-24"
 }
