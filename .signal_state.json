@@ -1,12 +1,15 @@
 {
   "last_signals": [
+    "SMCI_rel_strength_2026-09-25",
     "PYPL_macd_2026-09-25",
     "KMI_macd_2026-09-25",
+    "CVS_volume_spike_2026-09-25",
     "MNST_macd_2026-09-25",
+    "DDOG_rel_strength_2026-09-25",
     "NTLA_macd_2026-09-25",
     "MGM_earnings_drift_2026-09-25",
     "SEDG_macd_2026-09-25"
   ],
-  "last_run": "2026-09-25T19:44:24.454482",
+  "last_run": "2026-09-25T20:37:43.832488",
   "last_brief_date": "2026-09-25"
 }
