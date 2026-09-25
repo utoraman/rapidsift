@@ -1,13 +1,12 @@
 {
   "last_signals": [
     "PYPL_macd_2026-09-25",
-    "BSX_macd_2026-09-25",
     "KMI_macd_2026-09-25",
     "MNST_macd_2026-09-25",
     "NTLA_macd_2026-09-25",
     "MGM_earnings_drift_2026-09-25",
     "SEDG_macd_2026-09-25"
   ],
-  "last_run": "2026-09-25T18:05:21.250487",
+  "last_run": "2026-09-25T18:47:52.100418",
   "last_brief_date": "2026-09-25"
 }
