@@ -3643,3 +3643,10 @@ date,ticker,type,direction,detail,price,entry_price,result_5,result_10,current_p
 2026-09-22,MRNA,macd,buy,MACD bullish crossover (above SMA20),182.56,183.4,win,pending,5.51,-1.64,2,
 2026-09-10,WOLF,sector_drop,buy,"Sector-adjusted drop -6.76% (stock -7.73%, XLU -0.98%)",25.17,25.87,win,pending,1.66,-10.82,1,
 2026-09-10,CIFR,adjusted_drop,buy,"Market-adjusted drop -5.08% (stock -5.68%, market -0.60%)",15.94,16.12,win,win,12.28,-7.88,1,5
+2026-09-23,SNAP,adjusted_drop,buy,"Market-adjusted drop -5.15% (stock -5.87%, market -0.72%)",5.29,5.23,win,pending,3.73,0,2,
+2026-09-23,SNAP,sector_drop,buy,"Sector-adjusted drop -5.02% (stock -5.87%, XLC -0.85%)",5.29,5.23,win,pending,3.73,0,2,
+2026-09-23,SNAP,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",5.29,5.23,win,pending,3.73,0,2,
+2026-09-22,NCLH,gap_and_go,buy,Gap up +3.6% on 1.6x volume,14.22,14.14,win,pending,3.08,-3.61,3,
+2026-09-21,QCOM,rel_strength,buy,"New 20-day high (+1.7% above prev, 1.3x vol)",194.23,192.0,win,pending,6.5,-0.18,4,
+2026-09-21,DHR,macd,buy,MACD bullish crossover (above SMA20),215.84,215.1,win,pending,4.03,-0.38,3,
+2026-09-08,TSM,rel_strength,buy,"New 20-day high (+1.9% above prev, 1.4x vol)",437.83,433.3,win,pending,4.11,-5.04,13,
