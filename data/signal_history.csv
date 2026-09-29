@@ -3673,3 +3673,9 @@ date,ticker,type,direction,detail,price,entry_price,result_5,result_10,current_p
 2026-09-14,AMAT,adjusted_drop,buy,"Market-adjusted drop -6.63% (stock -7.07%, market -0.45%)",424.21,429.85,win,win,13.24,-4.27,5,7
 2026-09-14,AMAT,sector_drop,buy,"Sector-adjusted drop -5.26% (stock -7.07%, XLK -1.81%)",424.21,429.85,win,win,13.24,-4.27,5,7
 2026-09-14,AMAT,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",424.21,429.85,win,win,13.24,-4.27,5,7
+2026-09-28,BE,adjusted_drop,buy,"Market-adjusted drop -8.20% (stock -8.95%, market -0.74%)",262.87,272.82,win,win,7.37,-0.59,1,1
+2026-09-28,BE,sector_drop,buy,"Sector-adjusted drop -8.29% (stock -8.95%, XLU -0.66%)",262.87,272.82,win,win,7.37,-0.59,1,1
+2026-09-28,BE,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",262.87,272.82,win,win,7.37,-0.59,1,1
+2026-09-22,LRCX,macd,buy,MACD bullish crossover (above SMA20),310.63,307.5,win,pending,5.06,-2.91,5,
+2026-09-22,CCL,gap_and_go,buy,Gap up +3.9% on 2.0x volume,22.28,22.08,win,win,13.99,-2.85,5,5
+2026-09-10,LRCX,adjusted_drop,buy,"Market-adjusted drop -5.05% (stock -5.65%, market -0.60%)",297.69,303.13,win,pending,6.57,-12.55,13,
