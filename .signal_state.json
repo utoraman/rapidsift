@@ -1,23 +1,22 @@
 {
   "last_signals": [
-    "MARA_macd_2026-09-29",
-    "AAPL_macd_2026-09-29",
-    "GOOGL_macd_2026-09-29",
-    "CCL_volume_spike_2026-09-29",
-    "CCL_gap_and_go_2026-09-29",
-    "CCL_rel_strength_2026-09-29",
-    "CLSK_macd_2026-09-29",
-    "RIOT_macd_2026-09-29",
-    "ASTS_gap_and_go_2026-09-29",
-    "BABA_macd_2026-09-29",
-    "BE_rel_strength_2026-09-29",
-    "UEC_gap_and_go_2026-09-29",
-    "XPEV_gap_and_go_2026-09-29",
-    "EW_macd_2026-09-29",
-    "GSK_macd_2026-09-29",
-    "TLRY_macd_2026-09-29",
-    "EVGO_macd_2026-09-29"
+    "SMCI_macd_2026-09-30",
+    "MSFT_macd_2026-09-30",
+    "GOOGL_macd_2026-09-30",
+    "CIFR_macd_2026-09-30",
+    "RDW_macd_2026-09-30",
+    "BTBT_macd_2026-09-30",
+    "APLD_macd_2026-09-30",
+    "WMT_macd_2026-09-30",
+    "MSTR_macd_2026-09-30",
+    "QCOM_macd_2026-09-30",
+    "CORZ_macd_2026-09-30",
+    "COIN_macd_2026-09-30",
+    "ABBV_macd_2026-09-30",
+    "APP_macd_2026-09-30",
+    "EW_macd_2026-09-30",
+    "HUT_macd_2026-09-30"
   ],
-  "last_run": "2026-09-29T23:48:42.834683",
-  "last_brief_date": "2026-09-29"
+  "last_run": "2026-09-30T18:35:48.175497",
+  "last_brief_date": "2026-09-30"
 }
