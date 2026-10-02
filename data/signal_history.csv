@@ -3687,3 +3687,17 @@ date,ticker,type,direction,detail,price,entry_price,result_5,result_10,current_p
 2026-09-24,U,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",41.42,41.21,win,pending,5.99,-6.72,5,
 2026-09-21,ACN,gap_and_go,buy,Gap up +3.1% on 1.5x volume,186.11,189.38,win,win,13.2,-9.12,8,8
 2026-09-18,ACN,sector_drop,buy,"Sector-adjusted drop -5.55% (stock -4.73%, XLK +0.82%)",181.29,187.0,win,win,14.64,-7.96,9,9
+2026-10-01,WOLF,rel_strength,buy,"New 20-day high (+5.7% above prev, 1.4x vol)",31.17,32.35,win,win,8.5,-2.26,1,1
+2026-09-30,MARA,adjusted_drop,buy,"Market-adjusted drop -5.30% (stock -5.50%, market -0.21%)",11.33,11.28,win,pending,-1.69,-3.28,2,
+2026-09-30,MARA,sector_drop,buy,"Sector-adjusted drop -5.42% (stock -5.50%, BITO -0.09%)",11.33,11.28,win,pending,-1.69,-3.28,2,
+2026-09-30,MARA,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",11.33,11.28,win,pending,-1.69,-3.28,2,
+2026-09-30,HUT,sector_drop,buy,"Sector-adjusted drop -7.19% (stock -7.28%, BITO -0.09%)",86.1,85.96,win,pending,3.03,-4.49,2,
+2026-09-30,HOOD,gap_and_go,buy,Gap up +5.5% on 1.5x volume,112.5,112.07,win,pending,0.91,-1.26,2,
+2026-09-28,RBLX,sector_drop,buy,"Sector-adjusted drop -8.29% (stock -9.86%, XLC -1.58%)",41.86,41.9,win,pending,5.24,-2.74,4,
+2026-09-28,CLF,adjusted_drop,buy,"Market-adjusted drop -7.14% (stock -7.88%, market -0.74%)",11.22,11.09,win,pending,3.52,-2.34,4,
+2026-09-28,CLF,sector_drop,buy,"Sector-adjusted drop -7.22% (stock -7.88%, XLB -0.66%)",11.22,11.09,win,pending,3.52,-2.34,4,
+2026-09-28,CLF,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",11.22,11.09,win,pending,3.52,-2.34,4,
+2026-09-28,APLD,adjusted_drop,buy,"Market-adjusted drop -5.81% (stock -6.55%, market -0.74%)",24.53,24.97,win,pending,0.36,-5.51,4,
+2026-09-28,APLD,sector_drop,buy,"Sector-adjusted drop -5.67% (stock -6.55%, BITO -0.89%)",24.53,24.97,win,pending,0.36,-5.51,4,
+2026-09-28,APLD,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",24.53,24.97,win,pending,0.36,-5.51,4,
+2026-09-22,SMCI,macd,buy,MACD bullish crossover (above SMA20),41.54,42.27,win,pending,3.34,-5.73,8,
