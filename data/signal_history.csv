@@ -3701,3 +3701,9 @@ date,ticker,type,direction,detail,price,entry_price,result_5,result_10,current_p
 2026-09-28,APLD,sector_drop,buy,"Sector-adjusted drop -5.67% (stock -6.55%, BITO -0.89%)",24.53,24.97,win,pending,0.36,-5.51,4,
 2026-09-28,APLD,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",24.53,24.97,win,pending,0.36,-5.51,4,
 2026-09-22,SMCI,macd,buy,MACD bullish crossover (above SMA20),41.54,42.27,win,pending,3.34,-5.73,8,
+2026-09-18,RKLB,sector_drop,buy,"Sector-adjusted drop -5.23% (stock -4.79%, XLI +0.44%)",64.57,65.29,win,win,13.23,-0.02,1,2
+2026-09-18,LUNR,adjusted_drop,buy,"Market-adjusted drop -6.01% (stock -5.88%, market +0.13%)",13.92,14.21,win,win,3.52,-2.04,1,1
+2026-09-18,LUNR,sector_drop,buy,"Sector-adjusted drop -6.32% (stock -5.88%, XLI +0.44%)",13.92,14.21,win,win,3.52,-2.04,1,1
+2026-09-18,LUNR,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",13.92,14.21,win,win,3.52,-2.04,1,1
+2026-09-18,ASTS,adjusted_drop,buy,"Market-adjusted drop -6.81% (stock -6.68%, market +0.13%)",58.52,59.54,win,pending,-1.84,-6.93,2,
+2026-09-18,APP,sector_drop,buy,"Sector-adjusted drop -5.03% (stock -4.21%, XLK +0.82%)",308.06,309.69,win,pending,-13.39,-13.84,1,
