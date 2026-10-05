@@ -3707,3 +3707,7 @@ date,ticker,type,direction,detail,price,entry_price,result_5,result_10,current_p
 2026-09-18,LUNR,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",13.92,14.21,win,win,3.52,-2.04,1,1
 2026-09-18,ASTS,adjusted_drop,buy,"Market-adjusted drop -6.81% (stock -6.68%, market +0.13%)",58.52,59.54,win,pending,-1.84,-6.93,2,
 2026-09-18,APP,sector_drop,buy,"Sector-adjusted drop -5.03% (stock -4.21%, XLK +0.82%)",308.06,309.69,win,pending,-13.39,-13.84,1,
+2026-09-22,SHOP,macd,buy,MACD bullish crossover (above SMA20),147.74,146.62,win,win,9.2,-7.46,9,9
+2026-09-22,SHOP,gap_and_go,buy,Gap up +4.8% on 3.0x volume,147.74,146.62,win,win,9.2,-7.46,9,9
+2026-09-22,NVDA,macd,buy,MACD bullish crossover (above SMA20),228.87,228.03,win,pending,4.77,-3.04,9,
+2026-09-22,NVAX,rel_strength,buy,"New 20-day high (+3.2% above prev, 1.3x vol)",10.83,10.79,win,win,16.4,-4.91,9,9
