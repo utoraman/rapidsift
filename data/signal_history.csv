@@ -3711,3 +3711,10 @@ date,ticker,type,direction,detail,price,entry_price,result_5,result_10,current_p
 2026-09-22,SHOP,gap_and_go,buy,Gap up +4.8% on 3.0x volume,147.74,146.62,win,win,9.2,-7.46,9,9
 2026-09-22,NVDA,macd,buy,MACD bullish crossover (above SMA20),228.87,228.03,win,pending,4.77,-3.04,9,
 2026-09-22,NVAX,rel_strength,buy,"New 20-day high (+3.2% above prev, 1.3x vol)",10.83,10.79,win,win,16.4,-4.91,9,9
+2026-10-05,NVAX,rel_strength,buy,"New 20-day high (+20.5% above prev, 5.5x vol)",12.56,12.36,win,pending,-10.4,-11.97,1,
+2026-10-01,NTLA,macd,buy,MACD bullish crossover (above SMA20),12.12,12.42,win,pending,0.04,-4.59,3,
+2026-10-01,CSCO,macd,buy,MACD bullish crossover (above SMA20),108.34,109.83,win,pending,7.14,-0.76,3,
+2026-09-29,UEC,gap_and_go,buy,Gap up +7.6% on 1.9x volume,9.29,9.47,win,pending,7.87,-3.8,5,
+2026-09-29,CCL,rel_strength,buy,"New 20-day high (+3.0% above prev, 3.2x vol)",25.11,25.39,win,pending,4.23,-3.43,5,
+2026-09-25,RBLX,adjusted_drop,buy,"Market-adjusted drop -5.44% (stock -4.89%, market +0.54%)",46.44,43.6,win,pending,4.04,-6.54,7,
+2026-09-24,RKLB,rel_strength,buy,"New 20-day high (+2.6% above prev, 1.3x vol)",73.61,74.15,win,pending,1.31,-6.41,8,
