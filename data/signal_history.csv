@@ -3718,3 +3718,5 @@ date,ticker,type,direction,detail,price,entry_price,result_5,result_10,current_p
 2026-09-29,CCL,rel_strength,buy,"New 20-day high (+3.0% above prev, 3.2x vol)",25.11,25.39,win,pending,4.23,-3.43,5,
 2026-09-25,RBLX,adjusted_drop,buy,"Market-adjusted drop -5.44% (stock -4.89%, market +0.54%)",46.44,43.6,win,pending,4.04,-6.54,7,
 2026-09-24,RKLB,rel_strength,buy,"New 20-day high (+2.6% above prev, 1.3x vol)",73.61,74.15,win,pending,1.31,-6.41,8,
+2026-09-21,WOLF,macd,buy,MACD bullish crossover (above SMA20),27.71,27.35,win,win,16.38,-7.06,6,8
+2026-09-18,RGTI,macd,buy,MACD bullish crossover (above SMA20),15.76,16.21,win,pending,-6.42,-8.61,3,
