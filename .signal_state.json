@@ -12,9 +12,12 @@
     "ABBV_macd_2026-10-07",
     "GE_macd_2026-10-07",
     "EW_macd_2026-10-07",
+    "HUT_volume_spike_2026-10-07",
+    "HUT_gap_and_go_2026-10-07",
     "FCEL_volume_spike_2026-10-07",
-    "FCEL_gap_and_go_2026-10-07"
+    "FCEL_gap_and_go_2026-10-07",
+    "WOLF_gap_and_go_2026-10-07"
   ],
-  "last_run": "2026-10-07T20:03:53.817984",
+  "last_run": "2026-10-07T20:55:47.172099",
   "last_brief_date": "2026-10-07"
 }
