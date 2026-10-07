@@ -3725,3 +3725,4 @@ date,ticker,type,direction,detail,price,entry_price,result_5,result_10,current_p
 2026-10-06,NVAX,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",11.32,11.01,win,pending,2.68,-1.0,1,
 2026-10-06,MRNA,sector_drop,buy,"Sector-adjusted drop -7.58% (stock -7.75%, XLV -0.17%)",187.46,183.01,win,pending,7.26,-0.27,1,
 2026-09-25,SMCI,rel_strength,buy,"New 20-day high (+2.5% above prev, 1.3x vol)",43.26,42.75,win,pending,6.3,-6.13,8,
+2026-09-22,CSCO,sector_drop,buy,"Sector-adjusted drop -5.23% (stock -4.50%, XLK +0.73%)",106.03,105.81,win,win,10.94,-1.09,8,10
