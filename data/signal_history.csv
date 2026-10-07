@@ -3720,3 +3720,8 @@ date,ticker,type,direction,detail,price,entry_price,result_5,result_10,current_p
 2026-09-24,RKLB,rel_strength,buy,"New 20-day high (+2.6% above prev, 1.3x vol)",73.61,74.15,win,pending,1.31,-6.41,8,
 2026-09-21,WOLF,macd,buy,MACD bullish crossover (above SMA20),27.71,27.35,win,win,16.38,-7.06,6,8
 2026-09-18,RGTI,macd,buy,MACD bullish crossover (above SMA20),15.76,16.21,win,pending,-6.42,-8.61,3,
+2026-10-06,NVAX,adjusted_drop,buy,"Market-adjusted drop -10.42% (stock -9.87%, market +0.55%)",11.32,11.01,win,pending,2.68,-1.0,1,
+2026-10-06,NVAX,sector_drop,buy,"Sector-adjusted drop -9.71% (stock -9.87%, XLV -0.17%)",11.32,11.01,win,pending,2.68,-1.0,1,
+2026-10-06,NVAX,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",11.32,11.01,win,pending,2.68,-1.0,1,
+2026-10-06,MRNA,sector_drop,buy,"Sector-adjusted drop -7.58% (stock -7.75%, XLV -0.17%)",187.46,183.01,win,pending,7.26,-0.27,1,
+2026-09-25,SMCI,rel_strength,buy,"New 20-day high (+2.5% above prev, 1.3x vol)",43.26,42.75,win,pending,6.3,-6.13,8,
