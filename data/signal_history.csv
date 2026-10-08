@@ -3726,3 +3726,10 @@ date,ticker,type,direction,detail,price,entry_price,result_5,result_10,current_p
 2026-10-06,MRNA,sector_drop,buy,"Sector-adjusted drop -7.58% (stock -7.75%, XLV -0.17%)",187.46,183.01,win,pending,7.26,-0.27,1,
 2026-09-25,SMCI,rel_strength,buy,"New 20-day high (+2.5% above prev, 1.3x vol)",43.26,42.75,win,pending,6.3,-6.13,8,
 2026-09-22,CSCO,sector_drop,buy,"Sector-adjusted drop -5.23% (stock -4.50%, XLK +0.73%)",106.03,105.81,win,win,10.94,-1.09,8,10
+2026-10-05,WOLF,adjusted_drop,buy,"Market-adjusted drop -5.63% (stock -4.96%, market +0.67%)",33.53,34.0,win,pending,-9.91,-13.18,3,
+2026-10-05,WOLF,sector_drop,buy,"Sector-adjusted drop -5.31% (stock -4.96%, XLU +0.35%)",33.53,34.0,win,pending,-9.91,-13.18,3,
+2026-10-05,WOLF,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",33.53,34.0,win,pending,-9.91,-13.18,3,
+2026-10-02,WOLF,gap_and_go,buy,Gap up +3.8% on 3.2x volume,35.28,34.04,win,pending,-10.02,-13.28,4,
+2026-10-02,ACN,adjusted_drop,buy,"Market-adjusted drop -7.05% (stock -6.31%, market +0.74%)",198.9,196.3,win,pending,5.32,-1.9,4,
+2026-10-02,ACN,sector_drop,buy,"Sector-adjusted drop -7.32% (stock -6.31%, XLK +1.01%)",198.9,196.3,win,pending,5.32,-1.9,4,
+2026-09-23,PLTR,macd,buy,MACD bullish crossover (above SMA20),191.79,189.2,win,pending,4.65,-2.32,11,
