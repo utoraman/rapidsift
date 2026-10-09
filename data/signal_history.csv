@@ -3747,3 +3747,7 @@ date,ticker,type,direction,detail,price,entry_price,result_5,result_10,current_p
 2026-10-07,MSTR,adjusted_drop,buy,"Market-adjusted drop -6.55% (stock -6.79%, market -0.24%)",153.37,150.34,win,pending,2.58,-1.98,2,
 2026-10-06,SNAP,macd,buy,MACD bullish crossover (above SMA20),5.78,5.7,win,win,9.82,-0.96,3,3
 2026-10-06,NTLA,rel_strength,buy,"New 20-day high (+1.9% above prev, 1.7x vol)",12.37,12.08,win,pending,8.65,-3.15,3,
+2026-09-24,RUN,adjusted_drop,buy,"Market-adjusted drop -6.74% (stock -6.83%, market -0.08%)",7.78,7.79,win,pending,-1.93,-6.74,1,
+2026-09-24,RUN,sector_drop,buy,"Sector-adjusted drop -5.85% (stock -6.83%, XLU -0.98%)",7.78,7.79,win,pending,-1.93,-6.74,1,
+2026-09-24,RUN,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",7.78,7.79,win,pending,-1.93,-6.74,1,
+2026-09-24,DNN,adjusted_drop,buy,"Market-adjusted drop -6.66% (stock -6.74%, market -0.08%)",2.63,2.63,win,pending,-7.6,-11.03,8,
