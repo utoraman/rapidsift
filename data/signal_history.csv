@@ -3751,3 +3751,4 @@ date,ticker,type,direction,detail,price,entry_price,result_5,result_10,current_p
 2026-09-24,RUN,sector_drop,buy,"Sector-adjusted drop -5.85% (stock -6.83%, XLU -0.98%)",7.78,7.79,win,pending,-1.93,-6.74,1,
 2026-09-24,RUN,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",7.78,7.79,win,pending,-1.93,-6.74,1,
 2026-09-24,DNN,adjusted_drop,buy,"Market-adjusted drop -6.66% (stock -6.74%, market -0.08%)",2.63,2.63,win,pending,-7.6,-11.03,8,
+2026-09-21,NVDA,macd,buy,MACD bullish crossover (above SMA20),227.38,226.85,win,pending,1.6,-2.54,10,
