@@ -3752,3 +3752,11 @@ date,ticker,type,direction,detail,price,entry_price,result_5,result_10,current_p
 2026-09-24,RUN,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",7.78,7.79,win,pending,-1.93,-6.74,1,
 2026-09-24,DNN,adjusted_drop,buy,"Market-adjusted drop -6.66% (stock -6.74%, market -0.08%)",2.63,2.63,win,pending,-7.6,-11.03,8,
 2026-09-21,NVDA,macd,buy,MACD bullish crossover (above SMA20),227.38,226.85,win,pending,1.6,-2.54,10,
+2026-10-08,PLTR,rel_strength,buy,"New 20-day high (+5.0% above prev, 1.9x vol)",198.78,201.48,win,pending,3.73,-1.58,2,
+2026-10-08,HUT,adjusted_drop,buy,"Market-adjusted drop -10.45% (stock -10.87%, market -0.42%)",79.59,81.53,win,pending,4.55,-4.69,2,
+2026-10-08,HUT,sector_drop,buy,"Sector-adjusted drop -8.99% (stock -10.87%, BITO -1.89%)",79.59,81.53,win,pending,4.55,-4.69,2,
+2026-10-08,HUT,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",79.59,81.53,win,pending,4.55,-4.69,2,
+2026-10-06,V,macd,buy,MACD bullish crossover (above SMA20),370.64,369.72,win,pending,5.29,-0.03,4,
+2026-10-05,KMI,macd,buy,MACD bullish crossover (above SMA20),31.41,31.38,win,pending,5.42,-0.83,5,
+2026-10-05,AI,macd,buy,MACD bullish crossover (above SMA20),11.09,11.24,win,win,3.29,-2.4,5,5
+2026-10-01,ZM,macd,buy,MACD bullish crossover (above SMA20),93.8,94.43,win,pending,3.71,-2.49,7,
