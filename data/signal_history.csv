@@ -3767,3 +3767,16 @@ date,ticker,type,direction,detail,price,entry_price,result_5,result_10,current_p
 2026-10-06,XOM,macd,buy,MACD bullish crossover (above SMA20),164.48,165.6,win,pending,5.22,-1.29,5,
 2026-10-06,EOG,macd,buy,MACD bullish crossover (above SMA20),144.28,145.4,win,pending,5.46,-1.77,5,
 2026-10-01,MSFT,macd,buy,MACD bullish crossover (above SMA20),512.8,519.39,win,pending,4.68,-1.1,8,
+2026-09-28,PLUG,adjusted_drop,buy,"Market-adjusted drop -5.32% (stock -6.06%, market -0.74%)",1.86,1.91,win,pending,-18.32,-18.85,2,
+2026-09-28,PLUG,sector_drop,buy,"Sector-adjusted drop -5.40% (stock -6.06%, XLU -0.66%)",1.86,1.91,win,pending,-18.32,-18.85,2,
+2026-09-28,PLUG,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",1.86,1.91,win,pending,-18.32,-18.85,2,
+2026-09-28,NU,adjusted_drop,buy,"Market-adjusted drop -9.26% (stock -10.01%, market -0.74%)",12.23,12.3,win,win,26.67,-1.37,3,5
+2026-09-28,NU,sector_drop,buy,"Sector-adjusted drop -8.82% (stock -10.01%, XLF -1.19%)",12.23,12.3,win,win,26.67,-1.37,3,5
+2026-09-28,NU,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",12.23,12.3,win,win,26.67,-1.37,3,5
+2026-09-28,DASH,adjusted_drop,buy,"Market-adjusted drop -7.00% (stock -7.74%, market -0.74%)",178.39,180.23,win,pending,7.14,-0.62,2,
+2026-09-28,DASH,sector_drop,buy,"Sector-adjusted drop -6.33% (stock -7.74%, XLY -1.41%)",178.39,180.23,win,pending,7.14,-0.62,2,
+2026-09-28,DASH,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",178.39,180.23,win,pending,7.14,-0.62,2,
+2026-09-28,BA,adjusted_drop,buy,"Market-adjusted drop -6.16% (stock -6.91%, market -0.74%)",184.39,185.3,win,pending,0.64,-0.57,4,
+2026-09-28,BA,sector_drop,buy,"Sector-adjusted drop -5.94% (stock -6.91%, XLI -0.97%)",184.39,185.3,win,pending,0.64,-0.57,4,
+2026-09-28,BA,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",184.39,185.3,win,pending,0.64,-0.57,4,
+2026-09-28,AFRM,adjusted_drop,buy,"Market-adjusted drop -5.28% (stock -6.03%, market -0.74%)",67.21,68.91,win,win,13.03,-2.55,4,6
