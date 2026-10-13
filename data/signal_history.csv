@@ -3760,3 +3760,10 @@ date,ticker,type,direction,detail,price,entry_price,result_5,result_10,current_p
 2026-10-05,KMI,macd,buy,MACD bullish crossover (above SMA20),31.41,31.38,win,pending,5.42,-0.83,5,
 2026-10-05,AI,macd,buy,MACD bullish crossover (above SMA20),11.09,11.24,win,win,3.29,-2.4,5,5
 2026-10-01,ZM,macd,buy,MACD bullish crossover (above SMA20),93.8,94.43,win,pending,3.71,-2.49,7,
+2026-10-12,MRNA,macd,buy,MACD bullish crossover (above SMA20),213.74,207.93,win,pending,3.16,-1.55,1,
+2026-10-09,SNAP,rel_strength,buy,"New 20-day high (+4.6% above prev, 1.5x vol)",6.23,6.38,win,pending,1.72,-1.72,2,
+2026-10-08,ORCL,adjusted_drop,buy,"Market-adjusted drop -5.06% (stock -5.48%, market -0.42%)",135.19,136.7,win,pending,4.95,-0.84,3,
+2026-10-08,COP,macd,buy,MACD bullish crossover (above SMA20),134.19,133.85,win,pending,5.31,-0.68,3,
+2026-10-06,XOM,macd,buy,MACD bullish crossover (above SMA20),164.48,165.6,win,pending,5.22,-1.29,5,
+2026-10-06,EOG,macd,buy,MACD bullish crossover (above SMA20),144.28,145.4,win,pending,5.46,-1.77,5,
+2026-10-01,MSFT,macd,buy,MACD bullish crossover (above SMA20),512.8,519.39,win,pending,4.68,-1.1,8,
