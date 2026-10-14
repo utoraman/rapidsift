@@ -1,6 +1,7 @@
 {
   "last_signals": [
     "TSLA_macd_2026-10-14",
+    "GRAB_macd_2026-10-14",
     "AAPL_volume_spike_2026-10-14",
     "OPEN_macd_2026-10-14",
     "IREN_gap_and_go_2026-10-14",
@@ -14,8 +15,10 @@
     "CIFR_earnings_drift_2026-10-14",
     "FCX_macd_2026-10-14",
     "U_gap_and_go_2026-10-14",
+    "CORZ_gap_and_go_2026-10-14",
     "UUUU_gap_and_go_2026-10-14",
     "IQ_macd_2026-10-14",
+    "UNH_volume_spike_2026-10-14",
     "TXN_macd_2026-10-14",
     "MS_macd_2026-10-14",
     "ENPH_macd_2026-10-14",
@@ -24,10 +27,11 @@
     "AA_macd_2026-10-14",
     "NTLA_macd_2026-10-14",
     "APO_macd_2026-10-14",
+    "HUT_gap_and_go_2026-10-14",
     "DHR_macd_2026-10-14",
     "SEDG_macd_2026-10-14",
     "GFS_volume_spike_2026-10-14"
   ],
-  "last_run": "2026-10-14T18:12:19.018030",
+  "last_run": "2026-10-14T18:47:37.441521",
   "last_brief_date": "2026-10-14"
 }
