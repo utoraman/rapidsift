@@ -3780,3 +3780,6 @@ date,ticker,type,direction,detail,price,entry_price,result_5,result_10,current_p
 2026-09-28,BA,sector_drop,buy,"Sector-adjusted drop -5.94% (stock -6.91%, XLI -0.97%)",184.39,185.3,win,pending,0.64,-0.57,4,
 2026-09-28,BA,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",184.39,185.3,win,pending,0.64,-0.57,4,
 2026-09-28,AFRM,adjusted_drop,buy,"Market-adjusted drop -5.28% (stock -6.03%, market -0.74%)",67.21,68.91,win,win,13.03,-2.55,4,6
+2026-10-07,ABBV,rel_strength,buy,"New 20-day high (+2.1% above prev, 1.4x vol)",271.36,270.98,win,pending,5.23,-1.94,5,
+2026-10-06,CL,macd,buy,MACD bullish crossover (above SMA20),87.25,87.65,win,pending,4.97,-0.64,6,
+2026-10-05,BBWI,macd,buy,MACD bullish crossover (above SMA20),17.46,17.66,win,pending,5.61,-4.53,7,
