@@ -19,6 +19,7 @@
     "CORZ_gap_and_go_2026-10-14",
     "UUUU_gap_and_go_2026-10-14",
     "IQ_macd_2026-10-14",
+    "PG_rel_strength_2026-10-14",
     "TXN_macd_2026-10-14",
     "MS_macd_2026-10-14",
     "MS_gap_and_go_2026-10-14",
@@ -32,6 +33,6 @@
     "SEDG_gap_and_go_2026-10-14",
     "GFS_volume_spike_2026-10-14"
   ],
-  "last_run": "2026-10-14T20:52:00.614775",
+  "last_run": "2026-10-14T21:59:05.849813",
   "last_brief_date": "2026-10-14"
 }
