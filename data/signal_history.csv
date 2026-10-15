@@ -3820,3 +3820,8 @@ date,ticker,type,direction,detail,price,entry_price,result_5,result_10,current_p
 2026-10-12,AI,gap_and_go,buy,Gap up +6.7% on 2.6x volume,11.61,11.63,win,pending,4.34,-2.49,3,
 2026-10-12,AI,rel_strength,buy,"New 20-day high (+9.6% above prev, 2.6x vol)",11.61,11.63,win,pending,4.34,-2.49,3,
 2026-10-12,AI,confluence,buy,"Confluence (2 strong signals): gap_and_go, rel_strength",11.61,11.63,win,pending,4.34,-2.49,3,
+2026-10-14,MRVL,adjusted_drop,buy,"Market-adjusted drop -7.65% (stock -8.73%, market -1.08%)",245.28,231.0,win,pending,4.43,-1.6,1,
+2026-10-14,MRVL,sector_drop,buy,"Sector-adjusted drop -5.75% (stock -8.73%, XLK -2.98%)",245.28,231.0,win,pending,4.43,-1.6,1,
+2026-10-14,MRVL,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",245.28,231.0,win,pending,4.43,-1.6,1,
+2026-10-09,RBLX,macd,buy,MACD bullish crossover (above SMA20),48.09,48.51,win,pending,5.41,-3.1,4,
+2026-09-30,MSFT,macd,buy,MACD bullish crossover (above SMA20),512.9,519.88,win,pending,3.76,-1.48,9,
