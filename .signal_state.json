@@ -1,21 +1,17 @@
 {
   "last_signals": [
-    "INTC_gap_and_go_2026-10-19",
-    "TSLA_volume_spike_2026-10-19",
-    "AMZN_volume_spike_2026-10-19",
     "MSFT_macd_2026-10-19",
     "BTBT_gap_and_go_2026-10-19",
     "CLF_volume_spike_2026-10-19",
     "CLF_gap_and_go_2026-10-19",
     "CLF_rel_strength_2026-10-19",
-    "HAL_volume_spike_2026-10-19",
     "RUN_macd_2026-10-19",
-    "LRCX_gap_and_go_2026-10-19",
     "NEM_macd_2026-10-19",
     "WMB_macd_2026-10-19",
-    "NVAX_macd_2026-10-19",
-    "GSK_volume_spike_2026-10-19"
+    "AI_macd_2026-10-19",
+    "AFRM_macd_2026-10-19",
+    "NVAX_macd_2026-10-19"
   ],
-  "last_run": "2026-10-19T19:30:51.284805",
+  "last_run": "2026-10-19T20:02:32.412682",
   "last_brief_date": "2026-10-19"
 }
