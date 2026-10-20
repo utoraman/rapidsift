@@ -3849,3 +3849,8 @@ date,ticker,type,direction,detail,price,entry_price,result_5,result_10,current_p
 2026-10-16,MSTR,sector_drop,buy,"Sector-adjusted drop -8.47% (stock -9.56%, BITO -1.09%)",136.83,139.13,win,pending,3.35,-3.98,2,
 2026-10-16,MSTR,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",136.83,139.13,win,pending,3.35,-3.98,2,
 2026-10-08,DVN,macd,buy,MACD bullish crossover (above SMA20),48.92,48.83,win,pending,3.25,-1.43,8,
+2026-10-12,NOW,macd,buy,MACD bullish crossover (above SMA20),140.32,140.19,win,pending,6.67,-1.45,3,
+2026-10-05,XOM,macd,buy,MACD bullish crossover (above SMA20),164.0,163.06,win,win,9.08,-0.07,5,11
+2026-10-05,CMG,adjusted_drop,buy,"Market-adjusted drop -5.34% (stock -4.67%, market +0.67%)",30.85,30.76,win,pending,-3.61,-4.39,3,
+2026-10-05,CMG,sector_drop,buy,"Sector-adjusted drop -5.01% (stock -4.67%, XLY +0.35%)",30.85,30.76,win,pending,-3.61,-4.39,3,
+2026-10-05,CMG,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",30.85,30.76,win,pending,-3.61,-4.39,3,
