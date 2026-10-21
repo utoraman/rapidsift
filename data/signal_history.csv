@@ -3863,3 +3863,4 @@ date,ticker,type,direction,detail,price,entry_price,result_5,result_10,current_p
 2026-10-14,SMCI,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",35.78,34.28,win,pending,3.62,-9.8,5,
 2026-10-05,DKNG,gap_and_go,buy,Gap up +3.6% on 1.8x volume,19.6,19.62,win,pending,7.49,-6.47,12,
 2026-10-02,ACN,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",197.32,194.74,win,win,21.93,-1.9,4,6
+2026-10-02,LYFT,macd,buy,MACD bullish crossover (above SMA20),15.46,15.45,win,win,8.67,-0.32,5,9
