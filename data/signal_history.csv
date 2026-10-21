@@ -3854,3 +3854,12 @@ date,ticker,type,direction,detail,price,entry_price,result_5,result_10,current_p
 2026-10-05,CMG,adjusted_drop,buy,"Market-adjusted drop -5.34% (stock -4.67%, market +0.67%)",30.85,30.76,win,pending,-3.61,-4.39,3,
 2026-10-05,CMG,sector_drop,buy,"Sector-adjusted drop -5.01% (stock -4.67%, XLY +0.35%)",30.85,30.76,win,pending,-3.61,-4.39,3,
 2026-10-05,CMG,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",30.85,30.76,win,pending,-3.61,-4.39,3,
+2026-10-20,DHR,volume_spike,buy,Volume spike 2.2x (dip in uptrend),224.24,217.56,win,pending,6.04,-0.0,1,
+2026-10-16,DDOG,adjusted_drop,buy,"Market-adjusted drop -6.08% (stock -7.19%, market -1.11%)",247.11,257.83,win,pending,7.32,-2.02,3,
+2026-10-16,AI,adjusted_drop,buy,"Market-adjusted drop -5.80% (stock -6.91%, market -1.11%)",11.32,11.36,win,pending,5.28,-1.76,3,
+2026-10-15,WMB,adjusted_drop,buy,"Market-adjusted drop -5.20% (stock -4.92%, market +0.28%)",69.22,69.52,win,pending,5.03,-0.39,4,
+2026-10-14,SMCI,adjusted_drop,buy,"Market-adjusted drop -7.34% (stock -8.42%, market -1.08%)",35.78,34.28,win,pending,3.62,-9.8,5,
+2026-10-14,SMCI,sector_drop,buy,"Sector-adjusted drop -5.44% (stock -8.42%, XLK -2.98%)",35.78,34.28,win,pending,3.62,-9.8,5,
+2026-10-14,SMCI,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",35.78,34.28,win,pending,3.62,-9.8,5,
+2026-10-05,DKNG,gap_and_go,buy,Gap up +3.6% on 1.8x volume,19.6,19.62,win,pending,7.49,-6.47,12,
+2026-10-02,ACN,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",197.32,194.74,win,win,21.93,-1.9,4,6
