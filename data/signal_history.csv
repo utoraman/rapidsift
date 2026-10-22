@@ -3864,3 +3864,11 @@ date,ticker,type,direction,detail,price,entry_price,result_5,result_10,current_p
 2026-10-05,DKNG,gap_and_go,buy,Gap up +3.6% on 1.8x volume,19.6,19.62,win,pending,7.49,-6.47,12,
 2026-10-02,ACN,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",197.32,194.74,win,win,21.93,-1.9,4,6
 2026-10-02,LYFT,macd,buy,MACD bullish crossover (above SMA20),15.46,15.45,win,win,8.67,-0.32,5,9
+2026-10-21,IBM,rel_strength,buy,"New 20-day high (+3.8% above prev, 1.8x vol)",251.46,241.24,win,pending,3.51,-0.52,1,
+2026-10-15,WDAY,macd,buy,MACD bullish crossover (above SMA20),196.63,196.84,win,pending,5.75,-4.08,5,
+2026-10-15,PG,volume_spike,buy,Volume spike 2.1x (dip in uptrend),157.08,157.75,win,pending,5.31,-0.6,5,
+2026-10-15,KMB,gap_and_go,buy,Gap up +3.5% on 1.9x volume,104.07,104.71,win,pending,6.24,-0.78,5,
+2026-10-15,KMB,rel_strength,buy,"New 20-day high (+4.9% above prev, 1.9x vol)",104.07,104.71,win,pending,6.24,-0.78,5,
+2026-10-15,KMB,confluence,buy,"Confluence (2 strong signals): gap_and_go, rel_strength",104.07,104.71,win,pending,6.24,-0.78,5,
+2026-10-15,DOCU,rel_strength,buy,"New 20-day high (+3.0% above prev, 1.7x vol)",77.52,78.27,win,pending,8.11,-5.73,5,
+2026-10-14,PG,rel_strength,buy,"New 20-day high (+1.2% above prev, 1.4x vol)",156.53,158.33,win,pending,4.92,-0.97,6,
