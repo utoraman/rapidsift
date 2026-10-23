@@ -3874,3 +3874,9 @@ date,ticker,type,direction,detail,price,entry_price,result_5,result_10,current_p
 2026-10-14,PG,rel_strength,buy,"New 20-day high (+1.2% above prev, 1.4x vol)",156.53,158.33,win,pending,4.92,-0.97,6,
 2026-10-15,BBWI,rel_strength,buy,"New 20-day high (+9.7% above prev, 1.8x vol)",20.44,20.45,win,pending,4.99,-3.81,5,
 2026-10-07,V,macd,buy,MACD bullish crossover (above SMA20),372.1,371.4,win,win,11.56,-0.28,3,9
+2026-10-22,HAL,rel_strength,buy,"New 20-day high (+1.1% above prev, 1.4x vol)",33.19,33.46,win,pending,4.32,-0.51,1,
+2026-10-22,CLF,adjusted_drop,buy,"Market-adjusted drop -5.80% (stock -6.99%, market -1.18%)",13.05,13.11,win,pending,5.99,-0.31,1,
+2026-10-19,HAL,volume_spike,buy,Volume spike 2.0x (dip in uptrend),32.98,33.3,win,pending,4.82,-2.85,4,
+2026-10-16,PANW,adjusted_drop,buy,"Market-adjusted drop -6.53% (stock -7.63%, market -1.11%)",342.0,356.0,win,pending,6.44,-5.97,5,
+2026-10-14,NET,adjusted_drop,buy,"Market-adjusted drop -5.64% (stock -6.72%, market -1.08%)",324.33,310.55,win,pending,5.56,-8.21,7,
+2026-10-12,BSX,macd,buy,MACD bullish crossover (above SMA20),43.84,43.95,win,pending,3.21,-3.8,9,
