@@ -3881,3 +3881,4 @@ date,ticker,type,direction,detail,price,entry_price,result_5,result_10,current_p
 2026-10-14,NET,adjusted_drop,buy,"Market-adjusted drop -5.64% (stock -6.72%, market -1.08%)",324.33,310.55,win,pending,5.56,-8.21,7,
 2026-10-12,BSX,macd,buy,MACD bullish crossover (above SMA20),43.84,43.95,win,pending,3.21,-3.8,9,
 2026-10-16,FTNT,adjusted_drop,buy,"Market-adjusted drop -5.92% (stock -7.03%, market -1.11%)",169.13,171.0,win,pending,5.02,-2.8,5,
+2026-10-07,CLF,macd,buy,MACD bullish crossover (above SMA20),12.06,11.87,win,win,17.1,-1.68,2,2
