@@ -4,6 +4,7 @@
     "SOFI_earnings_drift_2026-10-28",
     "AAPL_macd_2026-10-28",
     "HOOD_gap_and_go_2026-10-28",
+    "GOOGL_volume_spike_2026-10-28",
     "ORCL_macd_2026-10-28",
     "ORCL_volume_spike_2026-10-28",
     "ORCL_rel_strength_2026-10-28",
@@ -25,6 +26,6 @@
     "SEDG_macd_2026-10-28",
     "SEDG_gap_and_go_2026-10-28"
   ],
-  "last_run": "2026-10-28T20:42:35.810216",
+  "last_run": "2026-10-28T21:48:54.948689",
   "last_brief_date": "2026-10-28"
 }
