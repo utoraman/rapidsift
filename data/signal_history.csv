@@ -3908,3 +3908,9 @@ date,ticker,type,direction,detail,price,entry_price,result_5,result_10,current_p
 2026-10-12,OPEN,sector_drop,buy,"Sector-adjusted drop -6.60% (stock -5.86%, XLRE +0.75%)",2.09,2.07,win,win,-7.73,-11.11,3,3
 2026-10-12,EVGO,adjusted_drop,buy,"Market-adjusted drop -8.96% (stock -9.02%, market -0.06%)",1.11,1.1,win,pending,7.27,-10.91,11,
 2026-10-12,DOCU,macd,buy,MACD bullish crossover (above SMA20),70.97,71.22,win,win,15.19,-0.47,2,4
+2026-10-27,EVGO,macd,buy,MACD bullish crossover (above SMA20),1.18,1.18,win,pending,6.78,-1.69,1,
+2026-10-27,ACN,adjusted_drop,buy,"Market-adjusted drop -5.44% (stock -4.88%, market +0.56%)",235.16,233.34,win,pending,4.23,-0.33,1,
+2026-10-27,ACN,sector_drop,buy,"Sector-adjusted drop -6.58% (stock -4.88%, XLK +1.70%)",235.16,233.34,win,pending,4.23,-0.33,1,
+2026-10-27,ACN,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",235.16,233.34,win,pending,4.23,-0.33,1,
+2026-10-23,LUV,macd,buy,MACD bullish crossover (above SMA20),41.75,41.97,win,pending,3.61,-0.26,3,
+2026-10-13,ORCL,macd,buy,MACD bullish crossover (above SMA20),143.2,140.0,win,pending,4.89,-12.31,11,
