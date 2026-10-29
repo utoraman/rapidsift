@@ -3934,3 +3934,4 @@ date,ticker,type,direction,detail,price,entry_price,result_5,result_10,current_p
 2026-10-19,CLF,confluence,buy,"Confluence (2 strong signals): gap_and_go, rel_strength",14.1,13.68,win,pending,3.65,-7.68,8,
 2026-10-16,EPD,macd,buy,MACD bullish crossover (above SMA20),36.82,36.78,win,pending,5.85,-1.93,9,
 2026-10-12,MDT,macd,buy,MACD bullish crossover (above SMA20),91.93,92.35,win,pending,4.86,-2.33,13,
+2026-10-14,GILD,macd,buy,MACD bullish crossover (above SMA20),153.54,156.39,win,pending,5.19,-2.99,11,
