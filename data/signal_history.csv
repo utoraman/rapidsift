@@ -4004,3 +4004,4 @@ date,ticker,type,direction,detail,price,entry_price,result_5,result_10,current_p
 2026-10-30,FIS,rel_strength,buy,"New 20-day high (+3.4% above prev, 2.5x vol)",38.55,38.5,win,pending,2.35,-0.26,2,
 2026-10-29,CPNG,macd,buy,MACD bullish crossover (above SMA20),14.57,14.52,win,pending,4.79,-2.62,3,
 2026-10-26,TXN,macd,buy,MACD bullish crossover (above SMA20),296.67,299.41,win,pending,3.97,-1.57,6,
+2026-11-02,FISV,rel_strength,buy,"New 20-day high (+2.8% above prev, 1.8x vol)",51.93,56.53,win,pending,3.31,-3.38,1,
