@@ -4005,3 +4005,31 @@ date,ticker,type,direction,detail,price,entry_price,result_5,result_10,current_p
 2026-10-29,CPNG,macd,buy,MACD bullish crossover (above SMA20),14.57,14.52,win,pending,4.79,-2.62,3,
 2026-10-26,TXN,macd,buy,MACD bullish crossover (above SMA20),296.67,299.41,win,pending,3.97,-1.57,6,
 2026-11-02,FISV,rel_strength,buy,"New 20-day high (+2.8% above prev, 1.8x vol)",51.93,56.53,win,pending,3.31,-3.38,1,
+2026-11-03,SHOP,adjusted_drop,buy,"Market-adjusted drop -9.04% (stock -8.74%, market +0.30%)",142.57,143.42,win,pending,6.87,-0.08,1,
+2026-11-03,SHOP,sector_drop,buy,"Sector-adjusted drop -8.04% (stock -8.74%, XLY -0.70%)",142.57,143.42,win,pending,6.87,-0.08,1,
+2026-11-03,SHOP,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",142.57,143.42,win,pending,6.87,-0.08,1,
+2026-11-03,GRAB,volume_spike,buy,Volume spike 2.6x (dip in uptrend),3.12,3.21,win,pending,4.84,-0.31,1,
+2026-11-03,GRAB,gap_and_go,buy,Gap up +12.4% on 2.6x volume,3.12,3.21,win,pending,4.84,-0.31,1,
+2026-11-03,GRAB,rel_strength,buy,"New 20-day high (+2.8% above prev, 2.6x vol)",3.12,3.21,win,pending,4.84,-0.31,1,
+2026-11-03,GRAB,confluence,buy,"Confluence (2 strong signals): gap_and_go, rel_strength",3.12,3.21,win,pending,4.84,-0.31,1,
+2026-11-02,TME,rel_strength,buy,"New 20-day high (+2.1% above prev, 2.0x vol)",8.91,8.92,win,pending,6.11,-0.45,2,
+2026-11-02,RIVN,macd,buy,MACD bullish crossover (above SMA20),13.19,13.42,win,pending,3.99,-3.35,2,
+2026-11-02,NVAX,sector_drop,buy,"Sector-adjusted drop -5.31% (stock -5.46%, XLV -0.15%)",9.53,9.56,win,pending,9.41,-1.15,2,
+2026-11-02,HIMS,adjusted_drop,buy,"Market-adjusted drop -8.34% (stock -8.82%, market -0.48%)",25.24,25.48,win,win,6.16,-0.31,2,2
+2026-11-02,EL,rel_strength,buy,"New 20-day high (+1.9% above prev, 2.7x vol)",104.77,105.58,win,pending,6.71,-1.17,2,
+2026-11-02,EL,sector_drop,buy,"Sector-adjusted drop -6.49% (stock -4.08%, XLY +2.41%)",104.77,105.58,win,pending,6.71,-1.17,2,
+2026-11-02,EL,confluence,buy,"Confluence (2 strong signals): rel_strength, sector_drop",104.77,105.58,win,pending,6.71,-1.17,2,
+2026-11-02,DXCM,macd,buy,MACD bullish crossover (above SMA20),84.76,84.55,win,pending,4.91,-2.06,2,
+2026-11-02,DASH,macd,buy,MACD bullish crossover (above SMA20),190.07,186.6,win,pending,6.37,-3.09,2,
+2026-10-30,WMT,rel_strength,buy,"New 20-day high (+1.7% above prev, 1.5x vol)",123.51,124.1,win,pending,4.93,0,3,
+2026-10-30,MSTR,adjusted_drop,buy,"Market-adjusted drop -6.07% (stock -7.84%, market -1.77%)",130.51,132.22,win,win,8.74,-2.18,3,3
+2026-10-30,GM,rel_strength,buy,"New 20-day high (+2.4% above prev, 1.4x vol)",87.4,88.5,win,pending,4.6,-0.66,3,
+2026-10-29,RBLX,volume_spike,buy,Volume spike 2.3x (dip in uptrend),52.46,45.73,win,pending,7.84,-9.55,4,
+2026-10-29,EW,rel_strength,buy,"New 20-day high (+3.3% above prev, 1.4x vol)",94.44,94.55,win,pending,5.72,-7.03,4,
+2026-10-28,CARR,volume_spike,buy,Volume spike 2.1x (dip in uptrend),56.03,53.5,win,pending,4.01,-1.15,5,
+2026-10-27,UPS,rel_strength,buy,"New 20-day high (+4.3% above prev, 2.4x vol)",106.09,105.39,win,pending,8.35,-1.32,6,
+2026-10-27,DAL,macd,buy,MACD bullish crossover (above SMA20),81.45,81.26,win,pending,9.72,-3.2,6,
+2026-10-20,XPEV,gap_and_go,buy,Gap up +3.7% on 2.5x volume,9.91,9.52,win,pending,3.94,-6.09,11,
+2026-10-16,RIOT,adjusted_drop,buy,"Market-adjusted drop -10.38% (stock -11.48%, market -1.11%)",13.72,14.2,win,win,10.07,-18.08,13,13
+2026-10-16,RIOT,sector_drop,buy,"Sector-adjusted drop -10.39% (stock -11.48%, BITO -1.09%)",13.72,14.2,win,win,10.07,-18.08,13,13
+2026-10-16,RIOT,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",13.72,14.2,win,win,10.07,-18.08,13,13
