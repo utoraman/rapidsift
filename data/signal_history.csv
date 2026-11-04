@@ -4033,3 +4033,9 @@ date,ticker,type,direction,detail,price,entry_price,result_5,result_10,current_p
 2026-10-16,RIOT,adjusted_drop,buy,"Market-adjusted drop -10.38% (stock -11.48%, market -1.11%)",13.72,14.2,win,win,10.07,-18.08,13,13
 2026-10-16,RIOT,sector_drop,buy,"Sector-adjusted drop -10.39% (stock -11.48%, BITO -1.09%)",13.72,14.2,win,win,10.07,-18.08,13,13
 2026-10-16,RIOT,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",13.72,14.2,win,win,10.07,-18.08,13,13
+2026-11-02,APO,rel_strength,buy,"New 20-day high (+2.0% above prev, 1.5x vol)",119.46,117.16,win,pending,4.78,-4.4,2,
+2026-10-30,TMUS,macd,buy,MACD bullish crossover (above SMA20),156.44,153.66,win,pending,3.59,0,3,
+2026-10-21,SEDG,macd,buy,MACD bullish crossover (above SMA20),33.19,32.31,win,pending,-7.09,-13.0,10,
+2026-10-20,GM,adjusted_drop,buy,"Market-adjusted drop -7.18% (stock -6.84%, market +0.34%)",77.09,76.71,win,win,20.49,-2.76,5,7
+2026-10-20,GM,sector_drop,buy,"Sector-adjusted drop -7.75% (stock -6.84%, XLY +0.91%)",77.09,76.71,win,win,20.49,-2.76,5,7
+2026-10-20,GM,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",77.09,76.71,win,win,20.49,-2.76,5,7
