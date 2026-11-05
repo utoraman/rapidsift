@@ -4039,3 +4039,11 @@ date,ticker,type,direction,detail,price,entry_price,result_5,result_10,current_p
 2026-10-20,GM,adjusted_drop,buy,"Market-adjusted drop -7.18% (stock -6.84%, market +0.34%)",77.09,76.71,win,win,20.49,-2.76,5,7
 2026-10-20,GM,sector_drop,buy,"Sector-adjusted drop -7.75% (stock -6.84%, XLY +0.91%)",77.09,76.71,win,win,20.49,-2.76,5,7
 2026-10-20,GM,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",77.09,76.71,win,win,20.49,-2.76,5,7
+2026-11-03,FISV,gap_and_go,buy,Gap up +8.9% on 3.4x volume,58.4,60.05,win,pending,4.66,-0.98,2,
+2026-11-02,PENN,rel_strength,buy,"New 20-day high (+8.9% above prev, 1.4x vol)",17.02,17.03,win,pending,1.88,-1.44,3,
+2026-10-30,CL,gap_and_go,buy,Gap up +5.2% on 1.9x volume,95.29,96.31,win,pending,2.54,-1.1,4,
+2026-10-29,NCLH,gap_and_go,buy,Gap up +9.3% on 3.4x volume,18.22,17.91,win,pending,-0.79,-3.57,5,
+2026-10-29,NCLH,rel_strength,buy,"New 20-day high (+14.4% above prev, 3.4x vol)",18.22,17.91,win,pending,-0.79,-3.57,5,
+2026-10-29,NCLH,confluence,buy,"Confluence (2 strong signals): gap_and_go, rel_strength",18.22,17.91,win,pending,-0.79,-3.57,5,
+2026-10-22,MRK,volume_spike,buy,Volume spike 2.1x (dip in uptrend),147.24,145.02,win,pending,1.5,-4.01,10,
+2026-10-22,MRK,rel_strength,buy,"New 20-day high (+1.1% above prev, 2.1x vol)",147.24,145.02,win,pending,1.5,-4.01,10,
