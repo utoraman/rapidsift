@@ -4047,3 +4047,10 @@ date,ticker,type,direction,detail,price,entry_price,result_5,result_10,current_p
 2026-10-29,NCLH,confluence,buy,"Confluence (2 strong signals): gap_and_go, rel_strength",18.22,17.91,win,pending,-0.79,-3.57,5,
 2026-10-22,MRK,volume_spike,buy,Volume spike 2.1x (dip in uptrend),147.24,145.02,win,pending,1.5,-4.01,10,
 2026-10-22,MRK,rel_strength,buy,"New 20-day high (+1.1% above prev, 2.1x vol)",147.24,145.02,win,pending,1.5,-4.01,10,
+2026-11-03,GRAB,macd,buy,MACD bullish crossover (above SMA20),3.12,3.22,win,pending,8.07,-0.62,1,
+2026-10-21,XPEV,adjusted_drop,buy,"Market-adjusted drop -6.08% (stock -5.55%, market +0.53%)",9.36,9.02,win,win,6.43,-0.89,8,10
+2026-10-21,XPEV,sector_drop,buy,"Sector-adjusted drop -5.58% (stock -5.55%, XLY +0.03%)",9.36,9.02,win,win,6.43,-0.89,8,10
+2026-10-21,XPEV,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",9.36,9.02,win,win,6.43,-0.89,8,10
+2026-10-21,CMG,adjusted_drop,buy,"Market-adjusted drop -5.69% (stock -5.16%, market +0.53%)",28.12,28.09,win,win,25.97,-2.78,6,6
+2026-10-21,CMG,sector_drop,buy,"Sector-adjusted drop -5.19% (stock -5.16%, XLY +0.03%)",28.12,28.09,win,win,25.97,-2.78,6,6
+2026-10-21,CMG,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",28.12,28.09,win,win,25.97,-2.78,6,6
