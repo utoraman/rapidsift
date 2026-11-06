@@ -4063,3 +4063,23 @@ date,ticker,type,direction,detail,price,entry_price,result_5,result_10,current_p
 2026-11-04,U,macd,buy,MACD bullish crossover (above SMA20),42.46,48.06,win,win,9.01,-6.74,2,2
 2026-11-04,RIOT,gap_and_go,buy,Gap up +11.4% on 4.3x volume,15.37,14.92,win,win,12.21,-13.13,2,2
 2026-11-02,XPEV,gap_and_go,buy,Gap up +5.2% on 1.6x volume,9.57,9.74,win,pending,5.03,-4.06,4,
+2026-11-04,APP,macd,buy,MACD bullish crossover (above SMA20),271.75,349.83,win,win,11.83,-3.13,2,2
+2026-10-22,WOLF,adjusted_drop,buy,"Market-adjusted drop -6.98% (stock -8.16%, market -1.18%)",22.63,22.42,win,win,6.11,-16.46,2,3
+2026-10-22,WOLF,sector_drop,buy,"Sector-adjusted drop -10.23% (stock -8.16%, XLU +2.07%)",22.63,22.42,win,win,6.11,-16.46,2,3
+2026-10-22,WOLF,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",22.63,22.42,win,win,6.11,-16.46,2,3
+2026-10-22,UUUU,adjusted_drop,buy,"Market-adjusted drop -5.04% (stock -6.22%, market -1.18%)",7.69,7.65,win,win,-13.01,-18.82,3,5
+2026-10-22,NTLA,sector_drop,buy,"Sector-adjusted drop -5.52% (stock -4.21%, XLV +1.32%)",11.16,11.0,win,win,3.18,-3.82,3,3
+2026-10-22,MU,adjusted_drop,buy,"Market-adjusted drop -5.08% (stock -6.26%, market -1.18%)",856.49,862.29,win,win,-19.98,-24.62,2,4
+2026-10-22,LRCX,adjusted_drop,buy,"Market-adjusted drop -10.57% (stock -11.76%, market -1.18%)",230.15,227.41,win,win,-11.86,-18.98,2,4
+2026-10-22,LRCX,sector_drop,buy,"Sector-adjusted drop -8.47% (stock -11.76%, XLK -3.29%)",230.15,227.41,win,win,-11.86,-18.98,2,4
+2026-10-22,LRCX,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",230.15,227.41,win,win,-11.86,-18.98,2,4
+2026-10-22,LIDR,adjusted_drop,buy,"Market-adjusted drop -8.58% (stock -9.76%, market -1.18%)",0.9,0.91,win,win,-4.77,-16.29,1,1
+2026-10-22,LIDR,sector_drop,buy,"Sector-adjusted drop -8.82% (stock -9.76%, XLI -0.94%)",0.9,0.91,win,win,-4.77,-16.29,1,1
+2026-10-22,LIDR,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",0.9,0.91,win,win,-4.77,-16.29,1,1
+2026-10-22,INTC,adjusted_drop,buy,"Market-adjusted drop -6.85% (stock -8.04%, market -1.18%)",85.49,85.92,win,win,-34.5,-40.05,2,3
+2026-10-22,EVGO,sector_drop,buy,"Sector-adjusted drop -6.70% (stock -4.63%, XLU +2.07%)",1.03,1.02,win,win,79.41,-3.92,2,3
+2026-10-22,DNN,adjusted_drop,buy,"Market-adjusted drop -6.12% (stock -7.30%, market -1.18%)",2.16,2.15,win,win,1.4,-9.77,3,3
+2026-10-22,CORZ,adjusted_drop,buy,"Market-adjusted drop -6.19% (stock -7.37%, market -1.18%)",13.2,13.25,win,win,-11.25,-20.08,2,4
+2026-10-22,APLD,sector_drop,buy,"Sector-adjusted drop -5.29% (stock -9.01%, BITO -3.72%)",19.09,18.98,win,pending,-18.07,-30.9,4,
+2026-10-22,AMAT,adjusted_drop,buy,"Market-adjusted drop -6.98% (stock -8.16%, market -1.18%)",375.58,375.66,win,win,-11.43,-15.63,3,4
+2026-10-22,AA,sector_drop,buy,"Sector-adjusted drop -5.71% (stock -4.98%, XLB +0.72%)",38.6,38.18,win,pending,3.56,-1.5,4,
