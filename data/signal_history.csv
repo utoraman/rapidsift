@@ -4054,3 +4054,12 @@ date,ticker,type,direction,detail,price,entry_price,result_5,result_10,current_p
 2026-10-21,CMG,adjusted_drop,buy,"Market-adjusted drop -5.69% (stock -5.16%, market +0.53%)",28.12,28.09,win,win,25.97,-2.78,6,6
 2026-10-21,CMG,sector_drop,buy,"Sector-adjusted drop -5.19% (stock -5.16%, XLY +0.03%)",28.12,28.09,win,win,25.97,-2.78,6,6
 2026-10-21,CMG,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",28.12,28.09,win,win,25.97,-2.78,6,6
+2026-11-05,RUN,earnings_drift,buy,"Post-catalyst drift: catalyst gap +7.8%, day-2 move +12.3%",9.87,9.81,win,pending,2.6,-2.5,1,
+2026-11-05,JOBY,volume_spike,buy,Volume spike 2.2x (dip in uptrend),5.3,5.45,win,pending,6.39,-3.25,1,
+2026-11-05,JOBY,gap_and_go,buy,Gap up +14.3% on 2.2x volume,5.3,5.45,win,pending,6.39,-3.25,1,
+2026-11-05,CELH,volume_spike,buy,Volume spike 2.7x (dip in uptrend),30.04,29.03,win,win,10.14,-0.65,1,1
+2026-11-05,CELH,gap_and_go,buy,Gap up +6.3% on 2.7x volume,30.04,29.03,win,win,10.14,-0.65,1,1
+2026-11-05,APP,rel_strength,buy,"New 20-day high (+28.8% above prev, 5.1x vol)",356.1,353.5,win,win,11.93,-1.29,1,1
+2026-11-04,U,macd,buy,MACD bullish crossover (above SMA20),42.46,48.06,win,win,9.01,-6.74,2,2
+2026-11-04,RIOT,gap_and_go,buy,Gap up +11.4% on 4.3x volume,15.37,14.92,win,win,12.21,-13.13,2,2
+2026-11-02,XPEV,gap_and_go,buy,Gap up +5.2% on 1.6x volume,9.57,9.74,win,pending,5.03,-4.06,4,
