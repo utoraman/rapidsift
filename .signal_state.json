@@ -1,8 +1,11 @@
 {
   "last_signals": [
     "OPEN_macd_2026-11-06",
+    "IREN_gap_and_go_2026-11-06",
     "RGTI_macd_2026-11-06",
     "IONQ_macd_2026-11-06",
+    "RIOT_gap_and_go_2026-11-06",
+    "LYFT_gap_and_go_2026-11-06",
     "U_gap_and_go_2026-11-06",
     "U_rel_strength_2026-11-06",
     "U_earnings_drift_2026-11-06",
@@ -21,6 +24,6 @@
     "NET_gap_and_go_2026-11-06",
     "BROS_earnings_drift_2026-11-06"
   ],
-  "last_run": "2026-11-06T20:06:05.574903",
+  "last_run": "2026-11-06T20:30:31.524021",
   "last_brief_date": "2026-11-06"
 }
