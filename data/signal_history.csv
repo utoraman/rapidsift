@@ -4083,3 +4083,39 @@ date,ticker,type,direction,detail,price,entry_price,result_5,result_10,current_p
 2026-10-22,APLD,sector_drop,buy,"Sector-adjusted drop -5.29% (stock -9.01%, BITO -3.72%)",19.09,18.98,win,pending,-18.07,-30.9,4,
 2026-10-22,AMAT,adjusted_drop,buy,"Market-adjusted drop -6.98% (stock -8.16%, market -1.18%)",375.58,375.66,win,win,-11.43,-15.63,3,4
 2026-10-22,AA,sector_drop,buy,"Sector-adjusted drop -5.71% (stock -4.98%, XLB +0.72%)",38.6,38.18,win,pending,3.56,-1.5,4,
+2026-11-06,JOBY,rel_strength,buy,"New 20-day high (+1.9% above prev, 1.5x vol)",5.93,5.93,win,pending,4.22,-3.63,1,
+2026-11-06,IONQ,macd,buy,MACD bullish crossover (above SMA20),32.62,32.73,win,win,7.97,-2.05,1,1
+2026-11-06,IONQ,gap_and_go,buy,Gap up +6.0% on 1.8x volume,32.62,32.73,win,win,7.97,-2.05,1,1
+2026-11-06,DKNG,adjusted_drop,buy,"Market-adjusted drop -21.61% (stock -21.30%, market +0.31%)",18.51,17.78,win,pending,5.14,-0.25,1,
+2026-11-06,DKNG,sector_drop,buy,"Sector-adjusted drop -21.25% (stock -21.30%, XLY -0.05%)",18.51,17.78,win,pending,5.14,-0.25,1,
+2026-11-06,DKNG,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",18.51,17.78,win,pending,5.14,-0.25,1,
+2026-11-06,APP,earnings_drift,buy,"Post-catalyst drift: catalyst gap +28.7%, day-2 move +9.9%",391.22,387.73,win,pending,5.75,-0.31,1,
+2026-11-05,U,gap_and_go,buy,Gap up +13.2% on 5.2x volume,48.8,51.13,win,pending,0.59,-4.03,2,
+2026-11-05,U,rel_strength,buy,"New 20-day high (+3.6% above prev, 5.2x vol)",48.8,51.13,win,pending,0.59,-4.03,2,
+2026-11-05,U,confluence,buy,"Confluence (2 strong signals): gap_and_go, rel_strength",48.8,51.13,win,pending,0.59,-4.03,2,
+2026-11-05,TXN,adjusted_drop,buy,"Market-adjusted drop -6.29% (stock -10.70%, market -4.41%)",278.15,282.78,win,pending,4.58,-4.08,2,
+2026-11-05,TSLA,adjusted_drop,buy,"Market-adjusted drop -6.36% (stock -10.77%, market -4.41%)",343.69,348.92,win,pending,8.35,-0.38,2,
+2026-11-05,SBUX,rel_strength,buy,"New 20-day high (+1.5% above prev, 1.3x vol)",106.16,103.52,win,pending,5.72,-0.8,2,
+2026-11-05,NEM,volume_spike,buy,Volume spike 2.0x (dip in uptrend),119.71,119.58,win,pending,4.67,-0.98,2,
+2026-11-05,NEM,rel_strength,buy,"New 20-day high (+2.3% above prev, 2.0x vol)",119.71,119.58,win,pending,4.67,-0.98,2,
+2026-11-05,BROS,adjusted_drop,buy,"Market-adjusted drop -17.00% (stock -21.41%, market -4.41%)",34.57,34.65,win,pending,3.92,-4.27,2,
+2026-11-05,BROS,sector_drop,buy,"Sector-adjusted drop -17.58% (stock -21.41%, XLY -3.83%)",34.57,34.65,win,pending,3.92,-4.27,2,
+2026-11-05,BROS,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",34.57,34.65,win,pending,3.92,-4.27,2,
+2026-11-04,UAL,rel_strength,buy,"New 20-day high (+4.2% above prev, 1.5x vol)",115.76,115.23,win,pending,4.47,-6.63,3,
+2026-11-04,NEM,macd,buy,MACD bullish crossover (above SMA20),118.11,120.92,win,pending,3.51,-4.77,3,
+2026-11-04,MRNA,macd,buy,MACD bullish crossover (above SMA20),258.38,258.01,win,pending,4.26,-7.89,3,
+2026-11-04,CVS,adjusted_drop,buy,"Market-adjusted drop -14.18% (stock -12.53%, market +1.65%)",79.96,81.65,win,pending,4.41,-2.44,3,
+2026-11-04,CVS,sector_drop,buy,"Sector-adjusted drop -15.59% (stock -12.53%, XLV +3.06%)",79.96,81.65,win,pending,4.41,-2.44,3,
+2026-11-04,CVS,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",79.96,81.65,win,pending,4.41,-2.44,3,
+2026-10-30,TEVA,macd,buy,MACD bullish crossover (above SMA20),42.09,41.12,win,pending,4.5,-1.19,2,
+2026-10-30,QCOM,adjusted_drop,buy,"Market-adjusted drop -9.35% (stock -11.12%, market -1.77%)",164.79,166.44,win,pending,3.02,-10.93,6,
+2026-10-30,QCOM,sector_drop,buy,"Sector-adjusted drop -6.23% (stock -11.12%, XLK -4.89%)",164.79,166.44,win,pending,3.02,-10.93,6,
+2026-10-30,QCOM,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",164.79,166.44,win,pending,3.02,-10.93,6,
+2026-10-30,NET,adjusted_drop,buy,"Market-adjusted drop -7.77% (stock -9.54%, market -1.77%)",280.7,282.27,win,pending,4.07,-17.24,6,
+2026-10-23,TMUS,adjusted_drop,buy,"Market-adjusted drop -7.19% (stock -7.71%, market -0.52%)",146.54,145.81,win,win,15.71,-1.41,5,6
+2026-10-23,TMUS,sector_drop,buy,"Sector-adjusted drop -5.94% (stock -7.71%, XLC -1.78%)",146.54,145.81,win,win,15.71,-1.41,5,6
+2026-10-23,TMUS,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",146.54,145.81,win,win,15.71,-1.41,5,6
+2026-10-23,PENN,adjusted_drop,buy,"Market-adjusted drop -5.69% (stock -6.21%, market -0.52%)",14.5,14.48,win,win,28.04,-0.14,4,6
+2026-10-23,BTBT,adjusted_drop,buy,"Market-adjusted drop -6.31% (stock -6.84%, market -0.52%)",0.85,0.83,win,win,-5.29,-17.17,2,2
+2026-10-23,BTBT,sector_drop,buy,"Sector-adjusted drop -6.56% (stock -6.84%, BITO -0.28%)",0.85,0.83,win,win,-5.29,-17.17,2,2
+2026-10-23,BTBT,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",0.85,0.83,win,win,-5.29,-17.17,2,2
