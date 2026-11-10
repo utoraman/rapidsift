@@ -1,29 +1,13 @@
 {
   "last_signals": [
-    "NVDA_volume_spike_2026-11-09",
-    "NVDA_gap_and_go_2026-11-09",
-    "AMD_gap_and_go_2026-11-09",
-    "MSFT_macd_2026-11-09",
-    "JOBY_rel_strength_2026-11-09",
-    "AVGO_gap_and_go_2026-11-09",
-    "RKLB_macd_2026-11-09",
-    "ASTS_gap_and_go_2026-11-09",
-    "LUNR_volume_spike_2026-11-09",
-    "LUNR_gap_and_go_2026-11-09",
-    "DKNG_macd_2026-11-09",
-    "DKNG_gap_and_go_2026-11-09",
-    "ACN_macd_2026-11-09",
-    "MNST_macd_2026-11-09",
-    "APP_rel_strength_2026-11-09",
-    "COF_macd_2026-11-09",
-    "EW_rel_strength_2026-11-09",
-    "KMB_macd_2026-11-09",
-    "LIDR_macd_2026-11-09",
-    "NVAX_macd_2026-11-09",
-    "NET_gap_and_go_2026-11-09",
-    "EL_macd_2026-11-09",
-    "WOLF_macd_2026-11-09"
+    "NVDA_earnings_drift_2026-11-10",
+    "HIMS_gap_and_go_2026-11-10",
+    "ACHR_gap_and_go_2026-11-10",
+    "LYFT_macd_2026-11-10",
+    "LCID_volume_spike_2026-11-10",
+    "LCID_rel_strength_2026-11-10",
+    "NVAX_macd_2026-11-10"
   ],
-  "last_run": "2026-11-10T02:49:32.295399",
+  "last_run": "2026-11-10T20:37:30.129326",
   "last_brief_date": "2026-11-10"
 }

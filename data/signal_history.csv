@@ -4119,3 +4119,9 @@ date,ticker,type,direction,detail,price,entry_price,result_5,result_10,current_p
 2026-10-23,BTBT,adjusted_drop,buy,"Market-adjusted drop -6.31% (stock -6.84%, market -0.52%)",0.85,0.83,win,win,-5.29,-17.17,2,2
 2026-10-23,BTBT,sector_drop,buy,"Sector-adjusted drop -6.56% (stock -6.84%, BITO -0.28%)",0.85,0.83,win,win,-5.29,-17.17,2,2
 2026-10-23,BTBT,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",0.85,0.83,win,win,-5.29,-17.17,2,2
+2026-11-09,AVGO,gap_and_go,buy,Gap up +3.9% on 1.5x volume,319.48,316.76,win,pending,4.9,-0.02,1,
+2026-11-09,ASTS,gap_and_go,buy,Gap up +3.6% on 1.6x volume,36.89,34.13,win,pending,-1.38,-6.36,1,
+2026-11-09,AMD,gap_and_go,buy,Gap up +5.4% on 1.9x volume,508.58,503.0,win,pending,2.58,-1.59,1,
+2026-10-30,AMD,adjusted_drop,buy,"Market-adjusted drop -9.11% (stock -10.88%, market -1.77%)",504.8,510.71,win,pending,1.03,-21.27,7,
+2026-10-30,AMD,sector_drop,buy,"Sector-adjusted drop -5.99% (stock -10.88%, XLK -4.89%)",504.8,510.71,win,pending,1.03,-21.27,7,
+2026-10-30,AMD,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",504.8,510.71,win,pending,1.03,-21.27,7,
