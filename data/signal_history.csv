@@ -4125,3 +4125,7 @@ date,ticker,type,direction,detail,price,entry_price,result_5,result_10,current_p
 2026-10-30,AMD,adjusted_drop,buy,"Market-adjusted drop -9.11% (stock -10.88%, market -1.77%)",504.8,510.71,win,pending,1.03,-21.27,7,
 2026-10-30,AMD,sector_drop,buy,"Sector-adjusted drop -5.99% (stock -10.88%, XLK -4.89%)",504.8,510.71,win,pending,1.03,-21.27,7,
 2026-10-30,AMD,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",504.8,510.71,win,pending,1.03,-21.27,7,
+2026-10-26,IQ,adjusted_drop,buy,"Market-adjusted drop -5.49% (stock -4.78%, market +0.71%)",0.88,0.87,win,win,1.17,-6.54,7,9
+2026-10-26,DASH,adjusted_drop,buy,"Market-adjusted drop -6.81% (stock -6.10%, market +0.71%)",168.44,168.77,win,win,5.62,-1.94,3,4
+2026-10-26,DASH,sector_drop,buy,"Sector-adjusted drop -7.12% (stock -6.10%, XLY +1.03%)",168.44,168.77,win,win,5.62,-1.94,3,4
+2026-10-26,DASH,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",168.44,168.77,win,win,5.62,-1.94,3,4
