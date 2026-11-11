@@ -4129,3 +4129,16 @@ date,ticker,type,direction,detail,price,entry_price,result_5,result_10,current_p
 2026-10-26,DASH,adjusted_drop,buy,"Market-adjusted drop -6.81% (stock -6.10%, market +0.71%)",168.44,168.77,win,win,5.62,-1.94,3,4
 2026-10-26,DASH,sector_drop,buy,"Sector-adjusted drop -7.12% (stock -6.10%, XLY +1.03%)",168.44,168.77,win,win,5.62,-1.94,3,4
 2026-10-26,DASH,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",168.44,168.77,win,win,5.62,-1.94,3,4
+2026-11-09,WOLF,macd,buy,MACD bullish crossover (above SMA20),26.12,25.8,win,win,7.29,-1.78,2,2
+2026-11-09,NET,gap_and_go,buy,Gap up +3.3% on 1.6x volume,293.75,295.0,win,pending,6.78,-2.06,2,
+2026-11-09,IQ,adjusted_drop,buy,"Market-adjusted drop -7.47% (stock -5.10%, market +2.37%)",0.91,0.91,win,pending,5.76,-3.62,2,
+2026-11-09,IQ,sector_drop,buy,"Sector-adjusted drop -7.56% (stock -5.10%, XLC +2.45%)",0.91,0.91,win,pending,5.76,-3.62,2,
+2026-11-09,IQ,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",0.91,0.91,win,pending,5.76,-3.62,2,
+2026-11-05,SNAP,adjusted_drop,buy,"Market-adjusted drop -9.61% (stock -14.02%, market -4.41%)",5.09,5.04,win,pending,5.95,-3.77,4,
+2026-11-05,SNAP,sector_drop,buy,"Sector-adjusted drop -13.43% (stock -14.02%, XLC -0.59%)",5.09,5.04,win,pending,5.95,-3.77,4,
+2026-11-05,SNAP,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",5.09,5.04,win,pending,5.95,-3.77,4,
+2026-11-04,TSLA,sector_drop,buy,"Sector-adjusted drop -7.60% (stock -3.34%, XLY +4.26%)",385.19,374.12,win,pending,4.47,-9.61,5,
+2026-11-04,EW,gap_and_go,buy,Gap up +3.6% on 1.9x volume,99.37,100.67,win,pending,5.11,-2.16,5,
+2026-10-27,BA,adjusted_drop,buy,"Market-adjusted drop -11.25% (stock -10.69%, market +0.56%)",168.18,167.99,win,pending,3.9,-1.77,4,
+2026-10-27,BA,sector_drop,buy,"Sector-adjusted drop -11.26% (stock -10.69%, XLI +0.57%)",168.18,167.99,win,pending,3.9,-1.77,4,
+2026-10-27,BA,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",168.18,167.99,win,pending,3.9,-1.77,4,
