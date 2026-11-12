@@ -4142,3 +4142,13 @@ date,ticker,type,direction,detail,price,entry_price,result_5,result_10,current_p
 2026-10-27,BA,adjusted_drop,buy,"Market-adjusted drop -11.25% (stock -10.69%, market +0.56%)",168.18,167.99,win,pending,3.9,-1.77,4,
 2026-10-27,BA,sector_drop,buy,"Sector-adjusted drop -11.26% (stock -10.69%, XLI +0.57%)",168.18,167.99,win,pending,3.9,-1.77,4,
 2026-10-27,BA,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",168.18,167.99,win,pending,3.9,-1.77,4,
+2026-11-11,NET,macd,buy,MACD bullish crossover (above SMA20),315.0,306.28,win,pending,3.99,-0.42,1,
+2026-11-04,EOG,adjusted_drop,buy,"Market-adjusted drop -6.88% (stock -5.23%, market +1.65%)",147.06,148.31,win,pending,4.93,-2.81,6,
+2026-11-04,CLF,adjusted_drop,buy,"Market-adjusted drop -10.85% (stock -9.19%, market +1.65%)",12.84,12.64,win,pending,3.4,-11.0,6,
+2026-11-04,CLF,sector_drop,buy,"Sector-adjusted drop -11.68% (stock -9.19%, XLB +2.49%)",12.84,12.64,win,pending,3.4,-11.0,6,
+2026-11-04,CLF,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",12.84,12.64,win,pending,3.4,-11.0,6,
+2026-11-03,TEVA,rel_strength,buy,"New 20-day high (+1.8% above prev, 1.8x vol)",41.91,41.89,win,pending,4.2,-2.32,7,
+2026-10-28,ENPH,adjusted_drop,buy,"Market-adjusted drop -16.37% (stock -16.03%, market +0.34%)",24.99,24.94,win,win,7.38,-3.05,3,3
+2026-10-28,ENPH,sector_drop,buy,"Sector-adjusted drop -15.19% (stock -16.03%, XLU -0.84%)",24.99,24.94,win,win,7.38,-3.05,3,3
+2026-10-28,ENPH,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",24.99,24.94,win,win,7.38,-3.05,3,3
+2026-10-28,AVGO,macd,buy,MACD bullish crossover (above SMA20),351.81,342.0,win,pending,6.54,-15.27,11,
