@@ -4152,3 +4152,4 @@ date,ticker,type,direction,detail,price,entry_price,result_5,result_10,current_p
 2026-10-28,ENPH,sector_drop,buy,"Sector-adjusted drop -15.19% (stock -16.03%, XLU -0.84%)",24.99,24.94,win,win,7.38,-3.05,3,3
 2026-10-28,ENPH,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",24.99,24.94,win,win,7.38,-3.05,3,3
 2026-10-28,AVGO,macd,buy,MACD bullish crossover (above SMA20),351.81,342.0,win,pending,6.54,-15.27,11,
+2026-11-11,AMAT,macd,buy,MACD bullish crossover (above SMA20),395.08,378.0,win,pending,-2.57,-6.82,1,
