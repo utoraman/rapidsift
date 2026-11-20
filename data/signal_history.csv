@@ -4230,3 +4230,15 @@ date,ticker,type,direction,detail,price,entry_price,result_5,result_10,current_p
 2026-11-04,MARA,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",6.87,6.71,win,win,-6.93,-15.2,4,4
 2026-11-04,LRCX,adjusted_drop,buy,"Market-adjusted drop -5.68% (stock -4.03%, market +1.65%)",221.43,207.02,win,win,-1.61,-11.0,3,4
 2026-11-04,GFS,sector_drop,buy,"Sector-adjusted drop -5.94% (stock -5.95%, XLK -0.01%)",40.34,38.82,win,win,0.31,-7.68,3,5
+2026-11-05,WMT,volume_spike,buy,Volume spike 2.0x (dip in uptrend),127.72,124.0,win,pending,3.19,-0.78,11,
+2026-11-05,TSM,adjusted_drop,buy,"Market-adjusted drop -6.37% (stock -10.78%, market -4.41%)",353.1,380.56,win,pending,-16.25,-16.31,3,
+2026-11-05,RGTI,adjusted_drop,buy,"Market-adjusted drop -7.72% (stock -12.13%, market -4.41%)",9.85,10.24,win,win,-30.08,-30.86,1,1
+2026-11-05,PLUG,sector_drop,buy,"Sector-adjusted drop -6.82% (stock -7.53%, XLU -0.71%)",1.35,1.41,win,pending,-32.16,-32.71,2,
+2026-11-05,PLTR,adjusted_drop,buy,"Market-adjusted drop -5.32% (stock -9.73%, market -4.41%)",154.99,158.68,win,win,-9.57,-10.34,2,4
+2026-11-05,PANW,adjusted_drop,buy,"Market-adjusted drop -5.18% (stock -9.59%, market -4.41%)",314.67,331.5,win,win,3.57,-9.12,10,10
+2026-11-05,ON,adjusted_drop,buy,"Market-adjusted drop -7.14% (stock -11.55%, market -4.41%)",63.01,66.57,win,win,-8.61,-11.16,2,4
+2026-11-05,LRCX,sector_drop,buy,"Sector-adjusted drop -8.36% (stock -16.36%, XLK -8.00%)",185.2,208.65,win,win,-12.16,-12.88,2,4
+2026-11-05,LIDR,adjusted_drop,buy,"Market-adjusted drop -7.87% (stock -12.28%, market -4.41%)",0.89,0.89,win,pending,-27.64,-29.07,2,
+2026-11-05,BBAI,adjusted_drop,buy,"Market-adjusted drop -8.87% (stock -13.28%, market -4.41%)",2.22,2.27,win,pending,-30.4,-31.5,2,
+2026-11-05,AVGO,adjusted_drop,buy,"Market-adjusted drop -6.02% (stock -10.43%, market -4.41%)",291.53,311.13,win,win,-2.16,-6.87,3,4
+2026-11-05,AMAT,sector_drop,buy,"Sector-adjusted drop -5.58% (stock -13.58%, XLK -8.00%)",318.77,345.64,win,win,-12.44,-13.02,2,3
