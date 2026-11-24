@@ -4242,3 +4242,11 @@ date,ticker,type,direction,detail,price,entry_price,result_5,result_10,current_p
 2026-11-05,BBAI,adjusted_drop,buy,"Market-adjusted drop -8.87% (stock -13.28%, market -4.41%)",2.22,2.27,win,pending,-30.4,-31.5,2,
 2026-11-05,AVGO,adjusted_drop,buy,"Market-adjusted drop -6.02% (stock -10.43%, market -4.41%)",291.53,311.13,win,win,-2.16,-6.87,3,4
 2026-11-05,AMAT,sector_drop,buy,"Sector-adjusted drop -5.58% (stock -13.58%, XLK -8.00%)",318.77,345.64,win,win,-12.44,-13.02,2,3
+2026-11-19,ZM,adjusted_drop,buy,"Market-adjusted drop -7.60% (stock -9.56%, market -1.96%)",83.82,82.77,win,pending,3.94,-2.6,2,
+2026-11-19,ZM,sector_drop,buy,"Sector-adjusted drop -7.66% (stock -9.56%, XLK -1.90%)",83.82,82.77,win,pending,3.94,-2.6,2,
+2026-11-19,ZM,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",83.82,82.77,win,pending,3.94,-2.6,2,
+2026-11-19,TEVA,adjusted_drop,buy,"Market-adjusted drop -6.78% (stock -8.74%, market -1.96%)",38.54,38.46,win,pending,3.95,-0.42,2,
+2026-11-19,TEVA,sector_drop,buy,"Sector-adjusted drop -6.69% (stock -8.74%, XLV -2.05%)",38.54,38.46,win,pending,3.95,-0.42,2,
+2026-11-19,TEVA,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",38.54,38.46,win,pending,3.95,-0.42,2,
+2026-11-19,IREN,gap_and_go,buy,Gap up +4.8% on 1.7x volume,14.41,14.07,win,win,4.05,-16.49,2,2
+2026-11-11,RBLX,macd,buy,MACD bullish crossover (above SMA20),52.61,51.63,win,pending,0.04,-15.88,8,
