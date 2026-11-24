@@ -4250,3 +4250,12 @@ date,ticker,type,direction,detail,price,entry_price,result_5,result_10,current_p
 2026-11-19,TEVA,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",38.54,38.46,win,pending,3.95,-0.42,2,
 2026-11-19,IREN,gap_and_go,buy,Gap up +4.8% on 1.7x volume,14.41,14.07,win,win,4.05,-16.49,2,2
 2026-11-11,RBLX,macd,buy,MACD bullish crossover (above SMA20),52.61,51.63,win,pending,0.04,-15.88,8,
+2026-11-23,ZM,gap_and_go,buy,Gap up +4.7% on 2.3x volume,86.03,86.87,win,pending,1.76,-0.04,1,
+2026-11-23,DOCU,sector_drop,buy,"Sector-adjusted drop -5.65% (stock +3.33%, XLK +8.97%)",77.04,76.67,win,pending,4.4,-0.83,1,
+2026-11-18,TGT,rel_strength,buy,"New 20-day high (+3.3% above prev, 3.1x vol)",165.93,166.97,win,pending,5.44,-1.98,4,
+2026-11-16,BBWI,adjusted_drop,buy,"Market-adjusted drop -8.00% (stock -9.91%, market -1.91%)",19.07,18.86,win,pending,3.56,-6.61,6,
+2026-11-16,BBWI,sector_drop,buy,"Sector-adjusted drop -8.39% (stock -9.91%, XLY -1.53%)",19.07,18.86,win,pending,3.56,-6.61,6,
+2026-11-16,BBWI,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",19.07,18.86,win,pending,3.56,-6.61,6,
+2026-11-06,DXCM,adjusted_drop,buy,"Market-adjusted drop -6.29% (stock -5.98%, market +0.31%)",79.41,80.48,win,pending,5.17,-2.15,12,
+2026-11-06,DXCM,sector_drop,buy,"Sector-adjusted drop -5.92% (stock -5.98%, XLV -0.06%)",79.41,80.48,win,pending,5.17,-2.15,12,
+2026-11-06,DXCM,confluence,buy,"Confluence (2 strong signals): adjusted_drop, sector_drop",79.41,80.48,win,pending,5.17,-2.15,12,
